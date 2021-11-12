@@ -9,9 +9,9 @@ export default function Header() {
                 <Container>
                     <Navbar.Brand>로고</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link><Link to={'/login'}>로그인</Link></Nav.Link>
-                        <Nav.Link><Link to={'/owner'}>오너메인</Link></Nav.Link>
-                        <Nav.Link><Link to={'/master'}>마스터메인</Link></Nav.Link>
+                        <Nav.Link as={Nav}><Link to={'/login'}>로그인</Link></Nav.Link>
+                        <Nav.Link as={Nav}><Link to={'/owner'}>오너메인</Link></Nav.Link>
+                        <Nav.Link as={Nav}><Link to={'/master'}>마스터메인</Link></Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

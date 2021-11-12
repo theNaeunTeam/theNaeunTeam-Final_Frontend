@@ -16,6 +16,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import {RouteComponentProps} from 'react-router-dom';
+import {client} from "../../lib/api/client";
 
 export default function LoginForm(props: RouteComponentProps) {
 
@@ -30,13 +31,23 @@ export default function LoginForm(props: RouteComponentProps) {
 
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(loginForm);
-        let URL = '';
         const tagName = (e.target as HTMLFormElement).name;
         setLoginForm({...loginForm, [tagName]: (e.target as HTMLFormElement).value});
+    }
 
-        // 업체가 선택되면 URL을 변경
-        if (loginForm.radio === 'company') URL = '';
-
+    const login = async () => {
+        let URL: string;
+        if (loginForm.radio === 'company') {
+            URL = '/ownerlogin';
+        } else {
+            URL = '/userlogin'
+        }
+        try {
+            const res = await client.post(URL, loginForm);
+            console.log(res);
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const chkId = () => {
@@ -98,7 +109,7 @@ export default function LoginForm(props: RouteComponentProps) {
                                    }}/>
                     </Box>
                 </form>
-                <Button variant="contained">로그인</Button>
+                <Button variant="contained" onClick={login}>로그인</Button>
                 {
                     loginForm.radio === 'individual'
                         ?

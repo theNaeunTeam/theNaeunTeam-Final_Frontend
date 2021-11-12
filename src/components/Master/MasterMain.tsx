@@ -82,7 +82,8 @@ export default function MasterMain() {
     }
 
     const updateDB = (input: string) => {
-        console.log(selected);
+        if (selected.length === 0) return false;
+        console.log(selected); // 사업자 번호가 문자열 배열로 들어옴
         let URL = '';
 
         if (input === 'ok') {

@@ -6,6 +6,19 @@ import {client} from "../../lib/api/client";
 
 export default function OwnerRegisterForm() {
 
+    interface formInterface {
+        o_sNumber: string,
+        o_pw: string,
+        pwConfirm: string,
+        o_phone: string,
+        o_name: string,
+        o_cellPhone: string,
+        o_address: string,
+        o_time1: string,
+        o_time2: string,
+        o_image: null | FileList,
+    }
+
     const initValue = {
         o_sNumber: '',
         o_pw: '',
@@ -16,6 +29,7 @@ export default function OwnerRegisterForm() {
         o_address: '',
         o_time1: '',
         o_time2: '',
+        o_image: null,
     };
     const errorInit = {
         o_sNumber: false,
@@ -27,15 +41,19 @@ export default function OwnerRegisterForm() {
         o_address: false,
         o_time1: false,
         o_time2: false,
-    }
+    };
 
-    const [regForm, setRegForm] = useState(initValue);
+    const [regForm, setRegForm] = useState<formInterface>(initValue);
     const [formError, setFormError] = useState(errorInit);
 
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(regForm);
         const tagName = (e.target as HTMLFormElement).name;
         setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value});
+    }
+    const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.files);
+        setRegForm({...regForm, o_image: e.target.files});
     }
 
     const submitForm = async () => {
@@ -136,11 +154,15 @@ export default function OwnerRegisterForm() {
                         sx={{width: 150}}
                     />
                 </div>
-
-                <Button variant="outlined" onClick={submitForm} style={{width: '30%', margin: 'auto'}}>
-                    회원가입
-                </Button>
-
+                <div style={{width: '30%', margin: 'auto'}}>
+                    <form>
+                        <label>사진업로드</label>
+                        <input name={'file'} type={'file'} onChange={e => handleFileInput(e)}/>
+                    </form>
+                    <Button variant="outlined" onClick={submitForm} style={{width: '100%'}}>
+                        입점등록
+                    </Button>
+                </div>
             </Stack>
         </>
     )
