@@ -69,7 +69,7 @@ export default function LoginForm(props: RouteComponentProps) {
     };
     return (
         <>
-            <div>
+            <div style={{textAlign:'center'}}>
                 <form onChange={e => handleForm(e)} onSubmit={e => e.preventDefault()}>
 
                     <FormControl component="fieldset">
@@ -99,6 +99,7 @@ export default function LoginForm(props: RouteComponentProps) {
                                        ),
                                    }}
                         />
+
                         <TextField id="outlined-basic" type='password' label="비밀번호" variant="filled" name={'pw'}
                                    InputProps={{
                                        startAdornment: (
