@@ -27,7 +27,7 @@ export default function LoginForm() {
     const [loginForm, setLoginForm] = useState(initValue);
     const [findPw, setFindPw] = useState('');
 
-    // 폼 온체인지
+
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(loginForm);
         let URL = '';
