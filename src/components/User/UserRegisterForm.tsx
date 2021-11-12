@@ -12,15 +12,25 @@ export default function UserRegisterForm() {
 
     const initValue = {
         u_id: '',
-        p_pw: '',
+        u_pw: '',
         pwConfirm: '',
         u_cellPhone: '',
         u_email: '',
         u_gender: '남성',
         u_age: '',
     };
+    const formErrorinit = {
+        u_id: false,
+        u_pw: false,
+        pwConfirm: false,
+        u_cellPhone: false,
+        u_email: false,
+        u_gender: false,
+        u_age: false,
+    }
 
     const [regForm, setRegForm] = useState(initValue);
+    const [formError, setFormError] = useState(formErrorinit);
 
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(regForm);
@@ -52,19 +62,22 @@ export default function UserRegisterForm() {
             >
                 <div>
                     <TextField
+                        error={formError.u_id}
                         required
                         id="outlined-required"
                         label="아이디"
                         name={'u_id'}
                     />
                     <TextField
+                        error={formError.u_pw}
                         required
                         id="outlined-required"
                         label="패스워드"
                         type={'password'}
-                        name={'p_pw'}
+                        name={'u_pw'}
                     />
                     <TextField
+                        error={formError.pwConfirm}
                         required
                         id="outlined-required"
                         label="패스워드확인"
@@ -72,6 +85,7 @@ export default function UserRegisterForm() {
                         name={'pwConfirm'}
                     />
                     <TextField
+                        error={formError.u_cellPhone}
                         required
                         id="outlined-required"
                         label="휴대전화"
@@ -79,6 +93,7 @@ export default function UserRegisterForm() {
                         name={'u_cellPhone'}
                     />
                     <TextField
+                        error={formError.u_email}
                         required
                         id="outlined-required"
                         label="이메일"
@@ -86,8 +101,9 @@ export default function UserRegisterForm() {
                     />
                     <FormLabel component="legend">성별</FormLabel>
                     <RadioGroup row aria-label="gender" name={'u_gender'}>
-                        <FormControlLabel value="남성" control={<Radio/>} label="남성"/>
-                        <FormControlLabel value="여성" control={<Radio/>} label="여성"/>
+                        <FormControlLabel id={'u_gender'} value="남성" control={<Radio/>} defaultChecked={true}
+                                          label="남성"/>
+                        <FormControlLabel id={'u_gender'} value="여성" control={<Radio/>} label="여성"/>
                     </RadioGroup>
                     나이
                     <select name={'u_age'}>

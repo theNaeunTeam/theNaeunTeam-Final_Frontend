@@ -10,7 +10,6 @@ import Button from '@mui/material/Button';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputAdornment from '@mui/material/InputAdornment';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import {Link} from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -104,7 +103,7 @@ export default function LoginForm(props: RouteComponentProps) {
                     loginForm.radio === 'individual'
                         ?
                         <div>
-                            <Button variant="outlined" onClick={() => props.history.push('/register')}>
+                            <Button variant="outlined" onClick={() => props.history.push('/userRegister')}>
                                 회원가입
                             </Button>
                             <br/>
@@ -114,7 +113,7 @@ export default function LoginForm(props: RouteComponentProps) {
                         </div>
                         :
                         <div>
-                            <Button variant="outlined">
+                            <Button variant="outlined"  onClick={() => props.history.push('/ownerRegister')}>
                                 입점신청
                             </Button>
                         </div>
