@@ -22,8 +22,8 @@ export default function LoginForm(props: RouteComponentProps) {
 
     const initValue = {
         radio: 'individual',
-        id: '',
-        pw: '',
+        u_id: '',
+        u_pw: '',
     }
     const [loginForm, setLoginForm] = useState(initValue);
     const [findPw, setFindPw] = useState('');
@@ -38,9 +38,9 @@ export default function LoginForm(props: RouteComponentProps) {
     const login = async () => {
         let URL: string;
         if (loginForm.radio === 'company') {
-            URL = '/ownerlogin';
+            URL = '/auth/ownerlogin';
         } else {
-            URL = '/userlogin'
+            URL = '/auth/userlogin'
         }
         try {
             const res = await client.post(URL, loginForm);
@@ -90,7 +90,7 @@ export default function LoginForm(props: RouteComponentProps) {
                     >
 
                         <TextField id="outlined-basic" label={loginForm.radio === 'individual' ? '아이디' : '사업자번호'}
-                                   variant="outlined" name={'id'}
+                                   variant="outlined" name={'u_id'}
                                    InputProps={{
                                        startAdornment: (
                                            <InputAdornment position="start">
@@ -100,7 +100,7 @@ export default function LoginForm(props: RouteComponentProps) {
                                    }}
                         />
 
-                        <TextField id="outlined-basic" type='password' label="비밀번호" variant="filled" name={'pw'}
+                        <TextField id="outlined-basic" type='password' label="비밀번호" variant="filled" name={'u_pw'}
                                    InputProps={{
                                        startAdornment: (
                                            <InputAdornment position="start">
