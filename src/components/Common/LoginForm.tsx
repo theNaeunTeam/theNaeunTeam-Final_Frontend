@@ -113,7 +113,7 @@ export default function LoginForm(props: RouteComponentProps) {
                         </div>
                         :
                         <div>
-                            <Button variant="outlined"  onClick={() => props.history.push('/ownerRegister')}>
+                            <Button variant="outlined" onClick={() => props.history.push('/ownerRegister')}>
                                 입점신청
                             </Button>
                         </div>

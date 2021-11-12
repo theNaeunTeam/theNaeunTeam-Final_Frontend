@@ -19,6 +19,7 @@ export default function UserRegisterForm() {
         u_gender: '남성',
         u_age: '',
     };
+
     const formErrorinit = {
         u_id: false,
         u_pw: false,
@@ -55,7 +56,7 @@ export default function UserRegisterForm() {
                 onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': {m: 1, width: '25ch'},
+                    '& .MuiTextField-root': {m: 3, width: '50ch'},
                 }}
                 noValidate
                 autoComplete="off"
