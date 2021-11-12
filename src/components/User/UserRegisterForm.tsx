@@ -4,12 +4,11 @@ import TextField from '@mui/material/TextField'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import Select, {SelectChangeEvent} from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import {Button} from "@mui/material";
+import {client} from "../../lib/api/client";
 
-export default function RegisterFormM() {
+export default function UserRegisterForm() {
 
     const initValue = {
         u_id: '',
@@ -30,11 +29,15 @@ export default function RegisterFormM() {
 
     }
 
-    const [age, setAge] = React.useState('');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
+    const submitForm = async () => {
+        const URL = ''
+        try {
+            const res = await client.post(URL, regForm);
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     return (
         <>
@@ -100,6 +103,10 @@ export default function RegisterFormM() {
                         <option value="90">90대</option>
                     </select>
                 </div>
+
+                <Button variant="outlined" onClick={submitForm}>
+                    회원가입
+                </Button>
 
             </Box>
         </>

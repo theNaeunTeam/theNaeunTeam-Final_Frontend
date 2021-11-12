@@ -16,8 +16,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
+import {RouteComponentProps} from 'react-router-dom';
 
-export default function LoginForm() {
+export default function LoginForm(props: RouteComponentProps) {
 
     const initValue = {
         radio: 'individual',
@@ -103,7 +104,7 @@ export default function LoginForm() {
                     loginForm.radio === 'individual'
                         ?
                         <div>
-                            <Button variant="outlined">
+                            <Button variant="outlined" onClick={() => props.history.push('/register')}>
                                 회원가입
                             </Button>
                             <br/>
