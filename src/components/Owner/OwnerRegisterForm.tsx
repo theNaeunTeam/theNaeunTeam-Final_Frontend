@@ -57,7 +57,7 @@ export default function OwnerRegisterForm() {
     }
 
     const submitForm = async () => {
-        const URL = ''
+        const URL = '/owner/request'
         try {
             const res = await client.post(URL, regForm);
             console.log(res);
