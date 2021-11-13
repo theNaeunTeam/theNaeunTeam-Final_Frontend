@@ -83,10 +83,14 @@ export default function AddProduct() {
                     />
                     <TextField
                         error={formError.g_count}
+                        type='number'
                         required
                         id="outlined-required"
                         label="상품 수량"
                         name={'g_count'}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
                     <TextField
                         error={formError.g_price}
