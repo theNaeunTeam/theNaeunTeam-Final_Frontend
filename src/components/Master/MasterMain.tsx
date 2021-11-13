@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {DataGrid, GridColDef, GridRowId} from '@mui/x-data-grid';
 import Button from "@mui/material/Button";
+import {permissionCheck} from "../../lib/api/permissionCheck";
 
 export default function MasterMain() {
 
@@ -24,6 +25,7 @@ export default function MasterMain() {
     const [selected, setSelected] = useState<GridRowId[]>([]);
 
     useEffect(() => {
+        permissionCheck();
         initialize();
     }, []);
 

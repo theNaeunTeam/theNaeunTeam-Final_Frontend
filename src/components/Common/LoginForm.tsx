@@ -17,14 +17,20 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import {RouteComponentProps} from 'react-router-dom';
 import {client} from "../../lib/api/client";
+import {useDispatch} from "react-redux";
+import cookie from "react-cookie";
 
 export default function LoginForm(props: RouteComponentProps) {
+
+    // const store = useSelector(store => store);
+    const dispatch = useDispatch();
 
     const initValue = {
         radio: 'individual',
         u_id: '',
         u_pw: '',
     }
+
     const [loginForm, setLoginForm] = useState(initValue);
     const [findPw, setFindPw] = useState('');
 
@@ -37,17 +43,35 @@ export default function LoginForm(props: RouteComponentProps) {
 
     const login = async () => {
         let URL: string;
+
         if (loginForm.radio === 'company') {
             URL = '/auth/ownerlogin';
         } else {
             URL = '/auth/userlogin'
         }
+
         try {
             const res = await client.post(URL, loginForm);
+
             console.log(res);
+
+            if (res.status === 200) {
+                localStorage.setItem('token', res.data.token);
+
+                if (true) {
+                    dispatch({type: 'ownerMode'});
+                } else {
+                    dispatch({type: 'userMode'});
+                }
+
+            } else {
+                localStorage.removeItem('token');
+            }
+
         } catch (e) {
             console.log(e)
         }
+
     }
 
     const chkId = () => {
@@ -69,7 +93,7 @@ export default function LoginForm(props: RouteComponentProps) {
     };
     return (
         <>
-            <div style={{textAlign:'center'}}>
+            <div style={{textAlign: 'center'}}>
                 <form onChange={e => handleForm(e)} onSubmit={e => e.preventDefault()}>
 
                     <FormControl component="fieldset">
