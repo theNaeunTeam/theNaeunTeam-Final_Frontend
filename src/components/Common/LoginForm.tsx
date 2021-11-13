@@ -18,7 +18,6 @@ import DialogActions from "@mui/material/DialogActions";
 import {RouteComponentProps} from 'react-router-dom';
 import {client} from "../../lib/api/client";
 import {useDispatch} from "react-redux";
-import cookie from "react-cookie";
 
 export default function LoginForm(props: RouteComponentProps) {
 
@@ -31,14 +30,14 @@ export default function LoginForm(props: RouteComponentProps) {
         u_pw: '',
     }
 
-    const [loginForm, setLoginForm] = useState(initValue);
+    const [loginForm, setloginForm] = useState(initValue);
     const [findPw, setFindPw] = useState('');
 
 
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(loginForm);
         const tagName = (e.target as HTMLFormElement).name;
-        setLoginForm({...loginForm, [tagName]: (e.target as HTMLFormElement).value});
+        setloginForm({...loginForm, [tagName]: (e.target as HTMLFormElement).value});
     }
 
     const login = async () => {
