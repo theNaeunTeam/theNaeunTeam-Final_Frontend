@@ -7,6 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import {Button} from "@mui/material";
 import {client} from "../../lib/api/client";
+import Stack from '@mui/material/Stack';
 
 export default function UserRegisterForm() {
 
@@ -63,7 +64,7 @@ export default function UserRegisterForm() {
 
     return (
         <>
-            <Box
+            <Stack
                 onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
                 component="form"
                 sx={{
@@ -71,8 +72,8 @@ export default function UserRegisterForm() {
                 }}
                 noValidate
                 autoComplete="off"
+                alignItems={"center"}
             >
-                <div>
                     <TextField
                         error={formError.u_id}
                         required
@@ -145,8 +146,7 @@ export default function UserRegisterForm() {
                             회원가입
                         </Button>
                     </div>
-                </div>
-            </Box>
+            </Stack>
         </>
     )
 }

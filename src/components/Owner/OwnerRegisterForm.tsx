@@ -75,85 +75,84 @@ export default function OwnerRegisterForm() {
                     '& .MuiTextField-root': {m: 3, width: '50ch'},
                 }}
                 noValidate
+                alignItems={"center"}
                 autoComplete="off"
             >
-                <div>
-                    <TextField
-                        error={formError.o_sNumber}
-                        required
-                        id="outlined-required"
-                        label="사업자번호"
-                        name={'o_sNumber'}
-                    />
-                    <TextField
-                        error={formError.o_address}
-                        required
-                        id="outlined-required"
-                        label="가게 주소"
-                        helperText="매장 주소(상세주소 포함)를 입력해 주세요"
-                        name={'o_address'}
-                    />
-                    <TextField
-                        error={formError.o_pw}
-                        required
-                        id="outlined-required"
-                        label="패스워드"
-                        type={'password'}
-                        name={'o_pw'}
-                    />
-                    <TextField
-                        error={formError.pwConfirm}
-                        required
-                        id="outlined-required"
-                        label="패스워드확인"
-                        type={'password'}
-                        name={'pwConfirm'}
-                    />
-                    <TextField
-                        error={formError.o_phone}
-                        required
-                        id="outlined-required"
-                        label="가게 대표 번호"
-                        helperText="하이픈 없이 입력해 주세요"
-                        name={'o_phone'}
-                    />
-                    <TextField
-                        error={formError.o_cellPhone}
-                        required
-                        id="outlined-required"
-                        label="사장님 전화번호"
-                        helperText="하이픈 없이 입력해 주세요"
-                        name={'o_cellPhone'}
-                    />
-                    <TextField
-                        name={'o_time1'}
-                        id="time"
-                        label="영업 시작 시간"
-                        type="time"
-                        defaultValue="07:30"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        inputProps={{
-                            step: 600, // 10 min
-                        }}
-                        sx={{width: 150}}
-                    />
-                    <TextField
-                        name={'o_time2'}
-                        id="time"
-                        label="영업 종료 시간"
-                        type="time"
-                        defaultValue="19:30"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        inputProps={{
-                            step: 600, // 10 min
-                        }}
-                        sx={{width: 150}}
-                    />
-                </div>
+                <TextField
+                    error={formError.o_sNumber}
+                    required
+                    id="outlined-required"
+                    label="사업자번호"
+                    name={'o_sNumber'}
+                />
+                <TextField
+                    error={formError.o_address}
+                    required
+                    id="outlined-required"
+                    label="가게 주소"
+                    helperText="매장 주소(상세주소 포함)를 입력해 주세요"
+                    name={'o_address'}
+                />
+                <TextField
+                    error={formError.o_pw}
+                    required
+                    id="outlined-required"
+                    label="패스워드"
+                    type={'password'}
+                    name={'o_pw'}
+                />
+                <TextField
+                    error={formError.pwConfirm}
+                    required
+                    id="outlined-required"
+                    label="패스워드확인"
+                    type={'password'}
+                    name={'pwConfirm'}
+                />
+                <TextField
+                    error={formError.o_phone}
+                    required
+                    id="outlined-required"
+                    label="가게 대표 번호"
+                    helperText="하이픈 없이 입력해 주세요"
+                    name={'o_phone'}
+                />
+                <TextField
+                    error={formError.o_cellPhone}
+                    required
+                    id="outlined-required"
+                    label="사장님 전화번호"
+                    helperText="하이픈 없이 입력해 주세요"
+                    name={'o_cellPhone'}
+                />
+                <TextField
+                    name={'o_time1'}
+                    id="time"
+                    label="영업 시작 시간"
+                    type="time"
+                    defaultValue="07:30"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    inputProps={{
+                        step: 600, // 10 min
+                    }}
+                    sx={{width: 150}}
+                />
+                <TextField
+                    name={'o_time2'}
+                    id="time"
+                    label="영업 종료 시간"
+                    type="time"
+                    defaultValue="19:30"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    inputProps={{
+                        step: 600, // 10 min
+                    }}
+                    sx={{width: 150}}
+                />
                 <div style={{width: '30%', margin: 'auto'}}>
                     <form>
                         <label>사진업로드</label>
