@@ -63,6 +63,7 @@ export default function ProductView() {
                 <TextField id="outlined-basic" label="검색" variant="outlined" name={'total'}/>
                 <Button variant="outlined">버튼</Button>
             </div>
+
         </>
     )
 }

@@ -1,7 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {DataGrid, GridColDef, GridRowId} from '@mui/x-data-grid';
 import Button from "@mui/material/Button";
-import {permissionCheck} from "../../lib/api/permissionCheck";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 
 export default function MasterMain() {
 
@@ -23,13 +27,20 @@ export default function MasterMain() {
 
     const [rows, setRows] = useState(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
+    const [master, setMaster] = useState(false);
 
-    useEffect(() => {
-        permissionCheck();
-        initialize();
-    }, []);
+    const login = () => {
+
+        // 마스터 로그인 성공시
+        if(true){
+            setMaster(true);
+            initialize();
+        }
+
+    }
 
     const initialize = async () => {
+        // 리스트 불러오는 URL
         // const URL = '';
         // const res = await client.get(URL);
         // console.log(res);
@@ -114,24 +125,60 @@ export default function MasterMain() {
 
     return (
         <>
-            <h1>마스터 메인페이지</h1>
-            <div style={{height: 400, width: '100%'}}>
-                <DataGrid
-                    onStateChange={({selection}) => setSelected(selection)}
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                />
-            </div>
-            <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
-                승인
-            </Button>
-            {' '}
-            <Button variant="outlined" color="error" onClick={() => updateDB('no')}>
-                반려
-            </Button>
+            {master ? <>
+                    <div style={{height: 400, width: '100%', margin:'auto'}}>
+                        <DataGrid
+                            onStateChange={({selection}) => setSelected(selection)}
+                            rows={rows}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            checkboxSelection
+                        />
+                    </div>
+                    <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
+                        승인
+                    </Button>
+                    {' '}
+                    <Button variant="outlined" color="error" onClick={() => updateDB('no')}>
+                        반려
+                    </Button>
+                </>
+                :
+                <>
+                    <Box
+                        component="form"
+                        sx={{
+                            '& > :not(style)': {m: 1, width: '25ch'},
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+
+                        <TextField id="outlined-basic" label={'아이디'}
+                                   variant="outlined" name={'u_id'}
+                                   InputProps={{
+                                       startAdornment: (
+                                           <InputAdornment position="start">
+                                               <AccountCircle/>
+                                           </InputAdornment>
+                                       ),
+                                   }}
+                        />
+
+                        <TextField id="outlined-basic" type='password' label="비밀번호" variant="filled" name={'u_pw'}
+                                   InputProps={{
+                                       startAdornment: (
+                                           <InputAdornment position="start">
+                                               <VpnKeyIcon/>
+                                           </InputAdornment>
+                                       ),
+                                   }}/>
+                        <Button onClick={login}>로그인</Button>
+                    </Box>
+                </>
+            }
+
         </>
     )
 }
