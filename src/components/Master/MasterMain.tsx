@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import {client} from "../../lib/api/client";
 
 export default function MasterMain() {
 
@@ -41,57 +42,57 @@ export default function MasterMain() {
 
     const initialize = async () => {
         // 리스트 불러오는 URL
-        // const URL = '';
-        // const res = await client.get(URL);
-        // console.log(res);
-        setRows([
-                {
-                    id: '1234567890',
-                    o_approval: '0',
-                    o_sNumber: '1234567890',
-                    o_phone: '01040650803',
-                    o_name: '가게이름',
-                    o_cellPhone: '05140650803',
-                    o_address: '부산시 해운대구 해운대로 265',
-                    o_latitude: '100.000000',
-                    o_longitude: '200.200000',
-                    o_date: '',
-                    o_time1: '07:00',
-                    o_time2: '19:00',
-                    o_image: 'ㅇㅁㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㄹㅁㅇㄴㄹㅇㄴㅁㄹㄴㅇㄹㅇㄴㄹㄴㅇㅁㄹㄴㅇㅁㄹㅇㄴㄹㅇㄹㄴㅁ',
-                },
-                {
-                    id: '1234567891',
-                    o_approval: '0',
-                    o_sNumber: '1234567890',
-                    o_phone: '01040650803',
-                    o_name: '가게이름',
-                    o_cellPhone: '05140650803',
-                    o_address: '부산시 해운대구 해운대로 265',
-                    o_latitude: '100.000000',
-                    o_longitude: '200.200000',
-                    o_date: '',
-                    o_time1: '07:00',
-                    o_time2: '19:00',
-                    o_image: 'ㅇㅁㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㄹㅁㅇㄴㄹㅇㄴㅁㄹㄴㅇㄹㅇㄴㄹㄴㅇㅁㄹㄴㅇㅁㄹㅇㄴㄹㅇㄹㄴㅁ',
-                },
-                {
-                    id: '1234567892',
-                    o_approval: '0',
-                    o_sNumber: '1234567890',
-                    o_phone: '01040650803',
-                    o_name: '가게이름',
-                    o_cellPhone: '05140650803',
-                    o_address: '부산시 해운대구 해운대로 265',
-                    o_latitude: '100.000000',
-                    o_longitude: '200.200000',
-                    o_date: '',
-                    o_time1: '07:00',
-                    o_time2: '19:00',
-                    o_image: 'ㅇㅁㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㄹㅁㅇㄴㄹㅇㄴㅁㄹㄴㅇㄹㅇㄴㄹㄴㅇㅁㄹㄴㅇㅁㄹㅇㄴㄹㅇㄹㄴㅁ',
-                },
-            ]
-        )
+        const URL = '/master';
+        const res = await client.get(URL);
+        console.log(res);
+        // setRows([
+        //         {
+        //             id: '1234567890',
+        //             o_approval: '0',
+        //             o_sNumber: '1234567890',
+        //             o_phone: '01040650803',
+        //             o_name: '가게이름',
+        //             o_cellPhone: '05140650803',
+        //             o_address: '부산시 해운대구 해운대로 265',
+        //             o_latitude: '100.000000',
+        //             o_longitude: '200.200000',
+        //             o_date: '',
+        //             o_time1: '07:00',
+        //             o_time2: '19:00',
+        //             o_image: 'ㅇㅁㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㄹㅁㅇㄴㄹㅇㄴㅁㄹㄴㅇㄹㅇㄴㄹㄴㅇㅁㄹㄴㅇㅁㄹㅇㄴㄹㅇㄹㄴㅁ',
+        //         },
+        //         {
+        //             id: '1234567891',
+        //             o_approval: '0',
+        //             o_sNumber: '1234567890',
+        //             o_phone: '01040650803',
+        //             o_name: '가게이름',
+        //             o_cellPhone: '05140650803',
+        //             o_address: '부산시 해운대구 해운대로 265',
+        //             o_latitude: '100.000000',
+        //             o_longitude: '200.200000',
+        //             o_date: '',
+        //             o_time1: '07:00',
+        //             o_time2: '19:00',
+        //             o_image: 'ㅇㅁㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㄹㅁㅇㄴㄹㅇㄴㅁㄹㄴㅇㄹㅇㄴㄹㄴㅇㅁㄹㄴㅇㅁㄹㅇㄴㄹㅇㄹㄴㅁ',
+        //         },
+        //         {
+        //             id: '1234567892',
+        //             o_approval: '0',
+        //             o_sNumber: '1234567890',
+        //             o_phone: '01040650803',
+        //             o_name: '가게이름',
+        //             o_cellPhone: '05140650803',
+        //             o_address: '부산시 해운대구 해운대로 265',
+        //             o_latitude: '100.000000',
+        //             o_longitude: '200.200000',
+        //             o_date: '',
+        //             o_time1: '07:00',
+        //             o_time2: '19:00',
+        //             o_image: 'ㅇㅁㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㄹㅁㅇㄴㄹㅇㄴㅁㄹㄴㅇㄹㅇㄴㄹㄴㅇㅁㄹㄴㅇㅁㄹㅇㄴㄹㅇㄹㄴㅁ',
+        //         },
+        //     ]
+        // )
     }
 
     const updateDB = (input: string) => {
@@ -100,7 +101,7 @@ export default function MasterMain() {
         let URL = '';
 
         if (input === 'ok') {
-            URL = '';
+            URL = '/master/requestOK';
         } else {
             URL = '';
         }

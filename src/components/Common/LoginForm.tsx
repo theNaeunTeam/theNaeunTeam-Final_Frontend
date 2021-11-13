@@ -44,9 +44,9 @@ export default function LoginForm(props: RouteComponentProps) {
         let URL: string;
 
         if (loginForm.radio === 'company') {
-            URL = '/auth/ownerlogin';
+            URL = '/owner/ownerlogin';
         } else {
-            URL = '/auth/userlogin'
+            URL = '/user/userlogin'
         }
 
         try {
