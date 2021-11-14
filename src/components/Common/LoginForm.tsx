@@ -138,7 +138,7 @@ export default function LoginForm(props: RouteComponentProps) {
                     loginForm.radio === 'individual'
                         ?
                         <div>
-                            <Button variant="outlined" onClick={() => props.history.push('/userRegister')}>
+                            <Button variant="outlined" onClick={() => props.history.push('/user/register')}>
                                 회원가입
                             </Button>
                             <br/>
@@ -148,7 +148,7 @@ export default function LoginForm(props: RouteComponentProps) {
                         </div>
                         :
                         <div>
-                            <Button variant="outlined" onClick={() => props.history.push('/ownerRegister')}>
+                            <Button variant="outlined" onClick={() => props.history.push('/owner/register')}>
                                 입점신청
                             </Button>
                         </div>

@@ -18,7 +18,7 @@ export default function OwnerMain() {
 
     const [ownerMain, setOwnerMain] = useState(initialValue);
 
-    const Container = styled.div`
+    const DivContainer = styled.div`
       border: solid black;
       display: flex;
       justify-content: center;
@@ -26,7 +26,7 @@ export default function OwnerMain() {
       padding: 10px;
     `
 
-    const HalfMenu = styled.div`
+    const DivHalfMenu = styled.div`
       flex: 1;
       margin: 10px;
       padding: 10px;
@@ -49,8 +49,8 @@ export default function OwnerMain() {
     }
 
     return (
-        <Container>
-            <HalfMenu>
+        <DivContainer>
+            <DivHalfMenu>
                 <h3>{ownerMain.title}</h3>
                 <br/>
                 <h5>총 판매 금액 : {ownerMain.total}</h5>
@@ -62,8 +62,8 @@ export default function OwnerMain() {
                     getLoc()
                 }}>위도경도변경테스트
                 </button>
-            </HalfMenu>
-            <HalfMenu>
+            </DivHalfMenu>
+            <DivHalfMenu>
                 <Map
                     center={{lat: ownerMain.lat, lng: ownerMain.lng}}
                     style={{width: "100%", height: "360px"}}
@@ -72,8 +72,8 @@ export default function OwnerMain() {
                         <div style={{color: "#000"}}>{ownerMain.title}</div>
                     </MapMarker>
                 </Map>
-            </HalfMenu>
+            </DivHalfMenu>
 
-        </Container>
+        </DivContainer>
     )
 }
