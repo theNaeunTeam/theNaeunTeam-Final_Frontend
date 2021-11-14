@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {Button} from "@mui/material";
 
-export default function ProductView() {
+export default function GoodsView() {
 
     const [list, setList] = useState<object[]>([]);
 
