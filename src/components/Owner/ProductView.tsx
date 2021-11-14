@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,22 +8,34 @@ import {Button} from "@mui/material";
 
 export default function ProductView() {
 
-    const [age, setAge] = React.useState('');
+    const [list, setList] = useState<object[]>([]);
 
+    // 변경 필요
+    const [age, setAge] = React.useState('');
     const handleChange = (event: SelectChangeEvent) => {
         setAge(event.target.value as string);
     };
 
+    const initialize = () => {
+
+    }
+
+    useEffect(() => {
+
+    }, []);
+
     const TableBuilder = () => {
+
         return (
             <>
+
             </>
         )
     }
 
 
     return (
-        <>
+        <div style={{alignContent: 'center'}}>
             <div>
                 <TextField id="outlined-basic" label="전체" variant="outlined" name={'total'}/>
                 <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
@@ -64,6 +76,22 @@ export default function ProductView() {
                 <Button variant="outlined">버튼</Button>
             </div>
 
-        </>
+            <table>
+                <thead>
+                <th>상품명</th>
+                <th>분류</th>
+                <th>정가</th>
+                <th>할인가</th>
+                <th>유통기한</th>
+                <th>남은수량</th>
+                <th>수정</th>
+                <th>삭제</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+        </div>
     )
 }
