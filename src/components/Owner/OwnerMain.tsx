@@ -59,7 +59,7 @@ export default function OwnerMain() {
                 <h5>등록한 상품 : {ownerMain.goods}</h5>
                 <h5>예약 진행중 : {ownerMain.reserved}</h5>
                 <button onClick={() => {
-                    getLoc()
+                    getLoc();
                 }}>위도경도변경테스트
                 </button>
             </DivHalfMenu>

@@ -1,4 +1,6 @@
 const defaultValue = {
+    b_owner: '',
+    u_id: '',
     isMaster: false,
     isOwner: false,
     isUser: false,
@@ -15,12 +17,12 @@ export function authReducer(state = defaultValue, action: actionTypes) {
         case 'userMode':
             console.log(action.type, '리듀서 콜');
             console.log(action.payload);
-            return {...state, isUser: true};
+            return {...state, isUser: true, u_id: action.payload};
 
         case 'ownerMode':
             console.log(action.type, '리듀서 콜');
             console.log(action.payload);
-            return {...state, isOwner: true};
+            return {...state, isOwner: true, b_owner: action.payload};
 
         case 'masterMode':
             console.log(action.type, '리듀서 콜');

@@ -58,9 +58,9 @@ export default function LoginForm(props: RouteComponentProps) {
                 localStorage.setItem('token', res.data.token);
 
                 if (true) {
-                    dispatch({type: 'ownerMode'});
+                    dispatch({type: 'ownerMode', payload: loginForm.u_id});
                 } else {
-                    dispatch({type: 'userMode'});
+                    dispatch({type: 'userMode', payload: loginForm.u_id});
                 }
 
             } else {
