@@ -1,11 +1,38 @@
 import React, {useState} from 'react';
 import TextField from "@mui/material/TextField";
 import {client} from "../../lib/api/client";
-import {Stack} from "@mui/material";
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Stack} from "@mui/material";
 import {Button} from "@material-ui/core";
 import MenuItem from '@mui/material/MenuItem';
+import {TransitionProps} from "@mui/material/transitions";
+
+
+// 등록알림창
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+        children: React.ReactElement<any, any>;
+    },
+    ref: React.Ref<unknown>,
+) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
 
 export default function AddProduct() {
+    /// 알림창
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+        submitForm();
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    ///
+
 
     interface formInterface {
         g_owner: string,
@@ -58,6 +85,7 @@ export default function AddProduct() {
 
     // 아이디값을 가져와서 state 값을 업데이트 해준다
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
+        console.log(productForm);
         const tagName = (e.target as HTMLFormElement).name;
         setProduct({...productForm, [tagName]: (e.target as HTMLFormElement).value});
 
@@ -97,7 +125,7 @@ export default function AddProduct() {
                     required
                     id="outlined-required"
                     label="상품 수량"
-                    value="0"
+
                     name={'g_count'}
                     InputLabelProps={{
                         shrink: true,
@@ -115,7 +143,7 @@ export default function AddProduct() {
                 {/*    <input name={'file'} type={'file'} onChange={e => handleFileInput(e)}/>*/}
                 {/*    <label>상품 이미지파일</label>*/}
                 {/*</form>*/}
-                <select>
+                <select name={'g_category'}>
                     <option value={""}>상품분류 선택</option>
                     <option value={"카페/음료"}>카페/음료</option>
                     <option value={"냉동식품"}>냉동식품</option>
@@ -150,9 +178,30 @@ export default function AddProduct() {
                     label="상세설명"
                     name={'g_detail'}
                 />
-                <Button variant="contained" size="large" onClick={submitForm}>
-                    상품등록
+                {/*<Button variant="contained" size="large" onClick={submitForm}>*/}
+                {/*    상품등록*/}
+                {/*</Button>*/}
+                <Button variant="outlined" onClick={handleClickOpen}>
+                    상품 등록하기 
                 </Button>
+                <Dialog
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle>{"다시 한 번 확인해 주세요 "}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            상품을 등록 하시겠습니까?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>아니요</Button>
+                        <Button onClick={handleClose}>예</Button>
+                    </DialogActions>
+                </Dialog>
             </Stack>
         </>
     )
