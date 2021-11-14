@@ -3,7 +3,6 @@ import TextField from "@mui/material/TextField";
 import {client} from "../../lib/api/client";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Stack} from "@mui/material";
 import {Button} from "@material-ui/core";
-import MenuItem from '@mui/material/MenuItem';
 import {TransitionProps} from "@mui/material/transitions";
 
 
@@ -20,6 +19,7 @@ const Transition = React.forwardRef(function Transition(
 
 
 export default function AddProduct() {
+
     /// 알림창
     const [open, setOpen] = React.useState(false);
 
@@ -34,6 +34,7 @@ export default function AddProduct() {
     ///
 
 
+
     interface formInterface {
         g_owner: string,
         g_name: string,
@@ -43,7 +44,7 @@ export default function AddProduct() {
         g_detail: string,
         g_expireDate: string,
         g_category: string,
-        g_image: null | FileList
+        g_image: null | FileList | Blob
     }
 
     const initValue = {
@@ -68,20 +69,33 @@ export default function AddProduct() {
         g_category: false
     }
 
+
+
+    const [productForm, setProduct] = useState<formInterface>(initValue);
+    const [formError, setFormError] = useState(formErrorinit);
+
+    const formData = new FormData();
+
+    formData.append('g_owner',productForm.g_owner);
+    formData.append('g_name',productForm.g_name);
+    formData.append('g_count',productForm.g_count);
+    formData.append('g_image',productForm.g_image as Blob);
+    formData.append('g_price',productForm.g_price);
+    formData.append('g_discount',productForm.g_discount);
+    formData.append('g_detail',productForm.g_detail);
+    formData.append('g_expireDate',productForm.g_expireDate);
+    formData.append('g_category',productForm.g_category);
+
+
     const submitForm = async () => {
         const URL = '/auth/userjoin'
         try {
-            const res = await client.post(URL, productForm);
+            const res = await client.post(URL, formData);
             console.log(res);
         } catch (e) {
             console.log(e);
         }
     };
-
-    const [productForm, setProduct] = useState<formInterface>(initValue);
-    const [formError, setFormError] = useState(formErrorinit);
-
-
 
     // 아이디값을 가져와서 state 값을 업데이트 해준다
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -101,6 +115,7 @@ export default function AddProduct() {
     return (
         <>
             <h1>상품등록</h1>
+
             <Stack
                 onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
                 component="form"
@@ -182,7 +197,7 @@ export default function AddProduct() {
                 {/*    상품등록*/}
                 {/*</Button>*/}
                 <Button variant="outlined" onClick={handleClickOpen}>
-                    상품 등록하기 
+                    상품 등록하기
                 </Button>
                 <Dialog
                     open={open}
