@@ -3,32 +3,41 @@ import TextField from "@mui/material/TextField";
 import {client} from "../../lib/api/client";
 import {Stack} from "@mui/material";
 import {Button} from "@material-ui/core";
+import MenuItem from '@mui/material/MenuItem';
 
 export default function AddProduct() {
 
+    interface formInterface {
+        g_owner: string,
+        g_name: string,
+        g_count: string,
+        g_price: string,
+        g_discount: string,
+        g_detail: string,
+        g_expireDate: string,
+        g_category: string,
+        g_image: null | FileList
+    }
+
     const initValue = {
-        g_code: '',
+        g_owner: '',
         g_name: '',
         g_count: '',
+        g_image: null,
         g_price: '',
         g_discount: '',
         g_detail: '',
-        g_image: '',
         g_expireDate: '',
-        g_status: '',
-        g_category: ''
+        g_category: '',
     };
 
     const formErrorinit = {
-        g_code: false,
         g_name: false,
         g_count: false,
         g_price: false,
         g_discount: false,
         g_detail: false,
-        g_image: false,
         g_expireDate: false,
-        g_status: false,
         g_category: false
     }
 
@@ -42,16 +51,24 @@ export default function AddProduct() {
         }
     };
 
-    const [productForm, setProduct] = useState(initValue);
+    const [productForm, setProduct] = useState<formInterface>(initValue);
     const [formError, setFormError] = useState(formErrorinit);
+
+
 
     // 아이디값을 가져와서 state 값을 업데이트 해준다
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         const tagName = (e.target as HTMLFormElement).name;
         setProduct({...productForm, [tagName]: (e.target as HTMLFormElement).value});
+
         // formValidate();
     }
 
+    // 상품 이미지 업로드 핸들러
+    const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.files);
+        setProduct({...productForm, g_image: e.target.files});
+    }
 
     return (
         <>
@@ -66,14 +83,7 @@ export default function AddProduct() {
                 autoComplete="off"
                 alignItems="center"
             >
-                <TextField
-                    error={formError.g_code}
-                    required
-                    id="outlined-required"
-                    label="상품 고유 번호"
-                    helperText="상품 고유 번호를 입력해주세요"
-                    name={'g_code'}
-                />
+
                 <TextField
                     error={formError.g_name}
                     required
@@ -87,11 +97,31 @@ export default function AddProduct() {
                     required
                     id="outlined-required"
                     label="상품 수량"
+                    value="0"
                     name={'g_count'}
                     InputLabelProps={{
                         shrink: true,
                     }}
                 />
+                <TextField
+                    required
+                    id="outlined-required"
+                    label="상품 이미지"
+                    name={'g_image'}
+                    type={'file'}
+                    onChange={() => handleFileInput}
+                />
+                {/*<form>*/}
+                {/*    <input name={'file'} type={'file'} onChange={e => handleFileInput(e)}/>*/}
+                {/*    <label>상품 이미지파일</label>*/}
+                {/*</form>*/}
+                <select>
+                    <option value={""}>상품분류 선택</option>
+                    <option value={"카페/음료"}>카페/음료</option>
+                    <option value={"냉동식품"}>냉동식품</option>
+                    <option value={"스낵류"}>스낵류</option>
+                </select>
+
                 <TextField
                     error={formError.g_price}
                     required
@@ -107,20 +137,6 @@ export default function AddProduct() {
                     name={'g_discount'}
                 />
                 <TextField
-                    error={formError.g_detail}
-                    required
-                    id="outlined-required"
-                    label="상세설명"
-                    name={'g_detail'}
-                />
-                <TextField
-                    error={formError.g_image}
-                    required
-                    id="outlined-required"
-                    label="상품사진URL"
-                    name={'g_image'}
-                />
-                <TextField
                     error={formError.g_expireDate}
                     required
                     id="outlined-required"
@@ -128,18 +144,11 @@ export default function AddProduct() {
                     name={'g_expireDate'}
                 />
                 <TextField
-                    error={formError.g_status}
+                    error={formError.g_detail}
                     required
                     id="outlined-required"
-                    label="상품 상태"
-                    name={'g_status'}
-                />
-                <TextField
-                    error={formError.g_category}
-                    required
-                    id="outlined-required"
-                    label="상품 카테고리"
-                    name={'g_category'}
+                    label="상세설명"
+                    name={'g_detail'}
                 />
                 <Button variant="contained" size="large" onClick={submitForm}>
                     상품등록
