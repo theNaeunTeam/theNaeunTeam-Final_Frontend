@@ -7,7 +7,8 @@ export default function Footer() {
       bottom: 0;
       width: 100%;
       text-align: center;
-    `
+    `;
+
 
     return (
         <DivFooter>

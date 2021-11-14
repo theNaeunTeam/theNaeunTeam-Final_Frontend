@@ -11,32 +11,32 @@ export default function GoodsView() {
 
     const TableStyled = styled.table`
       padding: 30px;
-      margin: 100px;
+      margin: auto;
       width: 80%;
-    `
+    `;
 
     const DivContainer = styled.div`
-      justify-content: center;
-    `
+      text-align: center;
+    `;
 
     type dummyType = {
-        g_code: string,
+        g_code: number,
         g_name: string,
         g_category: string,
-        g_price: string,
-        g_discount: string,
+        g_price: number,
+        g_discount: number,
         g_expireDate: string,
-        g_count: string
-    }
+        g_count: number,
+    };
 
     const dummy = {
-        g_code: '123131321321',
+        g_code: 123,
         g_name: '홈런볼',
         g_category: '과자류',
-        g_price: '3000',
-        g_discount: '300',
+        g_price: 3000,
+        g_discount: 300,
         g_expireDate: '2021-11-11',
-        g_count: '1',
+        g_count: 1,
     };
 
     const [list, setList] = useState<dummyType[]>([]);
@@ -50,18 +50,21 @@ export default function GoodsView() {
     const initialize = async () => {
         // 서버에서 상품 정보 리스트를 받아오는 코드
         setList([dummy]);
-    }
+    };
 
     useEffect(() => {
         initialize();
     }, []);
 
-    const modifyGoods = (input: string) => {
-        console.log(input)
-    }
-    const deleteGoods = (input: string) => {
-        console.log(input);
-    }
+    const modifyGoods = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const g_code: string = (e.target as HTMLButtonElement).name;
+        // 상품 등록 페이지 재활용?
+    };
+
+    const deleteGoods = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const g_code: string = (e.target as HTMLButtonElement).name;
+
+    };
 
     const TableBuilder = (props: { data: dummyType, idx: number }) => {
 
@@ -89,18 +92,19 @@ export default function GoodsView() {
                     {props.data.g_count}
                 </td>
                 <td>
-                    <button onClick={() => modifyGoods(props.data.g_code)}>수정</button>
+                    <button name={`${props.data.g_code}`} onClick={e => modifyGoods(e)}>수정</button>
                 </td>
                 <td>
-                    <button onClick={() => deleteGoods(props.data.g_code)}>삭제</button>
+                    <button name={`${props.data.g_code}`} onClick={e => deleteGoods(e)}>삭제</button>
                 </td>
             </tr>
         )
-    }
+    };
 
 
     return (
         <DivContainer>
+            <h2>상품조회</h2>
             <div>
                 <TextField id="outlined-basic" label="전체" variant="outlined" name={'total'}/>
                 <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>

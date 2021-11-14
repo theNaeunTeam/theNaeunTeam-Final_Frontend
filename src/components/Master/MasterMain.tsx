@@ -93,7 +93,7 @@ export default function MasterMain() {
         //         },
         //     ]
         // )
-    }
+    };
 
     const updateDB = (input: string) => {
         if (selected.length === 0) return false;
@@ -107,7 +107,7 @@ export default function MasterMain() {
         }
 
         // selected를 백엔드로 전송하는 코드
-    }
+    };
 
     const columns: GridColDef[] = [
         {field: 'o_approval', headerName: '상태', width: 130},

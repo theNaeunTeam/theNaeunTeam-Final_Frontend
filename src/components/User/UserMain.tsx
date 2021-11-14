@@ -8,20 +8,19 @@ export default function UserMain() {
     const DivContainer = styled.div`
       margin: 20px;
       padding: 100px;
-    `
+    `;
 
     const DivCarouselContainer = styled.div`
       height: 500px;
       width: 700px;
       margin: auto;
-    `
+    `;
 
     const DivRecommend = styled.div`
-      flex: 1;
-      border: solid #282c34 1px;
       text-align: center;
-      flex-direction: row;
-    `
+      display: flex;
+      justify-content: space-evenly;
+    `;
 
     const defaultValue = [
         {
@@ -43,13 +42,12 @@ export default function UserMain() {
             <DivCarouselContainer>
                 <UncontrolledCarousel items={items}/>
             </DivCarouselContainer>
-            <h3>추천</h3>
+            <h2>추천</h2>
             <br/>
-
             <DivRecommend>
                 <span>
                     <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo} />
+                        <img src={logo}/>
                         <br/>
                         가계명 :
                         <br/>
@@ -60,7 +58,7 @@ export default function UserMain() {
                 </span>
                 <span>
                     <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo} />
+                        <img src={logo}/>
                         <br/>
                         가계명 :
                         <br/>
@@ -71,7 +69,7 @@ export default function UserMain() {
                 </span>
                 <span>
                     <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo} />
+                        <img src={logo}/>
                         <br/>
                         가계명 :
                         <br/>
@@ -82,7 +80,7 @@ export default function UserMain() {
                 </span>
                 <span>
                     <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo} />
+                        <img src={logo}/>
                         <br/>
                         가계명 :
                         <br/>

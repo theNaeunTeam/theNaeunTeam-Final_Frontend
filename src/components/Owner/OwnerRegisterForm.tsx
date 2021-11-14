@@ -16,7 +16,7 @@ export default function OwnerRegisterForm() {
         o_address: string,
         o_time1: string,
         o_time2: string,
-        o_image: null | FileList,
+        o_image?: null | FileList | Blob,
     }
 
     const initValue = {
@@ -57,9 +57,30 @@ export default function OwnerRegisterForm() {
     }
 
     const submitForm = async () => {
-        const URL = '/owner/request'
+
+        const URL = '/owner/request';
+        const formData = new FormData();
+
+        formData.append('file', regForm.o_image as Blob);
+        formData.append('o_sNumber', regForm.o_sNumber);
+        formData.append('o_pw', regForm.o_pw);
+        formData.append('o_phone', regForm.o_phone);
+        formData.append('o_name', regForm.o_name);
+        formData.append('o_cellPhone', regForm.o_cellPhone);
+        formData.append('o_address', regForm.o_address);
+        formData.append('o_time1', regForm.o_time1);
+        formData.append('o_time2', regForm.o_time2);
+
+        console.log(formData.keys());
+
         try {
-            const res = await client.post(URL, regForm);
+            const res = await client.post(URL, formData, {
+                    headers: {
+                        "content-type": "multipart/form-data",
+                    }
+                }
+            );
+
             console.log(res);
         } catch (e) {
             console.log(e);

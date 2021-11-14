@@ -88,9 +88,13 @@ export default function AddProduct() {
 
 
     const submitForm = async () => {
-        const URL = '/auth/userjoin'
+        const URL = '/owner/addGoods'
         try {
-            const res = await client.post(URL, formData);
+            const res = await client.post(URL, formData,{
+                headers: {
+                    "content-type": "multipart/form-data",
+                }
+            });
             console.log(res);
         } catch (e) {
             console.log(e);

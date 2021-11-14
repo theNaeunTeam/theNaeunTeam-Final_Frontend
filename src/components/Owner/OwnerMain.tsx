@@ -14,7 +14,7 @@ export default function OwnerMain() {
         reserved: '15개',
         lat: 33.5563,
         lng: 126.79581,
-    }
+    };
 
     const [ownerMain, setOwnerMain] = useState(initialValue);
 
@@ -24,13 +24,13 @@ export default function OwnerMain() {
       justify-content: center;
       margin: 50px;
       padding: 10px;
-    `
+    `;
 
     const DivHalfMenu = styled.div`
       flex: 1;
       margin: 10px;
       padding: 10px;
-    `
+    `;
 
     function getLoc() {
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
