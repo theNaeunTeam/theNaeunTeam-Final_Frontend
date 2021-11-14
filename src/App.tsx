@@ -22,9 +22,8 @@ function App() {
 
     return (
         <>
+            <Header/>
             {/*<Switch>*/}
-            <Route path='/' component={Header}/>
-
             <Route exact path='/master' component={MasterMain}/>
 
             <Route path='/login' component={LoginForm}/>
