@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // @ts-ignore
-const { kakao } = window;
+const {kakao} = window;
 
 const MapContainer = () => {
 

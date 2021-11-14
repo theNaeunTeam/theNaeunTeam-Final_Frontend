@@ -1,5 +1,4 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import {IconButton} from "material-ui";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
@@ -11,7 +10,7 @@ export default function UserMain() {
             <div>
             </div>
             <IconButton color="primary" aria-label="add to shopping cart">
-                <AddShoppingCartIcon />
+                <AddShoppingCartIcon/>
             </IconButton>
         </>
     )

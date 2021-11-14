@@ -33,7 +33,7 @@ export default function MasterMain() {
     const login = () => {
 
         // 마스터 로그인 성공시
-        if(true){
+        if (true) {
             setMaster(true);
             initialize();
         }
@@ -127,7 +127,7 @@ export default function MasterMain() {
     return (
         <>
             {master ? <>
-                    <div style={{height: 400, width: '100%', margin:'auto'}}>
+                    <div style={{height: 400, width: '100%', margin: 'auto'}}>
                         <DataGrid
                             onStateChange={({selection}) => setSelected(selection)}
                             rows={rows}
