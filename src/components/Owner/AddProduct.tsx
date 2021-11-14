@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import TextField from "@mui/material/TextField";
 import {client} from "../../lib/api/client";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Stack} from "@mui/material";
@@ -75,16 +75,16 @@ export default function AddProduct() {
     const [formError, setFormError] = useState(formErrorinit);
 
     const formData = new FormData();
-
-    formData.append('g_owner',productForm.g_owner);
-    formData.append('g_name',productForm.g_name);
-    formData.append('g_count',productForm.g_count);
-    formData.append('g_image',productForm.g_image as Blob);
-    formData.append('g_price',productForm.g_price);
-    formData.append('g_discount',productForm.g_discount);
-    formData.append('g_detail',productForm.g_detail);
-    formData.append('g_expireDate',productForm.g_expireDate);
-    formData.append('g_category',productForm.g_category);
+    formData.append('file',productForm.g_image as Blob);
+    // formData.append('g_owner',productForm.g_owner);
+    // formData.append('g_name',productForm.g_name);
+    // formData.append('g_count',productForm.g_count);
+    //
+    // formData.append('g_price',productForm.g_price);
+    // formData.append('g_discount',productForm.g_discount);
+    // formData.append('g_detail',productForm.g_detail);
+    // formData.append('g_expireDate',productForm.g_expireDate);
+    // formData.append('g_category',productForm.g_category);
 
 
     const submitForm = async () => {
@@ -111,9 +111,11 @@ export default function AddProduct() {
     }
 
     // 상품 이미지 업로드 핸들러
-    const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.files);
-        setProduct({...productForm, g_image: e.target.files});
+    const handleFileInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        // @ts-ignore
+        console.log(e.target.files[0]);
+        // @ts-ignore
+        setProduct({...productForm, g_image: e.target.files[0]});
     }
 
     return (
@@ -156,7 +158,7 @@ export default function AddProduct() {
                     label="상품 이미지"
                     name={'g_image'}
                     type={'file'}
-                    onChange={() => handleFileInput}
+                    onChange={e => handleFileInput(e)}
                 />
                 {/*<form>*/}
                 {/*    <input name={'file'} type={'file'} onChange={e => handleFileInput(e)}/>*/}
@@ -218,7 +220,7 @@ export default function AddProduct() {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>아니요</Button>
-                        <Button onClick={handleClose}>예</Button>
+                        <Button onClick={handleClickOpen}>예</Button>
                     </DialogActions>
                 </Dialog>
             </Stack>

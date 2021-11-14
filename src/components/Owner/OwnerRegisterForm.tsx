@@ -62,14 +62,14 @@ export default function OwnerRegisterForm() {
         const formData = new FormData();
 
         formData.append('file', regForm.o_image as Blob);
-        formData.append('o_sNumber', regForm.o_sNumber);
-        formData.append('o_pw', regForm.o_pw);
-        formData.append('o_phone', regForm.o_phone);
-        formData.append('o_name', regForm.o_name);
-        formData.append('o_cellPhone', regForm.o_cellPhone);
-        formData.append('o_address', regForm.o_address);
-        formData.append('o_time1', regForm.o_time1);
-        formData.append('o_time2', regForm.o_time2);
+        // formData.append('o_sNumber', regForm.o_sNumber);
+        // formData.append('o_pw', regForm.o_pw);
+        // formData.append('o_phone', regForm.o_phone);
+        // formData.append('o_name', regForm.o_name);
+        // formData.append('o_cellPhone', regForm.o_cellPhone);
+        // formData.append('o_address', regForm.o_address);
+        // formData.append('o_time1', regForm.o_time1);
+        // formData.append('o_time2', regForm.o_time2);
 
         console.log(formData.keys());
 
