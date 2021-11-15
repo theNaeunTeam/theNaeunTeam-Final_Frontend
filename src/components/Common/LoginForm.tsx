@@ -15,13 +15,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import {RouteComponentProps} from 'react-router-dom';
+import {RouteComponentProps, useHistory} from 'react-router-dom';
 import {client} from "../../lib/api/client";
 import {useDispatch} from "react-redux";
 
 export default function LoginForm(props: RouteComponentProps) {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const initValue = {
         radio: 'individual',
@@ -52,8 +53,10 @@ export default function LoginForm(props: RouteComponentProps) {
                 if (res.status === 200) {
                     localStorage.setItem('ownerToken', res.data.token);
                     dispatch({type: 'ownerMode', payload: loginForm.u_id});
+                    alert('가게 로그인 성공');
+                    history.push('/owner');
                 } else {
-                    alert('사업주 님의 아이디 및 비밀번호를 확인해 주세요');
+                    alert('사업자번호 및 비밀번호를 확인해 주세요');
                 }
             } catch (e) {
                 console.log(e);
@@ -66,6 +69,8 @@ export default function LoginForm(props: RouteComponentProps) {
                 if (res.status === 200) {
                     localStorage.setItem('userToken', res.data.token);
                     dispatch({type: 'userMode', payload: loginForm.u_id});
+                    alert('유저 로그인 성공');
+                    history.push('/');
                 } else {
                     alert(`아이디 및 비밀번호를 확인해주세요`);
                 }
