@@ -6,25 +6,19 @@ import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {Button} from "@mui/material";
 import styled from "styled-components";
+import {client} from "../../lib/api/client";
 
 export default function GoodsView() {
 
     const TableStyled = styled.table`
       padding: 30px;
       margin: auto;
-      width: 100%;
+      width: 80%;
     `;
 
     const DivContainer = styled.div`
       text-align: center;
-      padding: 50px;
-      margin: 10px;
     `;
-
-    const DivRow = styled.div`
-      display: flex;
-      justify-content: space-between;
-    `
 
     type dummyType = {
         g_code: number,
@@ -56,6 +50,13 @@ export default function GoodsView() {
 
     const initialize = async () => {
         // 서버에서 상품 정보 리스트를 받아오는 코드
+        const URL = ''
+        try {
+            const res = await client.get(URL);
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
         setList([dummy]);
     };
 
@@ -64,12 +65,12 @@ export default function GoodsView() {
     }, []);
 
     const modifyGoods = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const g_code: string = (e.target as HTMLButtonElement).name; // 선택한 row의 상품고유번호
+        const g_code: string = (e.target as HTMLButtonElement).name;
         // 상품 등록 페이지 재활용?
     };
 
     const deleteGoods = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const g_code: string = (e.target as HTMLButtonElement).name; // 선택한 row의 상품고유번호
+        const g_code: string = (e.target as HTMLButtonElement).name;
 
     };
 
@@ -112,7 +113,7 @@ export default function GoodsView() {
     return (
         <DivContainer>
             <h2>상품조회</h2>
-            <DivRow>
+            <div>
                 <TextField id="outlined-basic" label="전체" variant="outlined" name={'total'}/>
                 <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
                     <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
@@ -150,7 +151,7 @@ export default function GoodsView() {
                 </FormControl>
                 <TextField id="outlined-basic" label="검색" variant="outlined" name={'total'}/>
                 <Button variant="outlined">버튼</Button>
-            </DivRow>
+            </div>
 
             <TableStyled>
                 <thead style={{border: "solid black 0.1px"}}>

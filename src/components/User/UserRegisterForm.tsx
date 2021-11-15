@@ -51,6 +51,7 @@ export default function UserRegisterForm() {
         }
     };
 
+
     const submitForm = async () => {
         const URL = '/auth/userjoin'
         try {

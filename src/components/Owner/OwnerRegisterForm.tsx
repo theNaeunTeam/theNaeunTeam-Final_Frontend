@@ -16,7 +16,7 @@ export default function OwnerRegisterForm() {
         o_address: string,
         o_time1: string,
         o_time2: string,
-    };
+    }
 
     const initValue = {
         o_sNumber: '',
@@ -30,7 +30,6 @@ export default function OwnerRegisterForm() {
         o_time2: '',
         o_image: null,
     };
-
     const errorInit = {
         o_sNumber: false,
         o_pw: false,
@@ -71,17 +70,12 @@ export default function OwnerRegisterForm() {
         formData.append('o_time2', regForm.o_time2);
 
         try {
-
             const res = await client.post(URL, formData);
 
             console.log(res);
-
         } catch (e) {
-
             console.log(e);
-
         }
-
     }
 
 
