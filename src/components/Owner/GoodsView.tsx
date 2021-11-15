@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {Button} from "@mui/material";
 import styled from "styled-components";
+import {client} from "../../lib/api/client";
 
 export default function GoodsView() {
 
@@ -49,6 +50,13 @@ export default function GoodsView() {
 
     const initialize = async () => {
         // 서버에서 상품 정보 리스트를 받아오는 코드
+        const URL = ''
+        try {
+            const res = await client.get(URL);
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
         setList([dummy]);
     };
 
