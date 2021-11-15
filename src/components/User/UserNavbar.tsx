@@ -6,7 +6,7 @@ import {Link, RouteComponentProps} from 'react-router-dom';
 import {IconButton} from "material-ui";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-export default function OwnerNavbar(props: RouteComponentProps) {
+export default function UserNavbar(props: RouteComponentProps) {
 
 
     return (
