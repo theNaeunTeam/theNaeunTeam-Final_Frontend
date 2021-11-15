@@ -93,6 +93,8 @@ export default function MasterMain() {
                 return acc;
             }, []);
 
+            console.log(massage);
+
             setRows(massage);
         } catch (e) {
             console.log(e);
