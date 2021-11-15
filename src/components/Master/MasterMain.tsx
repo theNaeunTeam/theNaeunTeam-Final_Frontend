@@ -29,8 +29,13 @@ export default function MasterMain() {
     const [rows, setRows] = useState(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [master, setMaster] = useState(false);
+    const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''});
 
-    const login = () => {
+    const login = async () => {
+
+        const URL = '/master/masterlogin';
+        const res = await client.post(URL, loginForm);
+        console.log(res);
 
         // 마스터 로그인 성공시
         if (true) {
@@ -41,10 +46,8 @@ export default function MasterMain() {
     }
 
     const initialize = async () => {
-        // 리스트 불러오는 URL
-        const URL = '/master';
-        const res = await client.get(URL);
-        console.log(res);
+        // 리스트 불러오는 코드
+
         // setRows([
         //         {
         //             id: '1234567890',
@@ -165,6 +168,7 @@ export default function MasterMain() {
                                            </InputAdornment>
                                        ),
                                    }}
+                                   onChange={e => setLoginForm({...loginForm, m_id: e.target.value})}
                         />
 
                         <TextField id="outlined-basic" type='password' label="비밀번호" variant="filled" name={'u_pw'}
@@ -174,7 +178,8 @@ export default function MasterMain() {
                                                <VpnKeyIcon/>
                                            </InputAdornment>
                                        ),
-                                   }}/>
+                                   }}
+                                   onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}/>
                         <Button onClick={login}>로그인</Button>
                     </Box>
                 </>
