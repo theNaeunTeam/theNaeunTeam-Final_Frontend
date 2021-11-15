@@ -7,6 +7,7 @@ import MasterMain from "./components/Master/MasterMain";
 import MasterUserList from "./components/Master/MasterUserList";
 import UserRegisterForm from "./components/User/UserRegisterForm";
 import UserMain from "./components/User/UserMain";
+import shopView from "./components/User/shopView";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
 import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
@@ -38,6 +39,8 @@ function App() {
 
             <Route exact path='/user' component={UserMain}/>
             <Route path='/user/register' component={UserRegisterForm}/>
+
+            <Route path='/shopView' component={shopView}/>
             {/*{authReducer.isMaster ? (*/}
                     <>
                         <Route path='/owner' component={OwnerNavbar}/>

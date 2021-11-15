@@ -1,8 +1,16 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import TextField from "@mui/material/TextField";
 import {client} from "../../lib/api/client";
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Stack} from "@mui/material";
-import {Button} from "@material-ui/core";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Slide,
+    Stack,
+} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
 
 
@@ -71,6 +79,7 @@ export default function AddProduct() {
 
     const [productForm, setProduct] = useState<formInterface>(initValue);
     const [formError, setFormError] = useState(formErrorinit);
+
     const fileInputTag = useRef<HTMLInputElement>(null);
 
 
@@ -146,6 +155,7 @@ export default function AddProduct() {
 
                 <label>상품 이미지파일</label><p/>
                 <input type={'file'} ref={fileInputTag}/>
+
 
                 <select name={'g_category'}>
                     <option value={""}>상품분류 선택</option>

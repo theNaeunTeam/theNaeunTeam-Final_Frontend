@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {UncontrolledCarousel} from "reactstrap";
 import styled from "styled-components";
 import logo from '../../logo.svg';
+import {useHistory} from "react-router-dom";
 
 export default function UserMain() {
 
@@ -22,6 +23,7 @@ export default function UserMain() {
       justify-content: space-evenly;
     `;
 
+
     const defaultValue = [
         {
             src: 'https://s36537.pcdn.co/wp-content/uploads/2015/06/600px-iwo-longcat.jpg.webp',
@@ -37,6 +39,8 @@ export default function UserMain() {
 
     const [items, setItems] = useState(defaultValue);
 
+    let history = useHistory();
+
     return (
         <DivContainer>
             <DivCarouselContainer>
@@ -47,7 +51,7 @@ export default function UserMain() {
             <DivRecommend>
                 <span>
                     <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo}/>
+                        <img src={logo} onClick={ () => history.push('/shopView')} />
                         <br/>
                         가계명 :
                         <br/>
