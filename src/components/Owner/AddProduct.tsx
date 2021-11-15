@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import TextField from "@mui/material/TextField";
 import {client} from "../../lib/api/client";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Stack} from "@mui/material";
@@ -24,8 +24,8 @@ export default function AddProduct() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
-        setOpen(true);
         submitForm();
+        setOpen(false);
     };
 
     const handleClose = () => {
@@ -44,14 +44,12 @@ export default function AddProduct() {
         g_detail: string,
         g_expireDate: string,
         g_category: string,
-        g_image: null | FileList | Blob
     }
 
     const initValue = {
         g_owner: '',
         g_name: '',
         g_count: '',
-        g_image: null,
         g_price: '',
         g_discount: '',
         g_detail: '',
@@ -73,28 +71,29 @@ export default function AddProduct() {
 
     const [productForm, setProduct] = useState<formInterface>(initValue);
     const [formError, setFormError] = useState(formErrorinit);
+    const fileInputTag = useRef<HTMLInputElement>(null);
 
-    const formData = new FormData();
-    formData.append('file',productForm.g_image as Blob);
-    // formData.append('g_owner',productForm.g_owner);
-    // formData.append('g_name',productForm.g_name);
-    // formData.append('g_count',productForm.g_count);
-    //
-    // formData.append('g_price',productForm.g_price);
-    // formData.append('g_discount',productForm.g_discount);
-    // formData.append('g_detail',productForm.g_detail);
-    // formData.append('g_expireDate',productForm.g_expireDate);
-    // formData.append('g_category',productForm.g_category);
+
+
 
 
     const submitForm = async () => {
         const URL = '/owner/addGoods'
+        const formData = new FormData();
+
+        // @ts-ignore
+        formData.append('file', fileInputTag.current.files[0]);
+        formData.append('g_owner',productForm.g_owner);
+        formData.append('g_name',productForm.g_name);
+        formData.append('g_count',productForm.g_count);
+        formData.append('g_price',productForm.g_price);
+        formData.append('g_discount',productForm.g_discount);
+        formData.append('g_detail',productForm.g_detail);
+        formData.append('g_expireDate',productForm.g_expireDate);
+        formData.append('g_category',productForm.g_category);
+
         try {
-            const res = await client.post(URL, formData,{
-                headers: {
-                    "content-type": "multipart/form-data",
-                }
-            });
+            const res = await client.post(URL, formData);
             console.log(res);
         } catch (e) {
             console.log(e);
@@ -106,17 +105,9 @@ export default function AddProduct() {
         console.log(productForm);
         const tagName = (e.target as HTMLFormElement).name;
         setProduct({...productForm, [tagName]: (e.target as HTMLFormElement).value});
-
         // formValidate();
     }
 
-    // 상품 이미지 업로드 핸들러
-    const handleFileInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        // @ts-ignore
-        console.log(e.target.files[0]);
-        // @ts-ignore
-        setProduct({...productForm, g_image: e.target.files[0]});
-    }
 
     return (
         <>
@@ -152,18 +143,10 @@ export default function AddProduct() {
                         shrink: true,
                     }}
                 />
-                <TextField
-                    required
-                    id="outlined-required"
-                    label="상품 이미지"
-                    name={'g_image'}
-                    type={'file'}
-                    onChange={e => handleFileInput(e)}
-                />
-                {/*<form>*/}
-                {/*    <input name={'file'} type={'file'} onChange={e => handleFileInput(e)}/>*/}
-                {/*    <label>상품 이미지파일</label>*/}
-                {/*</form>*/}
+
+                <label>상품 이미지파일</label><p/>
+                <input type={'file'} ref={fileInputTag}/>
+
                 <select name={'g_category'}>
                     <option value={""}>상품분류 선택</option>
                     <option value={"카페/음료"}>카페/음료</option>
@@ -199,9 +182,6 @@ export default function AddProduct() {
                     label="상세설명"
                     name={'g_detail'}
                 />
-                {/*<Button variant="contained" size="large" onClick={submitForm}>*/}
-                {/*    상품등록*/}
-                {/*</Button>*/}
                 <Button variant="outlined" onClick={handleClickOpen}>
                     상품 등록하기
                 </Button>
