@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {Route, Switch} from 'react-router-dom';
 import LoginForm from "./components/Common/LoginForm";
@@ -8,7 +8,7 @@ import UserRegisterForm from "./components/User/UserRegisterForm";
 import UserMain from "./components/User/UserMain";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
 import Footer from "./components/Common/Footer";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./index";
 import OwnerRegisterForm from "./components/Owner/OwnerRegisterForm";
 import OwnerMain from "./components/Owner/OwnerMain";
@@ -18,10 +18,30 @@ import ReservationView from "./components/Owner/ReservationView";
 import SellingView from "./components/Owner/SellingView";
 import Unsubscribe from "./components/Owner/Unsubscribe";
 import PageNotFound from "./components/Common/PageNotFound";
+import {client} from "./lib/api/client";
 
 function App() {
 
     const {authReducer} = useSelector((state: RootState) => state);
+    const dispatch = useDispatch();
+
+    useEffect(() => { // 웹페이지 최초 접속 시 자동로그인 시도
+        autoLogin();
+    }, []);
+
+    const autoLogin = () => {
+        let URL = '/tokencomfirm';
+        client.get(URL).then(() => {
+            if (localStorage.getItem('userToken')) dispatch({type: 'userMode'});
+            if (localStorage.getItem('ownerToken')) dispatch({type: 'ownerMode'});
+            if (localStorage.getItem('masterToken')) dispatch({type: 'masterMode'});
+        })
+            .catch(err => {
+                alert('자동로그인실패');
+                console.log(err);
+                localStorage.clear();
+            })
+    };
 
     return (
         <>
