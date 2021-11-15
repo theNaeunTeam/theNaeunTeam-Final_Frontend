@@ -21,7 +21,6 @@ import {useDispatch} from "react-redux";
 
 export default function LoginForm(props: RouteComponentProps) {
 
-    // const store = useSelector(store => store);
     const dispatch = useDispatch();
 
     const initValue = {
@@ -41,39 +40,43 @@ export default function LoginForm(props: RouteComponentProps) {
     }
 
     const login = async () => {
-        let URL: string;
-
         if (loginForm.radio === 'company') {
-            URL = '/owner/ownerlogin';
-        } else {
-            URL = '/user/userlogin';
-        }
-
-        try {
-            const res = await client.post(URL, loginForm);
-
-            console.log(res);
-
-            if (res.status === 200) {
-                localStorage.setItem('userToken', res.data.token);
-
-                if (true) {
+            const URL = '/owner/ownerlogin';
+            const data = {
+                o_sNumber: loginForm.u_id,
+                o_pw: loginForm.u_pw,
+            }
+            try {
+                const res = await client.post(URL, data);
+                console.log(res);
+                if (res.status === 200) {
+                    localStorage.setItem('ownerToken', res.data.token);
                     dispatch({type: 'ownerMode', payload: loginForm.u_id});
                 } else {
-                    dispatch({type: 'userMode', payload: loginForm.u_id});
+                    alert('사업주 님의 아이디 및 비밀번호를 확인해 주세요');
                 }
-
-            } else {
-                localStorage.removeItem('token');
+            } catch (e) {
+                console.log(e);
             }
-
-        } catch (e) {
-            console.log(e)
+        } else {
+            const URL = '/user/userlogin';
+            try {
+                const res = await client.post(URL, loginForm);
+                console.log(res);
+                if (res.status === 200) {
+                    localStorage.setItem('userToken', res.data.token);
+                    dispatch({type: 'userMode', payload: loginForm.u_id});
+                } else {
+                    alert(`아이디 및 비밀번호를 확인해주세요`);
+                }
+            } catch (e) {
+                console.log(e);
+            }
         }
 
     }
 
-    const chkId = () => {
+    const findId = () => {
         // 백엔드로 아이디 전송
         setOpen(false);
     }
@@ -175,7 +178,7 @@ export default function LoginForm(props: RouteComponentProps) {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>취소</Button>
-                        <Button onClick={chkId}>확인</Button>
+                        <Button onClick={findId}>확인</Button>
                     </DialogActions>
                 </Dialog>
             </div>

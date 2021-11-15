@@ -19,8 +19,6 @@ import GoodsView from "./components/Owner/GoodsView";
 import ReservationView from "./components/Owner/ReservationView";
 import SellingView from "./components/Owner/SellingView";
 import Unsubscribe from "./components/Owner/Unsubscribe";
-import {client} from "./lib/api/client";
-
 
 
 
@@ -29,19 +27,6 @@ function App() {
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
 
-    // useEffect(()=>{
-    //     let token: string;
-    //
-    //     const masterToken = localStorage.getItem('masterToken');
-    //     const ownerToken = localStorage.getItem('ownerToken');
-    //     const userToken = localStorage.getItem('userToken');
-    //
-    //     if (masterToken !== null) token = masterToken;
-    //     if (ownerToken !== null) token = ownerToken;
-    //     if (userToken !== null) token = userToken;
-    //
-    //     client.defaults.headers.common['x-auth-token'] = token;
-    // });
 
     return (
         <>
@@ -53,7 +38,7 @@ function App() {
 
             <Route exact path='/user' component={UserMain}/>
             <Route path='/user/register' component={UserRegisterForm}/>
-            {authReducer.isMaster ? (
+            {/*{authReducer.isMaster ? (*/}
                     <>
                         <Route path='/owner' component={OwnerNavbar}/>
                         <Route exact path='/owner' component={OwnerMain}/>
@@ -64,10 +49,10 @@ function App() {
                         <Route path='/owner/sellingview' component={SellingView}/>
                         <Route path='/owner/unsubscribe' component={Unsubscribe}/>
                     </>
-                )
-                :
-                null
-            }
+            {/*    )*/}
+            {/*    :*/}
+            {/*    null*/}
+            {/*}*/}
             {/*</Switch>*/}
             <Footer/>
         </>
