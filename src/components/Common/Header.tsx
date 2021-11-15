@@ -5,23 +5,24 @@ import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import logo from '../../logo.svg';
+import {RootState} from "../../index";
 
 export default function Header() {
 
     const history = useHistory();
-
-    const logout = () => {
-        localStorage.removeItem('token');
-        history.push('/');
-    }
-
-    const store = useSelector(store => store);
+    const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
 
-    const test = () => {
-        dispatch({type: 'test', payload: 'adsfsdaf'});
-        console.log(store);
+    const logout = () => {
+        localStorage.removeItem('userToken');
+        localStorage.removeItem('ownerToken');
+        localStorage.removeItem('masterToken');
+        dispatch({type:'logoutAll'});
+        history.push('/');
     };
+
+
+
 
     return (
         <>
@@ -36,8 +37,14 @@ export default function Header() {
                         <Nav.Link as={Nav}><Link to={'/owner'}>오너메인</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link to={'/master'}>마스터메인</Link></Nav.Link>
                     </Nav>
+
+                    <span style={{color: 'white'}}>
+                        유저{authReducer.isUser.toString()}
+                        오너{authReducer.isOwner.toString()}
+                        관리자{authReducer.isMaster.toString()}
+                    </span>
+
                     <Button onClick={logout}>로그아웃</Button>
-                    <Button onClick={test}>리듀서 테스트</Button>
                 </Container>
             </Navbar>
         </>

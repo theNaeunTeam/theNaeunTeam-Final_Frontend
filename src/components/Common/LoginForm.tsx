@@ -55,7 +55,7 @@ export default function LoginForm(props: RouteComponentProps) {
             console.log(res);
 
             if (res.status === 200) {
-                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('userToken', res.data.token);
 
                 if (true) {
                     dispatch({type: 'ownerMode', payload: loginForm.u_id});
