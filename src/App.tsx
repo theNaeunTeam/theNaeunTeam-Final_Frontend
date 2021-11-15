@@ -1,48 +1,76 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {Route} from 'react-router-dom';
 import LoginForm from "./components/Common/LoginForm";
 import Header from "./components/Common/Header";
-import OwnerMain from "./components/Owner/OwnerMain";
 import MasterMain from "./components/Master/MasterMain";
 import UserRegisterForm from "./components/User/UserRegisterForm";
-import OwnerRegisterForm from "./components/Owner/OwnerRegisterForm";
 import UserMain from "./components/User/UserMain";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
+import Footer from "./components/Common/Footer";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "./index";
+import OwnerRegisterForm from "./components/Owner/OwnerRegisterForm";
+import OwnerMain from "./components/Owner/OwnerMain";
 import AddProduct from "./components/Owner/AddProduct";
 import GoodsView from "./components/Owner/GoodsView";
 import ReservationView from "./components/Owner/ReservationView";
 import SellingView from "./components/Owner/SellingView";
 import Unsubscribe from "./components/Owner/Unsubscribe";
-import Footer from "./components/Common/Footer";
+import {client} from "./lib/api/client";
+
+
 
 
 function App() {
 
+    const {authReducer} = useSelector((state: RootState) => state);
+    const dispatch = useDispatch();
 
-        return (
-            <>
-                    <Header/>
-                    {/*<Switch>*/}
-                    <Route exact path='/master' component={MasterMain}/>
+    // useEffect(()=>{
+    //     let token: string;
+    //
+    //     const masterToken = localStorage.getItem('masterToken');
+    //     const ownerToken = localStorage.getItem('ownerToken');
+    //     const userToken = localStorage.getItem('userToken');
+    //
+    //     if (masterToken !== null) token = masterToken;
+    //     if (ownerToken !== null) token = ownerToken;
+    //     if (userToken !== null) token = userToken;
+    //
+    //     client.defaults.headers.common['x-auth-token'] = token;
+    // });
 
-                    <Route path='/login' component={LoginForm}/>
+    return (
+        <>
+            <Header/>
+            {/*<Switch>*/}
+            <Route exact path='/master' component={MasterMain}/>
 
-                    <Route exact path='/user' component={UserMain}/>
-                    <Route path='/user/register' component={UserRegisterForm}/>
+            <Route path='/login' component={LoginForm}/>
 
-                    <Route path='/owner' component={OwnerNavbar}/>
-                    <Route exact path='/owner' component={OwnerMain}/>
-                    <Route path='/owner/register' component={OwnerRegisterForm}/>
-                    <Route path='/owner/addproduct' component={AddProduct}/>
-                    <Route path='/owner/goodsview' component={GoodsView}/>
-                    <Route path='/owner/reservationview' component={ReservationView}/>
-                    <Route path='/owner/sellingview' component={SellingView}/>
-                    <Route path='/owner/unsubscribe' component={Unsubscribe}/>
-                    {/*</Switch>*/}
-                    <Footer/>
-            </>
-        );
+            <Route exact path='/user' component={UserMain}/>
+            <Route path='/user/register' component={UserRegisterForm}/>
+
+            {authReducer.isMaster ? (
+                    <>
+                        <Route path='/owner' component={OwnerNavbar}/>
+                        <Route exact path='/owner' component={OwnerMain}/>
+                        <Route path='/owner/register' component={OwnerRegisterForm}/>
+                        <Route path='/owner/addproduct' component={AddProduct}/>
+                        <Route path='/owner/goodsview' component={GoodsView}/>
+                        <Route path='/owner/reservationview' component={ReservationView}/>
+                        <Route path='/owner/sellingview' component={SellingView}/>
+                        <Route path='/owner/unsubscribe' component={Unsubscribe}/>
+                    </>
+                )
+                :
+                null
+            }
+            {/*</Switch>*/}
+            <Footer/>
+        </>
+    );
 }
 
 export default App;

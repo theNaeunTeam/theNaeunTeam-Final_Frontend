@@ -17,6 +17,8 @@ const store = createStore(
     composeWithDevTools(),
 );
 
+export type RootState = ReturnType<typeof store.getState>;
+
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>

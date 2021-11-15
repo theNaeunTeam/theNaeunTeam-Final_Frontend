@@ -1,6 +1,7 @@
 const defaultValue = {
     b_owner: '',
     u_id: '',
+    m_id: '',
     isMaster: false,
     isOwner: false,
     isUser: false,
@@ -33,7 +34,10 @@ export function authReducer(state = defaultValue, action: actionTypes) {
             console.log(action.type, '리듀서 콜');
             console.log(action.payload);
             return {...state, authError: true};
-
+        case 'logoutAll':
+            console.log(action.type, '리듀서 콜');
+            console.log(action.payload);
+            return defaultValue;
         default:
             console.log('default 리듀서 콜 일치하는 액션 없음');
             return state;

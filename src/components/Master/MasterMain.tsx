@@ -7,12 +7,30 @@ import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {client} from "../../lib/api/client";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../index";
 
 export default function MasterMain() {
 
+    type tableType = {
+        id: string,
+        o_approval: number,
+        o_sNumber: string,
+        o_phone: string,
+        o_name: string,
+        o_cellPhone: string,
+        o_address: string,
+        o_latitude: string,
+        o_longitude: string,
+        o_date: string,
+        o_time1: string,
+        o_time2: string,
+        o_image: string,
+    };
+
     const initialValue = [{
         id: '',
-        o_approval: '',
+        o_approval: 0,
         o_sNumber: '',
         o_phone: '',
         o_name: '',
@@ -26,90 +44,81 @@ export default function MasterMain() {
         o_image: '',
     }];
 
-    const [rows, setRows] = useState(initialValue);
+    const [rows, setRows] = useState<tableType[]>(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
-    const [master, setMaster] = useState(false);
-    const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''});
+    const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''}); // 마스터 로그인 폼 핸들러
+
+    const {authReducer} = useSelector((state: RootState) => state);
+    const dispatch = useDispatch();
 
     const login = async () => {
 
         const URL = '/master/masterlogin';
-        const res = await client.post(URL, loginForm);
-        console.log(res);
 
-        // 마스터 로그인 성공시
-        if (true) {
-            setMaster(true);
-            initialize();
+        try {
+            const res = await client.post(URL, loginForm);
+
+            // 마스터 로그인 성공시
+            if (res.status === 200) {
+
+                // 스토어의 isMaster를 true로 바꿈
+                dispatch({type: 'masterMode'});
+
+                // 로칼스토리지에 토큰값 저장
+                localStorage.setItem('masterToken', res.headers["x-auth-token"]);
+
+                // 리스트 불러오는 함수 실행
+                await ownerTableInit();
+            }
+        } catch (e) {
+            alert('아이디/비밀번호를 확인해주세요');
+            console.log(e);
         }
+
 
     }
 
-    const initialize = async () => {
-        // 리스트 불러오는 코드
+    const ownerTableInit = async () => {
 
-        // setRows([
-        //         {
-        //             id: '1234567890',
-        //             o_approval: '0',
-        //             o_sNumber: '1234567890',
-        //             o_phone: '01040650803',
-        //             o_name: '가게이름',
-        //             o_cellPhone: '05140650803',
-        //             o_address: '부산시 해운대구 해운대로 265',
-        //             o_latitude: '100.000000',
-        //             o_longitude: '200.200000',
-        //             o_date: '',
-        //             o_time1: '07:00',
-        //             o_time2: '19:00',
-        //             o_image: 'ㅇㅁㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㄹㅁㅇㄴㄹㅇㄴㅁㄹㄴㅇㄹㅇㄴㄹㄴㅇㅁㄹㄴㅇㅁㄹㅇㄴㄹㅇㄹㄴㅁ',
-        //         },
-        //         {
-        //             id: '1234567891',
-        //             o_approval: '0',
-        //             o_sNumber: '1234567890',
-        //             o_phone: '01040650803',
-        //             o_name: '가게이름',
-        //             o_cellPhone: '05140650803',
-        //             o_address: '부산시 해운대구 해운대로 265',
-        //             o_latitude: '100.000000',
-        //             o_longitude: '200.200000',
-        //             o_date: '',
-        //             o_time1: '07:00',
-        //             o_time2: '19:00',
-        //             o_image: 'ㅇㅁㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㄹㅁㅇㄴㄹㅇㄴㅁㄹㄴㅇㄹㅇㄴㄹㄴㅇㅁㄹㄴㅇㅁㄹㅇㄴㄹㅇㄹㄴㅁ',
-        //         },
-        //         {
-        //             id: '1234567892',
-        //             o_approval: '0',
-        //             o_sNumber: '1234567890',
-        //             o_phone: '01040650803',
-        //             o_name: '가게이름',
-        //             o_cellPhone: '05140650803',
-        //             o_address: '부산시 해운대구 해운대로 265',
-        //             o_latitude: '100.000000',
-        //             o_longitude: '200.200000',
-        //             o_date: '',
-        //             o_time1: '07:00',
-        //             o_time2: '19:00',
-        //             o_image: 'ㅇㅁㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㄹㅁㅇㄴㄹㅇㄴㅁㄹㄴㅇㄹㅇㄴㄹㄴㅇㅁㄹㄴㅇㅁㄹㅇㄴㄹㅇㄹㄴㅁ',
-        //         },
-        //     ]
-        // )
-    };
+        const URL = '';
 
-    const updateDB = (input: string) => {
-        if (selected.length === 0) return false;
-        console.log(selected); // 사업자 번호가 문자열 배열로 들어옴
-        let URL = '';
+        try {
+            const res = await client.get(URL);
 
-        if (input === 'ok') {
-            URL = '/master/requestOK';
-        } else {
-            URL = '';
+            // 받아온 결과에 id값 추가
+            const massage = res.data.reduce((acc: tableType[], val: tableType) => {
+                acc.push({
+                    ...val, id: val.o_sNumber
+                })
+                return acc;
+            }, []);
+
+            setRows(massage);
+        } catch (e) {
+            console.log(e);
         }
 
-        // selected를 백엔드로 전송하는 코드
+    };
+
+    const updateDB = async (input: string) => {
+        console.log(selected);
+        if (selected.length === 0) return false;
+
+        const URL = '????';
+
+        const data =
+            {
+                checkStatus: input, // 'ok' 아니면 'no'
+                selectedRow: selected, // ['6564654', '54654654']
+            }
+
+        try {
+            const res = await client.post(URL, data);
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
+
     };
 
     const columns: GridColDef[] = [
@@ -129,7 +138,7 @@ export default function MasterMain() {
 
     return (
         <>
-            {master ? <>
+            {authReducer.isMaster ? <>
                     <div style={{height: 400, width: '100%', margin: 'auto'}}>
                         <DataGrid
                             onStateChange={({selection}) => setSelected(selection)}
