@@ -5,10 +5,12 @@ import LoginForm from "./components/Common/LoginForm";
 import Header from "./components/Common/Header";
 import OwnerMain from "./components/Owner/OwnerMain";
 import MasterMain from "./components/Master/MasterMain";
+import MasterUserList from "./components/Master/MasterUserList";
 import UserRegisterForm from "./components/User/UserRegisterForm";
 import OwnerRegisterForm from "./components/Owner/OwnerRegisterForm";
 import UserMain from "./components/User/UserMain";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
+import MasterNavbar from "./components/Master/MasterNavbar";
 import AddProduct from "./components/Owner/AddProduct";
 import GoodsView from "./components/Owner/GoodsView";
 import ReservationView from "./components/Owner/ReservationView";
@@ -24,7 +26,9 @@ function App() {
             <>
                     <Header/>
                     {/*<Switch>*/}
+                    <Route path='/master' component={MasterNavbar}/>
                     <Route exact path='/master' component={MasterMain}/>
+                    <Route path='/master/masteruserlist' component={MasterUserList}/>
 
                     <Route path='/login' component={LoginForm}/>
 
