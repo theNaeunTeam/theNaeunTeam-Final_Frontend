@@ -51,7 +51,7 @@ export default function LoginForm(props: RouteComponentProps) {
                 const res = await client.post(URL, data);
                 console.log(res);
                 if (res.status === 200) {
-                    localStorage.setItem('ownerToken', res.data.token);
+                    localStorage.setItem('ownerToken', res.headers["x-auth-token"]);
                     dispatch({type: 'ownerMode', payload: loginForm.u_id});
                     alert('가게 로그인 성공');
                     history.push('/owner');
@@ -67,7 +67,7 @@ export default function LoginForm(props: RouteComponentProps) {
                 const res = await client.post(URL, loginForm);
                 console.log(res);
                 if (res.status === 200) {
-                    localStorage.setItem('userToken', res.data.token);
+                    localStorage.setItem('userToken', res.headers["x-auth-token"]);
                     dispatch({type: 'userMode', payload: loginForm.u_id});
                     alert('유저 로그인 성공');
                     history.push('/');

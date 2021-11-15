@@ -19,6 +19,8 @@ import SellingView from "./components/Owner/SellingView";
 import Unsubscribe from "./components/Owner/Unsubscribe";
 import PageNotFound from "./components/Common/PageNotFound";
 import {client} from "./lib/api/client";
+import UserNavbar from "./components/User/UserNavbar";
+
 
 function App() {
 
@@ -31,6 +33,7 @@ function App() {
 
     const autoLogin = () => {
         let URL = '/tokencomfirm';
+
         client.get(URL).then(() => {
             if (localStorage.getItem('userToken')) dispatch({type: 'userMode'});
             if (localStorage.getItem('ownerToken')) dispatch({type: 'ownerMode'});
@@ -62,9 +65,9 @@ function App() {
             </Switch>
 
             {
-                authReducer.isOwner && ( // 유저로 로그인 된 상태에서만 접근 가능한 페이지
+                authReducer.isUser && ( // 유저로 로그인 된 상태에서만 접근 가능한 페이지
                     <>
-
+                        <Route path='/user' component={UserNavbar}/>
                     </>
                 )
             }

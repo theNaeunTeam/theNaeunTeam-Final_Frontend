@@ -22,8 +22,6 @@ export default function Header() {
     };
 
 
-
-
     return (
         <>
             <Navbar bg="dark" variant="dark">

@@ -75,7 +75,6 @@ export default function MasterMain() {
             console.log(e);
         }
 
-
     }
 
     const ownerTableInit = async () => {
@@ -103,8 +102,10 @@ export default function MasterMain() {
     };
 
     const updateDB = async (input: string) => {
-        console.log(selected);
-        if (selected.length === 0) return false;
+
+        if (selected.length === 0) alert('선택된 줄이 없습니다');
+        if (input === 'ok') if (!window.confirm('승인?')) return false;
+        if (input === 'no') if (!window.confirm('반려?')) return false;
 
         const URL = '/master/requestOK';
 
@@ -117,8 +118,11 @@ export default function MasterMain() {
         try {
             const res = await client.post(URL, data);
             console.log(res);
+            ownerTableInit();
+            alert('데이터 갱신 완료');
         } catch (e) {
             console.log(e);
+            alert('데이터 갱신 실패')
         }
 
     };
