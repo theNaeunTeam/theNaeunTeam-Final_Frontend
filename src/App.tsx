@@ -61,7 +61,6 @@ function App() {
 
                 <Route exact path='/owner/register' component={OwnerRegisterForm}/>
 
-                <PageNotFound/>
             </Switch>
 
             {

@@ -114,7 +114,6 @@ export default function GoodsView() {
         <DivContainer>
             <h2>상품조회</h2>
             <div>
-                <TextField id="outlined-basic" label="전체" variant="outlined" name={'total'}/>
                 <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
                     <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
                     <Select
@@ -124,12 +123,13 @@ export default function GoodsView() {
                         onChange={handleChange}
                         label="Age"
                     >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        {/*<MenuItem value="">*/}
+                        {/*    <em>None</em>*/}
+                        {/*</MenuItem>*/}
+                        <MenuItem value='과자류'>과자류</MenuItem>
+                        <MenuItem value='간편식'>간편식</MenuItem>
+                        <MenuItem value='음료'>음료</MenuItem>
+                        <MenuItem value='즉석조리'>즉석조리</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>

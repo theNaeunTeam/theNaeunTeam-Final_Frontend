@@ -38,15 +38,15 @@ export default function UserRegisterForm() {
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         const tagName = (e.target as HTMLFormElement).name;
         setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value});
-        formValidate();
+        formValidate(tagName);
     }
 
-    const formValidate = () => {
+    const formValidate = (tagName: string) => {
         if (regForm.u_id.length < 6) {
-            setFormError({...formError, u_id: true});
+            setFormError({...formError, [tagName]: true});
             return false;
         } else {
-            setFormError({...formError, u_id: false});
+            setFormError({...formError, [tagName]: false});
             // 서버로 아이디를 보내는 코드
         }
     };
