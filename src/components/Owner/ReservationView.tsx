@@ -50,6 +50,8 @@ export default function ReservationView() {
     const initialize = async () => {
         // 서버에서 상품 정보 리스트를 받아오는 코드
         setList([dummy]);
+
+
     };
 
     useEffect(() => {

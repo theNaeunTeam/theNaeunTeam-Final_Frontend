@@ -106,7 +106,7 @@ export default function MasterMain() {
         console.log(selected);
         if (selected.length === 0) return false;
 
-        const URL = '????';
+        const URL = '/master/requestOK';
 
         const data =
             {
