@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import TextField from '@mui/material/TextField'
 import {Button, Stack} from "@mui/material";
 import {client} from "../../lib/api/client";
@@ -16,8 +16,7 @@ export default function OwnerRegisterForm() {
         o_address: string,
         o_time1: string,
         o_time2: string,
-        o_image: null | FileList,
-    }
+    };
 
     const initValue = {
         o_sNumber: '',
@@ -31,6 +30,7 @@ export default function OwnerRegisterForm() {
         o_time2: '',
         o_image: null,
     };
+
     const errorInit = {
         o_sNumber: false,
         o_pw: false,
@@ -41,30 +41,49 @@ export default function OwnerRegisterForm() {
         o_address: false,
         o_time1: false,
         o_time2: false,
+        o_image: false,
     };
 
     const [regForm, setRegForm] = useState<formInterface>(initValue);
     const [formError, setFormError] = useState(errorInit);
+    const fileInputTag = useRef<HTMLInputElement>(null);
 
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(regForm);
         const tagName = (e.target as HTMLFormElement).name;
         setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value});
     }
-    const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.files);
-        setRegForm({...regForm, o_image: e.target.files});
-    }
 
     const submitForm = async () => {
-        const URL = '/owner/request'
+
+        const URL = '/owner/request';
+        const formData = new FormData();
+
+        // @ts-ignore
+        formData.append('file', fileInputTag.current.files[0]);
+        formData.append('o_sNumber', regForm.o_sNumber);
+        formData.append('o_pw', regForm.o_pw);
+        formData.append('o_phone', regForm.o_phone);
+        formData.append('o_name', regForm.o_name);
+        formData.append('o_cellPhone', regForm.o_cellPhone);
+        formData.append('o_address', regForm.o_address);
+        formData.append('o_time1', regForm.o_time1);
+        formData.append('o_time2', regForm.o_time2);
+
         try {
-            const res = await client.post(URL, regForm);
+
+            const res = await client.post(URL, formData);
+
             console.log(res);
+
         } catch (e) {
+
             console.log(e);
+
         }
+
     }
+
 
     return (
         <>
@@ -153,11 +172,8 @@ export default function OwnerRegisterForm() {
                     }}
                     sx={{width: 150}}
                 />
+                <input type={'file'} ref={fileInputTag}/>
                 <div style={{width: '30%', margin: 'auto'}}>
-                    <form>
-                        <label>사진업로드</label>
-                        <input name={'file'} type={'file'} onChange={e => handleFileInput(e)}/>
-                    </form>
                     <Button variant="outlined" onClick={submitForm} style={{width: '100%'}}>
                         입점등록
                     </Button>
