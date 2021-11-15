@@ -13,11 +13,13 @@ client.interceptors.request.use(
             console.log('userToken 읽기 성공');
             return config;
         }
+
         if (ownerToken !== null) { // @ts-ignore
             config.headers.Authorization = ownerToken;
             console.log('ownerToken 읽기 성공');
             return config;
         }
+
         if (masterToken !== null) {// @ts-ignore
             config.headers.Authorization = masterToken;
             console.log('masterToken 읽기 성공');
