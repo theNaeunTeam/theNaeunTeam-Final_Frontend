@@ -7,8 +7,15 @@ import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {Button} from "@mui/material";
 import styled from "styled-components";
 import {client} from "../../lib/api/client";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../index";
+import {useHistory} from "react-router-dom";
 
 export default function GoodsView() {
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const {authReducer} = useSelector((state: RootState) => state);
 
     const TableStyled = styled.table`
       padding: 30px;
@@ -20,17 +27,21 @@ export default function GoodsView() {
       text-align: center;
     `;
 
-    type dummyType = {
+    type goodsType = {
+        g_owner: string,
         g_code: number,
         g_name: string,
-        g_category: string,
+        g_count: number,
         g_price: number,
         g_discount: number,
+        g_detail: string,
+        g_image: string,
         g_expireDate: string,
-        g_count: number,
+        g_category: string,
     };
 
     const dummy = {
+        g_owner:'오너',
         g_code: 123,
         g_name: '홈런볼',
         g_category: '과자류',
@@ -38,43 +49,59 @@ export default function GoodsView() {
         g_discount: 300,
         g_expireDate: '2021-11-11',
         g_count: 1,
+        g_detail:'상세',
+        g_image:'이미지경로',
     };
 
-    const [list, setList] = useState<dummyType[]>([]);
+    const [list, setList] = useState<goodsType[]>([]);
 
     // 변경 필요
     const [age, setAge] = React.useState('');
     const handleChange = (event: SelectChangeEvent) => {
         setAge(event.target.value as string);
     };
-
-    const initialize = async () => {
-        // 서버에서 상품 정보 리스트를 받아오는 코드
-        const URL = ''
-        try {
-            const res = await client.get(URL);
-            console.log(res);
-        } catch (e) {
-            console.log(e);
-        }
-        setList([dummy]);
-    };
-
     useEffect(() => {
         initialize();
     }, []);
 
+    const initialize = async () => {
+        // 서버에서 상품 정보 리스트를 받아오는 코드
+        const URL = '/owner/goodsView';
+        try {
+            // const res = await client.get(`${URL}?o_sNumber=${authReducer.o_sNumber}`);
+            // console.log(res.data);
+            // setList(res.data);
+            setList([dummy]);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+
     const modifyGoods = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const g_code: string = (e.target as HTMLButtonElement).name;
-        // 상품 등록 페이지 재활용?
+        const idx = list.findIndex((x) => x.g_code.toString() === g_code);
+        dispatch({type: 'passToModifyPage', payload: list[idx]});
+        history.push('/owner/addproduct');
     };
 
     const deleteGoods = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const g_code: string = (e.target as HTMLButtonElement).name;
 
+        const URL = '/owner/deleteGoods';
+
+        client.patch(URL, {g_code: g_code})
+            .then(res => {
+                console.log(res);
+                alert('성공');
+            })
+            .catch(e => {
+                console.log(e);
+                alert('실패');
+            })
     };
 
-    const TableBuilder = (props: { data: dummyType, idx: number }) => {
+    const TableBuilder = (props: { data: goodsType, idx: number }) => {
 
         return (
             <tr>

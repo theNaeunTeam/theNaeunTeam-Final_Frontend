@@ -17,7 +17,6 @@ import GoodsView from "./components/Owner/GoodsView";
 import ReservationView from "./components/Owner/ReservationView";
 import SellingView from "./components/Owner/SellingView";
 import Unsubscribe from "./components/Owner/Unsubscribe";
-import PageNotFound from "./components/Common/PageNotFound";
 import {client} from "./lib/api/client";
 import UserNavbar from "./components/User/UserNavbar";
 
@@ -35,12 +34,19 @@ function App() {
         let URL = '/tokencomfirm';
 
         client.get(URL).then(() => {
-            if (localStorage.getItem('userToken')) dispatch({type: 'userMode'});
-            if (localStorage.getItem('ownerToken')) dispatch({type: 'ownerMode'});
-            if (localStorage.getItem('masterToken')) dispatch({type: 'masterMode'});
+            if (localStorage.getItem('userToken')) dispatch({
+                type: 'userMode', payload: localStorage.getItem('u_id')
+            });
+            if (localStorage.getItem('ownerToken')) dispatch({
+                type: 'ownerMode',
+                payload: localStorage.getItem('o_sNumber')
+            });
+            if (localStorage.getItem('masterToken')) dispatch({
+                type: 'masterMode'
+            });
         })
             .catch(err => {
-                alert('자동로그인실패');
+                // alert('자동로그인실패');
                 console.log(err);
                 localStorage.clear();
             })
@@ -60,7 +66,6 @@ function App() {
                 <Route exact path='/user/register' component={UserRegisterForm}/>
 
                 <Route exact path='/owner/register' component={OwnerRegisterForm}/>
-
             </Switch>
 
             {
