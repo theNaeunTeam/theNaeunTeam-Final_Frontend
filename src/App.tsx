@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 
 import {Route, Switch} from 'react-router-dom';
 import LoginForm from "./components/Common/LoginForm";
@@ -31,38 +31,33 @@ function App() {
         autoLogin();
     }, []);
 
-    const autoLogin = async () => {
+    const autoLogin = () => {
         console.log('자동로그인시도');
         let URL = '';
-        try {
-            if (localStorage.getItem('userToken')) {
-                URL = '/user/tokencheck';
-                const res = await client.get(URL);
+        if (localStorage.getItem('userToken')) {
+            URL = '/user/tokencheck';
+            client.get(URL).then(() => {
                 dispatch({
                     type: 'userMode', payload: localStorage.getItem('u_id')
-                });
-                console.log(res);
-            }
-            if (localStorage.getItem('ownerToken')) {
-                URL = '/owner/tokencheck';
-                const res = await client.get(URL);
+                })
+            })
+        }
+        if (localStorage.getItem('ownerToken')) {
+            URL = '/owner/tokencheck';
+            client.get(URL).then(() => {
                 dispatch({
                     type: 'ownerMode',
                     payload: localStorage.getItem('o_sNumber')
                 });
-                console.log(res);
-            }
-            if (localStorage.getItem('masterToken')) {
-                URL = '/master/tokencheck';
-                const res = await client.get(URL);
+            })
+        }
+        if (localStorage.getItem('masterToken')) {
+            URL = '/master/tokencheck';
+            client.get(URL).then(() => {
                 dispatch({
                     type: 'masterMode'
                 })
-                console.log(res);
-            }
-        } catch (e) {
-            alert('유효하지 않은 토큰입니다');
-            localStorage.clear();
+            })
         }
     };
 
