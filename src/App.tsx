@@ -6,6 +6,7 @@ import Header from "./components/Common/Header";
 import MasterMain from "./components/Master/MasterMain";
 import UserRegisterForm from "./components/User/UserRegisterForm";
 import UserMain from "./components/User/UserMain";
+import shopView from "./components/User/shopView";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
 import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
@@ -61,8 +62,9 @@ function App() {
 
                 <Route exact path='/owner/register' component={OwnerRegisterForm}/>
 
-                <PageNotFound/>
             </Switch>
+
+                <Route path='/shopView/:id' component={shopView} />
 
             {
                 authReducer.isUser && ( // 유저로 로그인 된 상태에서만 접근 가능한 페이지

@@ -98,7 +98,6 @@ export default function MasterMain() {
         } catch (e) {
             console.log(e);
         }
-
     };
 
     const updateDB = async (input: string) => {

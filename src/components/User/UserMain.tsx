@@ -51,9 +51,9 @@ export default function UserMain() {
             <DivRecommend>
                 <span>
                     <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo} onClick={ () => history.push('/shopView')} />
+                        <img src={logo} onClick={ () => history.push('/shopView?id=1234567890') } />
                         <br/>
-                        가계명 :
+                        가계명 :s
                         <br/>
                         원가 :
                         <br/>
