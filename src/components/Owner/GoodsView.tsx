@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, {SelectChangeEvent} from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import {Button} from "@mui/material";
 import styled from "styled-components";
 import {client} from "../../lib/api/client";
@@ -41,7 +41,7 @@ export default function GoodsView() {
     };
 
     const dummy = {
-        g_owner:'오너',
+        g_owner: '오너',
         g_code: 123,
         g_name: '홈런볼',
         g_category: '과자류',
@@ -49,17 +49,15 @@ export default function GoodsView() {
         g_discount: 300,
         g_expireDate: '2021-11-11',
         g_count: 1,
-        g_detail:'상세',
-        g_image:'이미지경로',
+        g_detail: '상세',
+        g_image: '이미지경로',
     };
 
     const [list, setList] = useState<goodsType[]>([]);
+    const [g_category, setG_category] = useState('');
+    const [g_status, setG_status] = useState('');
+    const [searchInput, setSearchInput] = useState('');
 
-    // 변경 필요
-    const [age, setAge] = React.useState('');
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
     useEffect(() => {
         initialize();
     }, []);
@@ -67,6 +65,7 @@ export default function GoodsView() {
     const initialize = async () => {
         // 서버에서 상품 정보 리스트를 받아오는 코드
         const URL = '/owner/goodsView';
+        console.log(`${URL}?o_sNumber=${authReducer.o_sNumber}`);
         try {
             // const res = await client.get(`${URL}?o_sNumber=${authReducer.o_sNumber}`);
             // console.log(res.data);
@@ -87,9 +86,7 @@ export default function GoodsView() {
 
     const deleteGoods = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const g_code: string = (e.target as HTMLButtonElement).name;
-
         const URL = '/owner/deleteGoods';
-
         client.patch(URL, {g_code: g_code})
             .then(res => {
                 console.log(res);
@@ -100,6 +97,20 @@ export default function GoodsView() {
                 alert('실패');
             })
     };
+
+    const searchGoods = async () => {
+        const URL = ''
+        console.log(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
+        try {
+            const res = await client.get(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
+            console.log(res);
+            setList(res.data);
+        } catch (e) {
+            alert('검색실패');
+            console.log(e);
+        }
+
+    }
 
     const TableBuilder = (props: { data: goodsType, idx: number }) => {
 
@@ -146,13 +157,9 @@ export default function GoodsView() {
                     <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={age}
-                        onChange={handleChange}
-                        label="Age"
+                        value={g_category}
+                        onChange={e => setG_category(e.target.value)}
                     >
-                        {/*<MenuItem value="">*/}
-                        {/*    <em>None</em>*/}
-                        {/*</MenuItem>*/}
                         <MenuItem value='과자류'>과자류</MenuItem>
                         <MenuItem value='간편식'>간편식</MenuItem>
                         <MenuItem value='음료'>음료</MenuItem>
@@ -164,20 +171,19 @@ export default function GoodsView() {
                     <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={age}
-                        onChange={handleChange}
+                        value={g_status}
+                        onChange={e => setG_status(e.target.value)}
                         label="Age"
                     >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value={'판매중'}>판매중</MenuItem>
+                        <MenuItem value={'판매완료'}>판매완료</MenuItem>
                     </Select>
                 </FormControl>
-                <TextField id="outlined-basic" label="검색" variant="outlined" name={'total'}/>
-                <Button variant="outlined">버튼</Button>
+
+                <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
+                          onChange={e => setSearchInput(e.target.value as string)}/>
+
+                <Button variant="outlined" onClick={searchGoods}>검색</Button>
             </div>
 
             <TableStyled>
