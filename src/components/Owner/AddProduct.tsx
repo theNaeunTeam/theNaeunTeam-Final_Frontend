@@ -170,7 +170,6 @@ export default function AddProduct() {
                 <label>상품 이미지파일</label><p/>
                 <input type={'file'} ref={fileInputTag}/>
                 <select name={'g_category'} value={productForm.g_category}>
-                <select name={'g_category'}>
                     <option value={""}>상품분류 선택</option>
                     <option value={"카페/음료"}>카페/음료</option>
                     <option value={"냉동식품"}>냉동식품</option>
