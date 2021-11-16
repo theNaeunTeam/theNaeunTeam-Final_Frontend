@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 
 import {Route, Switch} from 'react-router-dom';
 import LoginForm from "./components/Common/LoginForm";
@@ -27,30 +27,38 @@ function App() {
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
 
-    useEffect(() => { // 웹페이지 최초 접속 시 자동로그인 시도
+    useLayoutEffect(() => { // 웹페이지 최초 접속 시 자동로그인 시도
         autoLogin();
     }, []);
 
     const autoLogin = () => {
-        let URL = '/tokencomfirm';
-
-        client.get(URL).then(() => {
-            if (localStorage.getItem('userToken')) dispatch({
-                type: 'userMode', payload: localStorage.getItem('u_id')
-            });
-            if (localStorage.getItem('ownerToken')) dispatch({
-                type: 'ownerMode',
-                payload: localStorage.getItem('o_sNumber')
-            });
-            if (localStorage.getItem('masterToken')) dispatch({
-                type: 'masterMode'
-            });
-        })
-            .catch(err => {
-                // alert('자동로그인실패');
-                console.log(err);
-                localStorage.clear();
+        console.log('자동로그인시도');
+        let URL = '';
+        if (localStorage.getItem('userToken')) {
+            URL = '/user/tokencheck';
+            client.get(URL).then(() => {
+                dispatch({
+                    type: 'userMode', payload: localStorage.getItem('u_id')
+                })
             })
+        }
+        if (localStorage.getItem('ownerToken')) {
+            URL = '/owner/tokencheck';
+            client.get(URL).then(() => {
+                dispatch({
+                    type: 'ownerMode',
+                    payload: localStorage.getItem('o_sNumber')
+                });
+            })
+        }
+        if (localStorage.getItem('masterToken')) {
+            URL = '/master/tokencheck';
+            client.get(URL).then(() => {
+                dispatch({
+                    type: 'masterMode'
+                })
+            })
+        }
     };
 
     return (
@@ -70,7 +78,7 @@ function App() {
 
             </Switch>
 
-                <Route path='/shopView/:id' component={ShopView} />
+            <Route path='/shopView/:id' component={ShopView}/>
 
             {
                 authReducer.isUser && ( // 유저로 로그인 된 상태에서만 접근 가능한 페이지

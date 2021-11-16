@@ -1,4 +1,3 @@
-
 import React, {useEffect, useRef, useState} from 'react';
 import TextField from "@mui/material/TextField";
 import {client} from "../../lib/api/client";
@@ -30,7 +29,7 @@ const Transition = React.forwardRef(function Transition(
 
 export default function AddProduct() {
     interface formInterface {
-        isModify:boolean,
+        isModify: boolean,
         g_owner: string,
         g_name: string,
         g_count: string,
@@ -42,7 +41,7 @@ export default function AddProduct() {
     };
 
     const initValue = {
-        isModify:false,
+        isModify: false,
         g_owner: '',
         g_name: '',
         g_count: '',
@@ -75,6 +74,9 @@ export default function AddProduct() {
 
     useEffect(() => {
         setProduct({...productForm, ...goodsReducer, g_owner: authReducer.o_sNumber}); // 리듀서에 저장된 사업자번호 불러옴
+        return () => {
+            dispatch({type:'modifyOK'});
+        }
     }, []);
 
     /// 알림창

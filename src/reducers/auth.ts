@@ -37,6 +37,7 @@ export function authReducer(state = defaultValue, action: actionTypes) {
         case 'logoutAll':
             console.log(action.type, '리듀서 콜');
             console.log('화물 => ', action.payload);
+            localStorage.clear();
             return defaultValue;
         default:
             console.log('auth 리듀서 일치하는 액션 없음');
