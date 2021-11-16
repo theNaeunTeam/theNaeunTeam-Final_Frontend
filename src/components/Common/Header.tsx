@@ -21,7 +21,6 @@ export default function Header() {
         history.push('/');
     };
 
-
     return (
         <>
             <Navbar bg="dark" variant="dark">
@@ -37,6 +36,9 @@ export default function Header() {
                     </Nav>
 
                     <span style={{color: 'white'}}>
+                        사업자번호:{authReducer.o_sNumber}
+                        유저아이디:{authReducer.u_id}
+                        마스터아이디:{authReducer.m_id}
                         유저{authReducer.isUser.toString()}
                         오너{authReducer.isOwner.toString()}
                         관리자{authReducer.isMaster.toString()}

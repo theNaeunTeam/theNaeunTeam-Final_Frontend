@@ -52,6 +52,7 @@ export default function LoginForm(props: RouteComponentProps) {
                 console.log(res);
                 if (res.status === 200) {
                     localStorage.setItem('ownerToken', res.headers["x-auth-token"]);
+                    localStorage.setItem('o_sNumber', loginForm.u_id);
                     dispatch({type: 'ownerMode', payload: loginForm.u_id});
                     alert('가게 로그인 성공');
                     history.push('/owner');
@@ -68,6 +69,7 @@ export default function LoginForm(props: RouteComponentProps) {
                 console.log(res);
                 if (res.status === 200) {
                     localStorage.setItem('userToken', res.headers["x-auth-token"]);
+                    localStorage.setItem('u_id', loginForm.u_id);
                     dispatch({type: 'userMode', payload: loginForm.u_id});
                     alert('유저 로그인 성공');
                     history.push('/');

@@ -193,7 +193,11 @@ export default function MasterMain() {
                                            </InputAdornment>
                                        ),
                                    }}
-                                   onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}/>
+                                   onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}
+                                   onKeyPress={e => {
+                                       if (e.key === 'Enter') login();
+                                   }
+                                   }/>
                         <Button onClick={login}>로그인</Button>
                     </Box>
                 </>

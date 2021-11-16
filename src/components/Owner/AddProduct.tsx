@@ -1,4 +1,5 @@
-import React, {useRef, useState} from 'react';
+
+import React, {useEffect, useRef, useState} from 'react';
 import TextField from "@mui/material/TextField";
 import {client} from "../../lib/api/client";
 import {
@@ -12,6 +13,8 @@ import {
     Stack,
 } from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../index";
 
 
 // 등록알림창
@@ -25,25 +28,9 @@ const Transition = React.forwardRef(function Transition(
 });
 
 
-
 export default function AddProduct() {
-
-    /// 알림창
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        submitForm();
-        setOpen(false);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-    ///
-
-
-
     interface formInterface {
+        isModify:boolean,
         g_owner: string,
         g_name: string,
         g_count: string,
@@ -52,9 +39,10 @@ export default function AddProduct() {
         g_detail: string,
         g_expireDate: string,
         g_category: string,
-    }
+    };
 
     const initValue = {
+        isModify:false,
         g_owner: '',
         g_name: '',
         g_count: '',
@@ -73,9 +61,11 @@ export default function AddProduct() {
         g_detail: false,
         g_expireDate: false,
         g_category: false
-    }
+    };
 
 
+    const dispatch = useDispatch();
+    const {goodsReducer, authReducer} = useSelector((state: RootState) => state);
 
     const [productForm, setProduct] = useState<formInterface>(initValue);
     const [formError, setFormError] = useState(formErrorinit);
@@ -83,28 +73,51 @@ export default function AddProduct() {
     const fileInputTag = useRef<HTMLInputElement>(null);
 
 
+    useEffect(() => {
+        setProduct({...productForm, ...goodsReducer, g_owner: authReducer.o_sNumber}); // 리듀서에 저장된 사업자번호 불러옴
+    }, []);
 
+    /// 알림창
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        submitForm();
+        setOpen(false);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
 
     const submitForm = async () => {
         const URL = '/owner/addGoods'
         const formData = new FormData();
 
+        let actionType = 'new';
+        if (goodsReducer.isModify) actionType = 'update'
+
         // @ts-ignore
         formData.append('file', fileInputTag.current.files[0]);
-        formData.append('g_owner',productForm.g_owner);
-        formData.append('g_name',productForm.g_name);
-        formData.append('g_count',productForm.g_count);
-        formData.append('g_price',productForm.g_price);
-        formData.append('g_discount',productForm.g_discount);
-        formData.append('g_detail',productForm.g_detail);
-        formData.append('g_expireDate',productForm.g_expireDate);
-        formData.append('g_category',productForm.g_category);
+        formData.append('g_owner', productForm.g_owner);
+        formData.append('g_name', productForm.g_name);
+        formData.append('g_count', productForm.g_count);
+        formData.append('g_price', productForm.g_price);
+        formData.append('g_discount', productForm.g_discount);
+        formData.append('g_detail', productForm.g_detail);
+        formData.append('g_expireDate', productForm.g_expireDate);
+        formData.append('g_category', productForm.g_category);
+
+        formData.append('actionType', actionType);
 
         try {
             const res = await client.post(URL, formData);
+            alert(actionType + '성공');
+            dispatch({type: 'modifyOK'});
+            setProduct(initValue);
             console.log(res);
         } catch (e) {
+            alert(actionType + '실패');
             console.log(e);
         }
     };
@@ -115,7 +128,7 @@ export default function AddProduct() {
         const tagName = (e.target as HTMLFormElement).name;
         setProduct({...productForm, [tagName]: (e.target as HTMLFormElement).value});
         // formValidate();
-    }
+    };
 
 
     return (
@@ -139,6 +152,7 @@ export default function AddProduct() {
                     id="outlined-required"
                     label="상품 이름"
                     name={'g_name'}
+                    value={productForm.g_name}
                 />
                 <TextField
                     error={formError.g_count}
@@ -146,22 +160,22 @@ export default function AddProduct() {
                     required
                     id="outlined-required"
                     label="상품 수량"
-
                     name={'g_count'}
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    value={productForm.g_count}
                 />
 
                 <label>상품 이미지파일</label><p/>
                 <input type={'file'} ref={fileInputTag}/>
-
-
+                <select name={'g_category'} value={productForm.g_category}>
                 <select name={'g_category'}>
                     <option value={""}>상품분류 선택</option>
                     <option value={"카페/음료"}>카페/음료</option>
                     <option value={"냉동식품"}>냉동식품</option>
                     <option value={"스낵류"}>스낵류</option>
+                    <option value={'과자류'}>과자류</option>
                 </select>
 
                 <TextField
@@ -170,6 +184,7 @@ export default function AddProduct() {
                     id="outlined-required"
                     label="상품정가"
                     name={'g_price'}
+                    value={productForm.g_price}
                 />
                 <TextField
                     error={formError.g_discount}
@@ -177,6 +192,7 @@ export default function AddProduct() {
                     id="outlined-required"
                     label="할인가"
                     name={'g_discount'}
+                    value={productForm.g_discount}
                 />
                 <TextField
                     error={formError.g_expireDate}
@@ -184,6 +200,7 @@ export default function AddProduct() {
                     id="outlined-required"
                     label="유통기한"
                     name={'g_expireDate'}
+                    value={productForm.g_expireDate}
                 />
                 <TextField
                     error={formError.g_detail}
@@ -191,10 +208,16 @@ export default function AddProduct() {
                     id="outlined-required"
                     label="상세설명"
                     name={'g_detail'}
+                    value={productForm.g_detail}
                 />
-                <Button variant="outlined" onClick={handleClickOpen}>
-                    상품 등록하기
-                </Button>
+                {goodsReducer.isModify ?
+                    <Button onClick={handleClickOpen} variant="outlined">
+                        상품 수정 하기
+                    </Button>
+                    :
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                        상품 등록하기
+                    </Button>}
                 <Dialog
                     open={open}
                     TransitionComponent={Transition}
