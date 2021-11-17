@@ -78,7 +78,7 @@ function App() {
 
             </Switch>
 
-            <Route path='/shopView/:id' component={ShopView}/>
+            <Route path='/shopView/:o_sNumber' component={ShopView}/>
 
             {
                 authReducer.isUser && ( // 유저로 로그인 된 상태에서만 접근 가능한 페이지
