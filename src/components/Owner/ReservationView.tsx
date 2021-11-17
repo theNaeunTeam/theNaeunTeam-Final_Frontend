@@ -3,9 +3,12 @@ import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, {SelectChangeEvent} from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import {Button} from "@mui/material";
 import styled from "styled-components";
+import {client} from "../../lib/api/client";
+import {useSelector} from "react-redux";
+import {RootState} from "../../index";
 
 export default function ReservationView() {
 
@@ -30,40 +33,73 @@ export default function ReservationView() {
     };
 
     const dummy = {
-        g_code: 123,
+        g_code: 546798,
         g_name: '홈런볼',
         g_category: '과자류',
         g_price: 3000,
         g_discount: 300,
         g_expireDate: '2021-11-11',
-        g_status: 1,
+        g_status: 0,
     };
+
+    const {authReducer} = useSelector((state: RootState) => state);
+
 
     const [list, setList] = useState<dummyType[]>([]);
-
-    // 변경 필요
-    const [age, setAge] = React.useState('');
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
-
-    const initialize = async () => {
-        // 서버에서 상품 정보 리스트를 받아오는 코드
-        setList([dummy]);
-
-
-    };
+    const [g_category, setG_category] = useState('');
+    const [g_status, setG_status] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState(0);
+    const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
         initialize();
     }, []);
 
-    const modifyGoods = (input: number) => {
-        console.log(input);
+    const initialize = async () => {
+        const URL = 'owner/reserveList';
+        try {
+            const res = await client.get(`${URL}?g_owner=${authReducer.o_sNumber}`);
+            setList(res.data);
+            // setList(res.data);
+        } catch (e) {
+            console.log(e);
+        }
     };
-    const deleteGoods = (input: number) => {
-        console.log(input);
+
+    const changeGoodsStatus = async (input: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const data: { g_code: number, g_status: number } = {
+            g_code: Number((input.target as HTMLButtonElement).name),
+            g_status: selectedStatus
+        };
+
+        const URL = '/owner/statusChange';
+
+        try {
+            const res = await client.patch(URL, data);
+
+            console.log(res);
+
+            initialize();
+
+        } catch (e) {
+            console.log(e);
+            alert('상품상태변경 실패');
+        }
+
     };
+
+    const searchGoods = async () => {
+        const URL = '/owner/statusChange'
+        try {
+            const res = await client.get(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
+            console.log(res);
+            setList(res.data);
+        } catch (e) {
+            alert('검색실패');
+            console.log(e);
+        }
+
+    }
 
     const TableBuilder = (props: { data: dummyType, idx: number }) => {
 
@@ -88,14 +124,32 @@ export default function ReservationView() {
                     {props.data.g_expireDate}
                 </td>
                 <td>
-                    {props.data.g_status}
+                    {props.data.g_status === 0 ? '예약 승인 대기중'
+                        : props.data.g_status === 1 ? '승인 완료'
+                            : props.data.g_status === 2 ? '거절됨'
+                                : props.data.g_status === 3 ? '판매완료'
+                                    : props.data.g_status === 4 ? '노쇼' : null
+                    }
                 </td>
                 <td>
-                    <button name={`${props.data.g_code}`} onClick={() => modifyGoods(props.data.g_code)}>수정</button>
+                    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                        <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={selectedStatus}
+                            onChange={e => setSelectedStatus(e.target.value as number)}
+                        >
+                            <MenuItem value={1}>승인</MenuItem>
+                            <MenuItem value={2}>거절</MenuItem>
+                            <MenuItem value={4}>노쇼</MenuItem>
+                            <MenuItem value={3}>판매완료</MenuItem>
+                        </Select>
+                    </FormControl>
+                    {/*@ts-ignore*/}
+                    <Button data-testid='my-test-id' name={props.data.g_code} variant="outlined" onClick={e => changeGoodsStatus(e)}>확인</Button>
                 </td>
-                <td>
-                    <button name={`${props.data.g_code}`} onClick={() => deleteGoods(props.data.g_code)}>삭제</button>
-                </td>
+
             </tr>
         )
     };
@@ -105,22 +159,18 @@ export default function ReservationView() {
         <DivContainer>
             <h2>예약현황</h2>
             <div>
-                <TextField id="outlined-basic" label="전체" variant="outlined" name={'total'}/>
                 <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
                     <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
                     <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={age}
-                        onChange={handleChange}
-                        label="Age"
+                        value={g_category}
+                        onChange={e => setG_category(e.target.value)}
                     >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value='과자류'>과자류</MenuItem>
+                        <MenuItem value='간편식'>간편식</MenuItem>
+                        <MenuItem value='음료'>음료</MenuItem>
+                        <MenuItem value='즉석조리'>즉석조리</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
@@ -128,20 +178,18 @@ export default function ReservationView() {
                     <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={age}
-                        onChange={handleChange}
-                        label="Age"
+                        value={g_status}
+                        onChange={e => setG_status(e.target.value)}
                     >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value='1'>승인</MenuItem>
+                        <MenuItem value='2'>거절</MenuItem>
+                        <MenuItem value='4'>노쇼</MenuItem>
+                        <MenuItem value='3'>판매완료</MenuItem>
                     </Select>
                 </FormControl>
-                <TextField id="outlined-basic" label="검색" variant="outlined" name={'total'}/>
-                <Button variant="outlined">버튼</Button>
+                <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
+                           onChange={e => setSearchInput(e.target.value as string)}/>
+                <Button variant="outlined" onClick={searchGoods}>검색</Button>
             </div>
 
             <TableStyled>
@@ -155,7 +203,6 @@ export default function ReservationView() {
                     <th>유통기한</th>
                     <th>상태</th>
                     <th>승인</th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>

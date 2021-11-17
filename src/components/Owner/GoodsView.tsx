@@ -40,18 +40,6 @@ export default function GoodsView() {
         g_category: string,
     };
 
-    const dummy = {
-        g_owner: '오너',
-        g_code: 123,
-        g_name: '홈런볼',
-        g_category: '과자류',
-        g_price: 3000,
-        g_discount: 300,
-        g_expireDate: '2021-11-11',
-        g_count: 1,
-        g_detail: '상세',
-        g_image: '이미지경로',
-    };
 
     const [list, setList] = useState<goodsType[]>([]);
     const [g_category, setG_category] = useState('');
@@ -65,13 +53,12 @@ export default function GoodsView() {
     const initialize = async () => {
         const URL = '/owner/goodsView';
         try {
-            const res = await client.get(`${URL}?g_owner=${authReducer.o_sNumber}`);
+            const res = await client.get(`${URL}?o_sNumber=${authReducer.o_sNumber}`);
             setList(res.data);
         } catch (e) {
             console.log(e);
         }
     };
-
 
     const modifyGoods = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const g_code: string = (e.target as HTMLButtonElement).name;
@@ -95,7 +82,7 @@ export default function GoodsView() {
     };
 
     const searchGoods = async () => {
-        const URL = ''
+        const URL = 'owner/search';
         console.log(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
         try {
             const res = await client.get(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
@@ -169,7 +156,6 @@ export default function GoodsView() {
                         id="demo-simple-select-standard"
                         value={g_status}
                         onChange={e => setG_status(e.target.value)}
-                        label="Age"
                     >
                         <MenuItem value={'판매중'}>판매중</MenuItem>
                         <MenuItem value={'판매완료'}>판매완료</MenuItem>
