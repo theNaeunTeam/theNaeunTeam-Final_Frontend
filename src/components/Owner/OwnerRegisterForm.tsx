@@ -118,7 +118,9 @@ export default function OwnerRegisterForm() {
         formData.append('o_address', regForm.o_address);
         formData.append('o_time1', regForm.o_time1);
         formData.append('o_time2', regForm.o_time2);
-
+        formData.append('o_latitude', regForm.o_latitude);
+        formData.append('o_longitude',regForm.o_longitude);
+        
         try {
             const res = await client.post(URL, formData);
 
