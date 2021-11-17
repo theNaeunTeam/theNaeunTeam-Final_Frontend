@@ -2,6 +2,8 @@ import React, {useRef, useState} from "react";
 import TextField from '@mui/material/TextField'
 import {Button, Stack} from "@mui/material";
 import {client} from "../../lib/api/client";
+import DaumPostcode from 'react-daum-postcode';
+import axios from "axios";
 
 
 export default function OwnerRegisterForm() {
@@ -16,6 +18,8 @@ export default function OwnerRegisterForm() {
         o_address: string,
         o_time1: string,
         o_time2: string,
+        o_latitude: string,
+        o_longitude: string,
     }
 
     const initValue = {
@@ -29,6 +33,8 @@ export default function OwnerRegisterForm() {
         o_time1: '',
         o_time2: '',
         o_image: null,
+        o_latitude: '',
+        o_longitude: '',
     };
     const errorInit = {
         o_sNumber: false,
@@ -46,6 +52,50 @@ export default function OwnerRegisterForm() {
     const [regForm, setRegForm] = useState<formInterface>(initValue);
     const [formError, setFormError] = useState(errorInit);
     const fileInputTag = useRef<HTMLInputElement>(null);
+    const [address, setAddress] = useState(''); // 주소
+    const [addressDetail, setAddressDetail] = useState(''); // 상세주소
+    const [isOpenPost, setIsOpenPost] = useState(false);
+
+    const onChangeOpenPost = () => {
+        setIsOpenPost(!isOpenPost);
+    };
+
+    const onCompletePost = (data: any) => {
+        let fullAddr = data.address;
+        let extraAddr = '';
+
+        if (data.addressType === 'R') {
+            if (data.bname !== '') {
+                extraAddr += data.bname;
+            }
+            if (data.buildingName !== '') {
+                extraAddr += extraAddr !== '' ? `, ${data.buildingName}` : data.buildingName;
+            }
+            fullAddr += extraAddr !== '' ? ` (${extraAddr})` : '';
+        }
+
+        setAddress(data.zonecode);
+        setAddressDetail(fullAddr);
+        setIsOpenPost(false);
+
+
+        const URL = 'http://dapi.kakao.com/v2/local/search/address.json?query=';
+        const RESTAPIKEY = '61d180a1576d7421df51937a7d0b3b3a';
+
+        axios.get(`${URL}${data.address}`, {
+            headers: {Authorization: `KakaoAK ${RESTAPIKEY}`},
+        })
+            .then(res => {
+                console.log(res.data);
+                console.log(res.data.documents[0].x, res.data.documents[0].y);
+                setRegForm({...regForm, o_latitude: res.data.documents[0].x, o_longitude: res.data.documents[0].y});
+            })
+            .catch(e => {
+                alert('주소를 다시 입력해주세요')
+                console.log(e);
+            })
+    };
+
 
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(regForm);
@@ -78,6 +128,14 @@ export default function OwnerRegisterForm() {
         }
     }
 
+    const postCodeStyle = {
+        display: 'block',
+        position: 'relative',
+        top: '0%',
+        width: '400px',
+        height: '400px',
+        padding: '7px',
+    };
 
     return (
         <>
@@ -98,14 +156,22 @@ export default function OwnerRegisterForm() {
                     label="사업자번호"
                     name={'o_sNumber'}
                 />
+                {isOpenPost ? (
+                    //@ts-ignore
+                    <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost}/>
+                ) : null}
                 <TextField
+                    onClick={onChangeOpenPost}
                     error={formError.o_address}
                     required
                     id="outlined-required"
                     label="가게 주소"
-                    helperText="매장 주소(상세주소 포함)를 입력해 주세요"
+                    helperText="매장 주소를 입력해 주세요"
                     name={'o_address'}
+                    disabled={true}
+                    value={addressDetail}
                 />
+                {address}
                 <TextField
                     error={formError.o_pw}
                     required

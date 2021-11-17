@@ -63,14 +63,10 @@ export default function GoodsView() {
     }, []);
 
     const initialize = async () => {
-        // 서버에서 상품 정보 리스트를 받아오는 코드
         const URL = '/owner/goodsView';
-        console.log(`${URL}?g_owner=${authReducer.o_sNumber}`);
         try {
             const res = await client.get(`${URL}?g_owner=${authReducer.o_sNumber}`);
-            console.log(res.data);
             setList(res.data);
-            // setList([dummy]);
         } catch (e) {
             console.log(e);
         }
