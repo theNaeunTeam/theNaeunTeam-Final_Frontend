@@ -115,7 +115,7 @@ export default function MasterMain() {
             }
 
         try {
-            const res = await client.post(URL, data);
+            const res = await client.patch(URL, data);
             console.log(res);
             ownerTableInit();
             alert('데이터 갱신 완료');

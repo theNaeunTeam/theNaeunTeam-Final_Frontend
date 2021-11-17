@@ -56,7 +56,7 @@ export default function ReservationView() {
     }, []);
 
     const initialize = async () => {
-        const URL = 'owner/reserveList';
+        const URL = '/owner/reserveList';
         try {
             const res = await client.get(`${URL}?g_owner=${authReducer.o_sNumber}`);
             setList(res.data);
