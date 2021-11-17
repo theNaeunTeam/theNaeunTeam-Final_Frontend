@@ -4,6 +4,8 @@ import {Button} from "@mui/material";
 import {client} from "../../lib/api/client";
 import { RouteComponentProps } from 'react-router-dom';
 import { useRouteMatch } from 'react-router';
+import './ShopStyle.css';
+import {Map, MapMarker} from "react-kakao-maps-sdk";
 
 export default function ShopView() {
 
@@ -23,54 +25,6 @@ export default function ShopView() {
       justify-content: space-around;
     `;
 
-    const initColor = {
-        case1:true,
-        case2:false,
-        case3:false,
-        case4:false
-    };
-    const initColor2 = {
-        case1:false,
-        case2:false,
-        case3:false,
-        case4:false
-    };
-
-    const initGoods1 = {
-        g_name:'친환경)CU백색봉투대',
-        g_price:'100',
-        g_discount:'100',
-    };
-
-    type tableType = {
-        g_owner:string,
-        g_code:number,
-        g_name:string,
-        g_count:number,
-        g_price:number,
-        g_discount:number,
-        g_detail:string,
-        g_image:string,
-        g_expireDate:string,
-        g_status:number,
-        g_category:string,
-    };
-
-    // 배열에 객체로
-    const initGoods2 = [{
-        g_owner:'',
-        g_code:0,
-        g_name:'',
-        g_count:0,
-        g_price:0,
-        g_discount:0,
-        g_detail:'',
-        g_image:'',
-        g_expireDate:'',
-        g_status:0,
-        g_category:'',
-    }];
-
     const DivContainer = styled.div`
       display: flex;
       justify-content: space-evenly;
@@ -86,10 +40,70 @@ export default function ShopView() {
       width:40%;
     `;
 
+    let nav = {
+        height: 100,
 
+    }
+
+    const initColor = {
+        case1:true,
+        case2:false,
+        case3:false,
+        case4:false
+    };
+
+    const initColor2 = {
+        case1:false,
+        case2:false,
+        case3:false,
+        case4:false
+    };
+
+    const initialValue = {
+        title: 'CU 센텀클래스원점',
+        total: '200000원',
+        daily: '200원',
+        monthly: '2000원',
+        goods: '360개',
+        reserved: '15개',
+        lat: 33.5563,
+        lng: 126.79581,
+    };
+
+    const [AboutStore, setAboutStore] = useState(initialValue);
+
+    type tableType = {
+        g_owner:string,
+        g_code:number,
+        g_name:string,
+        g_count:number,
+        g_price:number,
+        g_discount:number,
+        g_detail:string,
+        g_image:string,
+        g_expireDate:string,
+        g_status:number,
+        g_category:string,
+    };
+    // 배열에 객체로
+
+    const initGoods2 = [{
+        g_owner:'',
+        g_code:0,
+        g_name:'',
+        g_count:0,
+        g_price:0,
+        g_discount:0,
+        g_detail:'',
+        g_image:'',
+        g_expireDate:'',
+        g_status:0,
+        g_category:'',
+    }];
+
+    const [modal, setModal] = useState(true);
 
     const [color, setColor] = useState(initColor);
-    const [goods, setGoods] = useState(initGoods1);
 
     const [rows, setRows] = useState<tableType[]>(initGoods2);
 
@@ -97,13 +111,13 @@ export default function ShopView() {
         const btnValue = (e.target as HTMLButtonElement).name; // button의 name값을 가져옴
         // @ts-ignore
         setColor({...initColor2, [btnValue]:!color[btnValue]});
-
     };
 
     interface ImatchParams {
         o_sNumber: string;
     }
 
+    // 사업자번호 GET주소에서 match해오기
     const match = useRouteMatch<ImatchParams>();
 
     React.useEffect(() => {
@@ -111,23 +125,36 @@ export default function ShopView() {
         console.log(match.params);
     }, [])
 
+    // 상품정보api
+    const gooodsTableInit = async () => {
 
-    const storeTableInit = async () => {
-
-            const URL = '/user/shopView';
+            const URL = '/user/storeGoodsView';
 
             try {
                 const res = await client.get(URL+'?o_sNumber='+match.params.o_sNumber);
                 console.log(res);
-                console.log(match.params.o_sNumber);
+                console.log(match.params.o_sNumber+'1');
 
                 setRows(res.data);
             } catch (e) {
                 console.log(e);
             }
     };
+    //가게정보
+    const storeTableInit = async () =>{
+
+        const URL = '';
+        try {
+            const res = await client.get(URL+'?o_sNumber='+match.params.o_sNumber);
+            console.log(res);
+            console.log(match.params.o_sNumber+'2');
+        }catch (e){
+            console.log(e);
+        }
+    }
 
     useEffect( ()=>{
+        gooodsTableInit();
         storeTableInit();
     },[])
 
@@ -138,9 +165,9 @@ export default function ShopView() {
         const formData = new FormData();
 
         //유저 아이디에 추가
-        formData.append('g_name', goods.g_name);
-        formData.append('g_price', goods.g_price);
-        formData.append('g_discount', goods.g_discount);
+        // formData.append('g_name', goods.g_name);
+        // formData.append('g_price', goods.g_price);
+        // formData.append('g_discount', goods.g_discount);
 
         const updateDB= async ()=>{
             try{
@@ -173,6 +200,112 @@ export default function ShopView() {
         )
     }
 
+    //상품정보
+     function AAA(){
+        return(
+            <>
+            <DivButton>
+                <Button name='case1' style={color.case1 ? {background:'red'} : undefined} variant="contained" onClick={(e)=>change(e)}>전체</Button>
+                <Button name='case2' style={color.case2 ? {background:'red'} : undefined} variant="contained" onClick={change}>카페/음료</Button>
+                <Button name='case3' style={color.case3 ? {background:'red'} : undefined} variant="contained" onClick={change}>스낵</Button>
+                <Button name='case4' style={color.case4 ? {background:'red'} : undefined} variant="contained" onClick={change}>냉동/빙과류</Button>
+            </DivButton>
+
+            {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+
+            <DivContainer>
+                <Button style={{background:'red',width:'100%'}} variant="contained" onClick={submitForm}>장바구니 보기 </Button>
+            </DivContainer>
+            </>
+        )
+    }
+    //매장정보
+    function BBB(){
+        return(
+            <>
+                <DivContainer>
+                    <DivHalfMenu>
+                    <h3>가게정보   </h3><br/>
+                    <h5>영업시간   </h5><br/>
+                    <h5>휴무일    </h5>
+                    </DivHalfMenu>
+                    <DivHalfMenu>
+                        <Map
+                            center={{lat: AboutStore.lat, lng: AboutStore.lng}}
+                            style={{width: "100%", height: "360px"}}
+                        >
+                            <MapMarker position={{lat: AboutStore.lat, lng: AboutStore.lng}}>
+                                <div style={{color: "#000"}}>{AboutStore.title}</div>
+                            </MapMarker>
+                        </Map>
+                    </DivHalfMenu>
+                </DivContainer>
+            </>
+        )
+    }
+
+    var nav: JQuery<HTMLElement> = $('nav');
+    var line = $('<div />').addClass('line');
+
+    line.appendTo(nav);
+
+    var active = nav.find('.active');
+    var pos = 0;
+    var wid = 0;
+
+    if(active.length) {
+        pos = active.position().left;
+        wid = active.width();
+        line.css({
+            left: pos,
+            width: wid
+        });
+    }
+
+    nav.find('ul li a').click(function(e) {
+        e.preventDefault();
+        if(!$(this).parent().hasClass('active') && !nav.hasClass('animate')) {
+
+            nav.addClass('animate');
+
+            var _this = $(this);
+
+            nav.find('ul li').removeClass('active');
+
+            var position = _this.parent().position();
+            var width = _this.parent().width();
+
+            if(position.left >= pos) {
+                line.animate({
+                    width: ((position.left - pos) + width)
+                }, 300, function() {
+                    line.animate({
+                        width: width,
+                        left: position.left
+                    }, 150, function() {
+                        nav.removeClass('animate');
+                    });
+                    _this.parent().addClass('active');
+                });
+            } else {
+                line.animate({
+                    left: position.left,
+                    width: ((pos - position.left) + wid)
+                }, 300, function() {
+                    line.animate({
+                        width: width
+                    }, 150, function() {
+                        nav.removeClass('animate');
+                    });
+                    _this.parent().addClass('active');
+                });
+            }
+
+            pos = position.left;
+            wid = width;
+        }
+    });
+
 
     return (
         <>
@@ -181,28 +314,26 @@ export default function ShopView() {
                 <h6>(영업시간 읽어오기)</h6>
             </DivTitle>
             <hr/>
+            {/*<nav>*/}
+            {/*    <a  href="javascript:void(0);" onClick={()=>{ setModal(true)}}>상품정보</a>*/}
+            {/*    <a  href="javascript:void(0);" onClick={()=>{ setModal(false)}}>매장정보</a>*/}
+            {/*</nav>*/}
 
-            <DivTitle>
-                상품정보
-            </DivTitle>
-            <button style={{background:'white'}}>아아아</button>
-            {/*{textDecorationLine:'underline'},*/}
-            <DivButton>
-            <Button name='case1' style={color.case1 ? {background:'red'} : undefined} variant="contained" onClick={(e)=>change(e)}>전체</Button>
-            <Button name='case2' style={color.case2 ? {background:'red'} : undefined} variant="contained" onClick={change}>카페/음료</Button>
-            <Button name='case3' style={color.case3 ? {background:'red'} : undefined} variant="contained" onClick={change}>스낵</Button>
-            <Button name='case4' style={color.case4 ? {background:'red'} : undefined} variant="contained" onClick={change}>냉동/빙과류</Button>
-            </DivButton>
+            <nav>
+                <ul>
+                    <li className="active"><a href="">First</a></li>
+                    <li><a href="">Second</a></li>
+                    <li><a href="">Third</a></li>
+                </ul>
+            </nav>
 
 
-            <hr/>
-            {/*{rows.map((a,i)=>{*/}
-            {/*    return a.g_name*/}
-            {/*})}*/}
-            {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
-            <DivContainer>
-                <Button style={{background:'red',width:'100%'}} variant="contained" onClick={submitForm}>장바구니 보기 </Button>
-            </DivContainer>
+            {
+                modal === true
+                ? <AAA/>
+                : <BBB/>
+            }
+
 
 
 
