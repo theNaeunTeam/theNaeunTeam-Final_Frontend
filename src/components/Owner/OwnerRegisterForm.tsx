@@ -30,8 +30,8 @@ export default function OwnerRegisterForm() {
         o_name: '',
         o_cellPhone: '',
         o_address: '',
-        o_time1: '',
-        o_time2: '',
+        o_time1: '09:00',
+        o_time2: '21:00',
         o_image: null,
         o_latitude: '',
         o_longitude: '',
@@ -77,7 +77,7 @@ export default function OwnerRegisterForm() {
         setAddress(data.zonecode);
         setAddressDetail(fullAddr);
         setIsOpenPost(false);
-
+        // setRegForm({...regForm, o_address: fullAddr});
 
         const URL = 'http://dapi.kakao.com/v2/local/search/address.json?query=';
         const RESTAPIKEY = '61d180a1576d7421df51937a7d0b3b3a';
@@ -86,12 +86,10 @@ export default function OwnerRegisterForm() {
             headers: {Authorization: `KakaoAK ${RESTAPIKEY}`},
         })
             .then(res => {
-                console.log(res.data);
-                console.log(res.data.documents[0].x, res.data.documents[0].y);
                 setRegForm({...regForm, o_latitude: res.data.documents[0].x, o_longitude: res.data.documents[0].y});
             })
             .catch(e => {
-                alert('주소를 다시 입력해주세요')
+                alert('좌표 검색 실패');
                 console.log(e);
             })
     };
@@ -115,7 +113,7 @@ export default function OwnerRegisterForm() {
         formData.append('o_phone', regForm.o_phone);
         formData.append('o_name', regForm.o_name);
         formData.append('o_cellPhone', regForm.o_cellPhone);
-        formData.append('o_address', regForm.o_address);
+        formData.append('o_address', addressDetail);
         formData.append('o_time1', regForm.o_time1);
         formData.append('o_time2', regForm.o_time2);
         formData.append('o_latitude', regForm.o_latitude);
@@ -158,6 +156,13 @@ export default function OwnerRegisterForm() {
                     label="사업자번호"
                     name={'o_sNumber'}
                 />
+                <TextField
+                    error={formError.o_name}
+                    required
+                    id="outlined-required"
+                    label="가게 이름"
+                    name={'o_name'}
+                />
                 {isOpenPost ? (
                     //@ts-ignore
                     <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost}/>
@@ -173,7 +178,6 @@ export default function OwnerRegisterForm() {
                     disabled={true}
                     value={addressDetail}
                 />
-                {address}
                 <TextField
                     error={formError.o_pw}
                     required
@@ -211,7 +215,7 @@ export default function OwnerRegisterForm() {
                     id="time"
                     label="영업 시작 시간"
                     type="time"
-                    defaultValue="07:30"
+                    defaultValue="09:00"
                     InputLabelProps={{
                         shrink: true,
                     }}
@@ -225,7 +229,7 @@ export default function OwnerRegisterForm() {
                     id="time"
                     label="영업 종료 시간"
                     type="time"
-                    defaultValue="19:30"
+                    defaultValue="21:00"
                     InputLabelProps={{
                         shrink: true,
                     }}
