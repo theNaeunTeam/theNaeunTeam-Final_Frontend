@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect} from 'react';
+import React, {useLayoutEffect} from 'react';
 
 import {Route, Switch} from 'react-router-dom';
 import LoginForm from "./components/Common/LoginForm";
@@ -20,6 +20,7 @@ import SellingView from "./components/Owner/SellingView";
 import Unsubscribe from "./components/Owner/Unsubscribe";
 import {client} from "./lib/api/client";
 import UserNavbar from "./components/User/UserNavbar";
+import ShoppingCart from "./components/User/ShoppingCart";
 
 
 function App() {
@@ -84,6 +85,7 @@ function App() {
                 authReducer.isUser && ( // 유저로 로그인 된 상태에서만 접근 가능한 페이지
                     <>
                         <Route path='/user' component={UserNavbar}/>
+                        <Route path='/user/shoppingcart' component={ShoppingCart}/>
                     </>
                 )
             }
