@@ -50,11 +50,17 @@ export default function ShoppingCart() {
 
     const [list, setList] = useState<goodsDTO[]>([]);
 
+    const [isCookie, setIsCookie] = useState(false);
 
     useEffect(() => {
-        const g_codeArr = cookies.cart.map((data: cookieType) => Number(data.g_code));
-        console.log('쿠키에서 읽어온 g_code 배열 : ', g_codeArr);
-        initialize(g_codeArr);
+        if (cookies.cart) {
+            const g_codeArr = cookies.cart.map((data: cookieType) => Number(data.g_code));
+            console.log('쿠키에서 읽어온 g_code 배열 : ', g_codeArr);
+            initialize(g_codeArr);
+            setIsCookie(true);
+        } else {
+
+        }
     }, []);
 
 
@@ -90,7 +96,7 @@ export default function ShoppingCart() {
 
     return (
         <DivContainer>
-            <div>장바구니</div>
+            <div>장바구니{isCookie || '가 비어있습니다.'}</div>
             <hr/>
             <div>전체선택</div>
             <hr/>
