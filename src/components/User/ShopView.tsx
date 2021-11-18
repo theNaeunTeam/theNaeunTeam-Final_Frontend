@@ -11,7 +11,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 
 export default function ShopView() {
-    const history = useHistory();
+
     const {authReducer} = useSelector((state: RootState) => state);
 
     const DivTitle = styled.div`

@@ -60,17 +60,17 @@ export default function ShoppingCart() {
 
     const initialize = async (input: number[]) => {
 
-        const URL = '/shoppingcart';
+        const URL = '/common/shoppingcart';
 
         try {
 
-            // const res = await client.post(URL, input);
-            //
-            // console.log(res);
-            //
-            // setList(res.data);
+            const res = await client.post(URL, input);
 
-            setList([dummyData]);
+            console.log(res);
+
+            setList(res.data);
+
+            // setList([dummyData]);
 
         } catch (e) {
             console.log(e);
