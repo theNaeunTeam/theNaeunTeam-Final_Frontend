@@ -222,7 +222,8 @@ export default function ShopView() {
                 {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
 
                 <DivContainer>
-                    <Button style={{background: 'red', width: '100%'}} variant="contained" onClick={()=>history.push('/user/shoppingcart')}>장바구니
+                    <Button style={{background: 'red', width: '100%'}} variant="contained"
+                            onClick={() => history.push('/user/shoppingcart')}>장바구니
                         보기 </Button>
                 </DivContainer>
             </>

@@ -147,7 +147,8 @@ export default function ReservationView() {
                         </Select>
                     </FormControl>
                     {/*@ts-ignore*/}
-                    <Button data-testid='my-test-id' name={props.data.g_code} variant="outlined" onClick={e => changeGoodsStatus(e)}>확인</Button>
+                    <Button data-testid='my-test-id' name={props.data.g_code} variant="outlined"
+                            onClick={e => changeGoodsStatus(e)}>확인</Button>
                 </td>
 
             </tr>

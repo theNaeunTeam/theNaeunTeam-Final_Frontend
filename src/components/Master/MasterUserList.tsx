@@ -6,9 +6,9 @@ import Button from "@mui/material/Button";
 
 export default function MasterUserList() {
     const initialValue = [{
-        id:'',
-        u_id:'',
-        u_pw:'',
+        id: '',
+        u_id: '',
+        u_pw: '',
         u_cellPhone: '',
         u_email: '',
         u_gender: '',

@@ -15,7 +15,7 @@ const defaultValue = {
 interface actionTypes {
     type: string,
     payload: any,
-};
+}
 
 export function goodsReducer(state = defaultValue, action: actionTypes) {
     switch (action.type) {

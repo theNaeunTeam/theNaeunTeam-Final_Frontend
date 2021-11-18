@@ -38,7 +38,7 @@ export default function AddProduct() {
         g_detail: string,
         g_expireDate: string,
         g_category: string,
-    };
+    }
 
     const initValue = {
         isModify: false,
@@ -75,7 +75,7 @@ export default function AddProduct() {
     useEffect(() => {
         setProduct({...productForm, ...goodsReducer, g_owner: authReducer.o_sNumber}); // 리듀서에 저장된 사업자번호 불러옴
         return () => {
-            dispatch({type:'modifyOK'});
+            dispatch({type: 'modifyOK'});
         }
     }, []);
 
