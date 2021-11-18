@@ -46,7 +46,7 @@ export default function OwnerMain() {
             alert("위치를 찾을 수 없습니다");
             console.log(e);
         }
-    };
+    }
 
     return (
         <DivContainer>

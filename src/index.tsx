@@ -8,6 +8,7 @@ import {combineReducers, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {authReducer} from "./reducers/auth";
 import {goodsReducer} from "./reducers/goods";
+import {CookiesProvider} from 'react-cookie';
 
 const rootReducer = combineReducers({
     authReducer, goodsReducer
@@ -22,9 +23,11 @@ export type RootState = ReturnType<typeof store.getState>;
 
 ReactDOM.render(
     <BrowserRouter>
-        <Provider store={store}>
-            <App/>
-        </Provider>
+        <CookiesProvider>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </CookiesProvider>
     </BrowserRouter>,
     document.getElementById('root')
 );

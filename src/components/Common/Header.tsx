@@ -18,11 +18,9 @@ export default function Header() {
         localStorage.removeItem('userToken');
         localStorage.removeItem('ownerToken');
         localStorage.removeItem('masterToken');
-        dispatch({type:'logoutAll'});
+        dispatch({type: 'logoutAll'});
         history.push('/');
     };
-
-
 
 
     return (

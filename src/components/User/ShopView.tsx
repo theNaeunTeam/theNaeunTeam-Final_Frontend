@@ -1,13 +1,18 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "@mui/material";
 import {client} from "../../lib/api/client";
-import {RouteComponentProps, useHistory} from 'react-router-dom';
-import { useRouteMatch } from 'react-router';
+import {useHistory} from 'react-router-dom';
+import {useRouteMatch} from 'react-router';
 import './ShopStyle.css';
 import {Map, MapMarker} from "react-kakao-maps-sdk";
+import {useCookies} from 'react-cookie';
+import {useSelector} from "react-redux";
+import {RootState} from "../../index";
 
 export default function ShopView() {
+    const history = useHistory();
+    const {authReducer} = useSelector((state: RootState) => state);
 
     const DivTitle = styled.div`
       flex-direction: column;
@@ -30,29 +35,29 @@ export default function ShopView() {
       justify-content: space-evenly;
       margin: 50px;
       padding: 10px;
-      width:100%;
+      width: 100%;
     `;
 
     const DivHalfMenu = styled.div`
       flex: 1;
       margin: 10px;
       padding: 10px;
-      width:40%;
+      width: 40%;
     `;
 
 
     const initColor = {
-        case1:true,
-        case2:false,
-        case3:false,
-        case4:false
+        case1: true,
+        case2: false,
+        case3: false,
+        case4: false
     };
 
     const initColor2 = {
-        case1:false,
-        case2:false,
-        case3:false,
-        case4:false
+        case1: false,
+        case2: false,
+        case3: false,
+        case4: false
     };
 
     const initialValue = {
@@ -69,32 +74,32 @@ export default function ShopView() {
     const [AboutStore, setAboutStore] = useState(initialValue);
 
     type tableType = {
-        g_owner:string,
-        g_code:number,
-        g_name:string,
-        g_count:number,
-        g_price:number,
-        g_discount:number,
-        g_detail:string,
-        g_image:string,
-        g_expireDate:string,
-        g_status:number,
-        g_category:string,
+        g_owner: string,
+        g_code: number,
+        g_name: string,
+        g_count: number,
+        g_price: number,
+        g_discount: number,
+        g_detail: string,
+        g_image: string,
+        g_expireDate: string,
+        g_status: number,
+        g_category: string,
     };
     // 배열에 객체로
 
     const initGoods2 = [{
-        g_owner:'',
-        g_code:0,
-        g_name:'',
-        g_count:0,
-        g_price:0,
-        g_discount:0,
-        g_detail:'',
-        g_image:'',
-        g_expireDate:'',
-        g_status:0,
-        g_category:'',
+        g_owner: '',
+        g_code: 0,
+        g_name: '',
+        g_count: 0,
+        g_price: 0,
+        g_discount: 0,
+        g_detail: '',
+        g_image: '',
+        g_expireDate: '',
+        g_status: 0,
+        g_category: '',
     }];
 
     const history = useHistory();
@@ -105,10 +110,10 @@ export default function ShopView() {
 
     const [rows, setRows] = useState<tableType[]>(initGoods2);
 
-    const change = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    const change = (e: React.MouseEvent<HTMLButtonElement>) => {
         const btnValue = (e.target as HTMLButtonElement).name; // button의 name값을 가져옴
         // @ts-ignore
-        setColor({...initColor2, [btnValue]:!color[btnValue]});
+        setColor({...initColor2, [btnValue]: !color[btnValue]});
     };
 
     interface ImatchParams {
@@ -126,106 +131,139 @@ export default function ShopView() {
     // 상품정보api
     const gooodsTableInit = async () => {
 
-            const URL = '/user/storeGoodsView';
+        const URL = '/user/storeGoodsView';
 
-            try {
-                const res = await client.get(URL+'?o_sNumber='+match.params.o_sNumber);
-                console.log(res);
-                console.log(match.params.o_sNumber+'1');
+        try {
+            const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
+            console.log(res);
+            console.log(match.params.o_sNumber + '1');
 
-                setRows(res.data);
-            } catch (e) {
-                console.log(e);
-            }
+            setRows(res.data);
+        } catch (e) {
+            console.log(e);
+        }
     };
     //가게정보
-    const storeTableInit = async () =>{
+    const storeTableInit = async () => {
 
         const URL = '';
         try {
-            const res = await client.get(URL+'?o_sNumber='+match.params.o_sNumber);
+            const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             console.log(res);
-            console.log(match.params.o_sNumber+'2');
-        }catch (e){
+            console.log(match.params.o_sNumber + '2');
+        } catch (e) {
             console.log(e);
         }
     }
 
-    useEffect( ()=>{
+    useEffect(() => {
         gooodsTableInit();
         storeTableInit();
-    },[])
+    }, [])
+
+    const [cookies, setCookie] = useCookies(['cart']);
+
+    // 장바구니에 추가
+    const saveGoods = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!authReducer.isUser) {
+            alert('로그인이 필요한 기능입니다.');
+            return false;
+        }
+
+        let cookieCart: any = [];
+
+        if (cookies.cart) {
+            cookieCart = [...cookies.cart];
+        }
 
 
-    // 장바구니에 추가( 이름,가격 )
-    const submitForm = async ()=>{
-        const URL = ''
-        const formData = new FormData();
-
-        formData.append('g_name', rows[0].g_name);
         // @ts-ignore
-        formData.append('g_discount', rows[0].g_discount);
+        cookieCart.push({g_count: e.target[0].value, g_code: e.target[1].value, id: authReducer.u_id});
 
-        const updateDB= async ()=>{
-            try{
-                const res = await client.post(URL,formData)
-            } catch(e){
-                console.log(e);
-            }
-        };
+
+        setCookie('cart', JSON.stringify(cookieCart), {path: '/'});
+        if (window.confirm('장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?')) {
+            history.push('/user/shoppingcart');
+        }
     };
 
-    // 상품 리스트 데이터 가져오기
+    const optionTagBuilder = (g_count: number): JSX.Element[] => {
+        const res = [];
+        for (let i = 1; i <= g_count; i++) {
+            res.push(<option value={i} key={i}>{i}개</option>);
+        }
+        return res;
+    }
+
     const TableBuilder = (props: { data: tableType, idx: number }) => {
-        return(
+        return (
             <>
-            <DivContainer>
-                <DivHalfMenu>
-                    <br/>
-                    <h3>{props.data.g_name}</h3>
-                    <h6>{props.data.g_expireDate}</h6>
-                    <br/>
-                    <h5 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h5>
-                    <h5>할인가 : {props.data.g_discount}</h5>
-                    <h6>남은 수량 : {props.data.g_count}</h6><br/>
-                    <Button style={{background:'gray'}} variant="contained" onClick={submitForm}>장바구니 담기 </Button>
-                </DivHalfMenu>
-                <DivHalfMenu>
-                    <img style={{maxWidth:'100%'}} src={props.data.g_image}/>
-                </DivHalfMenu>
-            </DivContainer>
+                <DivContainer>
+                    <DivHalfMenu>
+                        <br/>
+                        <h3>{props.data.g_name}</h3>
+                        <h6>{props.data.g_expireDate}</h6>
+                        <br/>
+                        <h5 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h5>
+                        <h5>할인가 : {props.data.g_discount}</h5>
+                        <h6>남은 수량 : {props.data.g_count}</h6><br/>
+
+                        수량 선택 :
+                        <form onSubmit={event => saveGoods(event)}>
+                            <select>
+                                {optionTagBuilder(props.data.g_count).map(data => data)}
+                            </select>
+                            <input type={'hidden'} value={props.data.g_code}/>
+
+                            <button style={{background: 'gray'}}>장바구니 담기</button>
+                        </form>
+
+                    </DivHalfMenu>
+                    <DivHalfMenu>
+                        <img style={{maxWidth: '100%'}} src={props.data.g_image}/>
+                    </DivHalfMenu>
+                </DivContainer>
             </>
         )
     }
 
     //상품정보
-     function AAA(){
-        return(
+    function AAA() {
+        return (
             <>
-            <DivButton>
-                <Button name='case1' style={color.case1 ? {background:'red'} : undefined} variant="contained" onClick={(e)=>change(e)}>전체</Button>
-                <Button name='case2' style={color.case2 ? {background:'red'} : undefined} variant="contained" onClick={change}>카페/음료</Button>
-                <Button name='case3' style={color.case3 ? {background:'red'} : undefined} variant="contained" onClick={change}>스낵</Button>
-                <Button name='case4' style={color.case4 ? {background:'red'} : undefined} variant="contained" onClick={change}>냉동/빙과류</Button>
-            </DivButton>
+                <DivButton>
+                    <Button name='case1' style={color.case1 ? {background: 'red'} : undefined} variant="contained"
+                            onClick={(e) => change(e)}>전체</Button>
+                    <Button name='case2' style={color.case2 ? {background: 'red'} : undefined} variant="contained"
+                            onClick={change}>카페/음료</Button>
+                    <Button name='case3' style={color.case3 ? {background: 'red'} : undefined} variant="contained"
+                            onClick={change}>스낵</Button>
+                    <Button name='case4' style={color.case4 ? {background: 'red'} : undefined} variant="contained"
+                            onClick={change}>냉동/빙과류</Button>
+                </DivButton>
 
-            {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
 
-            <DivContainer>
-                <Button style={{background:'red',width:'100%'}} variant="contained" onClick={() => history.push('')}>장바구니 보기 </Button>
-            </DivContainer>
+                <DivContainer>
+                    <Button style={{background: 'red', width: '100%'}} variant="contained"
+                            onClick={() => history.push('/user/shoppingcart')}>장바구니
+                        보기 </Button>
+                </DivContainer>
             </>
         )
     }
+
     //매장정보
-    function BBB(){
-        return(
+    function BBB() {
+        return (
             <>
                 <DivContainer>
                     <DivHalfMenu>
-                    <h3>가게정보   </h3><br/>
-                    <h5>영업시간   </h5><br/>
-                    <h5>휴무일    </h5>
+                        <h3>가게정보 </h3><br/>
+                        <h5>영업시간 </h5><br/>
+                        <h5>휴무일 </h5>
                     </DivHalfMenu>
                     <DivHalfMenu>
                         <Map
@@ -246,12 +284,10 @@ export default function ShopView() {
     }
 
 
-
-
     return (
         <>
             <DivTitle>
-                <h3 >CU 센텀클래스원점</h3>
+                <h3>CU 센텀클래스원점</h3>
                 <h6>(영업시간 읽어오기)</h6>
             </DivTitle>
             <hr/>
@@ -261,20 +297,11 @@ export default function ShopView() {
             </div>
 
 
-
             {
                 modal === true
-                ? <AAA/>
-                : <BBB/>
+                    ? <AAA/>
+                    : <BBB/>
             }
-
-
-
-
-
-
-
-
 
 
         </>

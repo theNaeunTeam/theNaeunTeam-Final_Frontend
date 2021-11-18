@@ -163,7 +163,7 @@ export default function GoodsView() {
                 </FormControl>
 
                 <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
-                          onChange={e => setSearchInput(e.target.value as string)}/>
+                           onChange={e => setSearchInput(e.target.value as string)}/>
 
                 <Button variant="outlined" onClick={searchGoods}>검색</Button>
             </div>
