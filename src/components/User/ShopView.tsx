@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "@mui/material";
 import {client} from "../../lib/api/client";
-import { RouteComponentProps } from 'react-router-dom';
+import {RouteComponentProps, useHistory} from 'react-router-dom';
 import { useRouteMatch } from 'react-router';
 import './ShopStyle.css';
 import {Map, MapMarker} from "react-kakao-maps-sdk";
@@ -40,10 +40,6 @@ export default function ShopView() {
       width:40%;
     `;
 
-    let nav = {
-        height: 100,
-
-    }
 
     const initColor = {
         case1:true,
@@ -100,6 +96,8 @@ export default function ShopView() {
         g_status:0,
         g_category:'',
     }];
+
+    const history = useHistory();
 
     const [modal, setModal] = useState(true);
 
@@ -159,15 +157,14 @@ export default function ShopView() {
     },[])
 
 
-    // 장바구니에 추가
+    // 장바구니에 추가( 이름,가격 )
     const submitForm = async ()=>{
         const URL = ''
         const formData = new FormData();
 
-        //유저 아이디에 추가
-        // formData.append('g_name', goods.g_name);
-        // formData.append('g_price', goods.g_price);
-        // formData.append('g_discount', goods.g_discount);
+        formData.append('g_name', rows[0].g_name);
+        // @ts-ignore
+        formData.append('g_discount', rows[0].g_discount);
 
         const updateDB= async ()=>{
             try{
@@ -178,6 +175,7 @@ export default function ShopView() {
         };
     };
 
+    // 상품 리스트 데이터 가져오기
     const TableBuilder = (props: { data: tableType, idx: number }) => {
         return(
             <>
@@ -214,7 +212,7 @@ export default function ShopView() {
             {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
 
             <DivContainer>
-                <Button style={{background:'red',width:'100%'}} variant="contained" onClick={submitForm}>장바구니 보기 </Button>
+                <Button style={{background:'red',width:'100%'}} variant="contained" onClick={() => history.push('')}>장바구니 보기 </Button>
             </DivContainer>
             </>
         )
@@ -240,6 +238,9 @@ export default function ShopView() {
                         </Map>
                     </DivHalfMenu>
                 </DivContainer>
+                <DivContainer>
+                    <Button style={{background:'red',width:'100%'}} variant="contained" onClick={()=>{history.push('')}}>장바구니 보기 </Button>
+                </DivContainer>
             </>
         )
     }
@@ -254,10 +255,10 @@ export default function ShopView() {
                 <h6>(영업시간 읽어오기)</h6>
             </DivTitle>
             <hr/>
-            <nav>
-                <a  href="javascript:void(0);" onClick={()=>{ setModal(true)}}>상품정보</a>
-                <a  href="javascript:void(0);" onClick={()=>{ setModal(false)}}>매장정보</a>
-            </nav>
+            <div className={"nav"}>
+                <a className={"a"} href="javascript:void(0);" onClick={()=>{ setModal(true)}}>상품정보</a>
+                <a className={"a"} href="javascript:void(0);" onClick={()=>{ setModal(false)}}>매장정보</a>
+            </div>
 
 
 
