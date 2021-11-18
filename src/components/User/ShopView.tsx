@@ -166,7 +166,7 @@ export default function ShopView() {
     const [cookies, setCookie] = useCookies(['cart']);
 
     // 장바구니에 추가
-    const saveGoods = (e:  React.FormEvent<HTMLFormElement>) => {
+    const saveGoods = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!authReducer.isUser) {
@@ -174,8 +174,16 @@ export default function ShopView() {
             return false;
         }
 
+        let cookieCart: any = [];
+
+        if (cookies.cart) {
+            cookieCart = [...cookies.cart];
+        }
+
+
         // @ts-ignore
-        const cookieCart = [{g_count: e.target[0].value, g_code: e.target[1].value, id: authReducer.u_id,},];
+        cookieCart.push({g_count: e.target[0].value, g_code: e.target[1].value, id: authReducer.u_id});
+
 
         setCookie('cart', JSON.stringify(cookieCart), {path: '/'});
         if (window.confirm('장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?')) {
@@ -206,12 +214,12 @@ export default function ShopView() {
 
                         수량 선택 :
                         <form onSubmit={event => saveGoods(event)}>
-                            <select name='g_count'>
+                            <select>
                                 {optionTagBuilder(props.data.g_count).map(data => data)}
                             </select>
-                            <input type={'hidden'} value={props.data.g_code} name={'g_code'}/>
+                            <input type={'hidden'} value={props.data.g_code}/>
 
-                            <button style={{background: 'gray'}}>장바구니 담기 </button>
+                            <button style={{background: 'gray'}}>장바구니 담기</button>
                         </form>
 
                     </DivHalfMenu>
