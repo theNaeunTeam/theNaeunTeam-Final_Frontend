@@ -23,12 +23,17 @@ export default function ReservationView() {
     `;
 
     type dummyType = {
-        g_code: number,
+        r_g_code: number,
+        r_code: number,
+        r_u_id: string,
+        r_count: number,
+        r_firstTime: string,
+        r_status: number,
+        r_customOrder: string,
         g_name: string,
         g_category: string,
-        g_price: number,
-        g_discount: number,
         g_expireDate: string,
+        g_count:number,
         g_status: number,
     };
 
@@ -59,8 +64,9 @@ export default function ReservationView() {
         const URL = '/owner/reserveList';
         try {
             const res = await client.get(`${URL}?g_owner=${authReducer.o_sNumber}`);
-            setList(res.data);
             // setList(res.data);
+            setList(res.data);
+            console.log(res.data)
         } catch (e) {
             console.log(e);
         }
@@ -115,13 +121,27 @@ export default function ReservationView() {
                     {props.data.g_category}
                 </td>
                 <td>
-                    {props.data.g_price}
-                </td>
-                <td>
-                    {props.data.g_discount}
-                </td>
-                <td>
                     {props.data.g_expireDate}
+                </td>
+                <td>
+                    {props.data.g_count}
+                </td>
+                <td>
+                    {props.data.g_status === 0 ? '판매중'
+                        : props.data.g_status === 1 ? '판매 완료'
+                            : props.data.g_status === 2 ? '판매 중지' : null}
+                </td>
+                <td>
+                    {props.data.r_u_id}
+                </td>
+                <td>
+                    {props.data.r_count}
+                </td>
+                <td>
+                    {props.data.r_customOrder}
+                </td>
+                <td>
+                    {props.data.r_firstTime}
                 </td>
                 <td>
                     {props.data.g_status === 0 ? '예약 승인 대기중'
@@ -147,7 +167,8 @@ export default function ReservationView() {
                         </Select>
                     </FormControl>
                     {/*@ts-ignore*/}
-                    <Button data-testid='my-test-id' name={props.data.g_code} variant="outlined" onClick={e => changeGoodsStatus(e)}>확인</Button>
+                    <Button data-testid='my-test-id' name={props.data.g_code} variant="outlined"
+                            onClick={e => changeGoodsStatus(e)}>확인</Button>
                 </td>
 
             </tr>
@@ -197,15 +218,20 @@ export default function ReservationView() {
                 <tr>
                     <th>순번</th>
                     <th>상품명</th>
-                    <th>분류</th>
-                    <th>정가</th>
-                    <th>할인가</th>
+                    <th>상품분류</th>
                     <th>유통기한</th>
+                    <th>남은수량</th>
+                    <th>상품 상태</th>
+                    <th>주문자</th>
+                    <th>주문 수량</th>
+                    <th>요청사항</th>
+                    <th>방문 예정 시간</th>
                     <th>상태</th>
                     <th>승인</th>
                 </tr>
                 </thead>
                 <tbody>
+
                 {list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                 </tbody>
             </TableStyled>

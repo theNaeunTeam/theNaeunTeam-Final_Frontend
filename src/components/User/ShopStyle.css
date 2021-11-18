@@ -1,50 +1,46 @@
-/*.nav{*/
-/*    height: 30vh;*/
-/*    width:70vw;*/
-/*    min-width: 600px;*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    justify-content: space-around;*/
-/*    margin: auto;*/
-/*}*/
+.nav{
+    height: 30vh;
+    width:70vw;
+    min-width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto;
+}
 
-/*.a{*/
-/*    position: relative;*/
-/*    text-decoration: none;*/
-/*    font-family:'Poppins',sans-serif;*/
-/*    color: black;*/
-/*    font-size: 18px;*/
-/*    letter-spacing: 0.5px;*/
-/*}*/
+.a{
+    position: relative;
+    text-decoration: none;
+    font-family:'Poppins',sans-serif;
+    color: black;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
 
-/*.a:after{*/
-/*    content: "";*/
-/*    position: absolute;*/
-/*    background-color: dodgerblue;*/
-/*    height: 3px;*/
-/*    width:100%;*/
-/*    width: 0;*/
-/*    left: 0;*/
-/*    bottom: -10px;*/
-/*    transition: 0.3s;*/
-/*}*/
+.a:after{
+    content: "";
+    position: absolute;
+    background-color: dodgerblue;
+    height: 3px;
+    width:100%;
+    width: 0;
+    left: 0;
+    bottom: -10px;
+    transition: 0.3s;
+}
 
-/*.a:hover{*/
-/*    color: dodgerblue;*/
-/*}*/
+.a:focus{
+    color: dodgerblue;
+}
 
-/*.a:hover:after{*/
-/*    width:100%;*/
-/*}*/
+.a:focus:after{
+    width:100%;
+}
 
-/*.btn{*/
-/*    background-color: azure;*/
-/*    border: gray;*/
-/*}*/
-
-
-
-
+.btn{
+    background-color: azure;
+    border: gray;
+}
 
 
 

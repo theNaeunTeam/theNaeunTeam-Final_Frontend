@@ -45,10 +45,6 @@ export default function ShopView() {
       width: 40%;
     `;
 
-    let nav = {
-        height: 100,
-
-    }
 
     const initColor = {
         case1: true,
@@ -105,6 +101,8 @@ export default function ShopView() {
         g_status: 0,
         g_category: '',
     }];
+
+    const history = useHistory();
 
     const [modal, setModal] = useState(true);
 
@@ -278,6 +276,9 @@ export default function ShopView() {
                         </Map>
                     </DivHalfMenu>
                 </DivContainer>
+                <DivContainer>
+                    <Button style={{background:'red',width:'100%'}} variant="contained" onClick={()=>{history.push('')}}>장바구니 보기 </Button>
+                </DivContainer>
             </>
         )
     }
@@ -290,14 +291,10 @@ export default function ShopView() {
                 <h6>(영업시간 읽어오기)</h6>
             </DivTitle>
             <hr/>
-            <nav>
-                <a href="javascript:void(0);" onClick={() => {
-                    setModal(true)
-                }}>상품정보</a>
-                <a href="javascript:void(0);" onClick={() => {
-                    setModal(false)
-                }}>매장정보</a>
-            </nav>
+            <div className={"nav"}>
+                <a className={"a"} href="javascript:void(0);" onClick={()=>{ setModal(true)}}>상품정보</a>
+                <a className={"a"} href="javascript:void(0);" onClick={()=>{ setModal(false)}}>매장정보</a>
+            </div>
 
 
             {
