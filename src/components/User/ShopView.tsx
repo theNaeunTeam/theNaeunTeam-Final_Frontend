@@ -170,10 +170,11 @@ export default function ShopView() {
             alert('로그인이 필요한 기능입니다.');
             return false;
         }
-        const cookieCart = {
+        const cookieCart = [{ // 수량 입력창 필요
             g_code: (e.target as HTMLButtonElement).name,
             id: authReducer.u_id,
-        }
+            g_count: 0,
+        },]
         setCookie('cart', JSON.stringify(cookieCart), {path: '/'});
         if (window.confirm('장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?')) {
             history.push('/user/shoppingcart');
