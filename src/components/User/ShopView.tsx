@@ -186,7 +186,7 @@ export default function ShopView() {
     const optionTagBuilder = (g_count: number): JSX.Element[] => {
         const res = [];
         for (let i = 1; i <= g_count; i++) {
-            res.push(<option value={i}>{i}개</option>);
+            res.push(<option value={i} key={i}>{i}개</option>);
         }
         return res;
     }
