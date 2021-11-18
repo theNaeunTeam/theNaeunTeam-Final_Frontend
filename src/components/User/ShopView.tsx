@@ -6,6 +6,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { useRouteMatch } from 'react-router';
 import './ShopStyle.css';
 import {Map, MapMarker} from "react-kakao-maps-sdk";
+import { useCookies } from 'react-cookie';
 
 export default function ShopView() {
 
@@ -158,24 +159,12 @@ export default function ShopView() {
         storeTableInit();
     },[])
 
+    const [cookies, setCookie] = useCookies(['cart']);
 
     // 장바구니에 추가
-    const submitForm = async ()=>{
-        const URL = ''
-        const formData = new FormData();
-
-        //유저 아이디에 추가
-        // formData.append('g_name', goods.g_name);
-        // formData.append('g_price', goods.g_price);
-        // formData.append('g_discount', goods.g_discount);
-
-        const updateDB= async ()=>{
-            try{
-                const res = await client.post(URL,formData)
-            } catch(e){
-                console.log(e);
-            }
-        };
+    const saveGoods = ()=>{
+        setCookie('cart', JSON.stringify({o_sNumber: match.params.o_sNumber} ), { path: '/' });
+        alert('장바구니에 추가되었습니다');
     };
 
     const TableBuilder = (props: { data: tableType, idx: number }) => {
@@ -190,7 +179,7 @@ export default function ShopView() {
                     <h5 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h5>
                     <h5>할인가 : {props.data.g_discount}</h5>
                     <h6>남은 수량 : {props.data.g_count}</h6><br/>
-                    <Button style={{background:'gray'}} variant="contained" onClick={submitForm}>장바구니 담기 </Button>
+                    <Button style={{background:'gray'}} variant="contained" onClick={saveGoods}>장바구니 담기 </Button>
                 </DivHalfMenu>
                 <DivHalfMenu>
                     <img style={{maxWidth:'100%'}} src={props.data.g_image}/>
@@ -214,7 +203,7 @@ export default function ShopView() {
             {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
 
             <DivContainer>
-                <Button style={{background:'red',width:'100%'}} variant="contained" onClick={submitForm}>장바구니 보기 </Button>
+                <Button style={{background:'red',width:'100%'}} variant="contained" onClick={saveGoods}>장바구니 보기 </Button>
             </DivContainer>
             </>
         )

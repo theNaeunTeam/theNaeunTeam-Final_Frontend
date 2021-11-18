@@ -101,6 +101,7 @@ export default function AddProduct() {
 
         // @ts-ignore
         formData.append('file', fileInputTag.current.files[0]);
+        formData.append('g_code', goodsReducer.g_code);
         formData.append('g_owner', productForm.g_owner);
         formData.append('g_name', productForm.g_name);
         formData.append('g_count', productForm.g_count);
