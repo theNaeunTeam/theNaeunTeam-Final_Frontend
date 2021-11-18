@@ -13,6 +13,7 @@ import {RootState} from "../../index";
 export default function ShopView() {
     const history = useHistory();
     const {authReducer} = useSelector((state: RootState) => state);
+
     const DivTitle = styled.div`
       flex-direction: column;
       display: flex;
@@ -165,21 +166,30 @@ export default function ShopView() {
     const [cookies, setCookie] = useCookies(['cart']);
 
     // 장바구니에 추가
-    const saveGoods = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const saveGoods = (e:  React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
         if (!authReducer.isUser) {
             alert('로그인이 필요한 기능입니다.');
             return false;
         }
-        const cookieCart = [{ // 수량 입력창 필요
-            g_code: (e.target as HTMLButtonElement).name,
-            id: authReducer.u_id,
-            g_count: 0,
-        },]
+
+        // @ts-ignore
+        const cookieCart = [{g_count: e.target[0].value, g_code: e.target[1].value, id: authReducer.u_id,},];
+
         setCookie('cart', JSON.stringify(cookieCart), {path: '/'});
         if (window.confirm('장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?')) {
             history.push('/user/shoppingcart');
         }
     };
+
+    const optionTagBuilder = (g_count: number): JSX.Element[] => {
+        const res = [];
+        for (let i = 1; i <= g_count; i++) {
+            res.push(<option value={i}>{i}개</option>);
+        }
+        return res;
+    }
 
     const TableBuilder = (props: { data: tableType, idx: number }) => {
         return (
@@ -193,9 +203,17 @@ export default function ShopView() {
                         <h5 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h5>
                         <h5>할인가 : {props.data.g_discount}</h5>
                         <h6>남은 수량 : {props.data.g_count}</h6><br/>
-                        {/*//@ts-ignore*/}
-                        <Button name={props.data.g_code} style={{background: 'gray'}} variant="contained"
-                                onClick={e => saveGoods(e)}>장바구니 담기 </Button>
+
+                        수량 선택 :
+                        <form onSubmit={event => saveGoods(event)}>
+                            <select name='g_count'>
+                                {optionTagBuilder(props.data.g_count).map(data => data)}
+                            </select>
+                            <input type={'hidden'} value={props.data.g_code} name={'g_code'}/>
+
+                            <button style={{background: 'gray'}}>장바구니 담기 </button>
+                        </form>
+
                     </DivHalfMenu>
                     <DivHalfMenu>
                         <img style={{maxWidth: '100%'}} src={props.data.g_image}/>
