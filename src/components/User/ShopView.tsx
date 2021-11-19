@@ -210,9 +210,28 @@ export default function ShopView() {
         })
     }
 
+    function loginCheck(){
+        Swal.fire({
+            title: '로그인이 필요합니다.',
+            text: "로그인페이지에서 로그인을 해주세요.",
+            icon: 'warning',
+            // showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+            // cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.value) {
+                //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다.
+            }
+        })
+    }
+
     // 즐겨찾기 추가 api
     const favorInsert = async () => {
         if (!authReducer.isUser) {
+            // alert('로그인필요');
+            loginCheck();
             return false;
         }
         const URL = '/user/addFavor';
@@ -225,7 +244,6 @@ export default function ShopView() {
         try {
             const res = await client.post(URL, data);
             console.log(res.data);
-            // alert('즐겨찾기에 추가되었습니다.')
             setFavorites(true);
             favoron();
         } catch (e) {
@@ -440,6 +458,9 @@ export default function ShopView() {
                                 <div style={{color: "#000"}}>{aboutStore.o_name}</div>
                             </MapMarker>
                         </Map>
+
+                        <button onClick={() => window.open(`https://map.kakao.com/link/to/${aboutStore.o_name},${aboutStore.o_latitude},${aboutStore.o_longitude}`, '_blank')}>길찾기</button>
+                        {/*<button onClick={() => window.open('https://map.kakao.com/link/to/동서대센텀캠퍼스,' + aboutStore.o_latitude + ',' + aboutStore.o_longitude, '_blank')}>길찾기</button>*/}
                     </DivHalfMenu>
                 </DivContainer>
                 <h4 style={{display: "flex", justifyContent: "center"}}>주소 {aboutStore.o_address}</h4>
