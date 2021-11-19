@@ -50,6 +50,7 @@ export default function ShoppingCart() {
     type cookieType = { g_count: string, g_code: string, id: string };
 
     const [list, setList] = useState<ShoppingCartDTO[]>([initData]);
+    const [copyState, setCopyState] = useState<ShoppingCartDTO[]>([]);
 
     const [isCookie, setIsCookie] = useState(false);
 
@@ -102,6 +103,7 @@ export default function ShoppingCart() {
         const cp = [...list];
         cp.splice(idx, 1);
         setList(cp);
+        setCopyState([...cp]);
 
         const cookieCart = [...cookies.cart];
         const removeIDX = cookieCart.findIndex((x: any) => x.g_code == g_code);
@@ -113,7 +115,7 @@ export default function ShoppingCart() {
     const modifyItem = (e: React.ChangeEvent<HTMLSelectElement>, idx: number) => {
         const cp = [...list];
         cp[idx].g_count = Number(e.target.value);
-        setList(cp);
+        setCopyState([...cp]);
     }
 
     const ListBuilder = (props: { data: ShoppingCartDTO, idx: number }) => {
@@ -135,11 +137,8 @@ export default function ShoppingCart() {
                     {props.data.g_status === 0 ? '구매 가능!' : '품절'}
                     <input type={'hidden'} name={`${props.data.g_status}`} id='g_status'/>
                 </div>
-                <div>
-                    남은 수량 : {props.data.g_count}
-                </div>
                 담긴 수량 :
-                <select name={`${props.data.g_count}`} id='g_count' onChange={e => modifyItem(e, props.idx)} value={props.data.g_count}>
+                <select name={`${props.data.g_count}`} id='g_count' onChange={e => modifyItem(e, props.idx)}>
                     {optionTagBuilder(props.data.g_count).map(data => data)}
                 </select>
                 <div>
