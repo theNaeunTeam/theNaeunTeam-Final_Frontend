@@ -31,6 +31,14 @@ export function cartReducer(state = defaultValue, action: actionTypes) {
             const cp = [...state];
             cp.splice(action.payload, 1);
             return cp;
+        case 'orderIn':
+            console.log(action.type, '리듀서 콜');
+            console.log('화물 => ', action.payload);
+            return [...state, ];
+        case 'orderOut':
+            console.log(action.type, '리듀서 콜');
+            console.log('화물 => ', action.payload);
+            return defaultValue;
         default:
             console.log('cart 리듀서 일치하는 액션 없음');
             return state;

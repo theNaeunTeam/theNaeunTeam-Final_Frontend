@@ -23,7 +23,7 @@ import UserNavbar from "./components/User/UserNavbar";
 import ShoppingCart from "./components/User/ShoppingCart";
 import PageNotFound from "./components/Common/PageNotFound";
 import UserMypage from "./components/User/UserMypage";
-
+import Order from './components/User/Order';
 
 function App() {
 
@@ -86,6 +86,7 @@ function App() {
             <Route path='/user' component={UserNavbar}/>
             <Route path='/user' exact component={UserMypage}/>
             <Route path='/user/shoppingcart' component={ShoppingCart}/>
+            <Route path='/user/order' component={Order}/>
 
             <Route path='/owner' component={OwnerNavbar}/>
             <Route path='/owner' exact component={OwnerMain}/>

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {Button} from "@mui/material";
+import {useHistory} from "react-router-dom";
 
 export default function ShoppingCart() {
 
@@ -41,6 +42,8 @@ export default function ShoppingCart() {
         o_name: '',
         u_id: '',
     }]
+
+    const history = useHistory();
 
     const [cookies, setCookie] = useCookies(['cart']);
     const [temp, setTemp] = useState<ShoppingCartDTO[]>(defaultValue);
@@ -181,7 +184,10 @@ export default function ShoppingCart() {
                                 <br/>
                                 총 금액 : {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
                             </div>
-                            <Button variant={'contained'}>주문하기</Button>
+                            <Button variant={'contained'} onClick={() => {
+                                dispatch({type:'orderIn'});
+                                history.push('/user/order');
+                            }}>주문하기</Button>
                         </>
                     }
                 </>
