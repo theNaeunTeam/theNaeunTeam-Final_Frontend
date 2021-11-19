@@ -108,7 +108,7 @@ export default function LoginForm(props: RouteComponentProps) {
                     <FormControl component="fieldset">
                         <FormLabel component="legend">회원 유형을 선택해 주세요</FormLabel>
                         <RadioGroup row aria-label="type" name="radio">
-                            <FormControlLabel value="individual" control={<Radio/>} label="개인회원"/>
+                            <FormControlLabel checked value="individual" control={<Radio/>} label="개인회원"/>
                             <FormControlLabel value="company" control={<Radio/>} label="업체회원"/>
                         </RadioGroup>
                     </FormControl>
