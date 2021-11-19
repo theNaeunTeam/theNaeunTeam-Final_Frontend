@@ -12,6 +12,7 @@ import {RootState} from "../../index";
 import fullStar from "../../styles/images/star1.png";
 import emptyStar from "../../styles/images/star2.png";
 import Swal from 'sweetalert2';
+import {shopViewType} from "../../modules/types";
 
 export default function ShopView() {
 
@@ -63,20 +64,6 @@ export default function ShopView() {
         case4: false
     };
 
-    type goodsTableType = {
-        g_owner: string,
-        g_code: number,
-        g_name: string,
-        g_count: number,
-        g_price: number,
-        g_discount: number,
-        g_detail: string,
-        g_image: string,
-        g_expireDate: string,
-        g_status: number,
-        g_category: string,
-    };
-
     const initGoods2 = [{
         g_owner: '',
         g_code: 0,
@@ -122,7 +109,7 @@ export default function ShopView() {
 
     const [color, setColor] = useState(initColor);
 
-    const [rows, setRows] = useState<goodsTableType[]>(initGoods2);
+    const [rows, setRows] = useState<shopViewType[]>(initGoods2);
 
     //즐찾 state
     const [favorites, setFavorites] = useState(false);
@@ -374,7 +361,7 @@ export default function ShopView() {
     }
 
     // 상품정보
-    const TableBuilder = (props: { data: goodsTableType, idx: number }) => {
+    const TableBuilder = (props: { data: shopViewType, idx: number }) => {
         return (
             <>
                 <DivContainer>

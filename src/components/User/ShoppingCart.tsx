@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {Button} from "@mui/material";
 import {useHistory} from "react-router-dom";
+import {ShoppingCartDTO} from "../../modules/types";
 
 export default function ShoppingCart() {
 
@@ -20,17 +21,6 @@ export default function ShoppingCart() {
       padding: 10px;
     `;
 
-    type ShoppingCartDTO = {
-        g_code: number,
-        g_count: number,
-        g_name: string,
-        g_status: number,
-        g_price: number,
-        g_discount: number,
-        g_image: string,
-        o_name: string,
-        u_id: string,
-    }
     const defaultValue = [{
         g_code: 0,
         g_count: 0,
@@ -60,14 +50,11 @@ export default function ShoppingCart() {
 
 
     const readCookie = () => {
-        console.log('쿠키 읽기 시작');
         if (cookies.cart) {
             if (Array.isArray(cookies.cart)) if (cookies.cart.length === 0) {
-                console.log('쿠키가 빈 배열이다');
                 return false;
             }
             const g_codeArr = cookies.cart.map((data: cookieType) => Number(data.g_code));
-            console.log('쿠키에서 읽어온 g_code 배열 : ', g_codeArr);
             initialize(g_codeArr);
         }
     }
@@ -78,11 +65,10 @@ export default function ShoppingCart() {
         const URL = '/common/shoppingcart';
         try {
             const res = await client.post(URL, input);
-            const massage = res.data.map((x: ShoppingCartDTO, idx: number) => {
+            const massage = res.data.map((x: ShoppingCartDTO) => {
                 const findCookieIDX = g_countArr.findIndex((y: any) => y.g_code == x.g_code);
                 return {...x, g_count: g_countArr[findCookieIDX].g_count}
             });
-            console.log(massage);
             dispatch({type: 'cartIn', payload: massage});
 
             setTemp(JSON.parse(JSON.stringify(res.data)));

@@ -10,6 +10,7 @@ import {client} from "../../lib/api/client";
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
+import {reservationViewType} from "../../modules/types";
 
 export default function ReservationView() {
 
@@ -29,33 +30,8 @@ export default function ReservationView() {
       text-align: center;
     `;
 
-    type dummyType = {
-        r_g_code: number,
-        r_code: number,
-        r_u_id: string,
-        r_count: number,
-        r_firstTime: string,
-        r_status: number,
-        r_customOrder: string,
-        g_name: string,
-        g_category: string,
-        g_expireDate: string,
-        g_count: number,
-        g_status: number,
-    };
 
-    const dummy = {
-        g_code: 546798,
-        g_name: '홈런볼',
-        g_category: '과자류',
-        g_price: 3000,
-        g_discount: 300,
-        g_expireDate: '2021-11-11',
-        g_status: 0,
-    };
-
-
-    const [list, setList] = useState<dummyType[]>([]);
+    const [list, setList] = useState<reservationViewType[]>([]);
     const [g_category, setG_category] = useState('');
     const [r_status, setR_status] = useState('');
     const [selectedStatus, setSelectedStatus] = useState(0);
@@ -114,7 +90,7 @@ export default function ReservationView() {
 
     }
 
-    const TableBuilder = (props: { data: dummyType, idx: number }) => {
+    const TableBuilder = (props: { data: reservationViewType, idx: number }) => {
 
         return (
             <tr>

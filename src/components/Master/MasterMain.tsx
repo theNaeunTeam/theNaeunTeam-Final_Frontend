@@ -9,24 +9,9 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
+import {masterMainType} from "../../modules/types";
 
 export default function MasterMain() {
-
-    type tableType = {
-        id: string,
-        o_approval: number,
-        o_sNumber: string,
-        o_phone: string,
-        o_name: string,
-        o_cellPhone: string,
-        o_address: string,
-        o_latitude: string,
-        o_longitude: string,
-        o_date: string,
-        o_time1: string,
-        o_time2: string,
-        o_image: string,
-    };
 
     const initialValue = [{
         id: '',
@@ -44,7 +29,7 @@ export default function MasterMain() {
         o_image: '',
     }];
 
-    const [rows, setRows] = useState<tableType[]>(initialValue);
+    const [rows, setRows] = useState<masterMainType[]>(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''}); // 마스터 로그인 폼 핸들러
 
@@ -85,7 +70,7 @@ export default function MasterMain() {
             const res = await client.get(URL);
 
             // 받아온 결과에 id값 추가
-            const massage = res.data.reduce((acc: tableType[], val: tableType) => {
+            const massage = res.data.reduce((acc: masterMainType[], val: masterMainType) => {
                 acc.push({
                     ...val, id: val.o_sNumber
                 })

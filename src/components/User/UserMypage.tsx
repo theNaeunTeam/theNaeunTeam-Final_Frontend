@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
+import {userMyPageType} from "../../modules/types";
 
 
 export default function UserMypage() {
@@ -27,12 +28,6 @@ export default function UserMypage() {
       padding: 10px;
     `;
 
-    type userType = {
-        u_id: string,
-        save: number,
-        u_point: number,
-        reserve: number,
-    };
     const initialValue = {
         u_id: '',
         save: 0,
@@ -40,7 +35,7 @@ export default function UserMypage() {
         reserve: 0,
     };
 
-    const [userData, setUserData] = useState<userType>(initialValue);
+    const [userData, setUserData] = useState<userMyPageType>(initialValue);
 
     useEffect(() => {
         initialize();

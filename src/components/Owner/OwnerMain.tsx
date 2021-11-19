@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
+import {ownerMainType} from "../../modules/types";
 
 
 export default function OwnerMain() {
@@ -15,14 +16,6 @@ export default function OwnerMain() {
         if (!authReducer.isOwner) history.push('/err');
     }, []);
 
-    type storeValue = {
-        o_name: string,
-        total: number,
-        goods: number,
-        reserve: number,
-        o_latitude: number,
-        o_longitude: number,
-    }
     const initialValue = {
         o_name: '',
         total: 0,
@@ -34,7 +27,7 @@ export default function OwnerMain() {
     };
 
 
-    const [ownerMain, setOwnerMain] = useState<storeValue>(initialValue);
+    const [ownerMain, setOwnerMain] = useState<ownerMainType>(initialValue);
 
     const DivContainer = styled.div`
       border: solid black;

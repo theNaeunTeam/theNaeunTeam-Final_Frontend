@@ -10,6 +10,7 @@ import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
+import {goodsViewType} from '../../modules/types';
 
 export default function GoodsView() {
 
@@ -30,22 +31,8 @@ export default function GoodsView() {
       text-align: center;
     `;
 
-    type goodsType = {
-        g_owner: string,
-        g_code: number,
-        g_name: string,
-        g_count: number,
-        g_price: number,
-        g_discount: number,
-        g_detail: string,
-        g_image: string,
-        g_expireDate: string,
-        g_category: string,
-        g_status: number,
-    };
 
-
-    const [list, setList] = useState<goodsType[]>([]);
+    const [list, setList] = useState<goodsViewType[]>([]);
     const [g_category, setG_category] = useState('');
     const [g_status, setG_status] = useState('');
     const [searchInput, setSearchInput] = useState('');
@@ -99,7 +86,7 @@ export default function GoodsView() {
 
     }
 
-    const TableBuilder = (props: { data: goodsType, idx: number }) => {
+    const TableBuilder = (props: { data: goodsViewType, idx: number }) => {
 
         return (
             <tr>

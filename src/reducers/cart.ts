@@ -1,3 +1,5 @@
+import {cartReducerType} from "../modules/types";
+
 const defaultValue = [{
     g_code: 0,
     g_count: 0,
@@ -10,24 +12,13 @@ const defaultValue = [{
     u_id: '',
 }]
 
-type defaultType = {
-    g_code: number,
-    g_count: number,
-    g_name: string,
-    g_status: number,
-    g_price: number,
-    g_discount: number,
-    g_image: string,
-    o_name: string,
-    u_id: string,
-}
 
 interface actionTypes {
     type: string,
     payload: any,
 }
 
-export function cartReducer(state:defaultType[] = [], action: actionTypes) {
+export function cartReducer(state: cartReducerType[] = [], action: actionTypes) {
     switch (action.type) {
         case 'cartIn':
             console.log(action.type, '리듀서 콜');

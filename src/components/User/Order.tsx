@@ -6,6 +6,7 @@ import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
 import {useCookies} from "react-cookie";
+import {orderType} from "../../modules/types";
 
 export default function Order() {
 
@@ -26,15 +27,6 @@ export default function Order() {
       text-align: left;
     `;
 
-    type orderType = {
-        r_u_id: string,
-        r_g_code: number,
-        r_firstTime: string,
-        r_count: number,
-        r_customOrder: string,
-        r_owner: string,
-        r_pay: number,
-    }
 
     const history = useHistory();
     const dispatch = useDispatch();
