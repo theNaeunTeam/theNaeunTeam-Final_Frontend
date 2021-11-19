@@ -11,7 +11,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 
 export default function ShopView() {
-    const history = useHistory();
+
     const {authReducer} = useSelector((state: RootState) => state);
 
     const DivTitle = styled.div`
@@ -60,20 +60,7 @@ export default function ShopView() {
         case4: false
     };
 
-    const initialValue = {
-        title: 'CU 센텀클래스원점',
-        total: '200000원',
-        daily: '200원',
-        monthly: '2000원',
-        goods: '360개',
-        reserved: '15개',
-        lat: 33.5563,
-        lng: 126.79581,
-    };
-
-    const [AboutStore, setAboutStore] = useState(initialValue);
-
-    type tableType = {
+    type goodsTableType = {
         g_owner: string,
         g_code: number,
         g_name: string,
@@ -86,7 +73,6 @@ export default function ShopView() {
         g_status: number,
         g_category: string,
     };
-    // 배열에 객체로
 
     const initGoods2 = [{
         g_owner: '',
@@ -102,13 +88,36 @@ export default function ShopView() {
         g_category: '',
     }];
 
+    const initStore = {
+        o_sNumber: '',
+        o_approval: 0,
+        o_pw: '',
+        token: '',
+        o_phone: '',
+        o_name: '',
+        o_cellPhone: "",
+        o_address: "",
+        o_latitude: '',
+        o_longitude: '',
+        o_date: '',
+        o_time1: "",
+        o_time2: '',
+        o_image: "",
+    }
+
     const history = useHistory();
+
+    const [aboutStore, setAboutStore] = useState(initStore);
 
     const [modal, setModal] = useState(true);
 
     const [color, setColor] = useState(initColor);
 
-    const [rows, setRows] = useState<tableType[]>(initGoods2);
+    const [rows, setRows] = useState<goodsTableType[]>(initGoods2);
+
+    //즐찾 state
+    const [favorites, setFavorites] = useState(false);
+
 
     const change = (e: React.MouseEvent<HTMLButtonElement>) => {
         const btnValue = (e.target as HTMLButtonElement).name; // button의 name값을 가져옴
@@ -122,11 +131,6 @@ export default function ShopView() {
 
     // 사업자번호 GET주소에서 match해오기
     const match = useRouteMatch<ImatchParams>();
-
-    React.useEffect(() => {
-        // 마운트 될 때 number값 출력
-        console.log(match.params);
-    }, [])
 
     // 상품정보api
     const gooodsTableInit = async () => {
@@ -143,22 +147,64 @@ export default function ShopView() {
             console.log(e);
         }
     };
-    //가게정보
+    //가게정보 api
     const storeTableInit = async () => {
 
-        const URL = '';
+        const URL = '/user/storeView';
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             console.log(res);
             console.log(match.params.o_sNumber + '2');
+
+
+            setAboutStore(res.data);
         } catch (e) {
             console.log(e);
         }
     }
 
+    // 즐겨찾기 유무 api
+    const favorCheck = async ()=>{
+        const URL= '/user/favorCheck';
+        const data= {
+            f_o_sNumber:match.params.o_sNumber,
+            f_p_user_id:authReducer.u_id
+        }
+        console.log(6546546,data);
+        try {
+            const res = await client.post(URL, data);
+            console.log('즐겨찾기 체크:'+ res.data);
+            setFavorites(res.data);
+        }catch (e){
+            console.log(e);
+        }
+    }
+
+    // 즐겨찾기 api
+    const favorInsert = async () =>{
+        const URL = '';
+        const data= {
+            f_o_sNumber:match.params,
+            f_p_user_id:authReducer.u_id
+        }
+        if (!authReducer.isUser) {
+            alert('로그인이 필요한 기능입니다.');
+            return false;
+        }
+        try {
+            const res = await client.post(URL,data);
+
+        }catch (e){
+            console.log(e);
+        }
+    }
+
+    // 정보 받아오는 함수 실행
     useEffect(() => {
         gooodsTableInit();
         storeTableInit();
+        favorCheck();
+        console.log(13980745012974901+authReducer.u_id);
     }, [])
 
     const [cookies, setCookie] = useCookies(['cart']);
@@ -196,8 +242,9 @@ export default function ShopView() {
         }
         return res;
     }
-
-    const TableBuilder = (props: { data: tableType, idx: number }) => {
+    
+    // 상품정보
+    const TableBuilder = (props: { data: goodsTableType, idx: number }) => {
         return (
             <>
                 <DivContainer>
@@ -245,7 +292,6 @@ export default function ShopView() {
                 </DivButton>
 
                 {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
-
                 <DivContainer>
                     <Button style={{background: 'red', width: '100%'}} variant="contained"
                             onClick={() => history.push('/user/shoppingcart')}>장바구니
@@ -255,27 +301,33 @@ export default function ShopView() {
         )
     }
 
+
     //매장정보
     function BBB() {
         return (
             <>
                 <DivContainer>
                     <DivHalfMenu>
-                        <h3>가게정보 </h3><br/>
-                        <h5>영업시간 </h5><br/>
-                        <h5>휴무일 </h5>
+                        <h3>가게정보 {aboutStore.o_name}</h3><br/>
+                        {aboutStore.o_image}
+                        <h5>가게 전화번호 {aboutStore.o_phone}</h5><br/>
+                        <h5>영업시간 {aboutStore.o_time1} ~ {aboutStore.o_time2}</h5><br/>
+                        <h5>휴무일 {}</h5>
                     </DivHalfMenu>
                     <DivHalfMenu>
                         <Map
-                            center={{lat: AboutStore.lat, lng: AboutStore.lng}}
+                            center={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}
                             style={{width: "100%", height: "360px"}}
                         >
-                            <MapMarker position={{lat: AboutStore.lat, lng: AboutStore.lng}}>
-                                <div style={{color: "#000"}}>{AboutStore.title}</div>
+                            <MapMarker position={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}>
+                                <div style={{color: "#000"}}>{aboutStore.o_name}</div>
                             </MapMarker>
                         </Map>
                     </DivHalfMenu>
                 </DivContainer>
+                <h4 style={{display:"flex", justifyContent:"center"}}>주소   {aboutStore.o_address}</h4>
+
+
                 <DivContainer>
                     <Button style={{background:'red',width:'100%'}} variant="contained" onClick={()=>{history.push('')}}>장바구니 보기 </Button>
                 </DivContainer>
@@ -287,8 +339,9 @@ export default function ShopView() {
     return (
         <>
             <DivTitle>
+                <span style={{marginLeft:"auto"}}>⭐</span>
                 <h3>CU 센텀클래스원점</h3>
-                <h6>(영업시간 읽어오기)</h6>
+                <h6 style={{color:'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h6>
             </DivTitle>
             <hr/>
             <div className={"nav"}>
