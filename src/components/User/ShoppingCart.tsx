@@ -185,7 +185,7 @@ export default function ShoppingCart() {
                                 총 금액 : {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
                             </div>
                             <Button variant={'contained'} onClick={() => {
-                                dispatch({type:'orderIn'});
+                                dispatch({type: 'orderIn'});
                                 history.push('/user/order');
                             }}>주문하기</Button>
                         </>

@@ -5,6 +5,7 @@ import {RootState} from "../../index";
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
+import {useCookies} from "react-cookie";
 
 export default function Order() {
 
@@ -39,6 +40,7 @@ export default function Order() {
     const dispatch = useDispatch();
     const {cartReducer, authReducer} = useSelector((state: RootState) => state);
     const [orderForm, setOrderForm] = useState<orderType[]>([]);
+    const [cookies, setCookie, removeCookie] = useCookies(['cart']);
 
     useLayoutEffect(() => {
 
@@ -58,8 +60,31 @@ export default function Order() {
 
         return () => {
             dispatch({type: 'orderOut'});
+            removeCookie('cart', {path: '/'});
         }
     }, []);
+
+    const submitForm = () => {
+
+        const arr = [];
+
+        for (let i = 0; i < cartReducer.length; i++) {
+
+            const data: orderType = {
+                r_u_id: authReducer.u_id,
+                r_g_code: cartReducer[i].g_code,
+                r_firstTime: '',
+                r_count: cartReducer[i].r_count,
+                r_customOrder: '',
+                r_owner: '',
+                r_pay: 0,
+            }
+
+            arr.push(data);
+        }
+
+
+    };
 
     return (
         <DivContainer>
