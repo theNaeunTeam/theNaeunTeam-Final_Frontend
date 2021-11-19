@@ -32,7 +32,7 @@ export default function Header() {
                     <Nav className="me-auto">
                         <Nav.Link as={Nav}><Link className={'youngJin'} to={'/'}>메인페이지</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link className={'youngJin'} to={'/login'}>로그인</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link className={'youngJin'} to={'/user'}>유저메인</Link></Nav.Link>
+                        <Nav.Link as={Nav}><Link className={'youngJin'} to={'/user'}>유저마이페이지</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link className={'youngJin'} to={'/owner'}>오너메인</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link className={'youngJin'} to={'/master'}>마스터메인</Link></Nav.Link>
                     </Nav>

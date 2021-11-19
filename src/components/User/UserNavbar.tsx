@@ -15,11 +15,10 @@ export default function UserNavbar(props: RouteComponentProps) {
                 <Container>
                     <Navbar.Brand>유저 네브바</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link as={Nav}><Link to={'/addproduct'}>상품등록</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link to={'/productview'}>상품조회</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link to={'/reservationview'}>예약현황</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link to={'/sellingview'}>판매내역</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link to={'/unsubscribe'}>이용해지신청</Link></Nav.Link>
+                        <Nav.Link as={Nav}><Link to={'/user'}>MyPage</Link></Nav.Link>
+                        <Nav.Link as={Nav}><Link to={'/addproduct'}>예약내역</Link></Nav.Link>
+                        <Nav.Link as={Nav}><Link to={'/productview'}>회원정보수정</Link></Nav.Link>
+                        <Nav.Link as={Nav}><Link to={'/reservationview'}>회원탈퇴</Link></Nav.Link>
                     </Nav>
                     <IconButton color="primary" aria-label="add to shopping cart">
                         <AddShoppingCartIcon/>
