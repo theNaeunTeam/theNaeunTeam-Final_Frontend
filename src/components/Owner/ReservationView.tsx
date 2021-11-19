@@ -40,7 +40,7 @@ export default function ReservationView() {
         g_name: string,
         g_category: string,
         g_expireDate: string,
-        g_count:number,
+        g_count: number,
         g_status: number,
     };
 
@@ -151,11 +151,12 @@ export default function ReservationView() {
                     {props.data.r_firstTime}
                 </td>
                 <td>
-                    {props.data.r_status === 0 ? '예약 승인 대기중'
-                        : props.data.r_status === 1 ? '승인 완료'
-                            : props.data.r_status === 2 ? '거절됨'
-                                : props.data.r_status === 3 ? '판매완료'
-                                    : props.data.r_status === 4 ? '노쇼' : null
+                    {props.data.g_status === 0 ? '예약 승인 대기중'
+                        : props.data.g_status === 1 ? '승인 완료'
+                            : props.data.g_status === 2 ? '거절됨'
+                                : props.data.g_status === 3 ? '판매완료'
+                                    : props.data.g_status === 4 ? '노쇼'
+                                        : null
                     }
                 </td>
                 <td>

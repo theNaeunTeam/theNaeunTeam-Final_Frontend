@@ -8,10 +8,11 @@ import {combineReducers, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {authReducer} from "./reducers/auth";
 import {goodsReducer} from "./reducers/goods";
+import {cartReducer} from "./reducers/cart";
 import {CookiesProvider} from 'react-cookie';
 
 const rootReducer = combineReducers({
-    authReducer, goodsReducer
+    authReducer, goodsReducer, cartReducer
 });
 
 const store = createStore(
