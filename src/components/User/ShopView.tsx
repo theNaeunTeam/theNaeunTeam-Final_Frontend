@@ -207,11 +207,16 @@ export default function ShopView() {
         console.log(13980745012974901+authReducer.u_id);
     }, [])
 
-    const [cookies, setCookie] = useCookies(['cart']);
+    const [cookies, setCookie, removeCookie] = useCookies(['cart']);
 
     // 장바구니에 추가
-    const saveGoods = (e: React.FormEvent<HTMLFormElement>) => {
+    const saveGoods = (e: React.FormEvent<HTMLFormElement>, max: number) => {
         e.preventDefault();
+
+        // @ts-ignore
+        const g_count = Number(e.target[0].value);
+        // @ts-ignore
+        const g_code = Number(e.target[1].value);
 
         if (!authReducer.isUser) {
             alert('로그인이 필요한 기능입니다.');
@@ -222,15 +227,54 @@ export default function ShopView() {
 
         if (cookies.cart) {
             cookieCart = [...cookies.cart];
+            console.log(cookieCart);
+
+            const findDiffOwner = cookieCart.filter((x: any) => x.o_sNumber != match.params.o_sNumber);
+
+            if (findDiffOwner.length !== 0) { // 파라메타의 사업자번호와 다른 사업자번호를 가진 쿠기가 있을 경우
+                if (window.confirm('장바구니에 다른 가게의 상품이 담겨있습니다. 삭제하시겠습니까?')) {
+                    removeCookie('cart');
+                } else {
+                    return false;
+                }
+            } else {
+
+                const findSameGoods = cookieCart.findIndex((x: any) => x.g_code == g_code);
+
+                if (findSameGoods !== -1) { // 이미 같은 상품이 쿠키에 저장되어 있을 경우
+
+                    let acc = g_count + Number(cookieCart[findSameGoods].g_count);
+                    if (acc > max) {
+                        acc = max;
+                        alert(`장바구니에 담을 수 있는 최대수량인 "${acc}개"로 조정되었습니다`);
+                    }
+                    cookieCart[findSameGoods] = {
+                        g_count: acc,
+                        g_code: g_code,
+                        id: authReducer.u_id,
+                        o_sNumber: match.params.o_sNumber
+                    }
+                } else {
+                    cookieCart.push({
+                        g_count: g_count,
+                        g_code: g_code,
+                        id: authReducer.u_id,
+                        o_sNumber: match.params.o_sNumber
+                    });
+                }
+            }
+        } else {
+            console.log('저장된 쿠키 없어서 새로 만듦');
+            cookieCart.push({
+                g_count: g_count,
+                g_code: g_code,
+                id: authReducer.u_id,
+                o_sNumber: match.params.o_sNumber
+            });
         }
 
-
-        // @ts-ignore
-        cookieCart.push({g_count: e.target[0].value, g_code: e.target[1].value, id: authReducer.u_id});
-
-
         setCookie('cart', JSON.stringify(cookieCart), {path: '/'});
-        if (window.confirm('장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?')) {
+        if (window.confirm('장바구니로 이동하시겠습니까?')) {
             history.push('/user/shoppingcart');
         }
     };
@@ -258,7 +302,7 @@ export default function ShopView() {
                         <h6>남은 수량 : {props.data.g_count}</h6><br/>
 
                         수량 선택 :
-                        <form onSubmit={event => saveGoods(event)}>
+                        <form onSubmit={event => saveGoods(event, props.data.g_count)}>
                             <select>
                                 {optionTagBuilder(props.data.g_count).map(data => data)}
                             </select>
@@ -329,7 +373,9 @@ export default function ShopView() {
 
 
                 <DivContainer>
-                    <Button style={{background:'red',width:'100%'}} variant="contained" onClick={()=>{history.push('')}}>장바구니 보기 </Button>
+                    <Button style={{background: 'red', width: '100%'}} variant="contained" onClick={() => {
+                        history.push('')
+                    }}>장바구니 보기 </Button>
                 </DivContainer>
             </>
         )
@@ -345,8 +391,12 @@ export default function ShopView() {
             </DivTitle>
             <hr/>
             <div className={"nav"}>
-                <a className={"a"} href="javascript:void(0);" onClick={()=>{ setModal(true)}}>상품정보</a>
-                <a className={"a"} href="javascript:void(0);" onClick={()=>{ setModal(false)}}>매장정보</a>
+                <a className={"a"} href="javascript:void(0);" onClick={() => {
+                    setModal(true)
+                }}>상품정보</a>
+                <a className={"a"} href="javascript:void(0);" onClick={() => {
+                    setModal(false)
+                }}>매장정보</a>
             </div>
 
 

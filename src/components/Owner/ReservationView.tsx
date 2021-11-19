@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -9,8 +9,15 @@ import styled from "styled-components";
 import {client} from "../../lib/api/client";
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
+import {useHistory} from "react-router-dom";
 
 export default function ReservationView() {
+
+    const {authReducer} = useSelector((state: RootState) => state);
+    const history = useHistory();
+    useLayoutEffect(() => {
+        if (!authReducer.isOwner) history.push('/err');
+    }, []);
 
     const TableStyled = styled.table`
       padding: 30px;
@@ -46,8 +53,6 @@ export default function ReservationView() {
         g_expireDate: '2021-11-11',
         g_status: 0,
     };
-
-    const {authReducer} = useSelector((state: RootState) => state);
 
 
     const [list, setList] = useState<dummyType[]>([]);

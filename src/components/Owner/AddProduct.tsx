@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import TextField from "@mui/material/TextField";
 import {client} from "../../lib/api/client";
 import {
@@ -14,6 +14,7 @@ import {
 import {TransitionProps} from "@mui/material/transitions";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
+import {useHistory} from "react-router-dom";
 
 
 // 등록알림창
@@ -28,6 +29,13 @@ const Transition = React.forwardRef(function Transition(
 
 
 export default function AddProduct() {
+
+    const {goodsReducer, authReducer} = useSelector((state: RootState) => state);
+    const history = useHistory();
+    useLayoutEffect(() => {
+        if (!authReducer.isOwner) history.push('/err');
+    }, []);
+
     interface formInterface {
         isModify: boolean,
         g_owner: string,
@@ -64,7 +72,6 @@ export default function AddProduct() {
 
 
     const dispatch = useDispatch();
-    const {goodsReducer, authReducer} = useSelector((state: RootState) => state);
 
     const [productForm, setProduct] = useState<formInterface>(initValue);
     const [formError, setFormError] = useState(formErrorinit);
