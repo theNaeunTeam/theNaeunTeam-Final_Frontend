@@ -30,8 +30,7 @@ export default function ShoppingCart() {
         o_name: string,
         u_id: string,
     }
-
-    const initData = {
+    const defaultValue = [{
         g_code: 0,
         g_count: 0,
         g_name: '',
@@ -41,17 +40,16 @@ export default function ShoppingCart() {
         g_image: '',
         o_name: '',
         u_id: '',
-    }
+    }]
 
-    const [cookies, setCookie, removeCookie] = useCookies(['cart']);
+    const [cookies, setCookie] = useCookies(['cart']);
+    const [temp, setTemp] = useState<ShoppingCartDTO[]>(defaultValue);
 
     const {cartReducer} = useSelector((state: RootState) => state);
 
     const dispatch = useDispatch();
 
     type cookieType = { g_count: string, g_code: string, id: string };
-
-    const [list, setList] = useState<ShoppingCartDTO[]>([initData]);
 
     const [isCookie, setIsCookie] = useState(false);
 
@@ -76,16 +74,21 @@ export default function ShoppingCart() {
             console.log('쿠키 없음');
             setIsCookie(false);
         }
-
     }
 
     const initialize = async (input: number[]) => {
+        const g_countArr = cookies.cart;
+
         const URL = '/common/shoppingcart';
         try {
             const res = await client.post(URL, input);
-            setList(res.data);
-            dispatch({type: 'cartIn', payload: res.data});
+            const massage = res.data.map((x: ShoppingCartDTO, idx: number) => {
+                return {...x, g_count: g_countArr[idx].g_count}
+            });
+            console.log(massage);
+            dispatch({type: 'cartIn', payload: massage});
 
+            setTemp(JSON.parse(JSON.stringify(res.data)));
         } catch (e) {
             console.log(e);
         }
@@ -93,9 +96,7 @@ export default function ShoppingCart() {
 
     const removeItem = (g_code: number, idx: number) => {
 
-        const cp = [...list];
-        cp.splice(idx, 1);
-        setList(cp);
+        dispatch({type: 'removeItem', payload: idx});
 
         const cookieCart = [...cookies.cart];
         const removeIDX = cookieCart.findIndex((x: any) => x.g_code == g_code);
@@ -106,20 +107,22 @@ export default function ShoppingCart() {
 
 
     const plus = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>, idx: number) => {
-        const cp = [...list];
-        if (cp[idx].g_count >= cookies.cart[idx].g_count){
-            alert(`최대 ${cookies.cart[idx].g_count}개 구매 가능합니다`);
+
+        const cp = [...cartReducer];
+        if (cp[idx].g_count >= temp[idx].g_count) {
+            alert(`최대 ${temp[idx].g_count}개 구매 가능합니다`);
             return false;
         }
         cp[idx].g_count += 1;
-        setList(cp);
+        dispatch({type: 'modifyItem', payload: cp})
     }
 
     const minus = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>, idx: number) => {
-        const cp = [...list];
-        if(cp[idx].g_count <= 1)return false;
+
+        const cp = [...cartReducer];
+        if (cp[idx].g_count <= 1) return false;
         cp[idx].g_count -= 1;
-        setList(cp);
+        dispatch({type: 'modifyItem', payload: cp})
     }
 
 
@@ -156,8 +159,6 @@ export default function ShoppingCart() {
 
     return (
         <DivContainer>
-
-            <button onClick={() => console.log(list)}> 테스트</button>
             <div>장바구니</div>
             {
                 isCookie &&
@@ -165,14 +166,14 @@ export default function ShoppingCart() {
                     <hr/>
                     <hr/>
                     <div>
-                        {list.length === 0 || `가게명 : ${list[0].o_name}`}
+                        {cartReducer.length === 0 || `가게명 : ${cartReducer[0].o_name}`}
                     </div>
 
-                    {list.map((data: ShoppingCartDTO, idx: number) => <ListBuilder data={data} idx={idx}
-                                                                                   key={idx}/>)}
+                    {cartReducer.map((data: ShoppingCartDTO, idx: number) => <ListBuilder data={data} idx={idx}
+                                                                                          key={idx}/>)}
 
                     <br/>
-                    {list.length === 0 || <Button variant={'contained'}>주문하기</Button>}
+                    {cartReducer.length === 0 || <Button variant={'contained'}>주문하기</Button>}
                 </>
             }
 

@@ -20,13 +20,19 @@ export function cartReducer(state = defaultValue, action: actionTypes) {
         case 'cartIn':
             console.log(action.type, '리듀서 콜');
             console.log('화물 => ', action.payload);
-            return {...action.payload};
-        case 'modify':
+            return [...action.payload];
+        case 'modifyItem':
             console.log(action.type, '리듀서 콜');
             console.log('화물 => ', action.payload);
-            return {...state};
+            return [...action.payload];
+        case 'removeItem':
+            console.log(action.type, '리듀서 콜');
+            console.log('화물 => ', action.payload);
+            const cp = [...state];
+            cp.splice(action.payload, 1);
+            return cp;
         default:
-            console.log('goods 리듀서 일치하는 액션 없음');
+            console.log('cart 리듀서 일치하는 액션 없음');
             return state;
     }
 }
