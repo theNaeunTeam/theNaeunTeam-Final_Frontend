@@ -83,7 +83,8 @@ export default function ShoppingCart() {
         try {
             const res = await client.post(URL, input);
             const massage = res.data.map((x: ShoppingCartDTO, idx: number) => {
-                return {...x, g_count: g_countArr[idx].g_count}
+                const findCookieIDX = g_countArr.findIndex((y: any) => y.g_code == x.g_code);
+                return {...x, g_count: g_countArr[findCookieIDX].g_count}
             });
             console.log(massage);
             dispatch({type: 'cartIn', payload: massage});
