@@ -9,11 +9,13 @@ import {Map, MapMarker} from "react-kakao-maps-sdk";
 import {useCookies} from 'react-cookie';
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
+import fullStar from "../../styles/images/star1.png";
+import emptyStar from "../../styles/images/star2.png";
 
 export default function ShopView() {
 
     const {authReducer} = useSelector((state: RootState) => state);
-
+    
     const DivTitle = styled.div`
       flex-direction: column;
       display: flex;
@@ -44,6 +46,7 @@ export default function ShopView() {
       padding: 10px;
       width: 40%;
     `;
+
 
 
     const initColor = {
@@ -105,6 +108,11 @@ export default function ShopView() {
         o_image: "",
     }
 
+    const favorInit ={
+        f_o_sNumber:'',
+        f_p_user_id:''
+    }
+
     const history = useHistory();
 
     const [aboutStore, setAboutStore] = useState(initStore);
@@ -117,7 +125,6 @@ export default function ShopView() {
 
     //즐찾 state
     const [favorites, setFavorites] = useState(false);
-
 
     const change = (e: React.MouseEvent<HTMLButtonElement>) => {
         const btnValue = (e.target as HTMLButtonElement).name; // button의 name값을 가져옴
@@ -163,37 +170,69 @@ export default function ShopView() {
         }
     }
 
+    useEffect(()=>{
+        favorCheck();
+        console.log(authReducer.isUser);
+    },[authReducer.isUser])
+
     // 즐겨찾기 유무 api
     const favorCheck = async ()=>{
+        if(!authReducer.isUser){
+            return false;
+        }
         const URL= '/user/favorCheck';
         const data= {
             f_o_sNumber:match.params.o_sNumber,
             f_p_user_id:authReducer.u_id
         }
-        console.log(6546546,data);
+        console.log(data);
         try {
             const res = await client.post(URL, data);
             console.log('즐겨찾기 체크:'+ res.data);
-            setFavorites(res.data);
+            console.log(typeof (res.data));
+            // setFavorites(res.data);
         }catch (e){
             console.log(e);
         }
     }
 
-    // 즐겨찾기 api
+    // 즐겨찾기 추가 api
     const favorInsert = async () =>{
-        const URL = '';
+        if (!authReducer.isUser) {
+            return false;
+        }
+        const URL = '/user/addFavor';
         const data= {
-            f_o_sNumber:match.params,
+            f_o_sNumber:match.params.o_sNumber,
             f_p_user_id:authReducer.u_id
         }
+        console.log('즐겨찾기 추가'+data);
+        try {
+            const res = await client.post(URL,data);
+            console.log(res.data);
+            alert('즐겨찾기에 추가되었습니다.')
+            setFavorites(true);
+        }catch (e){
+            console.log(e);
+        }
+    }
+    // 즐겨찾기 해제 api
+    const favorOff = async () =>{
         if (!authReducer.isUser) {
             alert('로그인이 필요한 기능입니다.');
             return false;
         }
+        const URL = '/user/FavorOff';
+        const data= {
+            f_o_sNumber:match.params.o_sNumber,
+            f_p_user_id:authReducer.u_id
+        }
+        console.log('즐겨찾기 해제'+data);
         try {
             const res = await client.post(URL,data);
-
+            console.log(res.data);
+            alert('즐겨찾기가 해제되었습니다.')
+            setFavorites(false);
         }catch (e){
             console.log(e);
         }
@@ -203,8 +242,6 @@ export default function ShopView() {
     useEffect(() => {
         gooodsTableInit();
         storeTableInit();
-        favorCheck();
-        console.log(13980745012974901+authReducer.u_id);
     }, [])
 
     const [cookies, setCookie] = useCookies(['cart']);
@@ -339,7 +376,14 @@ export default function ShopView() {
     return (
         <>
             <DivTitle>
-                <span style={{marginLeft:"auto"}}>⭐</span>
+                {
+                    favorites === true
+                    //    즐겨찾기 해제
+                    ? <span style={{marginLeft:"auto"}}><img style={{width:"40px"}} src={fullStar} onClick={favorOff}/></span>
+                    //    즐겨찾기 추가
+                    : <span style={{marginLeft:"auto"}}><img style={{width:"40px"}} src={emptyStar} onClick={favorInsert}/></span>
+                }
+
                 <h3>CU 센텀클래스원점</h3>
                 <h6 style={{color:'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h6>
             </DivTitle>
