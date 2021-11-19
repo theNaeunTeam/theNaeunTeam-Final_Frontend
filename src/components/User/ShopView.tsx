@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import fullStar from "../../styles/images/star1.png";
 import emptyStar from "../../styles/images/star2.png";
+import Swal from 'sweetalert2';
 
 export default function ShopView() {
 
@@ -111,7 +112,8 @@ export default function ShopView() {
     const favorInit ={
         f_o_sNumber:'',
         f_p_user_id:''
-    }
+    };
+
 
     const history = useHistory();
 
@@ -183,12 +185,45 @@ export default function ShopView() {
             const res = await client.post(URL, data);
             console.log('즐겨찾기 체크:'+ res.data);
             console.log(typeof (res.data));
-            // setFavorites(res.data);
+            setFavorites(res.data);
         }catch (e){
             console.log(e);
         }
     }
 
+    function favoron(){
+        Swal.fire({
+            title: '즐겨찾기에 추가되었습니다',
+            text: "즐겨찾기에서 확인하실 수 있습니다.",
+            icon: 'success',
+            // showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+            // cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.value) {
+                //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다.
+            }
+        })
+    }
+
+    function favoroff(){
+        Swal.fire({
+            title: '즐겨찾기에서 해제되었습니다',
+            text: "즐겨찾기에서 확인하실 수 있습니다.",
+            icon: 'success',
+            // showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+            // cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.value) {
+                //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다.
+            }
+        })
+    }
 
     // 즐겨찾기 추가 api
     const favorInsert = async () =>{
@@ -205,8 +240,9 @@ export default function ShopView() {
         try {
             const res = await client.post(URL,data);
             console.log(res.data);
-            alert('즐겨찾기에 추가되었습니다.')
+            // alert('즐겨찾기에 추가되었습니다.')
             setFavorites(true);
+            favoron();
         }catch (e){
             console.log(e);
         }
@@ -226,8 +262,9 @@ export default function ShopView() {
         try {
             const res = await client.post(URL,data);
             console.log(res.data);
-            alert('즐겨찾기가 해제되었습니다.')
+            // alert('즐겨찾기가 해제되었습니다.')
             setFavorites(false);
+            favoroff();
         }catch (e){
             console.log(e);
         }
@@ -237,8 +274,6 @@ export default function ShopView() {
     useEffect(() => {
         gooodsTableInit();
         storeTableInit();
-        // favorCheck();
-
     }, [])
 
     const [cookies, setCookie, removeCookie] = useCookies(['cart']);
