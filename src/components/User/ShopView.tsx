@@ -4,7 +4,7 @@ import {Button} from "@mui/material";
 import {client} from "../../lib/api/client";
 import {useHistory} from 'react-router-dom';
 import {useRouteMatch} from 'react-router';
-import './ShopStyle.css';
+import '../../styles/ShopStyle.css';
 import {Map, MapMarker} from "react-kakao-maps-sdk";
 import {useCookies} from 'react-cookie';
 import {useSelector} from "react-redux";
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 export default function ShopView() {
 
     const {authReducer} = useSelector((state: RootState) => state);
-    
+
     const DivTitle = styled.div`
       flex-direction: column;
       display: flex;
@@ -47,7 +47,6 @@ export default function ShopView() {
       padding: 10px;
       width: 40%;
     `;
-
 
 
     const initColor = {
@@ -109,9 +108,9 @@ export default function ShopView() {
         o_image: "",
     }
 
-    const favorInit ={
-        f_o_sNumber:'',
-        f_p_user_id:''
+    const favorInit = {
+        f_o_sNumber: '',
+        f_p_user_id: ''
     };
 
 
@@ -165,33 +164,33 @@ export default function ShopView() {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         favorCheck();
         console.log(authReducer.isUser);
-    },[authReducer.isUser])
+    }, [authReducer.isUser])
 
     // 즐겨찾기 유무 api
-    const favorCheck = async ()=>{
-        if(!authReducer.isUser){
+    const favorCheck = async () => {
+        if (!authReducer.isUser) {
             return false;
         }
-        const URL= '/user/favorCheck';
-        const data= {
-            f_o_sNumber:match.params.o_sNumber,
-            f_p_user_id:authReducer.u_id
+        const URL = '/user/favorCheck';
+        const data = {
+            f_o_sNumber: match.params.o_sNumber,
+            f_p_user_id: authReducer.u_id
         }
         console.log(data);
         try {
             const res = await client.post(URL, data);
-            console.log('즐겨찾기 체크:'+ res.data);
+            console.log('즐겨찾기 체크:' + res.data);
             console.log(typeof (res.data));
             setFavorites(res.data);
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
 
-    function favoron(){
+    function favoron() {
         Swal.fire({
             title: '즐겨찾기에 추가되었습니다',
             text: "즐겨찾기에서 확인하실 수 있습니다.",
@@ -208,7 +207,7 @@ export default function ShopView() {
         })
     }
 
-    function favoroff(){
+    function favoroff() {
         Swal.fire({
             title: '즐겨찾기에서 해제되었습니다',
             text: "즐겨찾기에서 확인하실 수 있습니다.",
@@ -226,46 +225,46 @@ export default function ShopView() {
     }
 
     // 즐겨찾기 추가 api
-    const favorInsert = async () =>{
+    const favorInsert = async () => {
         if (!authReducer.isUser) {
             return false;
         }
         const URL = '/user/addFavor';
-        const data= {
-            f_o_sNumber:match.params.o_sNumber,
-            f_p_user_id:authReducer.u_id
+        const data = {
+            f_o_sNumber: match.params.o_sNumber,
+            f_p_user_id: authReducer.u_id
 
         }
-        console.log('즐겨찾기 추가'+data);
+        console.log('즐겨찾기 추가' + data);
         try {
-            const res = await client.post(URL,data);
+            const res = await client.post(URL, data);
             console.log(res.data);
             // alert('즐겨찾기에 추가되었습니다.')
             setFavorites(true);
             favoron();
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
     // 즐겨찾기 해제 api
-    const favorOff = async () =>{
+    const favorOff = async () => {
         if (!authReducer.isUser) {
             alert('로그인이 필요한 기능입니다.');
             return false;
         }
         const URL = '/user/FavorOff';
-        const data= {
-            f_o_sNumber:match.params.o_sNumber,
-            f_p_user_id:authReducer.u_id
+        const data = {
+            f_o_sNumber: match.params.o_sNumber,
+            f_p_user_id: authReducer.u_id
         }
-        console.log('즐겨찾기 해제'+data);
+        console.log('즐겨찾기 해제' + data);
         try {
-            const res = await client.post(URL,data);
+            const res = await client.post(URL, data);
             console.log(res.data);
             // alert('즐겨찾기가 해제되었습니다.')
             setFavorites(false);
             favoroff();
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
@@ -476,10 +475,12 @@ export default function ShopView() {
 
                 {
                     favorites
-                    //    즐겨찾기 해제
-                    ? <span style={{marginLeft:"auto"}}><img style={{width:"40px"}} src={fullStar} onClick={favorOff}/></span>
-                    //    즐겨찾기 추가
-                    : <span style={{marginLeft:"auto"}}><img style={{width:"40px"}} src={emptyStar} onClick={favorInsert}/></span>
+                        //    즐겨찾기 해제
+                        ? <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={fullStar}
+                                                                  onClick={favorOff}/></span>
+                        //    즐겨찾기 추가
+                        : <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={emptyStar}
+                                                                  onClick={favorInsert}/></span>
                 }
 
                 <h3>CU 센텀클래스원점</h3>

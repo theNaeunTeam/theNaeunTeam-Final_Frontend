@@ -1,11 +1,10 @@
-import React, {useLayoutEffect, useState,useEffect} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {Map, MapMarker} from 'react-kakao-maps-sdk';
 import styled from 'styled-components'
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
-
 
 
 export default function OwnerMain() {
@@ -17,20 +16,20 @@ export default function OwnerMain() {
     }, []);
 
     type storeValue = {
-        o_name : string,
-        total : number,
-        goods : number,
-        reserve : number,
-        o_latitude : number ,
-        o_longitude : number,
+        o_name: string,
+        total: number,
+        goods: number,
+        reserve: number,
+        o_latitude: number,
+        o_longitude: number,
     }
     const initialValue = {
-        o_name : '',
-        total : 0,
-        goods : 0,
-        reserve : 0,
-        o_latitude :0 ,
-        o_longitude : 0,
+        o_name: '',
+        total: 0,
+        goods: 0,
+        reserve: 0,
+        o_latitude: 0,
+        o_longitude: 0,
 
     };
 
@@ -53,19 +52,20 @@ export default function OwnerMain() {
 
     useEffect(() => {
         initialize();
-    },[]);
+    }, []);
 
-    const initialize = async () =>{
+    const initialize = async () => {
         const URL = '';
-        try{
+        try {
             const res = await client.get(URL);
             console.log(res);
             setOwnerMain(res.data);
 
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     };
+
     function getLoc() {
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 

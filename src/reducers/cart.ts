@@ -10,12 +10,24 @@ const defaultValue = [{
     u_id: '',
 }]
 
+type defaultType = {
+    g_code: number,
+    g_count: number,
+    g_name: string,
+    g_status: number,
+    g_price: number,
+    g_discount: number,
+    g_image: string,
+    o_name: string,
+    u_id: string,
+}
+
 interface actionTypes {
     type: string,
     payload: any,
 }
 
-export function cartReducer(state = defaultValue, action: actionTypes) {
+export function cartReducer(state:defaultType[] = [], action: actionTypes) {
     switch (action.type) {
         case 'cartIn':
             console.log(action.type, '리듀서 콜');
@@ -38,7 +50,7 @@ export function cartReducer(state = defaultValue, action: actionTypes) {
         case 'orderOut':
             console.log(action.type, '리듀서 콜');
             console.log('화물 => ', action.payload);
-            return defaultValue;
+            return [];
         default:
             console.log('cart 리듀서 일치하는 액션 없음');
             return state;

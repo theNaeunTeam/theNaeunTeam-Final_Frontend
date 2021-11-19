@@ -43,6 +43,8 @@ function App() {
                 dispatch({
                     type: 'userMode', payload: localStorage.getItem('u_id')
                 })
+            }).catch(() => {
+                localStorage.clear();
             })
         }
         if (localStorage.getItem('ownerToken')) {
@@ -52,6 +54,8 @@ function App() {
                     type: 'ownerMode',
                     payload: localStorage.getItem('o_sNumber')
                 });
+            }).catch(() => {
+                localStorage.clear();
             })
         }
         if (localStorage.getItem('masterToken')) {
@@ -60,6 +64,8 @@ function App() {
                 dispatch({
                     type: 'masterMode'
                 })
+            }).catch(() => {
+                localStorage.clear();
             })
         }
     };

@@ -54,8 +54,6 @@ export default function ShoppingCart() {
 
     type cookieType = { g_count: string, g_code: string, id: string };
 
-    const [isCookie, setIsCookie] = useState(false);
-
     useEffect(() => {
         readCookie();
     }, []);
@@ -65,17 +63,12 @@ export default function ShoppingCart() {
         console.log('쿠키 읽기 시작');
         if (cookies.cart) {
             if (Array.isArray(cookies.cart)) if (cookies.cart.length === 0) {
-                setIsCookie(false);
                 console.log('쿠키가 빈 배열이다');
                 return false;
             }
             const g_codeArr = cookies.cart.map((data: cookieType) => Number(data.g_code));
             console.log('쿠키에서 읽어온 g_code 배열 : ', g_codeArr);
             initialize(g_codeArr);
-            setIsCookie(true);
-        } else {
-            console.log('쿠키 없음');
-            setIsCookie(false);
         }
     }
 
@@ -164,32 +157,29 @@ export default function ShoppingCart() {
     return (
         <DivContainer>
             <div>장바구니</div>
-            {
-                isCookie &&
+            <hr/>
+            {cartReducer.length ?
                 <>
-                    <hr/>
-                    <hr/>
                     <div>
                         {cartReducer.length === 0 || `가게명 : ${cartReducer[0].o_name}`}
                     </div>
 
                     {cartReducer.map((data: ShoppingCartDTO, idx: number) => <ListBuilder data={data} idx={idx}
                                                                                           key={idx}/>)}
-
                     <br/>
-                    {
-                        cartReducer.length === 0 || <>
-                            <div>
-                                주문 상품 수 : {cartReducer.length}
-                                <br/>
-                                총 금액 : {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
-                            </div>
-                            <Button variant={'contained'} onClick={() => {
-                                dispatch({type: 'orderIn'});
-                                history.push('/user/order');
-                            }}>주문하기</Button>
-                        </>
-                    }
+                    <div>
+                        주문 상품 수 : {cartReducer.length}
+                        <br/>
+                        총 금액 : {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
+                    </div>
+                    <Button variant={'contained'} onClick={() => {
+                        dispatch({type: 'orderIn'});
+                        history.push('/user/order');
+                    }}>주문하기</Button>
+                </>
+                :
+                <>
+                    <h1>텅</h1>
                 </>
             }
 
