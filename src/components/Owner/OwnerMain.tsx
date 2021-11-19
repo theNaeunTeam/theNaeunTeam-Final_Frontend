@@ -92,10 +92,10 @@ export default function OwnerMain() {
                 {/*<h5>월별 판매 금액 : {ownerMain.monthly}</h5>*/}
                 <h5>등록한 상품 : {ownerMain.goods}</h5>
                 <h5>예약 진행중 : {ownerMain.reserve}</h5>
-                <button onClick={() => {
-                    getLoc();
-                }}>위도경도변경테스트
-                </button>
+                {/*<button onClick={() => {*/}
+                {/*    getLoc();*/}
+                {/*}}>위도경도변경테스트*/}
+                {/*</button>*/}
             </DivHalfMenu>
             <DivHalfMenu>
                 <Map
