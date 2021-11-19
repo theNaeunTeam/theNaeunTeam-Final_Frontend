@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,6 +16,9 @@ export default function GoodsView() {
     const history = useHistory();
     const dispatch = useDispatch();
     const {authReducer} = useSelector((state: RootState) => state);
+    useLayoutEffect(() => {
+        if (!authReducer.isOwner) history.push('/err');
+    }, []);
 
     const TableStyled = styled.table`
       padding: 30px;

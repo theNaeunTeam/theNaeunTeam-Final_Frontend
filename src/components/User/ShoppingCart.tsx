@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 import {client} from "../../lib/api/client";
 import styled from "styled-components";
+import {authReducer} from "../../reducers/auth";
+import {useSelector} from "react-redux";
+import {RootState} from "../../index";
 
 export default function ShoppingCart() {
 
@@ -16,39 +19,36 @@ export default function ShoppingCart() {
       padding: 10px;
     `;
 
-    type goodsDTO = {
-        g_owner: string,
+    type ShoppingCartDTO = {
         g_code: number,
-        g_name: string,
         g_count: number,
+        g_name: string,
+        g_status: number,
         g_price: number,
         g_discount: number,
-        g_detail: string,
         g_image: string,
-        g_expireDate: string,
-        g_status: number,
-        g_category: string,
+        o_name: string,
+        u_id: string,
     }
 
-    const dummyData = {
-        g_owner: '123',
-        g_code: 2,
-        g_name: '홈런볼',
-        g_count: 5,
-        g_price: 500,
-        g_discount: 300,
-        g_detail: '상세정보',
-        g_image: 'https://thebetterteam-image.s3.ap-northeast-2.amazonaws.com/%EB%A0%88%ED%8A%B8%EB%A1%9C%EB%8B%AC%EB%A0%A5-2021-11-pc.jpg',
-        g_expireDate: '2020-07-09',
+    const initData = {
+        g_code: 0,
+        g_count: 0,
+        g_name: '',
         g_status: 0,
-        g_category: '과자류',
+        g_price: 0,
+        g_discount: 0,
+        g_image: '',
+        o_name: '',
+        u_id: '',
     }
 
     const [cookies, setCookie] = useCookies(['cart']);
+    const {authReducer} = useSelector((state: RootState) => state);
 
     type cookieType = { g_count: string, g_code: string, id: string };
 
-    const [list, setList] = useState<goodsDTO[]>([]);
+    const [list, setList] = useState<ShoppingCartDTO[]>([initData]);
 
     const [isCookie, setIsCookie] = useState(false);
 
@@ -85,22 +85,27 @@ export default function ShoppingCart() {
 
     };
 
-    const ListBuilder = (props: { data: goodsDTO, idx: number }) => {
+    const ListBuilder = (props: { data: ShoppingCartDTO, idx: number }) => {
 
         return (
             <>
-                {props.data.g_name}
+                상품명:{props.data.g_name}
             </>
         )
     }
 
     return (
         <DivContainer>
-            <div>장바구니{isCookie || '가 비어있습니다.'}</div>
-            <hr/>
-            <div>전체선택</div>
-            <hr/>
-            {list.map((data: goodsDTO, idx: number) => <ListBuilder data={data} idx={idx} key={idx}/>)}
+            <form>
+                <div>장바구니{isCookie || '가 비어있습니다.'}</div>
+                <hr/>
+                <div>전체선택</div>
+                <hr/>
+                <div>
+                    {list[0].o_name}
+                </div>
+                {list.map((data: ShoppingCartDTO, idx: number) => <ListBuilder data={data} idx={idx} key={idx}/>)}
+            </form>
         </DivContainer>
     )
 }

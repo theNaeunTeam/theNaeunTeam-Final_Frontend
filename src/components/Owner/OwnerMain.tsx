@@ -1,9 +1,18 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {Map, MapMarker} from 'react-kakao-maps-sdk';
 import styled from 'styled-components'
+import {useSelector} from "react-redux";
+import {RootState} from "../../index";
+import {useHistory} from "react-router-dom";
 
 
 export default function OwnerMain() {
+
+    const {authReducer} = useSelector((state: RootState) => state);
+    const history = useHistory();
+    useLayoutEffect(() => {
+        if (!authReducer.isOwner) history.push('/err');
+    }, []);
 
     const initialValue = {
         title: '씨유 센텀시티점',
