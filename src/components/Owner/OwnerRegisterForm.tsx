@@ -4,23 +4,10 @@ import {Button, Stack} from "@mui/material";
 import {client} from "../../lib/api/client";
 import DaumPostcode from 'react-daum-postcode';
 import axios from "axios";
+import {ownerRegisterFormType} from "../../modules/types";
 
 
 export default function OwnerRegisterForm() {
-
-    interface formInterface {
-        o_sNumber: string,
-        o_pw: string,
-        pwConfirm: string,
-        o_phone: string,
-        o_name: string,
-        o_cellPhone: string,
-        o_address: string,
-        o_time1: string,
-        o_time2: string,
-        o_latitude: string,
-        o_longitude: string,
-    }
 
     const initValue = {
         o_sNumber: '',
@@ -49,7 +36,7 @@ export default function OwnerRegisterForm() {
         o_image: false,
     };
 
-    const [regForm, setRegForm] = useState<formInterface>(initValue);
+    const [regForm, setRegForm] = useState<ownerRegisterFormType>(initValue);
     const [formError, setFormError] = useState(errorInit);
     const fileInputTag = useRef<HTMLInputElement>(null);
     const [address, setAddress] = useState(''); // 주소

@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+const DivFooter = styled.div`
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+`;
+
 export default function Footer() {
-
-    const DivFooter = styled.div`
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-    `;
-
 
     return (
         <DivFooter>

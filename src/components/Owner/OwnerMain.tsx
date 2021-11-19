@@ -1,12 +1,25 @@
-import React, {useLayoutEffect, useState,useEffect} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {Map, MapMarker} from 'react-kakao-maps-sdk';
 import styled from 'styled-components'
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
+import {ownerMainType} from "../../modules/types";
 
+const DivContainer = styled.div`
+  border: solid black;
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+  padding: 10px;
+`;
 
+const DivHalfMenu = styled.div`
+  flex: 1;
+  margin: 10px;
+  padding: 10px;
+`;
 
 export default function OwnerMain() {
 
@@ -16,56 +29,35 @@ export default function OwnerMain() {
         if (!authReducer.isOwner) history.push('/err');
     }, []);
 
-    type storeValue = {
-        o_name : string,
-        total : number,
-        goods : number,
-        reserve : number,
-        o_latitude : number ,
-        o_longitude : number,
-    }
     const initialValue = {
-        o_name : '',
-        total : 0,
-        goods : 0,
-        reserve : 0,
-        o_latitude :0 ,
-        o_longitude : 0,
+        o_name: '',
+        total: 0,
+        goods: 0,
+        reserve: 0,
+        o_latitude: 0,
+        o_longitude: 0,
 
     };
 
 
-    const [ownerMain, setOwnerMain] = useState<storeValue>(initialValue);
-
-    const DivContainer = styled.div`
-      border: solid black;
-      display: flex;
-      justify-content: center;
-      margin: 50px;
-      padding: 10px;
-    `;
-
-    const DivHalfMenu = styled.div`
-      flex: 1;
-      margin: 10px;
-      padding: 10px;
-    `;
+    const [ownerMain, setOwnerMain] = useState<ownerMainType>(initialValue);
 
     useEffect(() => {
         initialize();
-    },[]);
+    }, []);
 
-    const initialize = async () =>{
+    const initialize = async () => {
         const URL = '';
-        try{
+        try {
             const res = await client.get(URL);
             console.log(res);
             setOwnerMain(res.data);
 
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     };
+
     function getLoc() {
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 

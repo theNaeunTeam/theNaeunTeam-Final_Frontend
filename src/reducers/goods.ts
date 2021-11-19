@@ -28,7 +28,6 @@ export function goodsReducer(state = defaultValue, action: actionTypes) {
             console.log('화물 => ', action.payload);
             return {...defaultValue}
         default:
-            console.log('goods 리듀서 일치하는 액션 없음');
             return state;
     }
 }

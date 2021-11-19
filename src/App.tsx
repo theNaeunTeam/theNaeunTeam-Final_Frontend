@@ -23,7 +23,7 @@ import UserNavbar from "./components/User/UserNavbar";
 import ShoppingCart from "./components/User/ShoppingCart";
 import PageNotFound from "./components/Common/PageNotFound";
 import UserMypage from "./components/User/UserMypage";
-
+import Order from './components/User/Order';
 
 function App() {
 
@@ -43,6 +43,8 @@ function App() {
                 dispatch({
                     type: 'userMode', payload: localStorage.getItem('u_id')
                 })
+            }).catch(() => {
+                localStorage.clear();
             })
         }
         if (localStorage.getItem('ownerToken')) {
@@ -52,6 +54,8 @@ function App() {
                     type: 'ownerMode',
                     payload: localStorage.getItem('o_sNumber')
                 });
+            }).catch(() => {
+                localStorage.clear();
             })
         }
         if (localStorage.getItem('masterToken')) {
@@ -60,6 +64,8 @@ function App() {
                 dispatch({
                     type: 'masterMode'
                 })
+            }).catch(() => {
+                localStorage.clear();
             })
         }
     };
@@ -86,6 +92,7 @@ function App() {
             <Route path='/user' component={UserNavbar}/>
             <Route path='/user' exact component={UserMypage}/>
             <Route path='/user/shoppingcart' component={ShoppingCart}/>
+            <Route path='/user/order' component={Order}/>
 
             <Route path='/owner' component={OwnerNavbar}/>
             <Route path='/owner' exact component={OwnerMain}/>

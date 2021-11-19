@@ -9,24 +9,10 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
+import {masterMainType} from "../../modules/types";
+import Skeleton from '@mui/material/Skeleton';
 
 export default function MasterMain() {
-
-    type tableType = {
-        id: string,
-        o_approval: number,
-        o_sNumber: string,
-        o_phone: string,
-        o_name: string,
-        o_cellPhone: string,
-        o_address: string,
-        o_latitude: string,
-        o_longitude: string,
-        o_date: string,
-        o_time1: string,
-        o_time2: string,
-        o_image: string,
-    };
 
     const initialValue = [{
         id: '',
@@ -44,9 +30,10 @@ export default function MasterMain() {
         o_image: '',
     }];
 
-    const [rows, setRows] = useState<tableType[]>(initialValue);
+    const [rows, setRows] = useState<masterMainType[]>(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''}); // 마스터 로그인 폼 핸들러
+    const [loading, setLoading] = useState(true);
 
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
@@ -85,7 +72,7 @@ export default function MasterMain() {
             const res = await client.get(URL);
 
             // 받아온 결과에 id값 추가
-            const massage = res.data.reduce((acc: tableType[], val: tableType) => {
+            const massage = res.data.reduce((acc: masterMainType[], val: masterMainType) => {
                 acc.push({
                     ...val, id: val.o_sNumber
                 })
@@ -95,6 +82,7 @@ export default function MasterMain() {
             console.log(massage);
 
             setRows(massage);
+            setLoading(false);
         } catch (e) {
             console.log(e);
         }
@@ -143,16 +131,37 @@ export default function MasterMain() {
 
     return (
         <>
-            {authReducer.isMaster ? <>
+            {authReducer.isMaster ?
+                <>
                     <div style={{height: 400, width: '100%', margin: 'auto'}}>
-                        <DataGrid
-                            onStateChange={({selection}) => setSelected(selection)}
-                            rows={rows}
-                            columns={columns}
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}
-                            checkboxSelection
-                        />
+                        {loading ?
+                            <Box sx={{width: 1500}}>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                            </Box>
+                            :
+                            <DataGrid
+                                onStateChange={({selection}) => setSelected(selection)}
+                                rows={rows}
+                                columns={columns}
+                                pageSize={5}
+                                rowsPerPageOptions={[5]}
+                                checkboxSelection
+                            />
+                        }
                     </div>
                     <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
                         승인

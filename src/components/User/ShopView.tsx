@@ -4,7 +4,7 @@ import {Button} from "@mui/material";
 import {client} from "../../lib/api/client";
 import {useHistory} from 'react-router-dom';
 import {useRouteMatch} from 'react-router';
-import './ShopStyle.css';
+import '../../styles/ShopStyle.css';
 import {Map, MapMarker} from "react-kakao-maps-sdk";
 import {useCookies} from 'react-cookie';
 import {useSelector} from "react-redux";
@@ -12,43 +12,42 @@ import {RootState} from "../../index";
 import fullStar from "../../styles/images/star1.png";
 import emptyStar from "../../styles/images/star2.png";
 import Swal from 'sweetalert2';
+import {shopViewType} from "../../modules/types";
+
+const DivTitle = styled.div`
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
+`;
+
+const DivButton = styled.div`
+  margin: 5px;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+`;
+
+const DivContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin: 50px;
+  padding: 10px;
+  width: 100%;
+`;
+
+const DivHalfMenu = styled.div`
+  flex: 1;
+  margin: 10px;
+  padding: 10px;
+  width: 40%;
+`;
 
 export default function ShopView() {
 
     const {authReducer} = useSelector((state: RootState) => state);
-    
-    const DivTitle = styled.div`
-      flex-direction: column;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 50px;
-    `;
-
-    const DivButton = styled.div`
-      margin: 5px;
-      padding: 0;
-      display: flex;
-      list-style: none;
-      justify-content: space-around;
-    `;
-
-    const DivContainer = styled.div`
-      display: flex;
-      justify-content: space-evenly;
-      margin: 50px;
-      padding: 10px;
-      width: 100%;
-    `;
-
-    const DivHalfMenu = styled.div`
-      flex: 1;
-      margin: 10px;
-      padding: 10px;
-      width: 40%;
-    `;
-
-
 
     const initColor = {
         case1: true,
@@ -62,20 +61,6 @@ export default function ShopView() {
         case2: false,
         case3: false,
         case4: false
-    };
-
-    type goodsTableType = {
-        g_owner: string,
-        g_code: number,
-        g_name: string,
-        g_count: number,
-        g_price: number,
-        g_discount: number,
-        g_detail: string,
-        g_image: string,
-        g_expireDate: string,
-        g_status: number,
-        g_category: string,
     };
 
     const initGoods2 = [{
@@ -109,9 +94,9 @@ export default function ShopView() {
         o_image: "",
     }
 
-    const favorInit ={
-        f_o_sNumber:'',
-        f_p_user_id:''
+    const favorInit = {
+        f_o_sNumber: '',
+        f_p_user_id: ''
     };
 
 
@@ -123,7 +108,7 @@ export default function ShopView() {
 
     const [color, setColor] = useState(initColor);
 
-    const [rows, setRows] = useState<goodsTableType[]>(initGoods2);
+    const [rows, setRows] = useState<shopViewType[]>(initGoods2);
 
     //즐찾 state
     const [favorites, setFavorites] = useState(false);
@@ -165,33 +150,33 @@ export default function ShopView() {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         favorCheck();
         console.log(authReducer.isUser);
-    },[authReducer.isUser])
+    }, [authReducer.isUser])
 
     // 즐겨찾기 유무 api
-    const favorCheck = async ()=>{
-        if(!authReducer.isUser){
+    const favorCheck = async () => {
+        if (!authReducer.isUser) {
             return false;
         }
-        const URL= '/user/favorCheck';
-        const data= {
-            f_o_sNumber:match.params.o_sNumber,
-            f_p_user_id:authReducer.u_id
+        const URL = '/user/favorCheck';
+        const data = {
+            f_o_sNumber: match.params.o_sNumber,
+            f_p_user_id: authReducer.u_id
         }
         console.log(data);
         try {
             const res = await client.post(URL, data);
-            console.log('즐겨찾기 체크:'+ res.data);
+            console.log('즐겨찾기 체크:' + res.data);
             console.log(typeof (res.data));
             setFavorites(res.data);
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
 
-    function favoron(){
+    function favoron() {
         Swal.fire({
             title: '즐겨찾기에 추가되었습니다',
             text: "즐겨찾기에서 확인하실 수 있습니다.",
@@ -208,8 +193,7 @@ export default function ShopView() {
         })
     }
 
-    function favoroff(){
-
+    function favoroff() {
         Swal.fire({
             title: '즐겨찾기에서 해제되었습니다',
             text: "즐겨찾기에서 확인하실 수 있습니다.",
@@ -244,47 +228,47 @@ export default function ShopView() {
     }
 
     // 즐겨찾기 추가 api
-    const favorInsert = async () =>{
+    const favorInsert = async () => {
         if (!authReducer.isUser) {
             // alert('로그인필요');
             loginCheck();
             return false;
         }
         const URL = '/user/addFavor';
-        const data= {
-            f_o_sNumber:match.params.o_sNumber,
-            f_p_user_id:authReducer.u_id
+        const data = {
+            f_o_sNumber: match.params.o_sNumber,
+            f_p_user_id: authReducer.u_id
 
         }
-        console.log('즐겨찾기 추가'+data);
+        console.log('즐겨찾기 추가' + data);
         try {
-            const res = await client.post(URL,data);
+            const res = await client.post(URL, data);
             console.log(res.data);
             setFavorites(true);
             favoron();
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
     // 즐겨찾기 해제 api
-    const favorOff = async () =>{
+    const favorOff = async () => {
         if (!authReducer.isUser) {
             alert('로그인이 필요한 기능입니다.');
             return false;
         }
         const URL = '/user/FavorOff';
-        const data= {
-            f_o_sNumber:match.params.o_sNumber,
-            f_p_user_id:authReducer.u_id
+        const data = {
+            f_o_sNumber: match.params.o_sNumber,
+            f_p_user_id: authReducer.u_id
         }
-        console.log('즐겨찾기 해제'+data);
+        console.log('즐겨찾기 해제' + data);
         try {
-            const res = await client.post(URL,data);
+            const res = await client.post(URL, data);
             console.log(res.data);
             // alert('즐겨찾기가 해제되었습니다.')
             setFavorites(false);
             favoroff();
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
@@ -293,6 +277,7 @@ export default function ShopView() {
     useEffect(() => {
         gooodsTableInit();
         storeTableInit();
+        window.scrollTo(0, 0);
     }, [])
 
     const [cookies, setCookie, removeCookie] = useCookies(['cart']);
@@ -393,7 +378,7 @@ export default function ShopView() {
     }
 
     // 상품정보
-    const TableBuilder = (props: { data: goodsTableType, idx: number }) => {
+    const TableBuilder = (props: { data: shopViewType, idx: number }) => {
         return (
             <>
                 <DivContainer>
@@ -497,10 +482,12 @@ export default function ShopView() {
 
                 {
                     favorites
-                    //    즐겨찾기 해제
-                    ? <span style={{marginLeft:"auto"}}><img style={{width:"40px"}} src={fullStar} onClick={favorOff}/></span>
-                    //    즐겨찾기 추가
-                    : <span style={{marginLeft:"auto"}}><img style={{width:"40px"}} src={emptyStar} onClick={favorInsert}/></span>
+                        //    즐겨찾기 해제
+                        ? <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={fullStar}
+                                                                  onClick={favorOff}/></span>
+                        //    즐겨찾기 추가
+                        : <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={emptyStar}
+                                                                  onClick={favorInsert}/></span>
                 }
 
                 <h3>CU 센텀클래스원점</h3>
@@ -518,7 +505,7 @@ export default function ShopView() {
 
 
             {
-                modal === true
+                modal
                     ? <AAA/>
                     : <BBB/>
             }

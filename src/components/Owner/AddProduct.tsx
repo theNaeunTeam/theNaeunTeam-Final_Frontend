@@ -15,6 +15,7 @@ import {TransitionProps} from "@mui/material/transitions";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
+import {addProductType} from "../../modules/types";
 
 
 // 등록알림창
@@ -36,17 +37,6 @@ export default function AddProduct() {
         if (!authReducer.isOwner) history.push('/err');
     }, []);
 
-    interface formInterface {
-        isModify: boolean,
-        g_owner: string,
-        g_name: string,
-        g_count: string,
-        g_price: string,
-        g_discount: string,
-        g_detail: string,
-        g_expireDate: string,
-        g_category: string,
-    }
 
     const initValue = {
         isModify: false,
@@ -73,7 +63,7 @@ export default function AddProduct() {
 
     const dispatch = useDispatch();
 
-    const [productForm, setProduct] = useState<formInterface>(initValue);
+    const [productForm, setProduct] = useState<addProductType>(initValue);
     const [formError, setFormError] = useState(formErrorinit);
 
     const fileInputTag = useRef<HTMLInputElement>(null);

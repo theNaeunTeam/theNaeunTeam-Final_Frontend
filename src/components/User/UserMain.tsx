@@ -4,25 +4,24 @@ import styled from "styled-components";
 import logo from '../../logo.svg';
 import {useHistory} from "react-router-dom";
 
+const DivContainer = styled.div`
+  margin: 20px;
+  padding: 100px;
+`;
+
+const DivCarouselContainer = styled.div`
+  height: 500px;
+  width: 700px;
+  margin: auto;
+`;
+
+const DivRecommend = styled.div`
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
 export default function UserMain() {
-
-    const DivContainer = styled.div`
-      margin: 20px;
-      padding: 100px;
-    `;
-
-    const DivCarouselContainer = styled.div`
-      height: 500px;
-      width: 700px;
-      margin: auto;
-    `;
-
-    const DivRecommend = styled.div`
-      text-align: center;
-      display: flex;
-      justify-content: space-evenly;
-    `;
-
 
     const defaultValue = [
         {

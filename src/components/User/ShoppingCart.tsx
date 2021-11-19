@@ -5,31 +5,23 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {Button} from "@mui/material";
+import {useHistory} from "react-router-dom";
+import {ShoppingCartDTO} from "../../modules/types";
+import CircularProgress from '@mui/material/CircularProgress';
+
+const DivContainer = styled.div`
+  border: solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+`;
 
 export default function ShoppingCart() {
 
-    const DivContainer = styled.div`
-      border: solid black;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      margin: auto;
-      width: 50%;
-      padding: 10px;
-    `;
-
-    type ShoppingCartDTO = {
-        g_code: number,
-        g_count: number,
-        g_name: string,
-        g_status: number,
-        g_price: number,
-        g_discount: number,
-        g_image: string,
-        o_name: string,
-        u_id: string,
-    }
     const defaultValue = [{
         g_code: 0,
         g_count: 0,
@@ -42,16 +34,16 @@ export default function ShoppingCart() {
         u_id: '',
     }]
 
+    const history = useHistory();
+
     const [cookies, setCookie] = useCookies(['cart']);
     const [temp, setTemp] = useState<ShoppingCartDTO[]>(defaultValue);
-
+    const [loading, setLoading] = useState(true);
     const {cartReducer} = useSelector((state: RootState) => state);
 
     const dispatch = useDispatch();
 
     type cookieType = { g_count: string, g_code: string, id: string };
-
-    const [isCookie, setIsCookie] = useState(false);
 
     useEffect(() => {
         readCookie();
@@ -59,20 +51,15 @@ export default function ShoppingCart() {
 
 
     const readCookie = () => {
-        console.log('쿠키 읽기 시작');
         if (cookies.cart) {
             if (Array.isArray(cookies.cart)) if (cookies.cart.length === 0) {
-                setIsCookie(false);
-                console.log('쿠키가 빈 배열이다');
+                setLoading(false);
                 return false;
             }
             const g_codeArr = cookies.cart.map((data: cookieType) => Number(data.g_code));
-            console.log('쿠키에서 읽어온 g_code 배열 : ', g_codeArr);
             initialize(g_codeArr);
-            setIsCookie(true);
         } else {
-            console.log('쿠키 없음');
-            setIsCookie(false);
+            setLoading(false);
         }
     }
 
@@ -82,14 +69,14 @@ export default function ShoppingCart() {
         const URL = '/common/shoppingcart';
         try {
             const res = await client.post(URL, input);
-            const massage = res.data.map((x: ShoppingCartDTO, idx: number) => {
+            const massage = res.data.map((x: ShoppingCartDTO) => {
                 const findCookieIDX = g_countArr.findIndex((y: any) => y.g_code == x.g_code);
                 return {...x, g_count: g_countArr[findCookieIDX].g_count}
             });
-            console.log(massage);
             dispatch({type: 'cartIn', payload: massage});
 
             setTemp(JSON.parse(JSON.stringify(res.data)));
+            setLoading(false);
         } catch (e) {
             console.log(e);
         }
@@ -143,11 +130,14 @@ export default function ShoppingCart() {
                     {props.data.g_status === 0 ? '구매 가능!' : '품절'}
                 </div>
                 담긴 수량 :
-                <span id={`${props.data.g_count}`} style={{fontSize: '30px'}}
+                <span>
+                <span id={`${props.data.g_count}`} style={{fontSize: '30px', cursor:'grab'}}
                       onClick={e => plus(e, props.idx)}>➕</span>
-                {props.data.g_count}
-                <span id={`${props.data.g_count}`} style={{fontSize: '30px'}}
+                <strong style={{padding:'50px'}}>{props.data.g_count}</strong>
+                <span id={`${props.data.g_count}`} style={{fontSize: '30px', cursor:'grab'}}
                       onClick={e => minus(e, props.idx)}>➖</span>
+                    </span>
+                <br/>
                 <div>
                     <img style={{width: '200px', height: '200px'}} src={props.data.g_image} alt={'상품이미지'}/>
                 </div>
@@ -161,20 +151,29 @@ export default function ShoppingCart() {
     return (
         <DivContainer>
             <div>장바구니</div>
-            {
-                isCookie &&
+            <hr/>
+            {cartReducer.length ?
                 <>
-                    <hr/>
-                    <hr/>
                     <div>
                         {cartReducer.length === 0 || `가게명 : ${cartReducer[0].o_name}`}
                     </div>
 
                     {cartReducer.map((data: ShoppingCartDTO, idx: number) => <ListBuilder data={data} idx={idx}
                                                                                           key={idx}/>)}
-
                     <br/>
-                    {cartReducer.length === 0 || <Button variant={'contained'}>주문하기</Button>}
+                    <div>
+                        주문 상품 수 : {cartReducer.length}
+                        <br/>
+                        총 금액 : {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
+                    </div>
+                    <Button variant={'contained'} onClick={() => {
+                        dispatch({type: 'orderIn'});
+                        history.push('/user/order');
+                    }}>주문하기</Button>
+                </>
+                :
+                <>
+                    <h1>{loading ? <CircularProgress/> : '텅'}</h1>
                 </>
             }
 

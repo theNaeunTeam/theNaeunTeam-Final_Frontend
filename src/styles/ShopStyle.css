@@ -1,6 +1,6 @@
-.nav{
+.nav {
     height: 30vh;
-    width:70vw;
+    width: 70vw;
     min-width: 600px;
     display: flex;
     align-items: center;
@@ -8,36 +8,36 @@
     margin: auto;
 }
 
-.a{
+.a {
     position: relative;
     text-decoration: none;
-    font-family:'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: black;
     font-size: 18px;
     letter-spacing: 0.5px;
 }
 
-.a:after{
+.a:after {
     content: "";
     position: absolute;
     background-color: dodgerblue;
     height: 3px;
-    width:100%;
+    width: 100%;
     width: 0;
     left: 0;
     bottom: -10px;
     transition: 0.3s;
 }
 
-.a:focus{
+.a:focus {
     color: dodgerblue;
 }
 
-.a:focus:after{
-    width:100%;
+.a:focus:after {
+    width: 100%;
 }
 
-.btn{
+.btn {
     background-color: azure;
     border: gray;
 }
