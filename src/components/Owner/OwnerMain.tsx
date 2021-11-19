@@ -87,11 +87,11 @@ export default function OwnerMain() {
             <DivHalfMenu>
                 <h3>{ownerMain.o_name}</h3>
                 <br/>
-                <h5>총 판매 금액 : {ownerMain.total}</h5>
+                <h5>총 판매 금액 : {ownerMain.total} 원</h5>
                 {/*<h5>일일 판매 금액 : {ownerMain.daily}</h5>*/}
                 {/*<h5>월별 판매 금액 : {ownerMain.monthly}</h5>*/}
-                <h5>등록한 상품 : {ownerMain.goods}</h5>
-                <h5>예약 진행중 : {ownerMain.reserve}</h5>
+                <h5>등록한 상품 : {ownerMain.goods} 개</h5>
+                <h5>예약 진행중 : {ownerMain.reserve} 건</h5>
                 {/*<button onClick={() => {*/}
                 {/*    getLoc();*/}
                 {/*}}>위도경도변경테스트*/}
