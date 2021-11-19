@@ -14,41 +14,40 @@ import emptyStar from "../../styles/images/star2.png";
 import Swal from 'sweetalert2';
 import {shopViewType} from "../../modules/types";
 
+const DivTitle = styled.div`
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
+`;
+
+const DivButton = styled.div`
+  margin: 5px;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+`;
+
+const DivContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin: 50px;
+  padding: 10px;
+  width: 100%;
+`;
+
+const DivHalfMenu = styled.div`
+  flex: 1;
+  margin: 10px;
+  padding: 10px;
+  width: 40%;
+`;
+
 export default function ShopView() {
 
     const {authReducer} = useSelector((state: RootState) => state);
-
-    const DivTitle = styled.div`
-      flex-direction: column;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 50px;
-    `;
-
-    const DivButton = styled.div`
-      margin: 5px;
-      padding: 0;
-      display: flex;
-      list-style: none;
-      justify-content: space-around;
-    `;
-
-    const DivContainer = styled.div`
-      display: flex;
-      justify-content: space-evenly;
-      margin: 50px;
-      padding: 10px;
-      width: 100%;
-    `;
-
-    const DivHalfMenu = styled.div`
-      flex: 1;
-      margin: 10px;
-      padding: 10px;
-      width: 40%;
-    `;
-
 
     const initColor = {
         case1: true,

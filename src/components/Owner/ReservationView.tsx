@@ -12,6 +12,17 @@ import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {reservationViewType} from "../../modules/types";
 
+
+const TableStyled = styled.table`
+  padding: 30px;
+  margin: auto;
+  width: 80%;
+`;
+
+const DivContainer = styled.div`
+  text-align: center;
+`;
+
 export default function ReservationView() {
 
     const {authReducer} = useSelector((state: RootState) => state);
@@ -19,16 +30,6 @@ export default function ReservationView() {
     useLayoutEffect(() => {
         if (!authReducer.isOwner) history.push('/err');
     }, []);
-
-    const TableStyled = styled.table`
-      padding: 30px;
-      margin: auto;
-      width: 80%;
-    `;
-
-    const DivContainer = styled.div`
-      text-align: center;
-    `;
 
 
     const [list, setList] = useState<reservationViewType[]>([]);

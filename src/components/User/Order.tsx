@@ -8,25 +8,24 @@ import {Button} from "@mui/material";
 import {useCookies} from "react-cookie";
 import {orderType} from "../../modules/types";
 
+const DivContainer = styled.div`
+  border: solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+`;
+
+const DivBorderd = styled.div`
+  border-top: solid lightgray 10px;
+  padding: 10px;
+  text-align: left;
+`;
+
 export default function Order() {
-
-    const DivContainer = styled.div`
-      border: solid black;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      margin: auto;
-      width: 50%;
-      padding: 10px;
-    `;
-
-    const DivBorderd = styled.div`
-      border-top: solid lightgray 10px;
-      padding: 10px;
-      text-align: left;
-    `;
-
 
     const history = useHistory();
     const dispatch = useDispatch();

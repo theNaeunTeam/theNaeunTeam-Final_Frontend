@@ -7,6 +7,19 @@ import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {ownerMainType} from "../../modules/types";
 
+const DivContainer = styled.div`
+  border: solid black;
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+  padding: 10px;
+`;
+
+const DivHalfMenu = styled.div`
+  flex: 1;
+  margin: 10px;
+  padding: 10px;
+`;
 
 export default function OwnerMain() {
 
@@ -28,20 +41,6 @@ export default function OwnerMain() {
 
 
     const [ownerMain, setOwnerMain] = useState<ownerMainType>(initialValue);
-
-    const DivContainer = styled.div`
-      border: solid black;
-      display: flex;
-      justify-content: center;
-      margin: 50px;
-      padding: 10px;
-    `;
-
-    const DivHalfMenu = styled.div`
-      flex: 1;
-      margin: 10px;
-      padding: 10px;
-    `;
 
     useEffect(() => {
         initialize();

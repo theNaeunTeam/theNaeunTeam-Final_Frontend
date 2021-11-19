@@ -8,7 +8,6 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 export default function UserNavbar(props: RouteComponentProps) {
 
-
     return (
         <>
             <Navbar>

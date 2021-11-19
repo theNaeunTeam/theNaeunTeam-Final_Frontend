@@ -8,18 +8,18 @@ import {Button} from "@mui/material";
 import {useHistory} from "react-router-dom";
 import {ShoppingCartDTO} from "../../modules/types";
 
-export default function ShoppingCart() {
+const DivContainer = styled.div`
+  border: solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+`;
 
-    const DivContainer = styled.div`
-      border: solid black;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      margin: auto;
-      width: 50%;
-      padding: 10px;
-    `;
+export default function ShoppingCart() {
 
     const defaultValue = [{
         g_code: 0,
