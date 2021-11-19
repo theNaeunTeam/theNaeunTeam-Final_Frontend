@@ -22,6 +22,7 @@ import {client} from "./lib/api/client";
 import UserNavbar from "./components/User/UserNavbar";
 import ShoppingCart from "./components/User/ShoppingCart";
 import PageNotFound from "./components/Common/PageNotFound";
+import UserMypage from "./components/User/UserMypage";
 
 
 function App() {
@@ -83,6 +84,7 @@ function App() {
             <Route path='/shopView/:o_sNumber' component={ShopView}/>
 
             <Route path='/user' component={UserNavbar}/>
+            <Route path='/user' exact component={UserMypage}/>
             <Route path='/user/shoppingcart' component={ShoppingCart}/>
 
             <Route path='/owner' component={OwnerNavbar}/>
