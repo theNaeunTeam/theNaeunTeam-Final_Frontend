@@ -1,9 +1,11 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState,useEffect} from 'react';
 import {Map, MapMarker} from 'react-kakao-maps-sdk';
 import styled from 'styled-components'
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
+import {client} from "../../lib/api/client";
+
 
 
 export default function OwnerMain() {
@@ -14,18 +16,26 @@ export default function OwnerMain() {
         if (!authReducer.isOwner) history.push('/err');
     }, []);
 
+    type storeValue = {
+        o_name : string,
+        total : number,
+        goods : number,
+        reserve : number,
+        o_latitude : number ,
+        o_longitude : number,
+    }
     const initialValue = {
-        title: '씨유 센텀시티점',
-        total: '200000원',
-        daily: '200원',
-        monthly: '2000원',
-        goods: '360개',
-        reserved: '15개',
-        lat: 33.5563,
-        lng: 126.79581,
+        o_name : '',
+        total : 0,
+        goods : 0,
+        reserve : 0,
+        o_latitude :0 ,
+        o_longitude : 0,
+
     };
 
-    const [ownerMain, setOwnerMain] = useState(initialValue);
+
+    const [ownerMain, setOwnerMain] = useState<storeValue>(initialValue);
 
     const DivContainer = styled.div`
       border: solid black;
@@ -41,6 +51,21 @@ export default function OwnerMain() {
       padding: 10px;
     `;
 
+    useEffect(() => {
+        initialize();
+    },[]);
+
+    const initialize = async () =>{
+        const URL = '';
+        try{
+            const res = await client.get(URL);
+            console.log(res);
+            setOwnerMain(res.data);
+
+        }catch (e){
+            console.log(e);
+        }
+    };
     function getLoc() {
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
@@ -48,7 +73,7 @@ export default function OwnerMain() {
             let lat = position.coords.latitude;
             let lng = position.coords.longitude;
             console.log(`${lat} ${lng}`);
-            setOwnerMain({...ownerMain, lat: lat, lng: lng, title: `lat=${lat} lon=${lng}`})
+            setOwnerMain({...ownerMain, o_latitude: lat, o_longitude: lng, o_name: `lat=${lat} lon=${lng}`})
         }
 
         function onGeoError(e: any) {
@@ -60,13 +85,13 @@ export default function OwnerMain() {
     return (
         <DivContainer>
             <DivHalfMenu>
-                <h3>{ownerMain.title}</h3>
+                <h3>{ownerMain.o_name}</h3>
                 <br/>
                 <h5>총 판매 금액 : {ownerMain.total}</h5>
-                <h5>일일 판매 금액 : {ownerMain.daily}</h5>
-                <h5>월별 판매 금액 : {ownerMain.monthly}</h5>
+                {/*<h5>일일 판매 금액 : {ownerMain.daily}</h5>*/}
+                {/*<h5>월별 판매 금액 : {ownerMain.monthly}</h5>*/}
                 <h5>등록한 상품 : {ownerMain.goods}</h5>
-                <h5>예약 진행중 : {ownerMain.reserved}</h5>
+                <h5>예약 진행중 : {ownerMain.reserve}</h5>
                 <button onClick={() => {
                     getLoc();
                 }}>위도경도변경테스트
@@ -74,11 +99,11 @@ export default function OwnerMain() {
             </DivHalfMenu>
             <DivHalfMenu>
                 <Map
-                    center={{lat: ownerMain.lat, lng: ownerMain.lng}}
+                    center={{lat: ownerMain.o_latitude, lng: ownerMain.o_longitude}}
                     style={{width: "100%", height: "360px"}}
                 >
-                    <MapMarker position={{lat: ownerMain.lat, lng: ownerMain.lng}}>
-                        <div style={{color: "#000"}}>{ownerMain.title}</div>
+                    <MapMarker position={{lat: ownerMain.o_latitude, lng: ownerMain.o_longitude}}>
+                        <div style={{color: "#000"}}>{ownerMain.o_name}</div>
                     </MapMarker>
                 </Map>
             </DivHalfMenu>
