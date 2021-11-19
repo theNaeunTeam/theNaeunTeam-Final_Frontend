@@ -139,9 +139,6 @@ export default function ShopView() {
 
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
-            console.log(res);
-            console.log(match.params.o_sNumber + '1');
-
             setRows(res.data);
         } catch (e) {
             console.log(e);
@@ -153,48 +150,47 @@ export default function ShopView() {
         const URL = '/user/storeView';
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
-            console.log(res);
-            console.log(match.params.o_sNumber + '2');
-
-
             setAboutStore(res.data);
         } catch (e) {
             console.log(e);
         }
     }
 
+    useEffect(() => {
+        favorCheck();
+    }, [authReducer.isUser]);
+
     // 즐겨찾기 유무 api
-    const favorCheck = async ()=>{
-        const URL= '/user/favorCheck';
-        const data= {
-            f_o_sNumber:match.params.o_sNumber,
-            f_p_user_id:authReducer.u_id
+    const favorCheck = async () => {
+        const URL = '/user/favorCheck';
+        const data = {
+            f_o_sNumber: match.params.o_sNumber,
+            f_p_user_id: authReducer.u_id,
         }
-        console.log(6546546,data);
         try {
             const res = await client.post(URL, data);
-            console.log('즐겨찾기 체크:'+ res.data);
+            console.log('즐겨찾기 체크:' + res.data);
             setFavorites(res.data);
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
 
     // 즐겨찾기 api
-    const favorInsert = async () =>{
+    const favorInsert = async () => {
         const URL = '';
-        const data= {
-            f_o_sNumber:match.params,
-            f_p_user_id:authReducer.u_id
+        const data = {
+            f_o_sNumber: match.params,
+            f_p_user_id: authReducer.u_id
         }
         if (!authReducer.isUser) {
             alert('로그인이 필요한 기능입니다.');
             return false;
         }
         try {
-            const res = await client.post(URL,data);
+            const res = await client.post(URL, data);
 
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
@@ -203,8 +199,7 @@ export default function ShopView() {
     useEffect(() => {
         gooodsTableInit();
         storeTableInit();
-        favorCheck();
-        console.log(13980745012974901+authReducer.u_id);
+        // favorCheck();
     }, [])
 
     const [cookies, setCookie, removeCookie] = useCookies(['cart']);
@@ -225,8 +220,25 @@ export default function ShopView() {
 
         let cookieCart: any = [];
 
-        if (cookies.cart) {
+        if (cookies.cart) { // 쿠키에 뭔가 있다
             cookieCart = [...cookies.cart];
+            // if (Array.isArray(cookies.cart)) { // 배열인가?
+            //     if (cookies.cart.length === 0) { // 빈 배열인가?
+            //         console.log('쿠키가 빈 배열이다');
+            //         cookieCart.push({
+            //             g_count: g_count,
+            //             g_code: g_code,
+            //             id: authReducer.u_id,
+            //             o_sNumber: match.params.o_sNumber
+            //         });
+            //         setCookie('cart', cookieCart, {path: '/'});
+            //         if (window.confirm('장바구니로 이동하시겠습니까?')) {
+            //             history.push('/user/shoppingcart');
+            //         }
+            //         return false;
+            //     }
+            // }
+
             console.log(cookieCart);
 
             const findDiffOwner = cookieCart.filter((x: any) => x.o_sNumber != match.params.o_sNumber);
@@ -272,8 +284,8 @@ export default function ShopView() {
                 o_sNumber: match.params.o_sNumber
             });
         }
-
-        setCookie('cart', JSON.stringify(cookieCart), {path: '/'});
+        console.log(cookieCart);
+        setCookie('cart', cookieCart, {path: '/'});
         if (window.confirm('장바구니로 이동하시겠습니까?')) {
             history.push('/user/shoppingcart');
         }
@@ -286,7 +298,7 @@ export default function ShopView() {
         }
         return res;
     }
-    
+
     // 상품정보
     const TableBuilder = (props: { data: goodsTableType, idx: number }) => {
         return (
@@ -363,13 +375,14 @@ export default function ShopView() {
                             center={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}
                             style={{width: "100%", height: "360px"}}
                         >
-                            <MapMarker position={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}>
+                            <MapMarker
+                                position={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}>
                                 <div style={{color: "#000"}}>{aboutStore.o_name}</div>
                             </MapMarker>
                         </Map>
                     </DivHalfMenu>
                 </DivContainer>
-                <h4 style={{display:"flex", justifyContent:"center"}}>주소   {aboutStore.o_address}</h4>
+                <h4 style={{display: "flex", justifyContent: "center"}}>주소 {aboutStore.o_address}</h4>
 
 
                 <DivContainer>
@@ -385,9 +398,9 @@ export default function ShopView() {
     return (
         <>
             <DivTitle>
-                <span style={{marginLeft:"auto"}}>⭐</span>
+                <span style={{marginLeft: "auto"}}>⭐</span>
                 <h3>CU 센텀클래스원점</h3>
-                <h6 style={{color:'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h6>
+                <h6 style={{color: 'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h6>
             </DivTitle>
             <hr/>
             <div className={"nav"}>
