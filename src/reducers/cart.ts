@@ -43,7 +43,6 @@ export function cartReducer(state: cartReducerType[] = [], action: actionTypes) 
             console.log('화물 => ', action.payload);
             return [];
         default:
-            console.log('cart 리듀서 일치하는 액션 없음');
             return state;
     }
 }

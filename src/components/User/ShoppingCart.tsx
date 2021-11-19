@@ -7,6 +7,7 @@ import {RootState} from "../../index";
 import {Button} from "@mui/material";
 import {useHistory} from "react-router-dom";
 import {ShoppingCartDTO} from "../../modules/types";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const DivContainer = styled.div`
   border: solid black;
@@ -37,7 +38,7 @@ export default function ShoppingCart() {
 
     const [cookies, setCookie] = useCookies(['cart']);
     const [temp, setTemp] = useState<ShoppingCartDTO[]>(defaultValue);
-
+    const [loading, setLoading] = useState(true);
     const {cartReducer} = useSelector((state: RootState) => state);
 
     const dispatch = useDispatch();
@@ -52,10 +53,13 @@ export default function ShoppingCart() {
     const readCookie = () => {
         if (cookies.cart) {
             if (Array.isArray(cookies.cart)) if (cookies.cart.length === 0) {
+                setLoading(false);
                 return false;
             }
             const g_codeArr = cookies.cart.map((data: cookieType) => Number(data.g_code));
             initialize(g_codeArr);
+        } else {
+            setLoading(false);
         }
     }
 
@@ -72,6 +76,7 @@ export default function ShoppingCart() {
             dispatch({type: 'cartIn', payload: massage});
 
             setTemp(JSON.parse(JSON.stringify(res.data)));
+            setLoading(false);
         } catch (e) {
             console.log(e);
         }
@@ -125,11 +130,14 @@ export default function ShoppingCart() {
                     {props.data.g_status === 0 ? '구매 가능!' : '품절'}
                 </div>
                 담긴 수량 :
-                <span id={`${props.data.g_count}`} style={{fontSize: '30px'}}
+                <span>
+                <span id={`${props.data.g_count}`} style={{fontSize: '30px', cursor:'grab'}}
                       onClick={e => plus(e, props.idx)}>➕</span>
-                {props.data.g_count}
-                <span id={`${props.data.g_count}`} style={{fontSize: '30px'}}
+                <strong style={{padding:'50px'}}>{props.data.g_count}</strong>
+                <span id={`${props.data.g_count}`} style={{fontSize: '30px', cursor:'grab'}}
                       onClick={e => minus(e, props.idx)}>➖</span>
+                    </span>
+                <br/>
                 <div>
                     <img style={{width: '200px', height: '200px'}} src={props.data.g_image} alt={'상품이미지'}/>
                 </div>
@@ -165,7 +173,7 @@ export default function ShoppingCart() {
                 </>
                 :
                 <>
-                    <h1>텅</h1>
+                    <h1>{loading ? <CircularProgress/> : '텅'}</h1>
                 </>
             }
 

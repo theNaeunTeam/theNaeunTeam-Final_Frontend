@@ -10,6 +10,7 @@ import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {masterMainType} from "../../modules/types";
+import Skeleton from '@mui/material/Skeleton';
 
 export default function MasterMain() {
 
@@ -32,6 +33,7 @@ export default function MasterMain() {
     const [rows, setRows] = useState<masterMainType[]>(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''}); // 마스터 로그인 폼 핸들러
+    const [loading, setLoading] = useState(true);
 
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
@@ -80,6 +82,7 @@ export default function MasterMain() {
             console.log(massage);
 
             setRows(massage);
+            setLoading(false);
         } catch (e) {
             console.log(e);
         }
@@ -128,16 +131,37 @@ export default function MasterMain() {
 
     return (
         <>
-            {authReducer.isMaster ? <>
+            {authReducer.isMaster ?
+                <>
                     <div style={{height: 400, width: '100%', margin: 'auto'}}>
-                        <DataGrid
-                            onStateChange={({selection}) => setSelected(selection)}
-                            rows={rows}
-                            columns={columns}
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}
-                            checkboxSelection
-                        />
+                        {loading ?
+                            <Box sx={{width: 1500}}>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                            </Box>
+                            :
+                            <DataGrid
+                                onStateChange={({selection}) => setSelected(selection)}
+                                rows={rows}
+                                columns={columns}
+                                pageSize={5}
+                                rowsPerPageOptions={[5]}
+                                checkboxSelection
+                            />
+                        }
                     </div>
                     <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
                         승인
