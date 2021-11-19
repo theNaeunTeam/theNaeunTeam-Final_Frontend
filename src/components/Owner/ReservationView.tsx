@@ -52,7 +52,7 @@ export default function ReservationView() {
 
     const [list, setList] = useState<dummyType[]>([]);
     const [g_category, setG_category] = useState('');
-    const [g_status, setG_status] = useState('');
+    const [r_status, setR_status] = useState('');
     const [selectedStatus, setSelectedStatus] = useState(0);
     const [searchInput, setSearchInput] = useState('');
 
@@ -65,17 +65,19 @@ export default function ReservationView() {
         try {
             const res = await client.get(`${URL}?g_owner=${authReducer.o_sNumber}`);
             // setList(res.data);
+
             setList(res.data);
-            console.log(res.data)
+            console.log(res);
+            console.log(res.data[0].goodsDTO);
         } catch (e) {
             console.log(e);
         }
     };
 
-    const changeGoodsStatus = async (input: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const data: { g_code: number, g_status: number } = {
-            g_code: Number((input.target as HTMLButtonElement).name),
-            g_status: selectedStatus
+    const changeGoodsStatus = async (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        const data: { r_code: number, check: number } = {
+            r_code: Number((input.target as HTMLButtonElement).name),
+            check: selectedStatus
         };
 
         const URL = '/owner/statusChange';
@@ -95,9 +97,9 @@ export default function ReservationView() {
     };
 
     const searchGoods = async () => {
-        const URL = '/owner/statusChange'
+        const URL = '/owner/searchReserve';
         try {
-            const res = await client.get(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
+            const res = await client.get(`${URL}?g_category=${g_category}&r_status=${r_status}&searchInput=${searchInput}`);
             console.log(res);
             setList(res.data);
         } catch (e) {
@@ -144,11 +146,11 @@ export default function ReservationView() {
                     {props.data.r_firstTime}
                 </td>
                 <td>
-                    {props.data.g_status === 0 ? '예약 승인 대기중'
-                        : props.data.g_status === 1 ? '승인 완료'
-                            : props.data.g_status === 2 ? '거절됨'
-                                : props.data.g_status === 3 ? '판매완료'
-                                    : props.data.g_status === 4 ? '노쇼' : null
+                    {props.data.r_status === 0 ? '예약 승인 대기중'
+                        : props.data.r_status === 1 ? '승인 완료'
+                            : props.data.r_status === 2 ? '거절됨'
+                                : props.data.r_status === 3 ? '판매완료'
+                                    : props.data.r_status === 4 ? '노쇼' : null
                     }
                 </td>
                 <td>
@@ -167,7 +169,7 @@ export default function ReservationView() {
                         </Select>
                     </FormControl>
                     {/*@ts-ignore*/}
-                    <Button data-testid='my-test-id' name={props.data.g_code} variant="outlined"
+                    <Button data-testid='my-test-id' name={props.data.r_code} variant="outlined"
                             onClick={e => changeGoodsStatus(e)}>확인</Button>
                 </td>
 
@@ -188,6 +190,7 @@ export default function ReservationView() {
                         value={g_category}
                         onChange={e => setG_category(e.target.value)}
                     >
+                        <MenuItem value=''>모두 보기</MenuItem>
                         <MenuItem value='과자류'>과자류</MenuItem>
                         <MenuItem value='간편식'>간편식</MenuItem>
                         <MenuItem value='음료'>음료</MenuItem>
@@ -199,9 +202,10 @@ export default function ReservationView() {
                     <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={g_status}
-                        onChange={e => setG_status(e.target.value)}
+                        value={r_status}
+                        onChange={e => setR_status(e.target.value)}
                     >
+                        <MenuItem value=''>모두 보기</MenuItem>
                         <MenuItem value='1'>승인</MenuItem>
                         <MenuItem value='2'>거절</MenuItem>
                         <MenuItem value='4'>노쇼</MenuItem>
