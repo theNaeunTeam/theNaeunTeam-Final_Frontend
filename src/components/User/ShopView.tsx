@@ -274,6 +274,7 @@ export default function ShopView() {
     useEffect(() => {
         gooodsTableInit();
         storeTableInit();
+        window.scrollTo(0, 0);
     }, [])
 
     const [cookies, setCookie, removeCookie] = useCookies(['cart']);
@@ -474,7 +475,7 @@ export default function ShopView() {
             <DivTitle>
 
                 {
-                    favorites === true
+                    favorites
                     //    즐겨찾기 해제
                     ? <span style={{marginLeft:"auto"}}><img style={{width:"40px"}} src={fullStar} onClick={favorOff}/></span>
                     //    즐겨찾기 추가
@@ -496,7 +497,7 @@ export default function ShopView() {
 
 
             {
-                modal === true
+                modal
                     ? <AAA/>
                     : <BBB/>
             }

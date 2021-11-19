@@ -174,7 +174,16 @@ export default function ShoppingCart() {
                                                                                           key={idx}/>)}
 
                     <br/>
-                    {cartReducer.length === 0 || <Button variant={'contained'}>주문하기</Button>}
+                    {
+                        cartReducer.length === 0 || <>
+                            <div>
+                                주문 상품 수 : {cartReducer.length}
+                                <br/>
+                                총 금액 : {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
+                            </div>
+                            <Button variant={'contained'}>주문하기</Button>
+                        </>
+                    }
                 </>
             }
 
