@@ -41,6 +41,7 @@ export default function GoodsView() {
         g_image: string,
         g_expireDate: string,
         g_category: string,
+        g_status: number,
     };
 
 
@@ -85,7 +86,7 @@ export default function GoodsView() {
     };
 
     const searchGoods = async () => {
-        const URL = 'owner/search';
+        const URL = '/owner/search';
         console.log(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
         try {
             const res = await client.get(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
@@ -120,6 +121,10 @@ export default function GoodsView() {
                 <td>
                     {props.data.g_expireDate}
                 </td>
+                <td> {props.data.g_status === 0 ? '판매중'
+                    : props.data.g_status === 1 ? '판매완료'
+                        : props.data.g_status === 2 ? '판매중지' : null}
+                </td>
                 <td>
                     {props.data.g_count}
                 </td>
@@ -146,6 +151,7 @@ export default function GoodsView() {
                         value={g_category}
                         onChange={e => setG_category(e.target.value)}
                     >
+                        <MenuItem value=''>모두 보기</MenuItem>
                         <MenuItem value='과자류'>과자류</MenuItem>
                         <MenuItem value='간편식'>간편식</MenuItem>
                         <MenuItem value='음료'>음료</MenuItem>
@@ -160,8 +166,12 @@ export default function GoodsView() {
                         value={g_status}
                         onChange={e => setG_status(e.target.value)}
                     >
-                        <MenuItem value={'판매중'}>판매중</MenuItem>
-                        <MenuItem value={'판매완료'}>판매완료</MenuItem>
+                        <MenuItem value=''>모두 보기</MenuItem>
+                        <MenuItem value={'0'}>판매중</MenuItem>
+                        <MenuItem value={'1'}>판매완료</MenuItem>
+                        <MenuItem value={'1'}>판매완료</MenuItem>
+                        <MenuItem value={'2'}>판매중지</MenuItem>
+
                     </Select>
                 </FormControl>
 
@@ -180,6 +190,7 @@ export default function GoodsView() {
                     <th>정가</th>
                     <th>할인가</th>
                     <th>유통기한</th>
+                    <th>상태</th>
                     <th>남은수량</th>
                     <th>수정</th>
                     <th>삭제</th>
