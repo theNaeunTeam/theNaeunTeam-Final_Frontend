@@ -109,15 +109,7 @@ export type reservationViewType = {
     g_status: number,
 };
 
-export type orderSubmitType = {
-    r_u_id: string,
-    r_g_code: number,
-    r_firstTime: string,
-    r_count: number,
-    r_customOrder: string,
-    r_owner: string,
-    r_pay: number,
-}
+
 
 export type shopViewType = {
     g_owner: string,
@@ -140,9 +132,22 @@ export type userMyPageType = {
     reserve: number,
 };
 
+export type orderSubmitType = {
+    r_u_id: string,
+    r_g_code: number,
+    r_firstTime: string,
+    r_count: number,
+    r_customOrder: string,
+    r_owner: string,
+    r_pay: number,
+}
+
 export type orderForm = {
     who:string,
     time:string,
     r_customOrder:string,
     totalPrice:number,
+    payment:string,
+    tumbler:string,
+    kudasai:string,
 }

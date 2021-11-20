@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
 import {useCookies} from "react-cookie";
 import {orderForm, orderSubmitType} from "../../modules/types";
+import {client} from "../../lib/api/client";
 
 const DivContainer = styled.div`
   border: solid black;
@@ -27,10 +28,20 @@ const DivBorderd = styled.div`
 
 export default function Order() {
 
+    const defaultValue = {
+        who: '제가 직접 받음',
+        time: '',
+        r_customOrder: '',
+        totalPrice: 0,
+        payment: 'self',
+        tumbler: '',
+        kudasai: '',
+    }
+
     const history = useHistory();
     const dispatch = useDispatch();
     const {cartReducer, authReducer} = useSelector((state: RootState) => state);
-    const [orderForm, setOrderForm] = useState<orderForm[]>([]);
+    const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);
     const [cookies, setCookie, removeCookie] = useCookies(['cart']);
 
     useLayoutEffect(() => {
@@ -40,29 +51,42 @@ export default function Order() {
     useEffect(() => {
         // setLoading(false);
         return () => {
-            // dispatch({type: 'orderOut'});
-            // removeCookie('cart', {path: '/'});
+            dispatch({type: 'orderOut'});
         }
     }, []);
 
     const submitForm = () => {
+        const URL = '/user/orderConfirm';
 
         const arr = [];
 
         for (let i = 0; i < cartReducer.length; i++) {
-
             const data: orderSubmitType = {
                 r_u_id: authReducer.u_id,
                 r_g_code: cartReducer[i].g_code,
-                r_firstTime: '',
-                r_count: cartReducer[i].r_count,
-                r_customOrder: '',
-                r_owner: '',
-                r_pay: 0,
+                r_firstTime: orderForm.time,
+                r_count: cartReducer[i].g_count,
+                r_customOrder: orderForm.who + orderForm.tumbler + orderForm.r_customOrder,
+                r_owner: cookies.cart[0].o_sNumber,
+                r_pay: cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0),
             }
-
             arr.push(data);
         }
+        console.log('서버로 보내는 배열 : ', arr);
+
+        client.post(URL, arr)
+            .then(res => {
+                console.log(res);
+                dispatch({type: 'orderOut'});
+                removeCookie('cart', {path: '/'});
+                alert('성공');
+                history.push('/');
+            })
+            .catch(err => {
+                console.log(err);
+                alert('실패');
+            })
+
     };
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
@@ -92,10 +116,10 @@ export default function Order() {
                     <DivBorderd>
                         <strong>방문하시는분</strong>
                         <br/>
-                        <input type={'radio'} defaultChecked={true} name={'who'} value={'제가 직접 받음'} id={'who'}/> 제가 직접
+                        <input type={'radio'} defaultChecked={true} name={'who'} value={' 제가 직접 받음 '} id={'who'}/> 제가 직접
                         받음
                         <br/>
-                        <input type={'radio'} name={'who'} value={'딴사람이 받음'} id={'who'}/> 딴사람이 받음
+                        <input type={'radio'} name={'who'} value={' 딴사람이 받음 '} id={'who'}/> 딴사람이 받음
                     </DivBorderd>
                     <DivBorderd>
                         <strong>방문 예정 시간</strong>
@@ -120,7 +144,7 @@ export default function Order() {
                         <br/>
                         가게 사장님에게
                         <br/>
-                        <textarea id={'r_customOrder'}/>
+                        <textarea id={'r_customOrder'} rows={5} cols={50}/>
                         <br/>
                         <input type={'checkbox'} id={'kudasai'} value={'일회용 수저, 포크 제외'}/>일회용 수저, 포크 제외
                         <br/>
@@ -171,11 +195,11 @@ export default function Order() {
                         <br/>
                         <input type={'radio'} name={'payment'} value={'self'} defaultChecked={true}
                                id={'payment'}/> 직접 결제
-                        <input type={'radio'} name={'payment'} value={'card'}
+                        <input type={'radio'} name={'payment'} value={'card'} disabled={true}
                                id={'payment'}/> 카드결제
-                        <input type={'radio'} name={'payment'} value={'mobile'} id={'payment'}/> 휴대폰 결제
+                        <input type={'radio'} name={'payment'} value={'mobile'} id={'payment'} disabled={true}/> 휴대폰 결제
                     </DivBorderd>
-                    <Button variant={'contained'}>주문하기</Button>
+                    <Button variant={'contained'} onClick={submitForm}>주문하기</Button>
                 </form>
             </DivContainer>
 
