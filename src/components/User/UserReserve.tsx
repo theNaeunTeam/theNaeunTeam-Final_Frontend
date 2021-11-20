@@ -154,7 +154,7 @@ export default function UserReserve() {
 
     return (
         <DivContainer>
-            <h2>예약</h2>
+            <h2>예약내역</h2>
             <div>
                 <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
                     <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
