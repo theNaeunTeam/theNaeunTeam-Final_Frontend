@@ -110,7 +110,6 @@ export type reservationViewType = {
 };
 
 
-
 export type shopViewType = {
     g_owner: string,
     g_code: number,
@@ -143,10 +142,25 @@ export type orderSubmitType = {
 }
 
 export type orderForm = {
-    who:string,
-    time:string,
-    r_customOrder:string,
-    payment:string,
-    tumbler:string,
-    kudasai:string,
+    who: string,
+    time: string,
+    r_customOrder: string,
+    payment: string,
+    tumbler: string,
+    kudasai: string,
+}
+
+export type shopList = {
+    distance: string,
+    o_address: string,
+    o_cellPhone: string,
+    o_image: string,
+    o_latitude: string,
+    o_longitude: string,
+    o_name: string,
+    o_phone: string,
+    o_sNumber: string,
+    o_time1: string,
+    o_time2: string,
+    radius?: string
 }

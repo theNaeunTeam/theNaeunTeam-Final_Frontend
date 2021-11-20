@@ -28,6 +28,7 @@ import UserReserve from "./components/User/UserReserve";
 import FavorStore from "./components/User/FavorStore";
 import UserEdit from "./components/User/UserEdit";
 import UserExit from "./components/User/UserExit";
+import ShopList from "./components/Common/ShopList";
 
 function App() {
 
@@ -93,6 +94,8 @@ function App() {
 
             <Route path='/shopView/:o_sNumber' component={ShopView}/>
 
+            <Route path='/list' component={ShopList}/>
+
             <Route path='/user' component={UserNavbar}/>
             <Route path='/user' exact component={UserMypage}/>
             <Route path='/user/shoppingcart' component={ShoppingCart}/>
@@ -101,7 +104,7 @@ function App() {
             <Route path='/user/favorstore' component={FavorStore}/>
             <Route path='/user/useredit' component={UserEdit}/>
             <Route path='/user/userexit' component={UserExit}/>
-            
+
 
             <Route path='/owner' component={OwnerNavbar}/>
             <Route path='/owner' exact component={OwnerMain}/>

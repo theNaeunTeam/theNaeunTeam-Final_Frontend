@@ -58,21 +58,6 @@ export default function OwnerMain() {
         }
     };
 
-    function getLoc() {
-        navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
-
-        function onGeoOK(position: any) {
-            let lat = position.coords.latitude;
-            let lng = position.coords.longitude;
-            console.log(`${lat} ${lng}`);
-            setOwnerMain({...ownerMain, o_latitude: lat, o_longitude: lng, o_name: `lat=${lat} lon=${lng}`})
-        }
-
-        function onGeoError(e: any) {
-            alert("위치를 찾을 수 없습니다");
-            console.log(e);
-        }
-    }
 
     return (
         <DivContainer>
