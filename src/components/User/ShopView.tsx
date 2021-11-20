@@ -13,6 +13,7 @@ import fullStar from "../../styles/images/star1.png";
 import emptyStar from "../../styles/images/star2.png";
 import Swal from 'sweetalert2';
 import {shopViewType} from "../../modules/types";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const DivTitle = styled.div`
   flex-direction: column;
@@ -113,6 +114,7 @@ export default function ShopView() {
     //즐찾 state
     const [favorites, setFavorites] = useState(false);
 
+
     const change = (e: React.MouseEvent<HTMLButtonElement>) => {
         const btnValue = (e.target as HTMLButtonElement).name; // button의 name값을 가져옴
         // @ts-ignore
@@ -134,6 +136,7 @@ export default function ShopView() {
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setRows(res.data);
+            console.log(res);
         } catch (e) {
             console.log(e);
         }
@@ -146,6 +149,7 @@ export default function ShopView() {
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setAboutStore(res.data);
+            console.log(res);
         } catch (e) {
             console.log(e);
         }
@@ -210,7 +214,7 @@ export default function ShopView() {
         })
     }
 
-    function loginCheck(){
+    function loginCheck() {
         Swal.fire({
             title: '로그인이 필요합니다.',
             text: "로그인페이지에서 로그인을 해주세요.",
@@ -259,7 +263,6 @@ export default function ShopView() {
         const URL = '/user/FavorOff';
         const data = {
             f_o_sNumber: match.params.o_sNumber,
-            f_p_user_id: authReducer.u_id
         }
         console.log('즐겨찾기 해제' + data);
         try {
@@ -459,17 +462,21 @@ export default function ShopView() {
                             </MapMarker>
                         </Map>
 
-                        <button onClick={() => window.open(`https://map.kakao.com/link/to/${aboutStore.o_name},${aboutStore.o_latitude},${aboutStore.o_longitude}`, '_blank')}>길찾기</button>
+                        <button
+                            onClick={() => window.open(`https://map.kakao.com/link/to/${aboutStore.o_name},${aboutStore.o_latitude},${aboutStore.o_longitude}`, '_blank')}>길찾기
+                        </button>
                         {/*<button onClick={() => window.open('https://map.kakao.com/link/to/동서대센텀캠퍼스,' + aboutStore.o_latitude + ',' + aboutStore.o_longitude, '_blank')}>길찾기</button>*/}
+                        <CopyToClipboard text={aboutStore.o_address}>
+                            <button onClick={()=>{alert('주소가 복사되었습니다.')}}>주소복사</button>
+                        </CopyToClipboard>
                     </DivHalfMenu>
                 </DivContainer>
                 <h4 style={{display: "flex", justifyContent: "center"}}>주소 {aboutStore.o_address}</h4>
 
 
                 <DivContainer>
-                    <Button style={{background: 'red', width: '100%'}} variant="contained" onClick={() => {
-                        history.push('')
-                    }}>장바구니 보기 </Button>
+                    <Button style={{background: 'red', width: '100%'}} variant="contained"
+                            onClick={() => history.push('/user/shoppingcart')}>장바구니 보기 </Button>
                 </DivContainer>
             </>
         )
@@ -489,7 +496,6 @@ export default function ShopView() {
                         : <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={emptyStar}
                                                                   onClick={favorInsert}/></span>
                 }
-
                 <h3>CU 센텀클래스원점</h3>
                 <h6 style={{color: 'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h6>
             </DivTitle>

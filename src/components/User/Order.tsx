@@ -35,6 +35,7 @@ export default function Order() {
         payment: 'self',
         tumbler: '',
         kudasai: '',
+
     }
 
     const history = useHistory();
@@ -77,7 +78,12 @@ export default function Order() {
                 console.log(res);
                 dispatch({type: 'orderOut'});
                 removeCookie('cart', {path: '/'});
-                alert('성공');
+                if(res.data === false){
+                    alert('노쇼 카운트 5 이상이므로 주문 불가능 합니다. ')
+                }else{
+                    alert('성공');
+                }
+
                 history.push('/');
             })
             .catch(err => {
