@@ -73,7 +73,7 @@ export default function OwnerRegisterForm() {
             headers: {Authorization: `KakaoAK ${RESTAPIKEY}`},
         })
             .then(res => {
-                setRegForm({...regForm, o_latitude: res.data.documents[0].x, o_longitude: res.data.documents[0].y});
+                setRegForm({...regForm, o_latitude: res.data.documents[0].y, o_longitude: res.data.documents[0].x});
             })
             .catch(e => {
                 alert('좌표 검색 실패');
