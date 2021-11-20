@@ -60,7 +60,7 @@ export default function UserMypage() {
         <DivContainer>
             <DivHalfMenu>
                 <h3>{userData.u_id}님은 지구를 {userData.save} 번 구하셨습니다.</h3>
-                <h5>지구를 구할 계획 : {userData.reserve} </h5>
+                <h5>지구를 구하는 중 : {userData.reserve} </h5>
                 <h5>포인트 : {userData.u_point}</h5>
             </DivHalfMenu>
         </DivContainer>
