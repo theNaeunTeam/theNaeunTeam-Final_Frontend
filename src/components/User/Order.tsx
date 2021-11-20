@@ -30,9 +30,8 @@ export default function Order() {
 
     const defaultValue = {
         who: '제가 직접 받음',
-        time: '',
+        time: '18:00',
         r_customOrder: '',
-        totalPrice: 0,
         payment: 'self',
         tumbler: '',
         kudasai: '',
@@ -49,7 +48,6 @@ export default function Order() {
     }, []);
 
     useEffect(() => {
-        // setLoading(false);
         return () => {
             dispatch({type: 'orderOut'});
         }
@@ -58,7 +56,7 @@ export default function Order() {
     const submitForm = () => {
         const URL = '/user/orderConfirm';
 
-        const arr = [];
+        const arr: orderSubmitType[] = [];
 
         for (let i = 0; i < cartReducer.length; i++) {
             const data: orderSubmitType = {
@@ -186,8 +184,6 @@ export default function Order() {
                         <div style={{background: "lightgray", display: "flex", justifyContent: 'space-between'}}>
                             <strong>최종혜택가</strong>
                             <strong>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원</strong>
-                            <input type={"hidden"} id={'totalPrice'}
-                                   value={cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}/>
                         </div>
                     </DivBorderd>
                     <DivBorderd>

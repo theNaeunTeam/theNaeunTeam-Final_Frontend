@@ -138,6 +138,7 @@ export default function ShoppingCart() {
                       onClick={e => minus(e, props.idx)}>➖</span>
                     </span>
                 <br/>
+                `최대 ${temp[props.idx].g_count}개 구매 가능합니다`
                 <div>
                     <img style={{width: '200px', height: '200px'}} src={props.data.g_image} alt={'상품이미지'}/>
                 </div>
