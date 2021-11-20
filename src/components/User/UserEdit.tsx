@@ -11,6 +11,16 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 
+const TableStyled = styled.table`
+      padding: 30px;
+      margin: auto;
+      width: 80%;
+    `;
+
+const DivContainer = styled.div`
+      text-align: center;
+    `;
+
 export default function UserEdit() {
 
     const {authReducer} = useSelector((state: RootState) => state);
@@ -19,15 +29,6 @@ export default function UserEdit() {
         if (!authReducer.isUser) history.push('/err');
     }, []);
 
-    const TableStyled = styled.table`
-      padding: 30px;
-      margin: auto;
-      width: 80%;
-    `;
-
-    const DivContainer = styled.div`
-      text-align: center;
-    `;
 
 
     return (

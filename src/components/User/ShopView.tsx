@@ -138,6 +138,7 @@ export default function ShopView() {
             console.log(e);
         }
     };
+
     //가게정보 api
     const storeTableInit = async () => {
 
@@ -168,8 +169,7 @@ export default function ShopView() {
         console.log(data);
         try {
             const res = await client.post(URL, data);
-            console.log('즐겨찾기 체크:' + res.data);
-            console.log(typeof (res.data));
+
             setFavorites(res.data);
         } catch (e) {
             console.log(e);

@@ -14,6 +14,7 @@ import fullStar from "../../styles/images/star1.png";
 import Swal from 'sweetalert2';
 
 const TableStyled = styled.table`
+
   padding: 30px;
   margin: auto;
   width: 80%;
