@@ -259,7 +259,6 @@ export default function ShopView() {
         const URL = '/user/FavorOff';
         const data = {
             f_o_sNumber: match.params.o_sNumber,
-            f_p_user_id: authReducer.u_id
         }
         console.log('즐겨찾기 해제' + data);
         try {
