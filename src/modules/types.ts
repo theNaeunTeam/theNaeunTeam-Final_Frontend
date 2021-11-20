@@ -109,7 +109,7 @@ export type reservationViewType = {
     g_status: number,
 };
 
-export type orderType = {
+export type orderSubmitType = {
     r_u_id: string,
     r_g_code: number,
     r_firstTime: string,
@@ -139,3 +139,10 @@ export type userMyPageType = {
     u_point: number,
     reserve: number,
 };
+
+export type orderForm = {
+    who:string,
+    time:string,
+    r_customOrder:string,
+    totalPrice:number,
+}
