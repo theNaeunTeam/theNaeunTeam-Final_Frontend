@@ -146,7 +146,6 @@ export type orderForm = {
     who:string,
     time:string,
     r_customOrder:string,
-    totalPrice:number,
     payment:string,
     tumbler:string,
     kudasai:string,
