@@ -38,7 +38,7 @@ export default function UserMain() {
 
     const [items, setItems] = useState(defaultValue);
 
-    let history = useHistory();
+    const history = useHistory();
 
     return (
         <DivContainer>
