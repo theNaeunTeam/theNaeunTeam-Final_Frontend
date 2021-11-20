@@ -70,7 +70,7 @@ export default function MasterMain() {
 
         try {
             const res = await client.get(URL);
-
+            console.log(URL);
             // 받아온 결과에 id값 추가
             const massage = res.data.reduce((acc: masterMainType[], val: masterMainType) => {
                 acc.push({
@@ -78,7 +78,6 @@ export default function MasterMain() {
                 })
                 return acc;
             }, []);
-
             console.log(massage);
 
             setRows(massage);
