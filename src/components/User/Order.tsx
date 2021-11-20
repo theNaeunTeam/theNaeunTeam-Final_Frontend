@@ -66,8 +66,12 @@ export default function Order() {
     };
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
-        if (!(e.target as HTMLFormElement).checked) (e.target as HTMLInputElement).value = '';
         const tagName = (e.target as HTMLFormElement).id;
+
+        if (tagName === 'kudasai' || tagName === 'tumbler') {
+            if (!(e.target as HTMLFormElement).checked) (e.target as HTMLInputElement).value = '';
+        }
+
         setOrderForm({...orderForm, [tagName]: (e.target as HTMLFormElement).value});
         console.log(orderForm);
     }
@@ -165,7 +169,10 @@ export default function Order() {
                     <DivBorderd>
                         <strong>방문하시는분</strong>
                         <br/>
-                        <input type={'radio'} name={'payment'} value={'card'} defaultChecked={true} id={'payment'}/> 카드결제
+                        <input type={'radio'} name={'payment'} value={'self'} defaultChecked={true}
+                               id={'payment'}/> 직접 결제
+                        <input type={'radio'} name={'payment'} value={'card'}
+                               id={'payment'}/> 카드결제
                         <input type={'radio'} name={'payment'} value={'mobile'} id={'payment'}/> 휴대폰 결제
                     </DivBorderd>
                     <Button variant={'contained'}>주문하기</Button>
