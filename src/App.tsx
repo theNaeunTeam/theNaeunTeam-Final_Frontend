@@ -24,6 +24,10 @@ import ShoppingCart from "./components/User/ShoppingCart";
 import PageNotFound from "./components/Common/PageNotFound";
 import UserMypage from "./components/User/UserMypage";
 import Order from './components/User/Order';
+import UserReserve from "./components/User/UserReserve";
+import FavorStore from "./components/User/FavorStore";
+import UserEdit from "./components/User/UserEdit";
+import UserExit from "./components/User/UserExit";
 
 function App() {
 
@@ -93,6 +97,11 @@ function App() {
             <Route path='/user' exact component={UserMypage}/>
             <Route path='/user/shoppingcart' component={ShoppingCart}/>
             <Route path='/user/order' component={Order}/>
+            <Route path='/user/userreserve' component={UserReserve}/>
+            <Route path='/user/favorstore' component={FavorStore}/>
+            <Route path='/user/useredit' component={UserEdit}/>
+            <Route path='/user/userexit' component={UserExit}/>
+            
 
             <Route path='/owner' component={OwnerNavbar}/>
             <Route path='/owner' exact component={OwnerMain}/>
