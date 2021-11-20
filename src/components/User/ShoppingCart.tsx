@@ -131,11 +131,11 @@ export default function ShoppingCart() {
                 </div>
                 담긴 수량 :
                 <span>
-                <span id={`${props.data.g_count}`} style={{fontSize: '30px', cursor:'grab'}}
-                      onClick={e => plus(e, props.idx)}>➕</span>
+                <button id={`${props.data.g_count}`} style={{fontSize: '20px', cursor:'grab'}}
+                      onClick={e => plus(e, props.idx)}>➕</button>
                 <strong style={{padding:'50px'}}>{props.data.g_count}</strong>
-                <span id={`${props.data.g_count}`} style={{fontSize: '30px', cursor:'grab'}}
-                      onClick={e => minus(e, props.idx)}>➖</span>
+                <button id={`${props.data.g_count}`} style={{fontSize: '20px', cursor:'grab'}}
+                      onClick={e => minus(e, props.idx)}>➖</button>
                     </span>
                 <br/>
                 <div>

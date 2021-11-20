@@ -46,31 +46,3 @@ export function cartReducer(state: cartReducerType[] = [], action: actionTypes) 
             return state;
     }
 }
-
-//
-// interface test {
-//     r_u_id: string, // 유저 아이디
-//     r_g_code: number[배열?], // 상품 고유 번호
-//     r_firstTime: string, // 방문예약시간
-//     r_count: number[배열?], // 몇개예약
-//     r_customOrder: string,
-//     r_owner: string,// 사업자번호
-//     r_pay: number, // 결제 금액 토탈
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

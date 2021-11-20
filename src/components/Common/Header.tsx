@@ -30,6 +30,7 @@ export default function Header() {
                     <img src={logo} style={{height: '30px'}} alt="logo"/>
                     <Navbar.Brand>공통헤더(임시)</Navbar.Brand>
                     <Nav className="me-auto">
+                        <Nav.Link as={Nav}><Link className={'youngJin'} to={'/list'}>가게리스트</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link className={'youngJin'} to={'/'}>메인페이지</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link className={'youngJin'} to={'/login'}>로그인</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link className={'youngJin'} to={'/user'}>유저마이페이지</Link></Nav.Link>
