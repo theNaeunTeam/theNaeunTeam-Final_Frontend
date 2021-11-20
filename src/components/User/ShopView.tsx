@@ -134,6 +134,7 @@ export default function ShopView() {
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setRows(res.data);
+            console.log(res);
         } catch (e) {
             console.log(e);
         }
@@ -146,6 +147,7 @@ export default function ShopView() {
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setAboutStore(res.data);
+            console.log(res);
         } catch (e) {
             console.log(e);
         }
@@ -210,7 +212,7 @@ export default function ShopView() {
         })
     }
 
-    function loginCheck(){
+    function loginCheck() {
         Swal.fire({
             title: '로그인이 필요합니다.',
             text: "로그인페이지에서 로그인을 해주세요.",
@@ -458,7 +460,9 @@ export default function ShopView() {
                             </MapMarker>
                         </Map>
 
-                        <button onClick={() => window.open(`https://map.kakao.com/link/to/${aboutStore.o_name},${aboutStore.o_latitude},${aboutStore.o_longitude}`, '_blank')}>길찾기</button>
+                        <button
+                            onClick={() => window.open(`https://map.kakao.com/link/to/${aboutStore.o_name},${aboutStore.o_latitude},${aboutStore.o_longitude}`, '_blank')}>길찾기
+                        </button>
                         {/*<button onClick={() => window.open('https://map.kakao.com/link/to/동서대센텀캠퍼스,' + aboutStore.o_latitude + ',' + aboutStore.o_longitude, '_blank')}>길찾기</button>*/}
                     </DivHalfMenu>
                 </DivContainer>
@@ -466,9 +470,8 @@ export default function ShopView() {
 
 
                 <DivContainer>
-                    <Button style={{background: 'red', width: '100%'}} variant="contained" onClick={() => {
-                        history.push('')
-                    }}>장바구니 보기 </Button>
+                    <Button style={{background: 'red', width: '100%'}} variant="contained"
+                            onClick={() => history.push('/user/shoppingcart')}>장바구니 보기 </Button>
                 </DivContainer>
             </>
         )
