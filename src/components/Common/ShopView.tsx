@@ -144,34 +144,22 @@ export default function ShopView() {
                 setRows([...temp]);
                 break;
             case 'case2':
-                setRows([...temp.filter((x: shopViewType) => {
-                    if (x.g_category === '마실것') return x
-                })]);
+                setRows([...temp.filter((x: shopViewType) => x.g_category === '마실것')]);
                 break;
             case 'case3':
-                setRows([...temp.filter((x: shopViewType) => {
-                    if (x.g_category === '신선식품') return x
-                })]);
+                setRows([...temp.filter((x: shopViewType) => x.g_category === '신선식품')]);
                 break;
             case 'case4':
-                setRows([...temp.filter((x: shopViewType) => {
-                    if (x.g_category === '가공식품') return x
-                })]);
+                setRows([...temp.filter((x: shopViewType) => x.g_category === '가공식품')]);
                 break;
             case 'case5':
-                setRows([...temp.filter((x: shopViewType) => {
-                    if (x.g_category === '냉동식품') return x
-                })]);
+                setRows([...temp.filter((x: shopViewType) => x.g_category === '냉동식품')]);
                 break;
             case 'case6':
-                setRows([...temp.filter((x: shopViewType) => {
-                    if (x.g_category === '조리/반조리') return x
-                })]);
+                setRows([...temp.filter((x: shopViewType) => x.g_category === '조리/반조리')]);
                 break;
             case 'case7':
-                setRows([...temp.filter((x: shopViewType) => {
-                    if (x.g_category === '식품외 기타') return x
-                })]);
+                setRows([...temp.filter((x: shopViewType) => x.g_category === '식품외 기타')]);
                 break
             default:
                 break;
