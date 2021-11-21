@@ -521,7 +521,7 @@ export default function ShopView() {
                 <DivContainer>
                     <DivHalfMenu>
                         <h3>가게정보 {aboutStore.o_name}</h3><br/>
-                        {aboutStore.o_image}
+                        <img src={aboutStore.o_image} alt={'image'}/>
                         <h5>가게 전화번호 {aboutStore.o_phone}</h5><br/>
                         <h5>영업시간 {aboutStore.o_time1} ~ {aboutStore.o_time2}</h5><br/>
                         <h5>휴무일 {}</h5>
