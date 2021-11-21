@@ -113,8 +113,10 @@ export default function ShopList() {
                     level={5}
                 >
                     {list.map((data, idx) =>
-                        <MapMarker position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
-                            <DivMarker key={idx} onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
+                        <MapMarker key={`MapMarker${idx}`}
+                                   position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
+                            <DivMarker key={`DivMarker${idx}`}
+                                       onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
                                 {data.o_name}
                             </DivMarker>
                         </MapMarker>

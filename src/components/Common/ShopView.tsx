@@ -115,15 +115,11 @@ export default function ShopView() {
 
 
     const history = useHistory();
-
     const [aboutStore, setAboutStore] = useState(initStore);
-
     const [modal, setModal] = useState(true);
-
     const [color, setColor] = useState(initColor);
-
     const [rows, setRows] = useState<shopViewType[]>(initGoods2);
-
+    const [temp, setTemp] = useState<shopViewType[]>([]);
     const [category, setCategory] = useState<categoryType>({
         gagong: 0,
         other: 0,
@@ -138,10 +134,48 @@ export default function ShopView() {
     const [favorites, setFavorites] = useState(false);
 
 
-    const change = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const categoryChange = (e: React.MouseEvent<HTMLButtonElement>) => {
         const btnValue = (e.target as HTMLButtonElement).name; // button의 name값을 가져옴
         // @ts-ignore
         setColor({...initColor2, [btnValue]: !color[btnValue]});
+
+        switch (btnValue) {
+            case 'case1':
+                setRows([...temp]);
+                break;
+            case 'case2':
+                setRows([...temp.filter((x: shopViewType) => {
+                    if (x.g_category === '마실것') return x
+                })]);
+                break;
+            case 'case3':
+                setRows([...temp.filter((x: shopViewType) => {
+                    if (x.g_category === '신선식품') return x
+                })]);
+                break;
+            case 'case4':
+                setRows([...temp.filter((x: shopViewType) => {
+                    if (x.g_category === '가공식품') return x
+                })]);
+                break;
+            case 'case5':
+                setRows([...temp.filter((x: shopViewType) => {
+                    if (x.g_category === '냉동식품') return x
+                })]);
+                break;
+            case 'case6':
+                setRows([...temp.filter((x: shopViewType) => {
+                    if (x.g_category === '조리/반조리') return x
+                })]);
+                break;
+            case 'case7':
+                setRows([...temp.filter((x: shopViewType) => {
+                    if (x.g_category === '식품외 기타') return x
+                })]);
+                break
+            default:
+                break;
+        }
     };
 
     interface ImatchParams {
@@ -168,6 +202,7 @@ export default function ShopView() {
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setRows(res.data);
+            setTemp(JSON.parse(JSON.stringify(res.data)));
             console.log(res);
         } catch (e) {
             console.log(e);
@@ -451,21 +486,21 @@ export default function ShopView() {
             <>
                 <DivButton>
                     <Button name='case1' style={color.case1 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={(e) => change(e)}>전체 {' '}
+                            onClick={(e) => categoryChange(e)}>전체 {' '}
                         {category.drink + category.fresh + category.gagong + category.freeze + category.cooked + category.other}
                     </Button>
                     <Button name='case2' style={color.case2 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>마실것 {category.drink}</Button>
+                            onClick={categoryChange}>마실것 {category.drink}</Button>
                     <Button name='case3' style={color.case3 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>신선식품 {category.fresh}</Button>
+                            onClick={categoryChange}>신선식품 {category.fresh}</Button>
                     <Button name='case4' style={color.case4 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>가공식품 {category.gagong}</Button>
+                            onClick={categoryChange}>가공식품 {category.gagong}</Button>
                     <Button name='case5' style={color.case5 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>냉동식품 {category.freeze}</Button>
+                            onClick={categoryChange}>냉동식품 {category.freeze}</Button>
                     <Button name='case6' style={color.case6 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>조리/반조리 {category.cooked}</Button>
+                            onClick={categoryChange}>조리/반조리 {category.cooked}</Button>
                     <Button name='case7' style={color.case7 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>식품외 기타 {category.other}</Button>
+                            onClick={categoryChange}>식품외 기타 {category.other}</Button>
                 </DivButton>
 
                 {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
@@ -486,7 +521,7 @@ export default function ShopView() {
                 <DivContainer>
                     <DivHalfMenu>
                         <h3>가게정보 {aboutStore.o_name}</h3><br/>
-                        {aboutStore.o_image}
+                        <img src={aboutStore.o_image} alt={'image'}/>
                         <h5>가게 전화번호 {aboutStore.o_phone}</h5><br/>
                         <h5>영업시간 {aboutStore.o_time1} ~ {aboutStore.o_time2}</h5><br/>
                         <h5>휴무일 {}</h5>
