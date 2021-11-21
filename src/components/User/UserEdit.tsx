@@ -1,10 +1,6 @@
 /* eslint-disable */
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import {Button} from "@mui/material";
 import styled from "styled-components";
 import {client} from "../../lib/api/client";
