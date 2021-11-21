@@ -186,10 +186,12 @@ export default function ReservationView() {
                             onChange={e => setG_category(e.target.value)}
                         >
                             <MenuItem value=''>모두 보기</MenuItem>
-                            <MenuItem value='과자류'>과자류</MenuItem>
-                            <MenuItem value='간편식'>간편식</MenuItem>
-                            <MenuItem value='음료'>음료</MenuItem>
-                            <MenuItem value='즉석조리'>즉석조리</MenuItem>
+                            <MenuItem value='마실것'>마실것</MenuItem>
+                            <MenuItem value='신선식품'>신선식품</MenuItem>
+                            <MenuItem value='가공식품'>가공식품</MenuItem>
+                            <MenuItem value='냉동식품'>냉동식품</MenuItem>
+                            <MenuItem value='조리/반조리'>조리/반조리</MenuItem>
+                            <MenuItem value='식품외 기타'>식품외 기타</MenuItem>
                         </Select>
                     </FormControl>
                     <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
