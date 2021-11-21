@@ -54,20 +54,14 @@ export default function ShopView() {
         case1: true,
         case2: false,
         case3: false,
-        case4: false,
-        case5: false,
-        case6: false,
-        case7: false,
+        case4: false
     };
 
     const initColor2 = {
         case1: false,
         case2: false,
         case3: false,
-        case4: false,
-        case5: false,
-        case6: false,
-        case7: false,
+        case4: false
     };
 
     const initGoods2 = [{
@@ -82,12 +76,6 @@ export default function ShopView() {
         g_expireDate: '',
         g_status: 0,
         g_category: '',
-        cooked: 0,
-        drink: 0,
-        freeze: 0,
-        fresh:0,
-        gagong: 0,
-        other: 0,
     }];
 
     const initStore = {
@@ -431,21 +419,13 @@ export default function ShopView() {
             <>
                 <DivButton>
                     <Button name='case1' style={color.case1 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={(e) => change(e)}>전체 {' '}
-                        {rows[0].drink + rows[0].fresh + rows[0].gagong + rows[0].freeze + rows[0].cooked + rows[0].other}
-                    </Button>
+                            onClick={(e) => change(e)}>전체</Button>
                     <Button name='case2' style={color.case2 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>마실것 {rows[0].drink}</Button>
+                            onClick={change}>카페/음료</Button>
                     <Button name='case3' style={color.case3 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>신선식품 {rows[0].fresh}</Button>
+                            onClick={change}>스낵</Button>
                     <Button name='case4' style={color.case4 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>가공식품 {rows[0].gagong}</Button>
-                    <Button name='case5' style={color.case5 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>냉동식품 {rows[0].freeze}</Button>
-                    <Button name='case6' style={color.case6 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>조리/반조리 {rows[0].cooked}</Button>
-                    <Button name='case7' style={color.case7 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>식품외 기타 {rows[0].other}</Button>
+                            onClick={change}>냉동/빙과류</Button>
                 </DivButton>
 
                 {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
