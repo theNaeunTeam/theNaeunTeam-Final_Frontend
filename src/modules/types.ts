@@ -122,6 +122,12 @@ export type shopViewType = {
     g_expireDate: string,
     g_status: number,
     g_category: string,
+    cooked: number,
+    drink: number,
+    freeze: number,
+    fresh: number,
+    gagong: number,
+    other: number,
 };
 
 export type userMyPageType = {
