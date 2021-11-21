@@ -122,12 +122,6 @@ export type shopViewType = {
     g_expireDate: string,
     g_status: number,
     g_category: string,
-    cooked: number,
-    drink: number,
-    freeze: number,
-    fresh: number,
-    gagong: number,
-    other: number,
 };
 
 export type userMyPageType = {
@@ -169,4 +163,14 @@ export type shopList = {
     o_time1: string,
     o_time2: string,
     radius?: string
+}
+
+export type categoryType = {
+    gagong: number,
+    other: number,
+    freeze: number,
+    cooked: number,
+    g_owner: string,
+    fresh: number,
+    drink: number,
 }

@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
-import {shopList} from "../../modules/types";
+import {categoryType, shopList} from "../../modules/types";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import {Button} from "@mui/material";
 import {Map, MapMarker} from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
+import {fetch_Category_Per_sNumber} from "../../lib/api/Fetch_Category_Per_sNumber";
 
 const marks = [
     {
@@ -112,15 +113,26 @@ export default function ShopList() {
 
         const [childLoading, setChildLoading] = useState(true);
 
+        const [category, setCategory] = useState<categoryType>({
+            gagong: 0,
+            other: 0,
+            freeze: 0,
+            cooked: 0,
+            fresh: 0,
+            drink: 0,
+            g_owner: '',
+        });
+
         useEffect(() => {
-            client.get(``)
+            fetch_Category_Per_sNumber(data.o_sNumber)
                 .then(res => {
+                    setCategory(res);
                     setChildLoading(false);
                 })
                 .catch(err => {
                     console.log(idx, '번 통계 ', err);
                 })
-        }, [])
+        }, []);
 
         return (
             <>
@@ -133,7 +145,9 @@ export default function ShopList() {
                                     <button onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
                                         이동하기</button>
                                     </span>
-
+                    <span>
+                        {category.g_owner}
+                    </span>
                     <img style={{width: '300px', height: '300px'}} src={data.o_image}/><br/>
 
 

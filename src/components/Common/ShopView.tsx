@@ -12,8 +12,9 @@ import {RootState} from "../../index";
 import fullStar from "../../styles/images/star1.png";
 import emptyStar from "../../styles/images/star2.png";
 import Swal from 'sweetalert2';
-import {shopViewType} from "../../modules/types";
+import {categoryType, shopViewType} from "../../modules/types";
 import {CopyToClipboard} from "react-copy-to-clipboard";
+import {fetch_Category_Per_sNumber} from "../../lib/api/Fetch_Category_Per_sNumber";
 
 const DivTitle = styled.div`
   flex-direction: column;
@@ -85,7 +86,7 @@ export default function ShopView() {
         cooked: 0,
         drink: 0,
         freeze: 0,
-        fresh:0,
+        fresh: 0,
         gagong: 0,
         other: 0,
     }];
@@ -123,6 +124,16 @@ export default function ShopView() {
 
     const [rows, setRows] = useState<shopViewType[]>(initGoods2);
 
+    const [category, setCategory] = useState<categoryType>({
+        gagong: 0,
+        other: 0,
+        freeze: 0,
+        cooked: 0,
+        fresh: 0,
+        drink: 0,
+        g_owner: '',
+    });
+
     //즐찾 state
     const [favorites, setFavorites] = useState(false);
 
@@ -142,6 +153,15 @@ export default function ShopView() {
 
     // 상품정보api
     const gooodsTableInit = async () => {
+
+        fetch_Category_Per_sNumber(match.params.o_sNumber)
+            .then(res => {
+                setCategory(res);
+            })
+            .catch(err => {
+                alert('카테고리 갯수 가져오기 실패');
+                console.log(err);
+            })
 
         const URL = '/common/storeGoodsView';
 
@@ -432,20 +452,20 @@ export default function ShopView() {
                 <DivButton>
                     <Button name='case1' style={color.case1 ? {background: 'red'} : undefined} variant="contained"
                             onClick={(e) => change(e)}>전체 {' '}
-                        {rows[0].drink + rows[0].fresh + rows[0].gagong + rows[0].freeze + rows[0].cooked + rows[0].other}
+                        {category.drink + category.fresh + category.gagong + category.freeze + category.cooked + category.other}
                     </Button>
                     <Button name='case2' style={color.case2 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>마실것 {rows[0].drink}</Button>
+                            onClick={change}>마실것 {category.drink}</Button>
                     <Button name='case3' style={color.case3 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>신선식품 {rows[0].fresh}</Button>
+                            onClick={change}>신선식품 {category.fresh}</Button>
                     <Button name='case4' style={color.case4 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>가공식품 {rows[0].gagong}</Button>
+                            onClick={change}>가공식품 {category.gagong}</Button>
                     <Button name='case5' style={color.case5 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>냉동식품 {rows[0].freeze}</Button>
+                            onClick={change}>냉동식품 {category.freeze}</Button>
                     <Button name='case6' style={color.case6 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>조리/반조리 {rows[0].cooked}</Button>
+                            onClick={change}>조리/반조리 {category.cooked}</Button>
                     <Button name='case7' style={color.case7 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>식품외 기타 {rows[0].other}</Button>
+                            onClick={change}>식품외 기타 {category.other}</Button>
                 </DivButton>
 
                 {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
