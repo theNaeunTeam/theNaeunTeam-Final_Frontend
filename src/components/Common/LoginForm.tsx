@@ -42,7 +42,7 @@ export default function LoginForm(props: RouteComponentProps) {
 
     const login = async () => {
         if (loginForm.radio === 'company') {
-            const URL = '/owner/ownerlogin';
+            const URL = '/common/ownerlogin';
             const data = {
                 o_sNumber: loginForm.u_id,
                 o_pw: loginForm.u_pw,
@@ -63,7 +63,7 @@ export default function LoginForm(props: RouteComponentProps) {
                 console.log(e);
             }
         } else {
-            const URL = '/user/userlogin';
+            const URL = '/common/userlogin';
             try {
                 const res = await client.post(URL, loginForm);
                 console.log(res);

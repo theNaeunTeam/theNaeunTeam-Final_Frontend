@@ -171,12 +171,13 @@ export default function AddProduct() {
                 <input type={'file'} ref={fileInputTag}/>
                 <select name={'g_category'} value={productForm.g_category}>
                     <option value={""}>상품분류 선택</option>
-                    <option value={"카페/음료"}>카페/음료</option>
-                    <option value={"냉동식품"}>냉동식품</option>
-                    <option value={"스낵류"}>스낵류</option>
-                    <option value={'과자류'}>과자류</option>
+                    <option value={"마실것"}>마실것</option>
+                    <option value={"신선식품"}>신선식품</option>
+                    <option value={"가공식품"}>가공식품</option>
+                    <option value={'냉동식품'}>냉동식품</option>
+                    <option value={'조리/반조리'}>조리/반조리</option>
+                    <option value={'식품외 기타'}>식품외 기타</option>
                 </select>
-
                 <TextField
                     error={formError.g_price}
                     required

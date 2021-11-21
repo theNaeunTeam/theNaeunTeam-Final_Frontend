@@ -53,7 +53,7 @@ export default function UserRegisterForm() {
 
 
     const submitForm = async () => {
-        const URL = '/user/userjoin'
+        const URL = '/common/userjoin'
         try {
             const res = await client.post(URL, regForm);
             console.log(res);

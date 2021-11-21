@@ -110,6 +110,18 @@ export default function ShopList() {
 
     const ListBuilder = ({data, idx}: listType) => {
 
+        const [childLoading, setChildLoading] = useState(true);
+
+        useEffect(() => {
+            client.get(``)
+                .then(res => {
+                    setChildLoading(false);
+                })
+                .catch(err => {
+                    console.log(idx, '번 통계 ', err);
+                })
+        }, [])
+
         return (
             <>
                 <DivBorderd key={idx}>
@@ -122,7 +134,7 @@ export default function ShopList() {
                                         이동하기</button>
                                     </span>
 
-                                <img style={{width: '300px', height: '300px'}} src={data.o_image}/><br/>
+                    <img style={{width: '300px', height: '300px'}} src={data.o_image}/><br/>
 
 
                     <Map

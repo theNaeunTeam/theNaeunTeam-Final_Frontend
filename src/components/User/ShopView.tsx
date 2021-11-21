@@ -131,7 +131,7 @@ export default function ShopView() {
     // 상품정보api
     const gooodsTableInit = async () => {
 
-        const URL = '/user/storeGoodsView';
+        const URL = '/common/storeGoodsView';
 
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
@@ -145,7 +145,7 @@ export default function ShopView() {
     //가게정보 api
     const storeTableInit = async () => {
 
-        const URL = '/user/storeView';
+        const URL = '/common/storeView';
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setAboutStore(res.data);

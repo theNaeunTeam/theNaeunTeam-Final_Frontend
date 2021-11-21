@@ -90,7 +90,7 @@ export default function OwnerRegisterForm() {
 
     const submitForm = async () => {
 
-        const URL = '/owner/request';
+        const URL = '/common/request';
         const formData = new FormData();
 
         // @ts-ignore

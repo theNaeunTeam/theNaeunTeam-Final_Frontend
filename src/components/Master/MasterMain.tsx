@@ -40,7 +40,7 @@ export default function MasterMain() {
 
     const login = async () => {
 
-        const URL = '/master/masterlogin';
+        const URL = '/common/masterlogin';
 
         try {
             const res = await client.post(URL, loginForm);
