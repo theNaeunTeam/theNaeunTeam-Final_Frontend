@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {DataGrid, GridColDef, GridRowId} from '@mui/x-data-grid';
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -37,6 +37,10 @@ export default function MasterMain() {
 
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (authReducer.isMaster) ownerTableInit();
+    }, []);
 
     const login = async () => {
 
