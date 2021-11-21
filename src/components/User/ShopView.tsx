@@ -496,7 +496,7 @@ export default function ShopView() {
                         : <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={emptyStar}
                                                                   onClick={favorInsert}/></span>
                 }
-                <h3>CU 센텀클래스원점</h3>
+                <h3>{aboutStore.o_name}</h3>
                 <h6 style={{color: 'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h6>
             </DivTitle>
             <hr/>
