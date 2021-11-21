@@ -1,34 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import {client} from "../../lib/api/client";
-import {categoryType, shopList} from "../../modules/types";
+import {client} from "../../../lib/api/client";
+import {shopList} from "../../../modules/types";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import {Button} from "@mui/material";
 import {Map, MapMarker} from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
-import {fetch_Category_Per_sNumber} from "../../lib/api/Fetch_Category_Per_sNumber";
+import ShopListBuilder from "./ShopListBuilder";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const marks = [
     {
         value: 1,
-        label: '1km',
+        label: '1000m',
+    },
+    {
+        value: 2,
+        label: '2000m',
     },
     {
         value: 3,
-        label: '3km',
-    },
-    {
-        value: 5,
-        label: '5km',
-    },
-    {
-        value: 7,
-        label: '7km',
-    },
-    {
-        value: 10,
-        label: '10km',
+        label: '3000m',
     },
 ];
 
@@ -46,12 +40,7 @@ const DivHalfMenu = styled.div`
   padding: 10px;
   text-align: center;
 `;
-const DivBorderd = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-top: solid lightgray 10px;
-  padding: 10px;
-`;
+
 const DivMarker = styled.div`
 
 `
@@ -68,9 +57,10 @@ export default function ShopList() {
     const history = useHistory();
 
     const [list, setList] = useState<shopList[]>([]);
-    const [range, setRange] = useState('5');
+    const [range, setRange] = useState('2');
     const [lat, setLat] = useState(seoulLAT);
     const [lon, setLon] = useState(seoulLON);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         init();
@@ -83,9 +73,11 @@ export default function ShopList() {
                 setList(res.data);
                 setLat(Number(LAT));
                 setLon(Number(LON));
+                setLoading(false);
             })
             .catch(err => {
                 console.log(err);
+                setLoading(false);
             })
     }
 
@@ -93,6 +85,7 @@ export default function ShopList() {
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
         function onGeoOK(position: any) {
+            setLoading(true);
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             init(lat, lon);
@@ -104,68 +97,15 @@ export default function ShopList() {
         }
     }
 
-    interface listType {
-        data: shopList;
-        idx: number;
-    }
-
-    const ListBuilder = ({data, idx}: listType) => {
-
-        const [childLoading, setChildLoading] = useState(true);
-
-        const [category, setCategory] = useState<categoryType>({
-            gagong: 0,
-            other: 0,
-            freeze: 0,
-            cooked: 0,
-            fresh: 0,
-            drink: 0,
-            g_owner: '',
-        });
-
-        useEffect(() => {
-            fetch_Category_Per_sNumber(data.o_sNumber)
-                .then(res => {
-                    setCategory(res);
-                    setChildLoading(false);
-                })
-                .catch(err => {
-                    console.log(idx, '번 통계 ', err);
-                })
-        }, []);
-
-        return (
-            <>
-                <DivBorderd key={idx}>
-                                <span>
-                                가게명:{data.o_name}<br/>
-                                대표번호:{data.o_phone}<br/>
-                                현위치와의 거리 : {Number(data.distance) * 100}미터<br/>
-                                    {data.o_time1} ~ {data.o_time2}<br/>
-                                    <button onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
-                                        이동하기</button>
-                                    </span>
-                    <span>
-                        {category.g_owner}
-                    </span>
-                    <img style={{width: '300px', height: '300px'}} src={data.o_image}/><br/>
-
-
-                    <Map
-                        center={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}
-                        style={{width: "300px", height: "360px"}}
-                    >
-                        <MapMarker position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
-                            <div style={{color: "#000"}}>{data.o_name}</div>
-                        </MapMarker>
-                    </Map>
-                </DivBorderd>
-            </>
-        )
-    }
 
     return (
         <>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             <DivContainer>
                 <Map
                     center={{lat: lat, lng: lon}}
@@ -184,9 +124,9 @@ export default function ShopList() {
                     <Box sx={{m: 3, width: 300}}>
                         <Slider
                             min={1}
-                            max={10}
-                            defaultValue={5}
-                            step={1}
+                            max={3}
+                            defaultValue={2}
+                            step={0.1}
                             marks={marks}
                             valueLabelDisplay="auto"
                             // @ts-ignore
@@ -196,7 +136,7 @@ export default function ShopList() {
                     </Box>
                 </DivHalfMenu>
                 {
-                    list.map((data, idx) => <ListBuilder data={data} idx={idx}/>)
+                    list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
             </DivContainer>
         </>
