@@ -28,7 +28,7 @@ import UserReserve from "./components/User/UserReserve";
 import FavorStore from "./components/User/FavorStore";
 import UserEdit from "./components/User/UserEdit";
 import UserExit from "./components/User/UserExit";
-import ShopList from "./components/Common/ShopList";
+import ShopList from "./components/Common/ShopList/ShopList";
 
 function App() {
 
