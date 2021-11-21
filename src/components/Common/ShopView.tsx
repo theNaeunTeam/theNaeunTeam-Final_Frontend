@@ -13,7 +13,7 @@ import fullStar from "../../styles/images/star1.png";
 import emptyStar from "../../styles/images/star2.png";
 import Swal from 'sweetalert2';
 import {shopViewType} from "../../modules/types";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import {CopyToClipboard} from "react-copy-to-clipboard";
 
 const DivTitle = styled.div`
   flex-direction: column;
@@ -54,14 +54,20 @@ export default function ShopView() {
         case1: true,
         case2: false,
         case3: false,
-        case4: false
+        case4: false,
+        case5: false,
+        case6: false,
+        case7: false,
     };
 
     const initColor2 = {
         case1: false,
         case2: false,
         case3: false,
-        case4: false
+        case4: false,
+        case5: false,
+        case6: false,
+        case7: false,
     };
 
     const initGoods2 = [{
@@ -421,11 +427,17 @@ export default function ShopView() {
                     <Button name='case1' style={color.case1 ? {background: 'red'} : undefined} variant="contained"
                             onClick={(e) => change(e)}>전체</Button>
                     <Button name='case2' style={color.case2 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>카페/음료</Button>
+                            onClick={change}>마실것</Button>
                     <Button name='case3' style={color.case3 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>스낵</Button>
+                            onClick={change}>신선식품</Button>
                     <Button name='case4' style={color.case4 ? {background: 'red'} : undefined} variant="contained"
-                            onClick={change}>냉동/빙과류</Button>
+                            onClick={change}>가공식품</Button>
+                    <Button name='case4' style={color.case5 ? {background: 'red'} : undefined} variant="contained"
+                            onClick={change}>냉동식품</Button>
+                    <Button name='case4' style={color.case6 ? {background: 'red'} : undefined} variant="contained"
+                            onClick={change}>조리/반조리</Button>
+                    <Button name='case4' style={color.case7 ? {background: 'red'} : undefined} variant="contained"
+                            onClick={change}>식품외 기타</Button>
                 </DivButton>
 
                 {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
@@ -467,7 +479,10 @@ export default function ShopView() {
                         </button>
                         {/*<button onClick={() => window.open('https://map.kakao.com/link/to/동서대센텀캠퍼스,' + aboutStore.o_latitude + ',' + aboutStore.o_longitude, '_blank')}>길찾기</button>*/}
                         <CopyToClipboard text={aboutStore.o_address}>
-                            <button onClick={()=>{alert('주소가 복사되었습니다.')}}>주소복사</button>
+                            <button onClick={() => {
+                                alert('주소가 복사되었습니다.')
+                            }}>주소복사
+                            </button>
                         </CopyToClipboard>
                     </DivHalfMenu>
                 </DivContainer>
