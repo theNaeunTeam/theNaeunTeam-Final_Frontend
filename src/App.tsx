@@ -6,7 +6,7 @@ import Header from "./components/Common/Header";
 import MasterMain from "./components/Master/MasterMain";
 import UserRegisterForm from "./components/User/UserRegisterForm";
 import UserMain from "./components/User/UserMain";
-import ShopView from "./components/Common/ShopView";
+import ShopView from "./components/User/ShopView";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
 import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
