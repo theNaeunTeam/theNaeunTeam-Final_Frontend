@@ -9,14 +9,14 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
-import {masterMainType} from "../../modules/types";
+import {masterMainType, masterMainType2} from "../../modules/types";
 import Skeleton from '@mui/material/Skeleton';
 
 export default function MasterMain() {
 
     const initialValue = [{
         id: '',
-        o_approval: 0,
+        o_approval: '',
         o_sNumber: '',
         o_phone: '',
         o_name: '',
@@ -30,7 +30,7 @@ export default function MasterMain() {
         o_image: '',
     }];
 
-    const [rows, setRows] = useState<masterMainType[]>(initialValue);
+    const [rows, setRows] = useState<masterMainType2[]>(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''}); // 마스터 로그인 폼 핸들러
     const [loading, setLoading] = useState(true);
@@ -70,21 +70,42 @@ export default function MasterMain() {
 
     const ownerTableInit = async () => {
 
-        const URL = '';
+        const URL = '/master';
 
         try {
             const res = await client.get(URL);
             console.log(URL);
             // 받아온 결과에 id값 추가
-            const massage = res.data.reduce((acc: masterMainType[], val: masterMainType) => {
-                acc.push({
-                    ...val, id: val.o_sNumber
-                })
+            const massage = res.data.reduce((acc: masterMainType2[], val: masterMainType2, idx: number) => {
+                let temp:string = '';
+                switch (`${val.o_approval}`) {
+                    case '0': temp = '입점승인 대기중';
+                        break;
+                    case '1': temp = '입점승인 완료';
+                        break;
+                    case '2': temp = '입점승인 거절';
+                        break;
+                    case '3': temp = '해지승인 대기중';
+                        break;
+                    case '4': temp = '해지승인 완료';
+                        break;
+                    default: break;
+                }
+                const event = new Date(val.o_date);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+                // @ts-ignore
+                acc.push({...val, id: val.o_sNumber, o_approval:temp, o_date:event.toLocaleDateString(undefined, options)})
                 return acc;
             }, []);
             console.log(massage);
-
             setRows(massage);
+
+            // const event = new Date(`${rows[0].o_date}`);
+            // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            // // @ts-ignore
+            // console.log(event.toLocaleDateString(undefined, options));
+
             setLoading(false);
         } catch (e) {
             console.log(e);
@@ -126,7 +147,9 @@ export default function MasterMain() {
         {field: 'o_address', headerName: '가게주소', width: 150},
         {field: 'o_latitude', headerName: '위도', width: 130},
         {field: 'o_longitude', headerName: '경도', width: 130},
-        {field: 'o_date', headerName: '가입일', width: 150},
+
+        {field: 'o_date', headerName: '가입일', width: 180},
+
         {field: 'o_time1', headerName: '영업시작', width: 150},
         {field: 'o_time2', headerName: '영업종료', width: 150},
         {field: 'o_image', headerName: '이미지주소', width: 150},

@@ -45,6 +45,22 @@ export type masterMainType = {
     o_image: string,
 };
 
+export type masterMainType2 = {
+    id: string,
+    o_approval: string,
+    o_sNumber: string,
+    o_phone: string,
+    o_name: string,
+    o_cellPhone: string,
+    o_address: string,
+    o_latitude: string,
+    o_longitude: string,
+    o_date: string,
+    o_time1: string,
+    o_time2: string,
+    o_image: string,
+};
+
 export interface addProductType {
     isModify: boolean,
     g_owner: string,

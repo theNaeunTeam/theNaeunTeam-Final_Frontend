@@ -29,6 +29,15 @@ import FavorStore from "./components/User/FavorStore";
 import UserEdit from "./components/User/UserEdit";
 import UserExit from "./components/User/UserExit";
 import ShopList from "./components/Common/ShopList/ShopList";
+
+import  MasterNavbar from "./components/Master/MasterNavbar";
+import MasterUserList from "./components/Master/MasterUserList";
+import ApprovalWaiting from "./components/Master/ApprovalWaiting";
+import ApprovalCompletion from "./components/Master/ApprovalCompletion";
+import MasterDash from "./components/Master/MasterDash";
+import TerminationWaiting from "./components/Master/TerminationWaiting";
+import TerminationCompletion from "./components/Master/TerminationCompletion";
+
 import ChangeBanner from "./components/Master/ChangeBanner";
 
 function App() {
@@ -83,7 +92,7 @@ function App() {
             <Switch>
                 <Route exact path='/' component={UserMain}/>
 
-                <Route exact path='/master' component={MasterMain}/>
+                {/*<Route exact path='/master' component={MasterMain}/>*/}
 
                 <Route exact path='/login' component={LoginForm}/>
 
@@ -98,6 +107,16 @@ function App() {
             <Route path='/shopView/:o_sNumber' component={ShopView}/>
 
             <Route path='/list' component={ShopList}/>
+
+            <Route path='/master' component={MasterNavbar}/>
+            <Route path='/master' exact component={MasterMain}/>
+            <Route path='/master/masteruserlist' component={MasterUserList}/>
+            <Route path='/master/approvalwaiting' component={ApprovalWaiting}/>
+            <Route path='/master/approvalcompletion' component={ApprovalCompletion}/>
+            <Route path='/master/terminationwaiting' component={TerminationWaiting}/>
+            <Route path='/master/terminationcompletion' component={TerminationCompletion}/>
+            <Route path='/master/masterdash' component={MasterDash}/>
+
 
             <Route path='/user' component={UserNavbar}/>
             <Route path='/user' exact component={UserMypage}/>
