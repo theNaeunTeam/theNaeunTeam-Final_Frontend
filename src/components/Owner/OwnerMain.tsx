@@ -5,7 +5,18 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
-import {ownerMainType} from "../../modules/types";
+import {ownerPageType, saleType} from "../../modules/types";
+import {
+    ResponsiveContainer,
+    ComposedChart,
+    Line,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+} from 'recharts';
 
 const DivContainer = styled.div`
   border: solid black;
@@ -13,6 +24,7 @@ const DivContainer = styled.div`
   justify-content: center;
   margin: 50px;
   padding: 10px;
+  height: 1000px;
 `;
 
 const DivHalfMenu = styled.div`
@@ -32,26 +44,50 @@ export default function OwnerMain() {
     const initialValue = {
         o_name: '',
         total: 0,
-        goods: 0,
-        reserve: 0,
-        o_latitude: 0,
-        o_longitude: 0,
-
+        monTotal: 0,
+        buyTotal: 0,
     };
+    const sale = {
+        date: '',
+        sum: 0,
+    }
 
 
-    const [ownerMain, setOwnerMain] = useState<ownerMainType>(initialValue);
+    const [ownerPage, setOwnerPage] = useState<ownerPageType>(initialValue);
+    const [ownerDay, setOwnerDay] = useState<saleType[]>([]);
+    const [ownerMon, setOwnerMon] = useState<saleType[]>([]);
+    const [ownerYear, setOwnerYear] = useState<saleType[]>([]);
 
     useEffect(() => {
         initialize();
     }, []);
 
+
     const initialize = async () => {
         const URL = '';
+        const URL_D = 'owner/getDay';
+        const URL_M = 'owner/getMon';
+        const URL_Y = 'owner/getYear';
         try {
             const res = await client.get(URL);
             console.log(res);
-            setOwnerMain(res.data);
+            setOwnerPage(res.data);
+
+            const day = await client.get(URL_D);
+            const dayArr = day.data.map((x: any) => x.date);
+            const daySumArr = day.data.map((x: any) => x.sum);
+            console.log(day.data);
+            console.log(dayArr);
+            console.log(daySumArr);
+            setOwnerMon(day.data);
+
+            const mon = await client.get(URL_M);
+            const monArr = mon.data.map((x: any) => x.date);
+            const monSumArr = mon.data.map((x: any) => x.sum);
+
+            const year = await client.get(URL_Y);
+            const yearArr = year.data.map((x: any) => x.date);
+            const yearSumArr = year.data.map((x: any) => x.sum);
 
         } catch (e) {
             console.log(e);
@@ -62,29 +98,31 @@ export default function OwnerMain() {
     return (
         <DivContainer>
             <DivHalfMenu>
-                <h3>{ownerMain.o_name}</h3>
+                <h3>{ownerPage.o_name}</h3>
                 <br/>
-                <h5>총 판매 금액 : {ownerMain.total} 원</h5>
-                {/*<h5>일일 판매 금액 : {ownerMain.daily}</h5>*/}
-                {/*<h5>월별 판매 금액 : {ownerMain.monthly}</h5>*/}
-                <h5>등록한 상품 : {ownerMain.goods} 개</h5>
-                <h5>예약 진행중 : {ownerMain.reserve} 건</h5>
-                {/*<button onClick={() => {*/}
-                {/*    getLoc();*/}
-                {/*}}>위도경도변경테스트*/}
-                {/*</button>*/}
+                <h5>총 판매 금액 : {ownerPage.total} 원</h5>
+                <h5>이번달 수익 : {ownerPage.monTotal} 원</h5>
+                <h5>총 구매자 : {ownerPage.buyTotal} 명</h5>
+
             </DivHalfMenu>
             <DivHalfMenu>
-                <Map
-                    center={{lat: ownerMain.o_latitude, lng: ownerMain.o_longitude}}
-                    style={{width: "100%", height: "360px"}}
-                >
-                    <MapMarker position={{lat: ownerMain.o_latitude, lng: ownerMain.o_longitude}}>
-                        <div style={{color: "#000"}}>{ownerMain.o_name}</div>
-                    </MapMarker>
-                </Map>
-            </DivHalfMenu>
+                <ResponsiveContainer>
+                    <ComposedChart
+                        width={500}
+                        height={400}
+                        data={ownerMon}
+                        margin={{top: 40, right: 40, bottom: 30, left: 40}}
+                    >
+                        <CartesianGrid stroke="#f5f5f5"/>
+                        <XAxis dataKey="date"/>
+                        <YAxis yAxisId="sum"/>
+                        <Tooltip/>
+                        <Legend/>
+                        <Bar yAxisId="sum" dataKey="sum" barSize={30} fill="#7ac4c0"/>
 
+                    </ComposedChart>
+                </ResponsiveContainer>
+            </DivHalfMenu>
         </DivContainer>
     )
 }
