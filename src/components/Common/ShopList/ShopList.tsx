@@ -42,7 +42,10 @@ const DivHalfMenu = styled.div`
 `;
 
 const DivMarker = styled.div`
-
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 `
 // 가운데 정렬 안먹음 ㅡㅡ
 
@@ -131,7 +134,7 @@ export default function ShopList() {
                                     >
 
                                         {marker[idx] && <DivMarker key={`DivMarker${idx}`}
-                                                                 onClick={() => history.push(`/shopView/${data.o_sNumber}`)}
+                                                                   onClick={() => history.push(`/shopView/${data.o_sNumber}`)}
                                                                    onMouseLeave={() => {
                                                                        const cp = [...marker];
                                                                        cp[idx] = false;

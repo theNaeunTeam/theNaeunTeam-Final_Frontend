@@ -29,6 +29,7 @@ import FavorStore from "./components/User/FavorStore";
 import UserEdit from "./components/User/UserEdit";
 import UserExit from "./components/User/UserExit";
 import ShopList from "./components/Common/ShopList/ShopList";
+import ChangeBanner from "./components/Master/ChangeBanner";
 
 function App() {
 
@@ -91,6 +92,8 @@ function App() {
                 <Route exact path='/owner/register' component={OwnerRegisterForm}/>
 
             </Switch>
+
+            <Route path={'/master/changeBanner'} component={ChangeBanner}/>
 
             <Route path='/shopView/:o_sNumber' component={ShopView}/>
 
