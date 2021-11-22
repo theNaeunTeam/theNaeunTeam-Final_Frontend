@@ -9,14 +9,14 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
-import {masterMainType} from "../../modules/types";
+import {masterMainType, masterMainType2} from "../../modules/types";
 import Skeleton from '@mui/material/Skeleton';
 
 export default function MasterMain() {
 
     const initialValue = [{
         id: '',
-        o_approval: 0,
+        o_approval: '',
         o_sNumber: '',
         o_phone: '',
         o_name: '',
@@ -30,7 +30,7 @@ export default function MasterMain() {
         o_image: '',
     }];
 
-    const [rows, setRows] = useState<masterMainType[]>(initialValue);
+    const [rows, setRows] = useState<masterMainType2[]>(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''}); // 마스터 로그인 폼 핸들러
     const [loading, setLoading] = useState(true);
@@ -70,15 +70,29 @@ export default function MasterMain() {
 
     const ownerTableInit = async () => {
 
-        const URL = '';
+        const URL = '/master';
 
         try {
             const res = await client.get(URL);
             console.log(URL);
             // 받아온 결과에 id값 추가
-            const massage = res.data.reduce((acc: masterMainType[], val: masterMainType) => {
+            const massage = res.data.reduce((acc: masterMainType2[], val: masterMainType2) => {
+                let temp:string = '';
+                switch (`${val.o_approval}`) {
+                    case '0': temp = '입점승인 대기중';
+                        break;
+                    case '1': temp = '입점승인 완료';
+                        break;
+                    case '2': temp = '입점승인 거절';
+                        break;
+                    case '3': temp = '해지승인 대기중';
+                        break;
+                    case '4': temp = '해지승인 완료';
+                        break;
+                    default: break;
+                }
                 acc.push({
-                    ...val, id: val.o_sNumber
+                    ...val, id: val.o_sNumber, o_approval:temp,
                 })
                 return acc;
             }, []);
