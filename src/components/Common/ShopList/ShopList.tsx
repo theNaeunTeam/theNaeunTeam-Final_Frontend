@@ -4,7 +4,7 @@ import {shopList} from "../../../modules/types";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import {Button} from "@mui/material";
-import {Map, MapMarker} from "react-kakao-maps-sdk";
+import {Map, MapMarker, MarkerClusterer} from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
 import ShopListBuilder from "./ShopListBuilder";
@@ -13,16 +13,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const marks = [
     {
+        value: 0.1,
+        label: '100m',
+    },
+    {
         value: 1,
         label: '1000m',
     },
     {
         value: 2,
         label: '2000m',
-    },
-    {
-        value: 3,
-        label: '3000m',
     },
 ];
 
@@ -57,7 +57,7 @@ export default function ShopList() {
     const history = useHistory();
 
     const [list, setList] = useState<shopList[]>([]);
-    const [range, setRange] = useState('2');
+    const [range, setRange] = useState('1');
     const [lat, setLat] = useState(seoulLAT);
     const [lon, setLon] = useState(seoulLON);
     const [loading, setLoading] = useState(true);
@@ -82,10 +82,11 @@ export default function ShopList() {
     }
 
     function getLoc() {
+        setLoading(true);
+
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
         function onGeoOK(position: any) {
-            setLoading(true);
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             init(lat, lon);
@@ -112,22 +113,42 @@ export default function ShopList() {
                     style={{width: "100%", height: "500px"}}
                     level={5}
                 >
+                    <MarkerClusterer
+                        averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+                        minLevel={3} // 클러스터 할 최소 지도 레벨
+                    >
                     {list.map((data, idx) =>
                         <MapMarker key={`MapMarker${idx}`}
                                    position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
                             <DivMarker key={`DivMarker${idx}`}
                                        onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
+                                <img
+                                    alt="close"
+                                    width="14"
+                                    height="13"
+                                    src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
+                                    style={{
+                                        position: "absolute",
+                                        right: "5px",
+                                        top: "5px",
+                                        cursor: "pointer",
+                                    }}
+                                    onClick={() => (false)}
+                                />
                                 {data.o_name}
+                                clickable={true}
                             </DivMarker>
                         </MapMarker>
                     )}
+                    </MarkerClusterer>
+
                 </Map>
                 <DivHalfMenu>
                     <Box sx={{m: 3, width: 300}}>
                         <Slider
-                            min={1}
-                            max={3}
-                            defaultValue={2}
+                            min={0.1}
+                            max={2}
+                            defaultValue={1}
                             step={0.1}
                             marks={marks}
                             valueLabelDisplay="auto"
