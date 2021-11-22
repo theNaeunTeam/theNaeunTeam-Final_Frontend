@@ -76,7 +76,7 @@ export default function MasterMain() {
             const res = await client.get(URL);
             console.log(URL);
             // 받아온 결과에 id값 추가
-            const massage = res.data.reduce((acc: masterMainType2[], val: masterMainType2) => {
+            const massage = res.data.reduce((acc: masterMainType2[], val: masterMainType2, idx: number) => {
                 let temp:string = '';
                 switch (`${val.o_approval}`) {
                     case '0': temp = '입점승인 대기중';
@@ -91,14 +91,21 @@ export default function MasterMain() {
                         break;
                     default: break;
                 }
-                acc.push({
-                    ...val, id: val.o_sNumber, o_approval:temp,
-                })
+                const event = new Date(val.o_date);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+                // @ts-ignore
+                acc.push({...val, id: val.o_sNumber, o_approval:temp, o_date:event.toLocaleDateString(undefined, options)})
                 return acc;
             }, []);
             console.log(massage);
-
             setRows(massage);
+
+            // const event = new Date(`${rows[0].o_date}`);
+            // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            // // @ts-ignore
+            // console.log(event.toLocaleDateString(undefined, options));
+
             setLoading(false);
         } catch (e) {
             console.log(e);
@@ -140,7 +147,7 @@ export default function MasterMain() {
         {field: 'o_address', headerName: '가게주소', width: 150},
         {field: 'o_latitude', headerName: '위도', width: 130},
         {field: 'o_longitude', headerName: '경도', width: 130},
-        {field: 'fullName', headerName: '가입일', width: 150},
+        {field: 'o_date', headerName: '가입일', width: 180},
         {field: 'o_time1', headerName: '영업시작', width: 150},
         {field: 'o_time2', headerName: '영업종료', width: 150},
         {field: 'o_image', headerName: '이미지주소', width: 150},
