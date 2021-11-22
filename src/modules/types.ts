@@ -87,13 +87,16 @@ export type goodsViewType = {
     g_status: number,
 };
 
-export type ownerMainType = {
+export type ownerPageType = {
     o_name: string,
     total: number,
-    goods: number,
-    reserve: number,
-    o_latitude: number,
-    o_longitude: number,
+    monTotal: number,
+    buyTotal : number,
+}
+
+export type saleType={
+    date : string,
+    sum : number,
 }
 
 export interface ownerRegisterFormType {
