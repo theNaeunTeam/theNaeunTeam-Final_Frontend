@@ -147,7 +147,9 @@ export default function MasterMain() {
         {field: 'o_address', headerName: '가게주소', width: 150},
         {field: 'o_latitude', headerName: '위도', width: 130},
         {field: 'o_longitude', headerName: '경도', width: 130},
+
         {field: 'o_date', headerName: '가입일', width: 180},
+
         {field: 'o_time1', headerName: '영업시작', width: 150},
         {field: 'o_time2', headerName: '영업종료', width: 150},
         {field: 'o_image', headerName: '이미지주소', width: 150},

@@ -29,6 +29,7 @@ import FavorStore from "./components/User/FavorStore";
 import UserEdit from "./components/User/UserEdit";
 import UserExit from "./components/User/UserExit";
 import ShopList from "./components/Common/ShopList/ShopList";
+
 import  MasterNavbar from "./components/Master/MasterNavbar";
 import MasterUserList from "./components/Master/MasterUserList";
 import ApprovalWaiting from "./components/Master/ApprovalWaiting";
@@ -36,6 +37,8 @@ import ApprovalCompletion from "./components/Master/ApprovalCompletion";
 import MasterDash from "./components/Master/MasterDash";
 import TerminationWaiting from "./components/Master/TerminationWaiting";
 import TerminationCompletion from "./components/Master/TerminationCompletion";
+
+import ChangeBanner from "./components/Master/ChangeBanner";
 
 function App() {
 
@@ -98,6 +101,8 @@ function App() {
                 <Route exact path='/owner/register' component={OwnerRegisterForm}/>
 
             </Switch>
+
+            <Route path={'/master/changeBanner'} component={ChangeBanner}/>
 
             <Route path='/shopView/:o_sNumber' component={ShopView}/>
 

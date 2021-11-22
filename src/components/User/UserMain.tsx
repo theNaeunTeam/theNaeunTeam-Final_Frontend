@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {UncontrolledCarousel} from "reactstrap";
 import styled from "styled-components";
 import logo from '../../logo.svg';
 import {useHistory} from "react-router-dom";
+import {client} from "../../lib/api/client";
 
 const DivContainer = styled.div`
   margin: 20px;
@@ -23,27 +24,27 @@ const DivRecommend = styled.div`
 
 export default function UserMain() {
 
-    const defaultValue = [
-        {
-            src: 'https://s36537.pcdn.co/wp-content/uploads/2015/06/600px-iwo-longcat.jpg.webp',
-            altText: '1번슬라이드 대체문구',
-            header: '1번 슬라이드 제목',
-        },
-        {
-            src: 'https://s36537.pcdn.co/wp-content/uploads/2015/06/600px-outer-space-longcat-6ztyxR.jpg.webp',
-            altText: '2번슬라이드 대체문구',
-            header: '2번 슬라이드 제목',
-        },
-    ];
+    const [arr, setArr] = useState<{src:string,altText:string,header:string}[]>([]);
 
-    const [items, setItems] = useState(defaultValue);
+    useEffect(() => {
+        const URL = '/master/banner';
+        client.get(URL)
+            .then(res => {
+                setArr(res.data)
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+                alert('페이지 초기화 실패');
+            })
+    }, [])
 
     const history = useHistory();
 
     return (
         <DivContainer>
             <DivCarouselContainer>
-                <UncontrolledCarousel items={items}/>
+                <UncontrolledCarousel items={arr}/>
             </DivCarouselContainer>
             <h2>추천</h2>
             <br/>
