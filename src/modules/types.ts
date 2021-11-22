@@ -91,12 +91,12 @@ export type ownerPageType = {
     o_name: string,
     total: number,
     monTotal: number,
-    buyTotal : number,
+    buyTotal: number,
 }
 
-export type saleType={
-    date : string,
-    sum : number,
+export type saleType = {
+    date: string,
+    sum: number,
 }
 
 export interface ownerRegisterFormType {
@@ -192,4 +192,8 @@ export type categoryType = {
     g_owner: string,
     fresh: number,
     drink: number,
+}
+
+export type carouselType = {
+    src: string, altText: string, header: string, description: string, link: string,
 }
