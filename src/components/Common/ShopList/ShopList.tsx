@@ -4,7 +4,7 @@ import {shopList} from "../../../modules/types";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import {Button} from "@mui/material";
-import {Map, MapMarker} from "react-kakao-maps-sdk";
+import {Map, MapMarker, MarkerClusterer} from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
 import ShopListBuilder from "./ShopListBuilder";
@@ -13,16 +13,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const marks = [
     {
+        value: 0.1,
+        label: '100m',
+    },
+    {
         value: 1,
         label: '1000m',
     },
     {
         value: 2,
         label: '2000m',
-    },
-    {
-        value: 3,
-        label: '3000m',
     },
 ];
 
@@ -42,7 +42,10 @@ const DivHalfMenu = styled.div`
 `;
 
 const DivMarker = styled.div`
-
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 `
 // 가운데 정렬 안먹음 ㅡㅡ
 
@@ -57,10 +60,12 @@ export default function ShopList() {
     const history = useHistory();
 
     const [list, setList] = useState<shopList[]>([]);
-    const [range, setRange] = useState('2');
+    const [range, setRange] = useState('1');
     const [lat, setLat] = useState(seoulLAT);
     const [lon, setLon] = useState(seoulLON);
     const [loading, setLoading] = useState(true);
+    const [marker, setMarker] = useState<boolean[]>([])
+
 
     useEffect(() => {
         init();
@@ -82,10 +87,11 @@ export default function ShopList() {
     }
 
     function getLoc() {
+        setLoading(true);
+
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
         function onGeoOK(position: any) {
-            setLoading(true);
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             init(lat, lon);
@@ -96,7 +102,6 @@ export default function ShopList() {
             console.log(e);
         }
     }
-
 
     return (
         <>
@@ -112,22 +117,46 @@ export default function ShopList() {
                     style={{width: "100%", height: "500px"}}
                     level={5}
                 >
-                    {list.map((data, idx) =>
-                        <MapMarker key={`MapMarker${idx}`}
-                                   position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
-                            <DivMarker key={`DivMarker${idx}`}
-                                       onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
-                                {data.o_name}
-                            </DivMarker>
-                        </MapMarker>
-                    )}
+                    <MarkerClusterer
+                        averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+                        minLevel={4} // 클러스터 할 최소 지도 레벨
+                    >
+                        {list.map((data, idx) => {
+                                marker.push(false);
+                                return (
+                                    <MapMarker key={`MapMarker${idx}`}
+                                               position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}
+                                               onClick={() => {
+                                                   const cp = [...marker];
+                                                   cp[idx] = true;
+                                                   setMarker(cp);
+                                               }}
+                                    >
+
+                                        {marker[idx] && <DivMarker key={`DivMarker${idx}`}
+                                                                   onClick={() => history.push(`/shopView/${data.o_sNumber}`)}
+                                                                   onMouseLeave={() => {
+                                                                       const cp = [...marker];
+                                                                       cp[idx] = false;
+                                                                       setMarker(cp);
+                                                                   }}
+                                                                   style={{cursor: "help",}}>
+                                            {data.o_name}
+                                        </DivMarker>
+                                        }
+                                    </MapMarker>
+                                )
+                            }
+                        )}
+                    </MarkerClusterer>
+
                 </Map>
                 <DivHalfMenu>
                     <Box sx={{m: 3, width: 300}}>
                         <Slider
-                            min={1}
-                            max={3}
-                            defaultValue={2}
+                            min={0.1}
+                            max={2}
+                            defaultValue={1}
                             step={0.1}
                             marks={marks}
                             valueLabelDisplay="auto"
