@@ -61,6 +61,8 @@ export default function ShopList() {
     const [lat, setLat] = useState(seoulLAT);
     const [lon, setLon] = useState(seoulLON);
     const [loading, setLoading] = useState(true);
+    const [marker, setMarker] = useState<boolean[]>([])
+
 
     useEffect(() => {
         init();
@@ -98,7 +100,6 @@ export default function ShopList() {
         }
     }
 
-
     return (
         <>
             <Backdrop
@@ -115,31 +116,35 @@ export default function ShopList() {
                 >
                     <MarkerClusterer
                         averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-                        minLevel={3} // 클러스터 할 최소 지도 레벨
+                        minLevel={4} // 클러스터 할 최소 지도 레벨
                     >
-                    {list.map((data, idx) =>
-                        <MapMarker key={`MapMarker${idx}`}
-                                   position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
-                            <DivMarker key={`DivMarker${idx}`}
-                                       onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
-                                <img
-                                    alt="close"
-                                    width="14"
-                                    height="13"
-                                    src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
-                                    style={{
-                                        position: "absolute",
-                                        right: "5px",
-                                        top: "5px",
-                                        cursor: "pointer",
-                                    }}
-                                    onClick={() => (false)}
-                                />
-                                {data.o_name}
-                                clickable={true}
-                            </DivMarker>
-                        </MapMarker>
-                    )}
+                        {list.map((data, idx) => {
+                                marker.push(false);
+                                return (
+                                    <MapMarker key={`MapMarker${idx}`}
+                                               position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}
+                                               onClick={() => {
+                                                   const cp = [...marker];
+                                                   cp[idx] = true;
+                                                   setMarker(cp);
+                                               }}
+                                    >
+
+                                        {marker[idx] && <DivMarker key={`DivMarker${idx}`}
+                                                                 onClick={() => history.push(`/shopView/${data.o_sNumber}`)}
+                                                                   onMouseLeave={() => {
+                                                                       const cp = [...marker];
+                                                                       cp[idx] = false;
+                                                                       setMarker(cp);
+                                                                   }}
+                                                                   style={{cursor: "help",}}>
+                                            {data.o_name}
+                                        </DivMarker>
+                                        }
+                                    </MapMarker>
+                                )
+                            }
+                        )}
                     </MarkerClusterer>
 
                 </Map>
