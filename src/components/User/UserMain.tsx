@@ -27,7 +27,7 @@ export default function UserMain() {
     const [arr, setArr] = useState<{src:string,altText:string,header:string}[]>([]);
 
     useEffect(() => {
-        const URL = '/master/banner';
+        const URL = '/common/banner';
         client.get(URL)
             .then(res => {
                 setArr(res.data)
