@@ -193,7 +193,7 @@ export default function MasterMain() {
                         승인
                     </Button>
                     {' '}
-                    <Button variant="outlined" color="error" onClick={() => updateDB('no')}>
+                    <Button variant="contained" color="error" onClick={() => updateDB('no')}>
                         반려
                     </Button>
                 </>
