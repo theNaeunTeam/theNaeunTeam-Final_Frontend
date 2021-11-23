@@ -126,7 +126,7 @@ function App() {
             <Route path='/user/userexit' component={UserExit}/>
 
 
-            <Route path='/owner' component={OwnerNavbar}/>
+            {/*<Route path='/owner' component={OwnerNavbar}/>*/}
             <Route path='/owner' exact component={OwnerMain}/>
             <Route path='/owner/addproduct' component={AddProduct}/>
             <Route path='/owner/goodsview' component={GoodsView}/>
