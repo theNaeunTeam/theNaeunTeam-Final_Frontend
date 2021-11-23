@@ -1,26 +1,33 @@
 import React from "react";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container, Nav, Navbar} from "react-bootstrap";
-import {Link, RouteComponentProps} from 'react-router-dom';
 
-export default function OwnerNavbar(props: RouteComponentProps) {
+import {Link, RouteComponentProps} from 'react-router-dom';
+import styled from 'styled-components'
+
+const Nav = styled.nav`
+  padding: 0px;
+  margin: 0px;
+  display: block;
+`;
+
+const NavItem = styled.li`
+  
+`;
+
+export default function OwnerNavbar() {
 
 
     return (
-        <>
-            <Navbar>
-                <Container>
-                    <Navbar.Brand>오너 네브바</Navbar.Brand>
-                    <Nav className="me-auto">
-                        <Nav.Link as={Nav}><Link to={'/owner'}>오너메인</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link to={'/owner/addProduct'}>상품등록</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link to={'/owner/goodsview'}>상품조회</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link to={'/owner/reservationview'}>예약현황</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link to={'/owner/sellingview'}>판매내역</Link></Nav.Link>
-                        <Nav.Link as={Nav}><Link to={'/owner/unsubscribe'}>이용해지신청</Link></Nav.Link>
-                    </Nav>
-                </Container>
-            </Navbar>
-        </>
+
+            <Nav>
+                <ul>
+                    <li><Link to={'/owner'}>오너메인</Link></li>
+                    <NavItem><Link to={'/owner/addProduct'}>상품등록</Link></NavItem>
+                    <NavItem><Link to={'/owner/goodsview'}>상품조회</Link></NavItem>
+                    <NavItem><Link to={'/owner/reservationview'}>예약현황</Link></NavItem>
+                    <NavItem><Link to={'/owner/sellingview'}>판매내역</Link></NavItem>
+                    <NavItem><Link to={'/owner/unsubscribe'}>이용해지신청</Link></NavItem>
+                </ul>
+            </Nav>
+
     )
 }

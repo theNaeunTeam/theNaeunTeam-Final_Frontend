@@ -94,10 +94,7 @@ export type ownerPageType = {
     buyTotal: number,
 }
 
-export type saleType = {
-    date: string,
-    sum: number,
-}
+
 
 export interface ownerRegisterFormType {
     o_sNumber: string,
