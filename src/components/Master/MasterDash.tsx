@@ -10,7 +10,7 @@ export default function MasterDash() {
 
 
 
-    const [mon, setMon] = useState<saleType[]>([]);
+    const [month, setMon] = useState<saleType[]>([]);
 
     useEffect(()=>{
         chart();
@@ -24,6 +24,7 @@ export default function MasterDash() {
 
         try {
             const res = await client.get(URL);
+
             console.log('마스터 달');
             console.log(res);
             setMon(res.data);
@@ -39,18 +40,18 @@ export default function MasterDash() {
                 width={1000}
                 height={300}
                 // @ts-ignore
-                data={mon}
+                data={month}
                 margin={{
                     top: 5, right: 50, left: 20, bottom: 5,
                 }}
             >
-                <CartesianGrid stroke="#003458" />
+                <CartesianGrid stroke="#ccc" />
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="sum" name="123" fill="#82ca9d" />
-                <Line type="monotone" dataKey="sum" stroke="#ff7300" />
+                <Bar dataKey="sum" name="sum" fill="#82ca9d" />
+                <Line type="monotone" dataKey="tal" name="tal" stroke="#ff7300" />
             </ComposedChart>
         </>
     )

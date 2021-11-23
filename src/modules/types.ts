@@ -97,6 +97,7 @@ export type ownerPageType = {
 export  type saleType = {
     date : string,
     sum : number,
+    tal : number,
 }
 
 
