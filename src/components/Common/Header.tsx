@@ -6,7 +6,7 @@ import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import logo from '../../logo.svg';
 import {RootState} from "../../index";
-import '../../styles/test.css';
+// import '../../styles/test.css';
 
 export default function Header() {
 
