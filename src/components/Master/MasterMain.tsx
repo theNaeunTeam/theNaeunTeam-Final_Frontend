@@ -159,7 +159,7 @@ export default function MasterMain() {
         <>
             {authReducer.isMaster ?
                 <>
-                    <div style={{height: 400, width: '100%', margin: 'auto'}}>
+                    <div style={{height: 650, width: '100%', margin: 'auto'}}>
                         {loading ?
                             <Box sx={{width: 1500}}>
                                 <Skeleton/>
@@ -183,8 +183,8 @@ export default function MasterMain() {
                                 onStateChange={({selection}) => setSelected(selection)}
                                 rows={rows}
                                 columns={columns}
-                                pageSize={5}
-                                rowsPerPageOptions={[5]}
+                                pageSize={10}
+                                rowsPerPageOptions={[10]}
                                 checkboxSelection
                             />
                         }

@@ -103,7 +103,7 @@ export default function UserMain() {
                     <div style={{height: '200px', width: '200px'}}>
                         <img src={logo} onClick={() => history.push('/shopView/123')}/>
                         <br/>
-                        가계명 :s
+                        가계명 :
                         <br/>
                         원가 :
                         <br/>
