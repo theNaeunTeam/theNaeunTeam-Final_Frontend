@@ -92,8 +92,6 @@ function App() {
             <Switch>
                 <Route exact path='/' component={UserMain}/>
 
-                {/*<Route exact path='/master' component={MasterMain}/>*/}
-
                 <Route exact path='/login' component={LoginForm}/>
 
                 <Route exact path='/user/register' component={UserRegisterForm}/>
