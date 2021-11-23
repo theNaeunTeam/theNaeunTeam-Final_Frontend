@@ -2,6 +2,7 @@ import React, {FormEvent, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {client} from "../../lib/api/client";
 import {carouselType} from "../../modules/types";
+import {useHistory} from "react-router-dom";
 
 const DivContainer = styled.div`
   border: solid black;
@@ -35,6 +36,7 @@ const emptyValue = {
 export default function ChangeBanner() {
 
     const [arr, setArr] = useState<carouselType[]>([]);
+    const history = useHistory();
 
     useEffect(() => {
         const URL = '/common/banner';
@@ -47,63 +49,94 @@ export default function ChangeBanner() {
                 console.log(err);
                 alert('페이지 초기화 실패');
             })
-    }, [])
+    }, []);
 
-    const submitForm = async (e: FormEvent) => {
-        const URL = '/master/banner'
-        // e.preventDefault();
-        // console.log(e);
-        // try {
-        //     const res = await client.post(URL, formData);
-        //     alert('등록성공');
-        //     console.log(res);
-        // } catch (e) {
-        //     alert('실패');
-        //     console.log(e);
-        // }
+
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+        const formData = new FormData()
+        // @ts-ignore
+        formData.append('file', e.target.files[0]);
+
+        client.post('/master/bannerImage', formData)
+            .then(res => {
+                console.log(res.data);
+                const cp = [...arr];
+                cp[idx].src = res.data.res;
+                setArr(cp);
+            })
+            .catch(err => {
+                console.log(err);
+                alert('이미지 등록 실패');
+            })
     }
 
-    return (
+    const handleFormChange = (e: React.FormEvent<HTMLFormElement>, idx: number) => {
+        const tagId = (e.target as HTMLInputElement).id;
+        const tagName = (e.target as HTMLInputElement).name;
+        const cp = [...arr];
+        // @ts-ignore
+        cp[idx][tagName] = (e.target as HTMLInputElement).value;
+        setArr(cp);
+        console.log(arr);
+    }
 
-        <form action={'/common/banner'} method="post" encType="multipart/form-data" onSubmit={submitForm}>
+    const submitForm = () => {
+        console.log('서버로 보내는 배열 : ', arr);
+
+        client.put('/master/bannerContents', arr)
+            .then(res=>{
+                alert('배너 업데이트 성공')
+                history.push('/');
+            })
+            .catch(err=>{
+                alert('배너 업데이트 실패');
+                console.log(err);
+            })
+    }
+    return (
+        <>
             <DivContainer>
                 {arr.map((data, idx) =>
-                    <DivContainer>
-
-                        <SpanContainer>
-                            <SpanContainer>
+                    <>
+                        <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e, idx)}>
                                 <SpanRow>
                                     <strong> {idx + 1}번 배너 </strong>
-                                    header<input type={"text"} value={data.header} id={'header'} name={'header'}/>
+                                    header<input type={"text"} defaultValue={data.header} id={`header${idx}`}
+                                                 name={'header'}/>
                                     <br/>
-                                    altText<input type={'text'} value={data.altText} id={'altText'} name={'altText'}/>
+                                    altText<input type={'text'} defaultValue={data.altText} id={`altText${idx}`}
+                                                  name={'altText'}/>
                                     <br/>
-                                    description<input type={'text'} value={data.description} id={'description'}
+                                    description<input type={'text'} defaultValue={data.description}
+                                                      id={`description${idx}`}
                                                       name={'description'}/>
                                     <br/>
-                                    link<input type={"text"} value={data.link} id={'link'} name={'link'}/>
+                                    link<input type={"text"} defaultValue={data.link} id={`link${idx}`} name={'link'}/>
                                     <br/>
-                                    <input type={'file'}/>
-                                    <input type={'hidden'} value={data.src} id={'src'} name={'src'}/>
-                                    <br/><br/><br/>
-                                    <button onClick={() => {
-                                        const cp = [...arr];
-                                        cp.splice(idx, 1);
-                                        setArr(cp);
-                                    }}>배너 삭제
-                                    </button>
+                                    <input type={'file'} onChange={(e) => handleFileChange(e, idx)}/>
+                                    <input type={'hidden'} defaultValue={data.src} id={`src${idx}`} name={'src'}/>
                                 </SpanRow>
-                            </SpanContainer>
-                            <img src={data.src}/>
-                        </SpanContainer>
-
-                    </DivContainer>
+                            <img src={data.src} height={'500px'} width={'100%'} alt={data.altText}/>
+                            <button onClick={() => {
+                                const cp = [...arr];
+                                cp.splice(idx, 1);
+                                setArr(cp);
+                            }}>배너 삭제
+                            </button>
+                        </form>
+                        <hr/>
+                    </>
                 )}
                 <br/>
-                <button onClick={() => setArr([...arr, emptyValue])}>배너 추가</button>
+                <button onClick={() => {
+                    const cp = [...arr];
+                    cp.push(emptyValue)
+                    setArr(cp);
+                }}>배너 추가
+                </button>
             </DivContainer>
-            <button>전송하기</button>
-        </form>
-
+            <button onClick={submitForm}>전송하기</button>
+        </>
     )
 }

@@ -19,6 +19,7 @@ export default function MasterNavbar(props: RouteComponentProps) {
                         <Nav.Link as={Nav}><Link to={'/master/terminationwaiting'}>해지승인대기</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link to={'/master/terminationcompletion'}>해지승인완료</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link to={'/master/masterdash'}>대시보드</Link></Nav.Link>
+                        <Nav.Link as={Nav}><Link to={'/master/changeBanner'}>배너변경</Link></Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
