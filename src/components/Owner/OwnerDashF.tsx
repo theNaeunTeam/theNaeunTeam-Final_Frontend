@@ -122,6 +122,7 @@ export default function OwnerDashF() {
                         }}/>
                     </DivChart1>
                     <DivChart2>
+
                         <Doughnut
                             data={{
                                 labels: genderArr,

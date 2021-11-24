@@ -107,10 +107,19 @@ export default function OwnerMain() {
 
     const [monIdx, setMonIdx] = useState(0);
     const [monYear, setMonYear] = useState(0);
+
+    const [yearIdx, setYearIdx] = useState(0);
     useEffect(() => {
         initialize();
     }, []);
 
+    useEffect(() => {
+        monInit();
+    }, [monSumArr]);
+
+    useEffect(() => {
+        yearInit()
+    }, [yearArr]);
 
     const initialize = async () => {
         const URL = '';
@@ -126,6 +135,8 @@ export default function OwnerMain() {
 
 
             setMonSumArr(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
+            console.log(response.data['m'].map((x: any) => x.data[0]));
+            console.log('aaaaaaaaaaaaaaaa');
 
 
             setYearArr(response.data['year'].map((x: any) => x.date));
@@ -136,26 +147,59 @@ export default function OwnerMain() {
             console.log(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
             console.log('---------------------');
             console.log(response.data['m'].length);
-            console.log(monSumArr);
-            console.log(monSumArr.length);
-            setMonIdx(monSumArr.length-1)
-            setMonYear(2019+monSumArr.length-1)
+            console.log(response.data['year'].map((x: any) => x.date));
+            console.log(response.data['year'].map((x: any) => x.sum));
+            console.log(response.data['year'].length);
+
+
         } catch (e) {
             console.log(e);
         }
 
     };
 
+    // 월별 매출
+    const monInit = () => {
+
+        setMonIdx((monSumArr.length - 1));
+        setMonYear(2019 + (monSumArr.length - 1));
+
+    }
     const subIdx = () => {
-        setMonIdx(monIdx - 1);
-        setMonYear(monYear - 1);
-    }
 
+        if (monIdx != 0) {
+            setMonIdx(monIdx - 1);
+            setMonYear(monYear - 1);
+        }
+    }
     const desIdx = () => {
-        setMonIdx(monIdx + 1);
-        setMonYear(monYear + 1);
+        if (monIdx != monSumArr.length - 1) {
+            setMonIdx(monIdx + 1);
+            setMonYear(monYear + 1);
+        }
     }
 
+    // 연도별 매출
+    const yearInit = () => {
+        setYearIdx(yearArr.length );
+        console.log('------')
+        console.log(yearArr.length);
+    }
+    const subYIdx = () => {
+        console.log(yearIdx);
+        console.log(yearArr.length - 1);
+        if (yearIdx > yearArr.length) {
+            setYearIdx(yearIdx - 1);
+            console.log(yearIdx+"!!!!");
+        }
+    }
+    const desYIdx = () => {
+        if (0 <= yearIdx && yearIdx <= (yearArr.length - 1)) {
+            setYearIdx(yearIdx + 1);
+            console.log(yearIdx + "$$");
+        }
+
+    }
     return (
         <DivContainer>
             <DivNav>
@@ -175,7 +219,6 @@ export default function OwnerMain() {
                             data={{
                                 labels: dayArr,
                                 datasets: [{
-
                                     label: '일별 매출액',
                                     data: daySumArr,
                                     backgroundColor: [
@@ -199,7 +242,25 @@ export default function OwnerMain() {
                                     borderWidth: 1
                                 }]
                             }}
+                            options={
+                                {
+                                    scales: {
+                                        yAxes: {
+                                            ticks :{
+                                                callback : function (value : string | number){
+                                                    return value+'원';
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
                         />
+                        <button>-</button>
+                        <button>+</button>
                     </DivChart1>
                     <DivChart3>
                         <DivChart2>
@@ -207,7 +268,6 @@ export default function OwnerMain() {
                                 data={{
                                     labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                                     datasets: [{
-
                                         label: monYear + '년',
                                         data: monSumArr[monIdx],
                                         backgroundColor: [
@@ -231,6 +291,22 @@ export default function OwnerMain() {
                                         borderWidth: 1
                                     }]
                                 }}
+                                options={
+                                    {
+                                        scales: {
+                                            yAxes: {
+                                                ticks :{
+                                                    callback : function (value : string | number){
+                                                        return value+'원';
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+
                             />
                             <button onClick={subIdx}>-</button>
                             <button onClick={desIdx}>+</button>
@@ -238,11 +314,11 @@ export default function OwnerMain() {
                         <DivChart2>
                             <Bar
                                 data={{
-                                    labels: yearArr,
+                                    labels: yearArr.slice(yearIdx - 3, yearIdx),
                                     datasets: [{
 
                                         label: '연별 매출액',
-                                        data: yearSumArr,
+                                        data: yearSumArr.slice(yearIdx - 3, yearIdx),
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(255, 159, 64, 0.2)',
@@ -265,6 +341,8 @@ export default function OwnerMain() {
                                     }]
                                 }}
                             />
+                            <button onClick={subYIdx}>-</button>
+                            <button onClick={desYIdx}>+</button>
                         </DivChart2>
                     </DivChart3>
                 </DivChart>
