@@ -6,17 +6,19 @@ import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {ownerPageType} from "../../modules/types";
-import {
-    ResponsiveContainer,
-    ComposedChart,
-    Line,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
-} from 'recharts';
+import {Bar} from 'react-chartjs-2';
+
+// import {
+//     ResponsiveContainer,
+//     ComposedChart,
+//     Line,
+//     Bar,
+//     XAxis,
+//     YAxis,
+//     CartesianGrid,
+//     Tooltip,
+//     Legend,
+// } from 'recharts';
 import OwnerNavbar from "./OwnerNavbar";
 
 const DivContainer = styled.div`
@@ -51,8 +53,12 @@ const DivChart1 = styled.div`
   display: block;
 `;
 const DivChart2 = styled.div`
-  display: inline-flex;
+  display: block;
+  width: 50%;
 `;
+const DivChart3 = styled.div`
+  display: flex;`;
+
 
 const LineDiv = styled.div`
   display: block;
@@ -90,10 +96,17 @@ export default function OwnerMain() {
 
 
     const [ownerPage, setOwnerPage] = useState<ownerPageType>(initialValue);
-    const [ownerDay, setOwnerDay] = useState([]);
-    const [ownerMon, setOwnerMon] = useState([]);
-    const [ownerYear, setOwnerYear] = useState([]);
 
+    const [dayArr, setDayArr] = useState([]);
+    const [daySumArr, setDaySumArr] = useState([]);
+
+    const [monSumArr, setMonSumArr] = useState([]);
+
+    const [yearArr, setYearArr] = useState([]);
+    const [yearSumArr, setYearSumArr] = useState([]);
+
+    const [monIdx, setMonIdx] = useState(0);
+    const [monYear, setMonYear] = useState(0);
     useEffect(() => {
         initialize();
     }, []);
@@ -108,19 +121,40 @@ export default function OwnerMain() {
             setOwnerPage(res.data);
 
             const response = await client.get(URL_D);
-            // const dayArr = day.data.map((x: any) => x.date);
-            // const daySumArr = day.data.map((x: any) => x.sum);
+            setDayArr(response.data['day'].map((x: any) => x.date));
+            setDaySumArr(response.data['day'].map((x: any) => x.sum));
 
-            setOwnerDay(response.data['day']);
-            setOwnerMon(response.data['mon']);
-            setOwnerYear(response.data['year']);
+
+            setMonSumArr(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
+
+
+            setYearArr(response.data['year'].map((x: any) => x.date));
+            setYearSumArr(response.data['year'].map((x: any) => x.sum));
+
+            console.log('---------------------');
             console.log(response.data);
-
+            console.log(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
+            console.log('---------------------');
+            console.log(response.data['m'].length);
+            console.log(monSumArr);
+            console.log(monSumArr.length);
+            setMonIdx(monSumArr.length-1)
+            setMonYear(2019+monSumArr.length-1)
         } catch (e) {
             console.log(e);
         }
+
     };
 
+    const subIdx = () => {
+        setMonIdx(monIdx - 1);
+        setMonYear(monYear - 1);
+    }
+
+    const desIdx = () => {
+        setMonIdx(monIdx + 1);
+        setMonYear(monYear + 1);
+    }
 
     return (
         <DivContainer>
@@ -136,52 +170,103 @@ export default function OwnerMain() {
                 </DivHalfMenu>
                 <DivChart>
                     <DivChart1>
-                        <ComposedChart
-                            width={1200}
-                            height={500}
-                            data={ownerMon}
-                            margin={{top: 40, right: 40, bottom: 30, left: 40}}
-                        >
-                            <CartesianGrid stroke="#f5f5f5"/>
-                            <XAxis dataKey="date"/>
-                            <YAxis label={{value: '원', position: 'top'}}/>
-                            <Tooltip/>
-                            <Legend/>
-                            <Bar name="매출액" dataKey="sum" barSize={20} fill="#7ac4c0"/>
-                        </ComposedChart>
+
+                        <Bar
+                            data={{
+                                labels: dayArr,
+                                datasets: [{
+
+                                    label: '일별 매출액',
+                                    data: daySumArr,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)',
+                                        'rgba(255, 205, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(201, 203, 207, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgb(255, 99, 132)',
+                                        'rgb(255, 159, 64)',
+                                        'rgb(255, 205, 86)',
+                                        'rgb(75, 192, 192)',
+                                        'rgb(54, 162, 235)',
+                                        'rgb(153, 102, 255)',
+                                        'rgb(201, 203, 207)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            }}
+                        />
                     </DivChart1>
-                    <DivChart2>
-                        <ComposedChart
-                            width={550}
-                            height={350}
-                            data={ownerDay}
-                            margin={{top: 40, right: 40, bottom: 30, left: 40}}
-                        >
-                            <CartesianGrid stroke="#f5f5f5"/>
-                            <XAxis dataKey="date"/>
-                            <YAxis/>
-                            <Tooltip/>
-                            <Legend/>
-                            <Bar name="매출액" dataKey="sum" barSize={20} fill="#7ac4c0"/>
+                    <DivChart3>
+                        <DivChart2>
+                            <Bar
+                                data={{
+                                    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                                    datasets: [{
 
-                        </ComposedChart>
+                                        label: monYear + '년',
+                                        data: monSumArr[monIdx],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)',
+                                            'rgba(255, 205, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(201, 203, 207, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(255, 159, 64)',
+                                            'rgb(255, 205, 86)',
+                                            'rgb(75, 192, 192)',
+                                            'rgb(54, 162, 235)',
+                                            'rgb(153, 102, 255)',
+                                            'rgb(201, 203, 207)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                }}
+                            />
+                            <button onClick={subIdx}>-</button>
+                            <button onClick={desIdx}>+</button>
+                        </DivChart2>
+                        <DivChart2>
+                            <Bar
+                                data={{
+                                    labels: yearArr,
+                                    datasets: [{
 
-                        <ComposedChart
-                            width={550}
-                            height={350}
-                            data={ownerYear}
-                            margin={{top: 40, right: 40, bottom: 30, left: 40}}
-
-                        >
-                            <CartesianGrid stroke="#f5f5f5"/>
-                            <XAxis dataKey="date"/>
-                            <YAxis/>
-                            <Tooltip/>
-                            <Legend/>
-                            <Bar name="매출액" dataKey="sum" barSize={20} fill="#7ac4c0"/>
-
-                        </ComposedChart>
-                    </DivChart2>
+                                        label: '연별 매출액',
+                                        data: yearSumArr,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)',
+                                            'rgba(255, 205, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(201, 203, 207, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(255, 159, 64)',
+                                            'rgb(255, 205, 86)',
+                                            'rgb(75, 192, 192)',
+                                            'rgb(54, 162, 235)',
+                                            'rgb(153, 102, 255)',
+                                            'rgb(201, 203, 207)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                }}
+                            />
+                        </DivChart2>
+                    </DivChart3>
                 </DivChart>
             </DivMain>
         </DivContainer>

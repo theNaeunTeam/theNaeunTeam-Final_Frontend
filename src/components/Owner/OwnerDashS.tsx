@@ -1,6 +1,15 @@
-import React from 'react';
-import styled from "styled-components";
 import OwnerNavbar from "./OwnerNavbar";
+import styled from "styled-components";
+
+const DivContainer = styled.div`
+  border: solid black;
+  display: inline-flex;
+  justify-content: center;
+  margin: 50px;
+  padding: 10px;
+  width: 100%;
+
+`;
 
 const DivNav = styled.div`
   width: 20%;
@@ -11,24 +20,14 @@ const DivMain = styled.div`
   width: 70%;
   height: 100%;
 `;
-
-const DivContainer = styled.div`
-  display: inline-flex;
-  width: 100%;
-  margin: 50px;
-  padding: 10px;
-`;
-
-
-export default function Unsubscribe() {
+export default function OwnerDashS() {
     return (
         <DivContainer>
             <DivNav>
                 <OwnerNavbar/>
             </DivNav>
-
             <DivMain>
-                <h1>이용해지신청</h1>
+                <h3>기타</h3>
             </DivMain>
         </DivContainer>
     )

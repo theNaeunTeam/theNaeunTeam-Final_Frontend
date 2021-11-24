@@ -40,6 +40,9 @@ import TerminationCompletion from "./components/Master/TerminationCompletion";
 
 import ChangeBanner from "./components/Master/ChangeBanner";
 
+import OwnerDashS from "./components/Owner/OwnerDashS";
+import OwnerDashF from "./components/Owner/OwnerDashF";
+
 function App() {
 
     const {authReducer} = useSelector((state: RootState) => state);
@@ -133,6 +136,10 @@ function App() {
             <Route path='/owner/reservationview' component={ReservationView}/>
             <Route path='/owner/sellingview' component={SellingView}/>
             <Route path='/owner/unsubscribe' component={Unsubscribe}/>
+            <Route path='/owner/ownerdashf' component={OwnerDashF}/>
+            <Route path='/owner/ownerdashs' component={OwnerDashS}/>
+
+
 
             <Route path={'/err'} component={PageNotFound}/>
             <Footer/>
