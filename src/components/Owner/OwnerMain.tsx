@@ -107,7 +107,7 @@ export default function OwnerMain() {
 
     const [monIdx, setMonIdx] = useState(0);
     const [monYear, setMonYear] = useState(0);
-
+    const [dayIdx, setDayIdx] = useState(0);
     const [yearIdx, setYearIdx] = useState(0);
     useEffect(() => {
         initialize();
@@ -121,6 +121,10 @@ export default function OwnerMain() {
         yearInit()
     }, [yearArr]);
 
+    useEffect(() => {
+        dayInit();
+    }, [dayArr]);
+
     const initialize = async () => {
         const URL = '';
         const URL_D = 'owner/getDay';
@@ -130,12 +134,12 @@ export default function OwnerMain() {
             setOwnerPage(res.data);
 
             const response = await client.get(URL_D);
-            setDayArr(response.data['day'].map((x: any) => x.date));
-            setDaySumArr(response.data['day'].map((x: any) => x.sum));
+            setDayArr(response.data['d'].map((x: any) => x.map((b: any) => b.date)));
+            setDaySumArr(response.data['d'].map((x: any) => x.map((b: any) => b.sum)));
 
 
             setMonSumArr(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
-            console.log(response.data['m'].map((x: any) => x.data[0]));
+            console.log(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
             console.log('aaaaaaaaaaaaaaaa');
 
 
@@ -144,12 +148,12 @@ export default function OwnerMain() {
 
             console.log('---------------------');
             console.log(response.data);
-            console.log(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
-            console.log('---------------------');
-            console.log(response.data['m'].length);
-            console.log(response.data['year'].map((x: any) => x.date));
-            console.log(response.data['year'].map((x: any) => x.sum));
-            console.log(response.data['year'].length);
+            // console.log(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
+            // console.log('---------------------');
+            // console.log(response.data['m'].length);
+            // console.log(response.data['year'].map((x: any) => x.date));
+            // console.log(response.data['year'].map((x: any) => x.sum));
+            // console.log(response.data['year'].length);
 
 
         } catch (e) {
@@ -181,7 +185,7 @@ export default function OwnerMain() {
 
     // 연도별 매출
     const yearInit = () => {
-        setYearIdx(yearArr.length );
+        setYearIdx(yearArr.length);
         console.log('------')
         console.log(yearArr.length);
     }
@@ -190,7 +194,7 @@ export default function OwnerMain() {
         console.log(yearArr.length - 1);
         if (yearIdx > yearArr.length) {
             setYearIdx(yearIdx - 1);
-            console.log(yearIdx+"!!!!");
+            console.log(yearIdx + "!!!!");
         }
     }
     const desYIdx = () => {
@@ -198,7 +202,23 @@ export default function OwnerMain() {
             setYearIdx(yearIdx + 1);
             console.log(yearIdx + "$$");
         }
+    }
 
+    const dayInit = () => {
+        setDayIdx(dayArr.length - 1);
+        console.log(dayArr);
+        console.log('@#@#@')
+    }
+
+    const subDIdx = () => {
+        if (dayIdx != 0) {
+            setDayIdx(dayIdx - 1);
+        }
+    }
+    const desDIdx = () => {
+        if (dayIdx < dayArr.length - 1) {
+            setDayIdx(dayIdx + 1);
+        }
     }
     return (
         <DivContainer>
@@ -217,10 +237,10 @@ export default function OwnerMain() {
 
                         <Bar
                             data={{
-                                labels: dayArr,
+                                labels: dayArr[dayIdx],
                                 datasets: [{
                                     label: '일별 매출액',
-                                    data: daySumArr,
+                                    data: daySumArr[dayIdx],
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 0.2)',
                                         'rgba(255, 159, 64, 0.2)',
@@ -246,9 +266,9 @@ export default function OwnerMain() {
                                 {
                                     scales: {
                                         yAxes: {
-                                            ticks :{
-                                                callback : function (value : string | number){
-                                                    return value+'원';
+                                            ticks: {
+                                                callback: function (value: string | number) {
+                                                    return value + '원';
                                                 }
 
                                             }
@@ -259,8 +279,9 @@ export default function OwnerMain() {
                             }
 
                         />
-                        <button>-</button>
-                        <button>+</button>
+                        <button onClick={subDIdx}>-</button>
+                        { dayIdx <= dayArr.length ? 2019+parseInt(String(dayIdx / 12)) : null } 년 {dayIdx - parseInt(String(dayIdx / 12))*12 + 1 } 월
+                        <button onClick={desDIdx}>+</button>
                     </DivChart1>
                     <DivChart3>
                         <DivChart2>
@@ -268,7 +289,7 @@ export default function OwnerMain() {
                                 data={{
                                     labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                                     datasets: [{
-                                        label: monYear + '년',
+                                        label: '월별 매출',
                                         data: monSumArr[monIdx],
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
@@ -295,9 +316,9 @@ export default function OwnerMain() {
                                     {
                                         scales: {
                                             yAxes: {
-                                                ticks :{
-                                                    callback : function (value : string | number){
-                                                        return value+'원';
+                                                ticks: {
+                                                    callback: function (value: string | number) {
+                                                        return value + '원';
                                                     }
 
                                                 }
@@ -309,6 +330,7 @@ export default function OwnerMain() {
 
                             />
                             <button onClick={subIdx}>-</button>
+                            {monYear}
                             <button onClick={desIdx}>+</button>
                         </DivChart2>
                         <DivChart2>
@@ -317,7 +339,7 @@ export default function OwnerMain() {
                                     labels: yearArr.slice(yearIdx - 3, yearIdx),
                                     datasets: [{
 
-                                        label: '연별 매출액',
+                                        label: '연도별 매출액',
                                         data: yearSumArr.slice(yearIdx - 3, yearIdx),
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
