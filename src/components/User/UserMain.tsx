@@ -32,6 +32,7 @@ export default function UserMain() {
     const [items, setItems] = useState<carouselType[]>([]);
     const history = useHistory();
 
+
     useEffect(() => {
         const URL = '/common/banner';
         client.get(URL)

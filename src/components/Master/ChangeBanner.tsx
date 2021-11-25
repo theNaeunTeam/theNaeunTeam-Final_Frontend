@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {client} from "../../lib/api/client";
 import {carouselType} from "../../modules/types";
@@ -52,7 +52,6 @@ export default function ChangeBanner() {
     }, []);
 
 
-
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
         const formData = new FormData()
         // @ts-ignore
@@ -85,11 +84,11 @@ export default function ChangeBanner() {
         console.log('서버로 보내는 배열 : ', arr);
 
         client.put('/master/bannerContents', arr)
-            .then(res=>{
+            .then(res => {
                 alert('배너 업데이트 성공')
                 history.push('/');
             })
-            .catch(err=>{
+            .catch(err => {
                 alert('배너 업데이트 실패');
                 console.log(err);
             })
@@ -100,23 +99,23 @@ export default function ChangeBanner() {
                 {arr.map((data, idx) =>
                     <>
                         <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e, idx)}>
-                                <SpanRow>
-                                    <strong> {idx + 1}번 배너 </strong>
-                                    header<input type={"text"} defaultValue={data.header} id={`header${idx}`}
-                                                 name={'header'}/>
-                                    <br/>
-                                    altText<input type={'text'} defaultValue={data.altText} id={`altText${idx}`}
-                                                  name={'altText'}/>
-                                    <br/>
-                                    description<input type={'text'} defaultValue={data.description}
-                                                      id={`description${idx}`}
-                                                      name={'description'}/>
-                                    <br/>
-                                    link<input type={"text"} defaultValue={data.link} id={`link${idx}`} name={'link'}/>
-                                    <br/>
-                                    <input type={'file'} onChange={(e) => handleFileChange(e, idx)}/>
-                                    <input type={'hidden'} defaultValue={data.src} id={`src${idx}`} name={'src'}/>
-                                </SpanRow>
+                            <SpanRow>
+                                <strong> {idx + 1}번 배너 </strong>
+                                header<input type={"text"} defaultValue={data.header} id={`header${idx}`}
+                                             name={'header'}/>
+                                <br/>
+                                altText<input type={'text'} defaultValue={data.altText} id={`altText${idx}`}
+                                              name={'altText'}/>
+                                <br/>
+                                description<input type={'text'} defaultValue={data.description}
+                                                  id={`description${idx}`}
+                                                  name={'description'}/>
+                                <br/>
+                                link<input type={"text"} defaultValue={data.link} id={`link${idx}`} name={'link'}/>
+                                <br/>
+                                <input type={'file'} onChange={(e) => handleFileChange(e, idx)}/>
+                                <input type={'hidden'} defaultValue={data.src} id={`src${idx}`} name={'src'}/>
+                            </SpanRow>
                             <img src={data.src} height={'500px'} width={'100%'} alt={data.altText}/>
                             <button onClick={() => {
                                 const cp = [...arr];

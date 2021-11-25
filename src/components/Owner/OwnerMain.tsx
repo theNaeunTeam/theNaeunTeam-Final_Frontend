@@ -1,25 +1,14 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {Map, MapMarker} from 'react-kakao-maps-sdk';
 import styled from 'styled-components'
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {ownerPageType} from "../../modules/types";
-import {Bar} from 'react-chartjs-2';
 
-// import {
-//     ResponsiveContainer,
-//     ComposedChart,
-//     Line,
-//     Bar,
-//     XAxis,
-//     YAxis,
-//     CartesianGrid,
-//     Tooltip,
-//     Legend,
-// } from 'recharts';
+import {Bar} from 'react-chartjs-2';
 import OwnerNavbar from "./OwnerNavbar";
+import FCM from "../Common/FCM";
 
 const DivContainer = styled.div`
   border: solid black;
@@ -244,6 +233,7 @@ export default function OwnerMain() {
             <DivMain>
                 <h3>{ownerPage.o_name}</h3>
                 <DivHalfMenu>
+                    <FCM/>
                     <LineDiv>총 판매 금액 : {ownerPage.total} 원</LineDiv>
                     <LineDiv>이번달 수익 : {ownerPage.monTotal} 원</LineDiv>
                     <LineDiv>총 구매자 : {ownerPage.buyTotal} 명</LineDiv>

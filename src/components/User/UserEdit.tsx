@@ -14,21 +14,21 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 
 const TableStyled = styled.table`
-      padding: 30px;
-      margin: auto;
-      width: 80%;
-    `;
+  padding: 30px;
+  margin: auto;
+  width: 80%;
+`;
 
 const DivContainer = styled.div`
-      text-align: center;
-    `;
+  text-align: center;
+`;
 
 export default function UserEdit() {
 
     const initValue = {
         u_id: '',
-        u_pw:'',
-        pwConfirm:'',
+        u_pw: '',
+        pwConfirm: '',
         u_cellPhone: '',
         u_email: '',
         u_gender: '',
@@ -36,7 +36,7 @@ export default function UserEdit() {
     };
 
     const email = {
-        u_email:''
+        u_email: ''
     }
 
     const formErrorinit = {
@@ -84,26 +84,26 @@ export default function UserEdit() {
             const res = await client.post(URL, userForm);
             console.log(res.data);
             res.data === 1
-            ? (alert('수정이 완료되었습니다.'), history.goBack())
-            : (alert('수정이 실패했습니다.'), history.goBack())
+                ? (alert('수정이 완료되었습니다.'), history.goBack())
+                : (alert('수정이 실패했습니다.'), history.goBack())
         } catch (e) {
             console.log(e);
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         userData();
-    },[])
+    }, [])
 
     // 유저 데이터 가져오기
-    const userData = async ()=>{
+    const userData = async () => {
         const URL = '/user/userData';
         try {
-            const res = await  client.get(URL);
+            const res = await client.get(URL);
             console.log(res);
             setUserForm(res.data);
             setUserEmail(res.data);
-        } catch (e){
+        } catch (e) {
             console.log(e);
         }
     };
@@ -186,7 +186,7 @@ export default function UserEdit() {
                         <FormControlLabel id={'u_gender'} value="여성" control={<Radio/>} label="여성"/>
                     </RadioGroup>
                     나이
-                    <select name={'u_age'} style={{width: '50%'}} value={userForm.u_age} >
+                    <select name={'u_age'} style={{width: '50%'}} value={userForm.u_age}>
                         <option>AGE</option>
                         <option value="10">10대</option>
                         <option value="20">20대</option>

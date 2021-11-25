@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Link, RouteComponentProps} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components'
 
 const Nav = styled.nav`

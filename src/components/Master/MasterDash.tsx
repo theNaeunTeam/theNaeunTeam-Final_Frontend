@@ -8,6 +8,7 @@ import Skeleton from "@mui/material/Skeleton";
 // 대시 보드
 export default function MasterDash() {
 
+
     // 년도별 월데이터를 담을 어레이
     const [monArr, setMonArr] = useState<any[]>([]);
     // 년도별 월데이터를 보여주기 위한 index 값
@@ -31,9 +32,11 @@ export default function MasterDash() {
         chart();
     }, []);
 
+
     useEffect(() => {
         monInit();
     }, [monArr])
+
 
     useEffect(() => {
         // if(yearArr.length != 0){
@@ -53,6 +56,7 @@ export default function MasterDash() {
     const yearInit = () => {
         // setYearIndex(yearArr[0].length);
     }
+
 
 
     //차트 데이터 가져오기
@@ -77,6 +81,7 @@ export default function MasterDash() {
             console.log('----------');
 
             setLoading(false);
+
         } catch (e) {
             console.log(e);
         }

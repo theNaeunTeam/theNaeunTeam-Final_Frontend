@@ -36,7 +36,7 @@ export default function UserReserve() {
         r_firstTime: string,
         r_status: number,
         r_customOrder: string,
-        r_pay : number,
+        r_pay: number,
         g_name: string,
         g_category: string,
         g_expireDate: string,
@@ -49,50 +49,50 @@ export default function UserReserve() {
     const [r_status, setR_status] = useState('');
     const [searchInput, setSearchInput] = useState('');
 
-    useEffect(() =>{
+    useEffect(() => {
         initialize();
-    },[]);
+    }, []);
 
-    const initialize = async () =>{
+    const initialize = async () => {
         const URL = '/user/reserveList';
-        try{
+        try {
             const res = await client.get(URL);
 
             setList(res.data);
             console.log(res);
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
 
-    const changeReserveStatus = async (input: React.MouseEvent<HTMLAnchorElement,MouseEvent>) => {
-        const data : { r_code : number} ={
-            r_code : Number((input.target as HTMLButtonElement).name)
+    const changeReserveStatus = async (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        const data: { r_code: number } = {
+            r_code: Number((input.target as HTMLButtonElement).name)
         };
 
         const URL = '/user/changeReserveStatus';
 
-        try{
-            const res = await client.patch(URL,data);
+        try {
+            const res = await client.patch(URL, data);
             console.log(res);
             initialize();
             alert('예약 취소 완료');
-        }catch (e){
+        } catch (e) {
             console.log(e);
             alert('예약 취소 실패');
         }
-   }
-   const  searchReserve = async () => {
-     const URL ='/user/searchReserve';
-     try{
-         const res = await client.get(`${URL}?g_category=${g_category}&r_status=${r_status}&searchInput=${searchInput}`);
-         console.log(res);
-         setList(res.data);
-     }catch (e){
-         alert('검색 실패');
-         console.log(e);
-     }
-   }
+    }
+    const searchReserve = async () => {
+        const URL = '/user/searchReserve';
+        try {
+            const res = await client.get(`${URL}?g_category=${g_category}&r_status=${r_status}&searchInput=${searchInput}`);
+            console.log(res);
+            setList(res.data);
+        } catch (e) {
+            alert('검색 실패');
+            console.log(e);
+        }
+    }
     const TableBuilder = (props: { data: dummyType, idx: number }) => {
 
         return (
@@ -136,8 +136,8 @@ export default function UserReserve() {
                             : props.data.r_status === 2 ? '거절됨'
                                 : props.data.r_status === 3 ? '구매완료'
                                     : props.data.r_status === 4 ? '노쇼'
-                                        :props.data.r_status === 5 ? '취소됨'
-                                        : null
+                                        : props.data.r_status === 5 ? '취소됨'
+                                            : null
                     }
                 </td>
                 <td>
@@ -190,7 +190,7 @@ export default function UserReserve() {
                 </FormControl>
                 <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
                            onChange={e => setSearchInput(e.target.value as string)}/>
-                <Button variant="outlined" onClick={searchReserve} >검색</Button>
+                <Button variant="outlined" onClick={searchReserve}>검색</Button>
             </div>
             <TableStyled>
                 <thead style={{border: "solid black 0.1px"}}>
