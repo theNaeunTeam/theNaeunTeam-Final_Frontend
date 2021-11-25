@@ -13,6 +13,7 @@ import {useHistory} from "react-router-dom";
 import {reservationViewType} from "../../modules/types";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import OwnerNavbar from "./OwnerNavbar";
 
 const TableStyled = styled.table`
   padding: 30px;
@@ -21,9 +22,21 @@ const TableStyled = styled.table`
 `;
 
 const DivContainer = styled.div`
-  text-align: center;
+  display: inline-flex;
+  width: 100%;
+  margin: 50px;
+  padding: 10px;
 `;
 
+const DivNav = styled.div`
+  width: 20%;
+  font-size: large;
+
+`;
+const DivMain = styled.div`
+  width: 70%;
+  height: 100%;
+`;
 export default function ReservationView() {
 
     const {authReducer} = useSelector((state: RootState) => state);
@@ -177,6 +190,11 @@ export default function ReservationView() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
             <DivContainer>
+                <DivNav>
+                    <OwnerNavbar/>
+                </DivNav>
+
+                <DivMain>
                 <h2>예약현황</h2>
                 <div>
                     <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
@@ -237,6 +255,7 @@ export default function ReservationView() {
                     {list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                     </tbody>
                 </TableStyled>
+                </DivMain>
             </DivContainer>
         </>
     )

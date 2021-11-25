@@ -10,7 +10,7 @@ const Nav = styled.nav`
 `;
 
 const NavItem = styled.li`
-  
+
 `;
 
 export default function OwnerNavbar() {
@@ -20,7 +20,13 @@ export default function OwnerNavbar() {
 
         <Nav>
             <ul>
-                <li><Link to={'/owner'}>오너메인</Link></li>
+                <NavItem> 대시보드
+                    <ol>
+                        <NavItem><Link to={'/owner'}>매출현황</Link></NavItem>
+                        <NavItem><Link to={'/owner/ownerdashf'}>판매</Link></NavItem>
+                        <NavItem><Link to={'/owner/ownerdashs'}>기타</Link></NavItem>
+                    </ol>
+                </NavItem>
                 <NavItem><Link to={'/owner/addProduct'}>상품등록</Link></NavItem>
                 <NavItem><Link to={'/owner/goodsview'}>상품조회</Link></NavItem>
                 <NavItem><Link to={'/owner/reservationview'}>예약현황</Link></NavItem>
