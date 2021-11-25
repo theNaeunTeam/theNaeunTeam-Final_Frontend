@@ -220,6 +220,22 @@ export default function OwnerMain() {
             setDayIdx(dayIdx + 1);
         }
     }
+    const option = {
+        scales: {
+            y: {
+                beginAtZero: true,
+
+                ticks: {
+                    callback: function (value: any) {
+                        if (value.toString().length > 8) return (Math.floor(value / 100000000)).toLocaleString("ko-KR") + "억원";
+                        else if (value.toString().length > 4) return (Math.floor(value / 10000)).toLocaleString("ko-KR") + "만원";
+                        else return value + '원';
+                    }
+
+                }
+            }
+        }
+    }
     return (
         <DivContainer>
             <DivNav>
@@ -239,48 +255,44 @@ export default function OwnerMain() {
                             data={{
                                 labels: dayArr[dayIdx],
                                 datasets: [{
-                                    label: '일별 매출액',
+                                    label: '일일 매출액',
                                     data: daySumArr[dayIdx],
                                     backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(255, 159, 64, 0.2)',
-                                        'rgba(255, 205, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)',
-                                        'rgba(201, 203, 207, 0.2)'
+                                        'rgba(255, 051, 102,0.2)',
+                                        'rgba(255, 051, 000,0.2)',
+                                        'rgba(255, 99, 132,0.2)',
+                                        'rgba(255, 204, 000,0.2)',
+                                        'rgba(255, 159, 64,0.2)',
+                                        'rgba(255, 205, 86,0.2)',
+                                        'rgba(75, 192, 192,0.2)',
+                                        'rgba(000, 051, 255,0.2)',
+                                        'rgba(54, 162, 235,0.2)',
+                                        'rgba(153, 102, 255,0.2)',
+                                        'rgba(102, 051, 204,0.2)',
+                                        'rgba(201, 203, 207,0.2)'
                                     ],
                                     borderColor: [
+                                        'rgb(255, 051, 102)',
+                                        'rgb(255, 051, 000)',
                                         'rgb(255, 99, 132)',
+                                        'rgb(255, 204, 000)',
                                         'rgb(255, 159, 64)',
                                         'rgb(255, 205, 86)',
                                         'rgb(75, 192, 192)',
+                                        'rgb(000, 051, 255)',
                                         'rgb(54, 162, 235)',
                                         'rgb(153, 102, 255)',
+                                        'rgb(102, 051, 204)',
                                         'rgb(201, 203, 207)'
                                     ],
                                     borderWidth: 1
                                 }]
                             }}
-                            options={
-                                {
-                                    scales: {
-                                        yAxes: {
-                                            ticks: {
-                                                callback: function (value: string | number) {
-                                                    return value + '원';
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-
-                            }
+                            options={option}
 
                         />
                         <button onClick={subDIdx}>-</button>
-                        { dayIdx <= dayArr.length ? 2019+parseInt(String(dayIdx / 12)) : null } 년 {dayIdx - parseInt(String(dayIdx / 12))*12 + 1 } 월
+                        {dayIdx <= dayArr.length ? 2019 + parseInt(String(dayIdx / 12)) : null} 년 {dayIdx - parseInt(String(dayIdx / 12)) * 12 + 1} 월
                         <button onClick={desDIdx}>+</button>
                     </DivChart1>
                     <DivChart3>
@@ -292,41 +304,38 @@ export default function OwnerMain() {
                                         label: '월별 매출',
                                         data: monSumArr[monIdx],
                                         backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)',
-                                            'rgba(255, 205, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(201, 203, 207, 0.2)'
+
+                                            'rgba(255, 051, 102,0.2)',
+                                            'rgba(255, 051, 000,0.2)',
+                                            'rgb(255, 99, 132,0.2)',
+                                            'rgba(255, 204, 000,0.2)',
+                                            'rgb(255, 159, 64,0.2)',
+                                            'rgb(255, 205, 86,0.2)',
+                                            'rgb(75, 192, 192,0.2)',
+                                            'rgba(000, 051, 255,0.2)',
+                                            'rgb(54, 162, 235,0.2)',
+                                            'rgb(153, 102, 255,0.2)',
+                                            'rgba(102, 051, 204,0.2)',
+                                            'rgb(201, 203, 207,0.2)'
                                         ],
                                         borderColor: [
+                                            'rgba(255, 051, 102)',
+                                            'rgba(255, 051, 000)',
                                             'rgb(255, 99, 132)',
+                                            'rgba(255, 204, 000)',
                                             'rgb(255, 159, 64)',
                                             'rgb(255, 205, 86)',
                                             'rgb(75, 192, 192)',
+                                            'rgba(000, 051, 255)',
                                             'rgb(54, 162, 235)',
                                             'rgb(153, 102, 255)',
+                                            'rgba(102, 051, 204)',
                                             'rgb(201, 203, 207)'
                                         ],
                                         borderWidth: 1
                                     }]
                                 }}
-                                options={
-                                    {
-                                        scales: {
-                                            yAxes: {
-                                                ticks: {
-                                                    callback: function (value: string | number) {
-                                                        return value + '원';
-                                                    }
-
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
+                                options={option}
 
                             />
                             <button onClick={subIdx}>-</button>
@@ -344,24 +353,17 @@ export default function OwnerMain() {
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(255, 159, 64, 0.2)',
-                                            'rgba(255, 205, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(201, 203, 207, 0.2)'
+                                            'rgba(255, 205, 86, 0.2)'
                                         ],
                                         borderColor: [
                                             'rgb(255, 99, 132)',
                                             'rgb(255, 159, 64)',
-                                            'rgb(255, 205, 86)',
-                                            'rgb(75, 192, 192)',
-                                            'rgb(54, 162, 235)',
-                                            'rgb(153, 102, 255)',
-                                            'rgb(201, 203, 207)'
+                                            'rgb(255, 205, 86)'
                                         ],
                                         borderWidth: 1
                                     }]
                                 }}
+                                options={option}
                             />
                             <button onClick={subYIdx}>-</button>
                             <button onClick={desYIdx}>+</button>

@@ -115,8 +115,8 @@ export default function OwnerDashF() {
                                     label: '시간대별 예약 수',
                                     data: timeCnt,
                                     fill: false,
-                                    borderColor: 'rgb(75, 192, 192)',
-                                    tension: 0.1
+                                    borderColor: 'rgba(000, 051, 255,0.2)',
+                                    tension: 0.3
                                 }
                             ]
                         }}/>
@@ -131,12 +131,14 @@ export default function OwnerDashF() {
                                         label: '성별 구매 비율',
                                         data: gender,
                                         backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
                                             'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 99, 132, 0.2)',
+
                                         ],
                                         borderColor: [
-                                            'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 99, 132, 1)',
+
                                         ],
                                         borderWidth: 1,
                                     }
