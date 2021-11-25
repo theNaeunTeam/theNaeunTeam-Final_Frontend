@@ -13,6 +13,7 @@ import {useHistory} from "react-router-dom";
 import {goodsViewType} from '../../modules/types';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import OwnerNavbar from "./OwnerNavbar";
 
 const TableStyled = styled.table`
   padding: 30px;
@@ -21,9 +22,23 @@ const TableStyled = styled.table`
 `;
 
 const DivContainer = styled.div`
-  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  margin: 50px;
+  padding: 10px;
+  width: 100%;
+
 `;
 
+const DivNav = styled.div`
+  width: 20%;
+  font-size: large;
+
+`;
+const DivMain = styled.div`
+  width: 70%;
+  height: 100%;
+`;
 export default function GoodsView() {
 
     const history = useHistory();
@@ -139,68 +154,73 @@ export default function GoodsView() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
             <DivContainer>
-                <h2>상품조회</h2>
-                <div>
-                    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
-                        <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={g_category}
-                            onChange={e => setG_category(e.target.value)}
-                        >
-                            <MenuItem value=''>모두 보기</MenuItem>
-                            <MenuItem value='마실것'>마실것</MenuItem>
-                            <MenuItem value='신선식품'>신선식품</MenuItem>
-                            <MenuItem value='가공식품'>가공식품</MenuItem>
-                            <MenuItem value='냉동식품'>냉동식품</MenuItem>
-                            <MenuItem value='조리/반조리'>조리/반조리</MenuItem>
-                            <MenuItem value='식품외 기타'>식품외 기타</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
-                        <InputLabel id="demo-simple-select-standard-label">상태</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={g_status}
-                            onChange={e => setG_status(e.target.value)}
-                        >
-                            <MenuItem value=''>모두 보기</MenuItem>
-                            <MenuItem value={'0'}>판매중</MenuItem>
-                            <MenuItem value={'1'}>판매완료</MenuItem>
-                            <MenuItem value={'1'}>판매완료</MenuItem>
-                            <MenuItem value={'2'}>판매중지</MenuItem>
+                <DivNav>
+                    <OwnerNavbar/>
+                </DivNav>
 
-                        </Select>
-                    </FormControl>
+                <DivMain>
+                    <h2>상품조회</h2>
+                    <div>
+                        <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                            <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={g_category}
+                                onChange={e => setG_category(e.target.value)}
+                            >
+                                <MenuItem value=''>모두 보기</MenuItem>
+                                <MenuItem value='마실것'>마실것</MenuItem>
+                                <MenuItem value='신선식품'>신선식품</MenuItem>
+                                <MenuItem value='가공식품'>가공식품</MenuItem>
+                                <MenuItem value='냉동식품'>냉동식품</MenuItem>
+                                <MenuItem value='조리/반조리'>조리/반조리</MenuItem>
+                                <MenuItem value='식품외 기타'>식품외 기타</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                            <InputLabel id="demo-simple-select-standard-label">상태</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={g_status}
+                                onChange={e => setG_status(e.target.value)}
+                            >
+                                <MenuItem value=''>모두 보기</MenuItem>
+                                <MenuItem value={'0'}>판매중</MenuItem>
+                                <MenuItem value={'1'}>판매완료</MenuItem>
+                                <MenuItem value={'1'}>판매완료</MenuItem>
+                                <MenuItem value={'2'}>판매중지</MenuItem>
 
-                    <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
-                               onChange={e => setSearchInput(e.target.value as string)}/>
+                            </Select>
+                        </FormControl>
 
-                    <Button variant="outlined" onClick={searchGoods}>검색</Button>
-                </div>
+                        <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
+                                   onChange={e => setSearchInput(e.target.value as string)}/>
 
-                <TableStyled>
-                    <thead style={{border: "solid black 0.1px"}}>
-                    <tr>
-                        <th>순번</th>
-                        <th>상품명</th>
-                        <th>분류</th>
-                        <th>정가</th>
-                        <th>할인가</th>
-                        <th>유통기한</th>
-                        <th>상태</th>
-                        <th>남은수량</th>
-                        <th>수정</th>
-                        <th>삭제</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
-                    </tbody>
-                </TableStyled>
+                        <Button variant="outlined" onClick={searchGoods}>검색</Button>
+                    </div>
 
+                    <TableStyled>
+                        <thead style={{border: "solid black 0.1px"}}>
+                        <tr>
+                            <th>순번</th>
+                            <th>상품명</th>
+                            <th>분류</th>
+                            <th>정가</th>
+                            <th>할인가</th>
+                            <th>유통기한</th>
+                            <th>상태</th>
+                            <th>남은수량</th>
+                            <th>수정</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                        </tbody>
+                    </TableStyled>
+                </DivMain>
             </DivContainer>
         </>
     )
