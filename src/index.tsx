@@ -10,10 +10,7 @@ import {authReducer} from "./reducers/auth";
 import {goodsReducer} from "./reducers/goods";
 import {cartReducer} from "./reducers/cart";
 import {CookiesProvider} from 'react-cookie';
-import * as fb from './modules/firebase';
 
-if (fb) {
-}
 
 const rootReducer = combineReducers({
     authReducer, goodsReducer, cartReducer

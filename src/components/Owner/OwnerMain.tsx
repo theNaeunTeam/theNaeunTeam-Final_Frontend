@@ -8,7 +8,7 @@ import {ownerPageType} from "../../modules/types";
 
 import {Bar} from 'react-chartjs-2';
 import OwnerNavbar from "./OwnerNavbar";
-import FCM from "../Common/FCM";
+import FCM from "../../lib/FCM";
 
 const DivContainer = styled.div`
   border: solid black;
