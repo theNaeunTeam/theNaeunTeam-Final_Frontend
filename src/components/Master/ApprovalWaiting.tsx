@@ -66,11 +66,9 @@ export default function ApprovalWaiting() {
                         break;
                 }
                 const event = new Date(val.o_date);
-                const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
 
-                // @ts-ignore
                 acc.push({
-                    ...val, id: val.o_sNumber, o_approval: temp, o_date: event.toLocaleDateString(undefined, options)
+                    ...val, id: val.o_sNumber, o_approval: temp, o_date: event.toLocaleDateString("ko-KR",{ weekday: "long", year: "numeric", month: "long", day: "2-digit" })
                 })
                 return acc;
             }, [])
