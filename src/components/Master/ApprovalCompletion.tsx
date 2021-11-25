@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {useEffect, useState} from "react";
-import {masterMainType, masterMainType2} from "../../modules/types";
+import {useEffect, useState} from 'react';
+import {masterMainType2} from "../../modules/types";
 import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
 import Box from "@mui/material/Box";
@@ -36,47 +36,58 @@ export default function ApprovalCompletion() {
         ownerTableInit();
     }, []);
 
-    const ownerTableInit = async  ()=>{
+    const ownerTableInit = async () => {
 
         const URL = '/master/approvalCompletion';
 
-        try{
-            const res = await  client.get(URL);
+        try {
+            const res = await client.get(URL);
             console.log(URL);
             // 받은 결과에 id값 추가
-            const message = res.data.reduce((acc: masterMainType2[], val: masterMainType2) =>{
-                let temp:string = '';
+            const message = res.data.reduce((acc: masterMainType2[], val: masterMainType2) => {
+                let temp: string = '';
                 switch (`${val.o_approval}`) {
-                    case '0': temp = '입점승인 대기중';
+                    case '0':
+                        temp = '입점승인 대기중';
                         break;
-                    case '1': temp = '입점승인 완료';
+                    case '1':
+                        temp = '입점승인 완료';
                         break;
-                    case '2': temp = '입점승인 거절';
+                    case '2':
+                        temp = '입점승인 거절';
                         break;
-                    case '3': temp = '해지승인 대기중';
+                    case '3':
+                        temp = '해지승인 대기중';
                         break;
-                    case '4': temp = '해지승인 완료';
+                    case '4':
+                        temp = '해지승인 완료';
                         break;
-                    default: break;
+                    default:
+                        break;
                 }
                 const event = new Date(val.o_date);
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
 
                 // @ts-ignore
-                acc.push({...val, id: val.o_sNumber, o_approval:temp, o_date:event.toLocaleDateString(undefined, options)})
+                acc.push({
+                    ...val,
+                    id: val.o_sNumber,
+                    o_approval: temp,
+                    o_date: event.toLocaleDateString(undefined, options)
+                })
                 return acc;
             }, [])
 
             setRows(message);
             setLoading(false);
-        }catch(e){
+        } catch (e) {
             console.log(e);
         }
     };
 
-    const updateDB = async (input: string) =>{
+    const updateDB = async (input: string) => {
 
-        if(selected.length === 0 ) alert('가게선택이 되지않았습니다');
+        if (selected.length === 0) alert('가게선택이 되지않았습니다');
 
         const URL = '/master/requestOK';
 
@@ -86,12 +97,12 @@ export default function ApprovalCompletion() {
                 selectedRow: selected, // 선택한 가게
             }
 
-        try{
-            const res = await  client.patch(URL, data);
+        try {
+            const res = await client.patch(URL, data);
             console.log(res);
             ownerTableInit();
             alert('데이터 갱신 완료');
-        }catch (e){
+        } catch (e) {
             console.log(e);
             alert('데이터 갱신 실패');
         }

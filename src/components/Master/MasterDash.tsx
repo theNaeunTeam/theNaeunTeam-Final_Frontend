@@ -1,24 +1,21 @@
 import * as React from 'react';
-import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import {useEffect, useState} from "react";
+import {useEffect, useState} from 'react';
+import {Bar, CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis} from 'recharts';
 import {client} from "../../lib/api/client";
-import {type} from "os";
 import {saleType} from "../../modules/types";
 
 // 대시 보드
 export default function MasterDash() {
 
-
-
     const [mon, setMon] = useState<saleType[]>([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         chart();
-    },[])
+    }, [])
 
 
     //차트 데이터 가져오기
-    const chart = async ()=>{
+    const chart = async () => {
 
         const URL = '/master/masterMonth';
 
@@ -27,7 +24,7 @@ export default function MasterDash() {
             console.log('마스터 달');
             console.log(res);
             setMon(res.data);
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     };
@@ -44,13 +41,13 @@ export default function MasterDash() {
                     top: 5, right: 50, left: 20, bottom: 5,
                 }}
             >
-                <CartesianGrid stroke="#003458" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="sum" name="123" fill="#82ca9d" />
-                <Line type="monotone" dataKey="sum" stroke="#ff7300" />
+                <CartesianGrid stroke="#003458"/>
+                <XAxis dataKey="date"/>
+                <YAxis/>
+                <Tooltip/>
+                <Legend/>
+                <Bar dataKey="sum" name="123" fill="#82ca9d"/>
+                <Line type="monotone" dataKey="sum" stroke="#ff7300"/>
             </ComposedChart>
         </>
     )

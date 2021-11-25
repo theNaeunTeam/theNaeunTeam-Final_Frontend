@@ -37,7 +37,6 @@ export default function Header() {
                         <Nav.Link as={Nav}><Link className={'youngJin'} to={'/owner'}>오너메인</Link></Nav.Link>
                         <Nav.Link as={Nav}><Link className={'youngJin'} to={'/master'}>마스터메인</Link></Nav.Link>
                     </Nav>
-
                     <span style={{color: 'white'}}>
                         사업자번호:{authReducer.o_sNumber}
                         유저아이디:{authReducer.u_id}

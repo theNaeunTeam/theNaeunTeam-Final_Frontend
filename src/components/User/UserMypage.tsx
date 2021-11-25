@@ -1,5 +1,4 @@
-import React, {useLayoutEffect, useState, useEffect} from 'react';
-import {Map, MapMarker} from 'react-kakao-maps-sdk';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import styled from 'styled-components'
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
@@ -30,24 +29,24 @@ export default function UserMypage() {
 
 
     const initialValue = {
-        u_id : '',
-        save : 0,
-        u_point : 0,
-        reserve : 0,
+        u_id: '',
+        save: 0,
+        u_point: 0,
+        reserve: 0,
     };
 
     const [userData, setUserData] = useState<userMyPageType>(initialValue);
 
-    useEffect(() =>{
+    useEffect(() => {
         initialize();
-    },[]);
+    }, []);
 
-    const initialize = async ()=>{
+    const initialize = async () => {
         const URL = '/user/myPage';
-        try{
+        try {
             const res = await client.get(URL);
             setUserData(res.data);
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }

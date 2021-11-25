@@ -9,7 +9,7 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
-import {masterMainType, masterMainType2} from "../../modules/types";
+import {masterMainType2} from "../../modules/types";
 import Skeleton from '@mui/material/Skeleton';
 
 export default function MasterMain() {
@@ -77,25 +77,36 @@ export default function MasterMain() {
             console.log(URL);
             // 받아온 결과에 id값 추가
             const massage = res.data.reduce((acc: masterMainType2[], val: masterMainType2, idx: number) => {
-                let temp:string = '';
+                let temp: string = '';
                 switch (`${val.o_approval}`) {
-                    case '0': temp = '입점승인 대기중';
+                    case '0':
+                        temp = '입점승인 대기중';
                         break;
-                    case '1': temp = '입점승인 완료';
+                    case '1':
+                        temp = '입점승인 완료';
                         break;
-                    case '2': temp = '입점승인 거절';
+                    case '2':
+                        temp = '입점승인 거절';
                         break;
-                    case '3': temp = '해지승인 대기중';
+                    case '3':
+                        temp = '해지승인 대기중';
                         break;
-                    case '4': temp = '해지승인 완료';
+                    case '4':
+                        temp = '해지승인 완료';
                         break;
-                    default: break;
+                    default:
+                        break;
                 }
                 const event = new Date(val.o_date);
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
 
                 // @ts-ignore
-                acc.push({...val, id: val.o_sNumber, o_approval:temp, o_date:event.toLocaleDateString(undefined, options)})
+                acc.push({
+                    ...val,
+                    id: val.o_sNumber,
+                    o_approval: temp,
+                    o_date: event.toLocaleDateString(undefined, options)
+                })
                 return acc;
             }, []);
             console.log(massage);

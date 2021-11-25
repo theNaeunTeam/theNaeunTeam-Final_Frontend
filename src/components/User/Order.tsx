@@ -78,9 +78,9 @@ export default function Order() {
                 console.log(res);
                 dispatch({type: 'orderOut'});
                 removeCookie('cart', {path: '/'});
-                if(res.data === false){
+                if (res.data === false) {
                     alert('노쇼 카운트 5 이상이므로 주문 불가능 합니다. ')
-                }else{
+                } else {
                     alert('성공');
                 }
 

@@ -8,14 +8,14 @@ import {useHistory} from "react-router-dom";
 import Stack from "@mui/material/Stack";
 
 const TableStyled = styled.table`
-      padding: 30px;
-      margin: auto;
-      width: 80%;
-    `;
+  padding: 30px;
+  margin: auto;
+  width: 80%;
+`;
 
 const DivContainer = styled.div`
-      text-align: center;
-    `;
+  text-align: center;
+`;
 
 
 export default function UserExit() {
@@ -23,11 +23,10 @@ export default function UserExit() {
     const history = useHistory();
 
     const initPassword = {
-        u_pw:''
+        u_pw: ''
     }
 
     const [userForm, setUserForm] = useState(initPassword);
-
 
 
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,13 +43,12 @@ export default function UserExit() {
             const res = await client.post(URL, userForm);
             console.log(res.data);
             res.data === true
-            ? (alert('회원 탈퇴 되었습니다.'),history.push('/'))
-            : alert('비밀번호가 맞지않습니다.')
+                ? (alert('회원 탈퇴 되었습니다.'), history.push('/'))
+                : alert('비밀번호가 맞지않습니다.')
         } catch (e) {
             console.log(e);
         }
     };
-
 
 
     return (

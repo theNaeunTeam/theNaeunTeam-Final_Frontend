@@ -7,7 +7,6 @@ import MasterMain from "./components/Master/MasterMain";
 import UserRegisterForm from "./components/User/UserRegisterForm";
 import UserMain from "./components/User/UserMain";
 import ShopView from "./components/Common/ShopView";
-import OwnerNavbar from "./components/Owner/OwnerNavbar";
 import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./index";
@@ -29,16 +28,15 @@ import FavorStore from "./components/User/FavorStore";
 import UserEdit from "./components/User/UserEdit";
 import UserExit from "./components/User/UserExit";
 import ShopList from "./components/Common/ShopList/ShopList";
-
-import  MasterNavbar from "./components/Master/MasterNavbar";
+import MasterNavbar from "./components/Master/MasterNavbar";
 import MasterUserList from "./components/Master/MasterUserList";
 import ApprovalWaiting from "./components/Master/ApprovalWaiting";
 import ApprovalCompletion from "./components/Master/ApprovalCompletion";
 import MasterDash from "./components/Master/MasterDash";
 import TerminationWaiting from "./components/Master/TerminationWaiting";
 import TerminationCompletion from "./components/Master/TerminationCompletion";
-
 import ChangeBanner from "./components/Master/ChangeBanner";
+
 
 function App() {
 

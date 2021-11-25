@@ -51,8 +51,8 @@ export default function ReservationView() {
             // setList(res.data);
 
             setList(res.data);
-            console.log(res);
-            console.log(res.data[0].goodsDTO);
+            console.log(res.data);
+            // console.log(res.data[0].goodsDTO);
             setLoading(false);
 
         } catch (e) {
@@ -65,6 +65,8 @@ export default function ReservationView() {
             r_code: Number((input.target as HTMLButtonElement).name),
             check: selectedStatus
         };
+
+        console.log('서버로 보내는 배열 : ', data);
 
         const URL = '/owner/statusChange';
 
@@ -137,8 +139,8 @@ export default function ReservationView() {
                             : props.data.r_status === 2 ? '거절됨'
                                 : props.data.r_status === 3 ? '판매완료'
                                     : props.data.r_status === 4 ? '노쇼'
-                                        :props.data.r_status === 5 ? '취소됨'
-                                        : null
+                                        : props.data.r_status === 5 ? '취소됨'
+                                            : null
                     }
                 </td>
                 <td>

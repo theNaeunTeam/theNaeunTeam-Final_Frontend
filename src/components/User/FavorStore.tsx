@@ -1,10 +1,4 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import {Button} from "@mui/material";
 import styled from "styled-components";
 import {client} from "../../lib/api/client";
 import {useSelector} from "react-redux";
@@ -43,6 +37,7 @@ export default function FavorStore() {
         o_approval: number
         f_o_sNumber: string
     }
+
     function favoroff() {
         Swal.fire({
             title: '즐겨찾기에서 해제되었습니다',
@@ -59,6 +54,7 @@ export default function FavorStore() {
             }
         })
     }
+
     useEffect(() => {
         initialize();
     }, []);
@@ -78,14 +74,14 @@ export default function FavorStore() {
         }
     };
     // 즐겨찾기 해제 api
-    const favorOff = async (input : React.MouseEvent<HTMLImageElement,MouseEvent>) => {
+    const favorOff = async (input: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
         if (!authReducer.isUser) {
             alert('로그인이 필요한 기능입니다.');
             return false;
         }
         const URL = '/user/FavorOff';
-        const data : { f_o_sNumber: number} ={
-            f_o_sNumber : Number((input.target as HTMLImageElement).title)
+        const data: { f_o_sNumber: number } = {
+            f_o_sNumber: Number((input.target as HTMLImageElement).title)
         }
         console.log(data);
         try {

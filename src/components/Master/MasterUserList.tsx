@@ -3,7 +3,6 @@ import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
 
 import Button from "@mui/material/Button";
-import {masterMainType2} from "../../modules/types";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -37,9 +36,9 @@ export default function MasterUserList() {
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
+    useEffect(() => {
         userALL();
-    },[])
+    }, [])
 
     const userALL = async () => {
         // 리스트 불러오는 URL
@@ -47,24 +46,28 @@ export default function MasterUserList() {
         try {
             const res = await client.get(URL);
             // console.log(res.data);
-            const message = res.data.reduce((acc:initialType[], val:initialType) =>{
-                let temp:string = '';
+            const message = res.data.reduce((acc: initialType[], val: initialType) => {
+                let temp: string = '';
                 switch (`${val.u_status}`) {
-                    case '0': temp = '정상';
+                    case '0':
+                        temp = '정상';
                         break;
-                    case '1': temp = '탈퇴';
+                    case '1':
+                        temp = '탈퇴';
                         break;
-                    case '2': temp = '블랙리스트';
+                    case '2':
+                        temp = '블랙리스트';
                         break;
-                    default: break;
+                    default:
+                        break;
                 }
                 acc.push({...val, id: val.u_id, u_status: temp})
                 return acc;
-            },[])
+            }, [])
             console.log(message);
             setRows(message);
             setLoading(false);
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
@@ -81,12 +84,12 @@ export default function MasterUserList() {
                 selectedRow: selected, // 선택한 유저
             }
 
-        try{
-            const res = await  client.patch(URL, data);
+        try {
+            const res = await client.patch(URL, data);
             console.log(res);
             userALL();
             alert('데이터 갱신 완료');
-        }catch (e){
+        } catch (e) {
             console.log(e);
             alert('데이터 갱신 실패');
         }
