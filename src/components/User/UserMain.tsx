@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import styled from "styled-components";
 import logo from '../../logo.svg';
 import {useHistory} from "react-router-dom";
@@ -31,6 +31,9 @@ export default function UserMain() {
     const [loading, setLoading] = useState(true);
     const [items, setItems] = useState<carouselType[]>([]);
     const history = useHistory();
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('userToken')) history.push('/err');
+    }, []);
 
 
     useEffect(() => {

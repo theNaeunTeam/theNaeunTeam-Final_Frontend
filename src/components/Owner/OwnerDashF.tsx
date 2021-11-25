@@ -46,9 +46,10 @@ export default function OwnerDashF() {
 
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
+
     const [childLoading, setChildLoading] = useState(true);
     useLayoutEffect(() => {
-        if (!authReducer.isOwner) history.push('/err');
+        if (!localStorage.getItem('ownerToken')) history.push('/err');
     }, []);
 
     const [time, setTime] = useState([]);
@@ -56,10 +57,10 @@ export default function OwnerDashF() {
     const [gender, setGender] = useState([]);
     const [genderArr, setGenderArr] = useState([]);
 
-    const [ageArr , setAgeArr] = useState([]);
+    const [ageArr, setAgeArr] = useState([]);
     const [ageCnt, setAgeCnt] = useState([]);
 
-    const [cateArr ,setCateArr] = useState([]);
+    const [cateArr, setCateArr] = useState([]);
     const [cateCnt, setCateCnt] = useState([]);
     useEffect(() => {
         initialize();
@@ -80,18 +81,16 @@ export default function OwnerDashF() {
 
             const reGender = await client.get(URLG);
             console.log(reGender);
-            setGenderArr(reGender.data.map((x:any)=> x.date));
-            setGender(reGender.data.map((x:any)=> x.sum));
+            setGenderArr(reGender.data.map((x: any) => x.date));
+            setGender(reGender.data.map((x: any) => x.sum));
 
             const reAge = await client.get(URLA);
-            setAgeArr(reAge.data.map((x:any)=> x.date));
-            setAgeCnt(reAge.data.map((x:any)=>x.sum));
+            setAgeArr(reAge.data.map((x: any) => x.date));
+            setAgeCnt(reAge.data.map((x: any) => x.sum));
 
             const reCate = await client.get(URLC);
-            setCateArr(reCate.data.map((x:any)=> x.date));
-            setCateCnt(reCate.data.map((x:any)=>x.sum));
-
-
+            setCateArr(reCate.data.map((x: any) => x.date));
+            setCateCnt(reCate.data.map((x: any) => x.sum));
 
 
             console.log(reTime);
@@ -197,9 +196,9 @@ export default function OwnerDashF() {
                                 borderWidth: 1,
                             }]
                         }}/>
-                </DivChart2>
-            </DivChart>
-        </DivMain>
-</DivContainer>
-)
+                    </DivChart2>
+                </DivChart>
+            </DivMain>
+        </DivContainer>
+    )
 }

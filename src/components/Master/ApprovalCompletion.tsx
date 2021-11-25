@@ -1,16 +1,20 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useLayoutEffect, useState} from 'react';
 import {masterMainType2} from "../../modules/types";
 import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import Button from "@mui/material/Button";
+import {useHistory} from "react-router-dom";
 
 
 // 입점 승인완료
 export default function ApprovalCompletion() {
-
+    const history = useHistory();
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('masterToken')) history.push('/err');
+    }, []);
     const initialValue = [{
         id: '',
         o_approval: '',
@@ -70,7 +74,12 @@ export default function ApprovalCompletion() {
                     ...val,
                     id: val.o_sNumber,
                     o_approval: temp,
-                    o_date: new Date(val.o_date).toLocaleDateString("ko-KR",{ weekday: "long", year: "numeric", month: "long", day: "2-digit" }),
+                    o_date: new Date(val.o_date).toLocaleDateString("ko-KR", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "2-digit"
+                    }),
                 })
                 return acc;
             }, [])

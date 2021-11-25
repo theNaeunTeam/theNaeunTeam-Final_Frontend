@@ -1,5 +1,7 @@
 import OwnerNavbar from "./OwnerNavbar";
 import styled from "styled-components";
+import {useLayoutEffect} from "react";
+import {useHistory} from "react-router-dom";
 
 const DivContainer = styled.div`
   border: solid black;
@@ -21,6 +23,11 @@ const DivMain = styled.div`
   height: 100%;
 `;
 export default function OwnerDashS() {
+    const history = useHistory();
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('ownerToken')) history.push('/err');
+    }, []);
+
     return (
         <DivContainer>
             <DivNav>

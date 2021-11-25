@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 export default function FCM() {
     const [show, setShow] = useState(false);
     const [isTokenFound, setTokenFound] = useState(false);
-    const [notification, setNotification] = useState({title: '', body: ''});
+    const [notification, setNotification] = useState<{ title?: string, body?: string }>({title: '', body: ''});
 
     const firebaseConfig = {
         apiKey: "AIzaSyCdDnZLLw2wo1KpixiGqQKXKKOES0pi1bU",

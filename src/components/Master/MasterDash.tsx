@@ -1,13 +1,16 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
-import {saleType} from "../../modules/types";
 import {Bar} from "react-chartjs-2";
 import Skeleton from "@mui/material/Skeleton";
+import {useHistory} from "react-router-dom";
 
 // 대시 보드
 export default function MasterDash() {
-
+    const history = useHistory();
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('masterToken')) history.push('/err');
+    }, []);
 
     // 년도별 월데이터를 담을 어레이
     const [monArr, setMonArr] = useState<any[]>([]);
@@ -56,7 +59,6 @@ export default function MasterDash() {
     const yearInit = () => {
         // setYearIndex(yearArr[0].length);
     }
-
 
 
     //차트 데이터 가져오기

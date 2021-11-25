@@ -7,24 +7,24 @@ import {client} from "../../lib/api/client";
 import {userMyPageType} from "../../modules/types";
 
 const DivContainer = styled.div`
-      border: solid black;
-      display: flex;
-      justify-content: center;
-      margin: 50px;
-      padding: 10px;
-    `;
+  border: solid black;
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+  padding: 10px;
+`;
 
 const DivHalfMenu = styled.div`
-      flex: 1;
-      margin: 10px;
-      padding: 10px;
-    `;
+  flex: 1;
+  margin: 10px;
+  padding: 10px;
+`;
 
 export default function UserMypage() {
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!authReducer.isUser) history.push('/err');
+        if (!localStorage.getItem('userToken')) history.push('/err');
     }, []);
 
 

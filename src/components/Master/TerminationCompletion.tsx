@@ -1,13 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {masterMainType2} from "../../modules/types";
 import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import Button from "@mui/material/Button";
+import {useHistory} from "react-router-dom";
 
 export default function TerminationCompletion() {
-
+    const history = useHistory();
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('masterToken')) history.push('/err');
+    }, []);
     const initialValue = [{
         id: '',
         o_approval: '',
@@ -69,7 +73,12 @@ export default function TerminationCompletion() {
                     ...val,
                     id: val.o_sNumber,
                     o_approval: temp,
-                    o_date: event.toLocaleDateString("ko-KR",{ weekday: "long", year: "numeric", month: "long", day: "2-digit" })
+                    o_date: event.toLocaleDateString("ko-KR", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "2-digit"
+                    })
                 })
                 return acc;
             }, [])
