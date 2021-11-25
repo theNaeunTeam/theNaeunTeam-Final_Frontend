@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import {Button} from "@mui/material";
 import styled from "styled-components";
@@ -21,6 +21,9 @@ const DivContainer = styled.div`
 export default function UserExit() {
 
     const history = useHistory();
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('userToken')) history.push('/err');
+    }, []);
 
     const initPassword = {
         u_pw: ''

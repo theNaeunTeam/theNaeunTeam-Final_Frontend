@@ -1,14 +1,12 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import styled from 'styled-components'
-import {useSelector} from "react-redux";
-import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {ownerPageType} from "../../modules/types";
 
 import {Bar} from 'react-chartjs-2';
 import OwnerNavbar from "./OwnerNavbar";
-import FCM from "../Common/FCM";
+import FCM from "../../lib/FCM";
 
 const DivContainer = styled.div`
   border: solid black;
@@ -70,10 +68,9 @@ const DivMain = styled.div`
 `;
 export default function OwnerMain() {
 
-    const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!authReducer.isOwner) history.push('/err');
+        if (!localStorage.getItem('ownerToken')) history.push('/err');
     }, []);
 
     const initialValue = {

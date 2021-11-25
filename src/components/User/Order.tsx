@@ -39,6 +39,9 @@ export default function Order() {
     }
 
     const history = useHistory();
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('userToken')) history.push('/err');
+    }, []);
     const dispatch = useDispatch();
     const {cartReducer, authReducer} = useSelector((state: RootState) => state);
     const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);

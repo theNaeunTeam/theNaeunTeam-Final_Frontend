@@ -22,7 +22,7 @@ export default function FavorStore() {
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!authReducer.isUser) history.push('/err');
+        if (!localStorage.getItem('userToken')) history.push('/err');
     }, []);
 
     const [list, setList] = useState<favorListType[]>([]);

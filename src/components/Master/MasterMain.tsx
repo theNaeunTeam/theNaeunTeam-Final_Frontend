@@ -39,7 +39,7 @@ export default function MasterMain() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (authReducer.isMaster) ownerTableInit();
+        if (localStorage.getItem('masterToken')) ownerTableInit();
     }, []);
 
     const login = async () => {
@@ -103,7 +103,12 @@ export default function MasterMain() {
                     ...val,
                     id: val.o_sNumber,
                     o_approval: temp,
-                    o_date: event.toLocaleDateString("ko-KR",{ weekday: "long", year: "numeric", month: "long", day: "2-digit" })
+                    o_date: event.toLocaleDateString("ko-KR", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "2-digit"
+                    })
                 })
                 return acc;
             }, []);

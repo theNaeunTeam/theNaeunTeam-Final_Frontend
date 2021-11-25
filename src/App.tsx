@@ -4,13 +4,13 @@ import {Route, Switch} from 'react-router-dom';
 import LoginForm from "./components/Common/LoginForm";
 import Header from "./components/Common/Header";
 import MasterMain from "./components/Master/MasterMain";
-import UserRegisterForm from "./components/User/UserRegisterForm";
+import UserRegisterForm from "./components/Common/UserRegisterForm";
 import UserMain from "./components/User/UserMain";
 import ShopView from "./components/Common/ShopView";
 import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./index";
-import OwnerRegisterForm from "./components/Owner/OwnerRegisterForm";
+import OwnerRegisterForm from "./components/Common/OwnerRegisterForm";
 import OwnerMain from "./components/Owner/OwnerMain";
 import AddProduct from "./components/Owner/AddProduct";
 import GoodsView from "./components/Owner/GoodsView";
@@ -134,7 +134,6 @@ function App() {
             <Route path='/owner/unsubscribe' component={Unsubscribe}/>
             <Route path='/owner/ownerdashf' component={OwnerDashF}/>
             <Route path='/owner/ownerdashs' component={OwnerDashS}/>
-
 
 
             <Route path={'/err'} component={PageNotFound}/>

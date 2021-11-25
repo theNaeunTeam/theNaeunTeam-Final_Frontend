@@ -1,13 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+import {useHistory} from "react-router-dom";
 
 
 export default function MasterUserList() {
+    const history = useHistory();
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('masterToken')) history.push('/err');
+    }, []);
     const initialValue = [{
         id: '',
         u_id: '',

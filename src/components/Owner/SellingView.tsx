@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import styled from "styled-components";
 import OwnerNavbar from "./OwnerNavbar";
+import {useHistory} from "react-router-dom";
 
 const DivNav = styled.div`
   width: 20%;
@@ -19,6 +20,10 @@ const DivContainer = styled.div`
 `;
 
 export default function SellingView() {
+    const history = useHistory();
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('ownerToken')) history.push('/err');
+    }, []);
     return (
         <DivContainer>
             <DivNav>

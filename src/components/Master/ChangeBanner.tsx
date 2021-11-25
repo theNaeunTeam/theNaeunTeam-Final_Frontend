@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import styled from "styled-components";
 import {client} from "../../lib/api/client";
 import {carouselType} from "../../modules/types";
@@ -37,7 +37,9 @@ export default function ChangeBanner() {
 
     const [arr, setArr] = useState<carouselType[]>([]);
     const history = useHistory();
-
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('masterToken')) history.push('/err');
+    }, []);
     useEffect(() => {
         const URL = '/common/banner';
         client.get(URL)

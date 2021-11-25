@@ -45,7 +45,7 @@ export default function GoodsView() {
     const dispatch = useDispatch();
     const {authReducer} = useSelector((state: RootState) => state);
     useLayoutEffect(() => {
-        if (!authReducer.isOwner) history.push('/err');
+        if (!localStorage.getItem('ownerToken')) history.push('/err');
     }, []);
 
 
@@ -62,7 +62,7 @@ export default function GoodsView() {
     const initialize = async () => {
         const URL = '/owner/goodsView';
         try {
-            const res = await client.get(`${URL}?o_sNumber=${authReducer.o_sNumber}`);
+            const res = await client.get(`${URL}?o_sNumber=${localStorage.getItem('o_sNumber')}`);
             setList(res.data);
             setLoading(false);
         } catch (e) {
