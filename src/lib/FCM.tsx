@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from "react";
 import firebase from "firebase/compat";
 import {client} from "./api/client";
+import AnnouncementIcon from '@mui/icons-material/Announcement';
+import DangerousIcon from '@mui/icons-material/Dangerous';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Button from '@mui/material/Button';
 
 export default function FCM() {
     const [show, setShow] = useState(false);
@@ -75,10 +80,24 @@ export default function FCM() {
 
     return (
         <>
-            {!isTokenFound && <h3> 푸시알림이 비활성화 상태입니다.</h3>}
             {
-                show ? <div>{notification.title}{notification.body}</div>
-                    : <h3>알림이 없습니다</h3>
+                isTokenFound || <Alert variant="outlined">
+                    알림이 비활성화 상태입니다 <DangerousIcon/>
+                </Alert>
+            }
+            {
+                show ? <Alert severity="warning"
+                              action={
+                                  <Button color="inherit" size="small">
+                                      보기
+                                  </Button>
+                              }>
+                        <AlertTitle>{notification.title}</AlertTitle>
+                        {notification.body}<AnnouncementIcon/>
+                    </Alert>
+                    : <Alert variant="outlined" severity="success"
+                             onClose={() => {
+                             }}>알림이 없습니다</Alert>
             }
 
         </>
