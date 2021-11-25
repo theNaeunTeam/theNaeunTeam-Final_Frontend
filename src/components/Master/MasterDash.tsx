@@ -56,6 +56,8 @@ export default function MasterDash() {
     }
 
 
+
+
     //차트 데이터 가져오기
     const chart = async () => {
         const URL = '/master/masterMonth';
