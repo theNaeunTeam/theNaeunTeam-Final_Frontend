@@ -17,7 +17,7 @@ export default function RecommendList(props: recommendProps) {
                         <br/>
                         <img src={props.data.g_image}
                              onClick={() => props.history.push(`/shopView/${props.data.g_owner}`)}
-                             style={{height: '100%', width: '100%'}}
+                             style={{height: '100%', width: '100%' , cursor:'pointer'}}
                         />
                         <br/>
                         {props.data.g_name}
