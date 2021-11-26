@@ -162,7 +162,6 @@ export default function ApprovalCompletion() {
                     />
                 }
             </div>
-
             <Button variant="contained" color="error" onClick={() => updateDB('no')}>
                 반려
             </Button>

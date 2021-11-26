@@ -32,12 +32,14 @@ import MasterNavbar from "./components/Master/MasterNavbar";
 import MasterUserList from "./components/Master/MasterUserList";
 import ApprovalWaiting from "./components/Master/ApprovalWaiting";
 import ApprovalCompletion from "./components/Master/ApprovalCompletion";
-import MasterDash from "./components/Master/MasterDash";
+import MasterOwnerDash from "./components/Master/MasterOwnerDash";
 import TerminationWaiting from "./components/Master/TerminationWaiting";
 import TerminationCompletion from "./components/Master/TerminationCompletion";
 import ChangeBanner from "./components/Master/ChangeBanner";
 import OwnerDashS from "./components/Owner/OwnerDashS";
 import OwnerDashF from "./components/Owner/OwnerDashF";
+import UserDash from "./components/Master/UserDash";
+import MasterChart from "./components/Master/MasterChart";
 
 function App() {
 
@@ -112,7 +114,9 @@ function App() {
             <Route path='/master/approvalcompletion' component={ApprovalCompletion}/>
             <Route path='/master/terminationwaiting' component={TerminationWaiting}/>
             <Route path='/master/terminationcompletion' component={TerminationCompletion}/>
-            <Route path='/master/masterdash' component={MasterDash}/>
+            <Route path='/master/masterownerdash' component={MasterOwnerDash}/>
+            <Route path='/master/userdash' component={UserDash}/>
+            <Route path='/master/masterchart' component={MasterChart}/>
 
 
             <Route path='/user' component={UserNavbar}/>
