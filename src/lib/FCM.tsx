@@ -67,10 +67,10 @@ export default function FCM() {
     onMessageListener()
         .then((payload: any) => {
             setShow(true);
-            setNotification({title: payload.notification.title, body: payload.notification.body})
             console.log(payload);
-            console.log(payload.notification.title);
-            console.log(payload.notification.body);
+            console.log(payload.data.title);
+            console.log(payload.data.body);
+            setNotification({title: payload.data.title, body: payload.data.body})
         })
         .catch(err => console.log('failed: ', err));
 
