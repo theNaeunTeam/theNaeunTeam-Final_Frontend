@@ -6,7 +6,7 @@ import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
 
 // 대시 보드
-export default function MasterDash() {
+export default function MasterOwnerDash() {
     const history = useHistory();
     useLayoutEffect(() => {
         if (!localStorage.getItem('masterToken')) history.push('/err');
@@ -15,7 +15,7 @@ export default function MasterDash() {
     // 년도별 월데이터를 담을 어레이
     const [monArr, setMonArr] = useState<any[]>([]);
     // 년도별 월데이터를 보여주기 위한 index 값
-    const [monIdex, setMonIndex] = useState(0);
+    const [monIndex, setMonIndex] = useState(0);
     // 년도를 보여주기 위한 year state
     const [monYear, setMonYear] = useState(0);
 
@@ -51,13 +51,14 @@ export default function MasterDash() {
     const monInit = () => {
         // 제일 최근년도의 인덱스값 초기화
         setMonIndex(monArr.length - 1);
-        console.log(monIdex);
+        console.log(monIndex);
         // 제일 최근년도 초기화
         setMonYear(2019 + monArr.length - 1);
     }
 
     const yearInit = () => {
-        // setYearIndex(yearArr[0].length);
+        setYearIndex(yearArr.length);
+        setYear(2019 + yearArr.length - 1);
     }
 
 
@@ -69,19 +70,17 @@ export default function MasterDash() {
 
             console.log(res.data);
 
-            setMonArr(res.data['totalMon'].map((x: any) => x.map((b: any) => ({sum: b.sum, tal: b.tal}))));
+            setMonArr(res.data['totalMon'].map((x: any) => x.map((b: any) => ({sum: b.sum, tal: b.tal}) )));
+            console.log('monarr');
             console.log(monArr);
             // console.log(monArr[2].map((a:any)=> ({sum:a.sum})) );
             // console.log(monArr.map((x:any)) => x.sum );
             console.log(monArr.length);
             console.log('------------');
             console.log(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
-            // setYearArr(res.data['totalYear'].map((x:any) => x.map((b:any) => ({date:b.date,sum:b.sum, tal:b.tal}))));
-            // setYearArr(res.data['totalYear'].map((x:any) => x.map((b:any) => ({date:b.date,sum:b.sum, tal:b.tal}))));
-            console.log('-------------------')
-            // console.log(res.data['totalYear'].map((x:any)=>x.map((x:any)=>x.date)));
-            console.log('----------');
-
+            setYearArr(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
+            console.log(yearArr.map((x:any)=>x.date));
+            
             setLoading(false);
 
         } catch (e) {
@@ -89,49 +88,41 @@ export default function MasterDash() {
         }
     };
 
-    // 12달
+    // 12달 증감버튼
     const IncMonYear = () => {
-        // console.log(yearArr[0].map((x:any) => (x.date)));
-        console.log(yearArr.length);
-        if (monIdex != monArr.length - 1) {
-            setMonIndex(monIdex + 1);
+        console.log(monArr.length);
+        if (monIndex != monArr.length - 1) {
+            setMonIndex(monIndex + 1);
             setMonYear(monYear + 1);
 
         }
     }
     const DecMonYear = () => {
-        if (yearIndex > yearArr[0].length - 1) {
-            setYearIndex(yearIndex - 1);
+        if (monIndex != 0 ) {
+            setMonIndex(monIndex - 1);
+            setMonYear(monYear -1);
         }
     }
 
-    // 년도별
+    // 년도별 증감버튼
     const IncYear = () => {
-        console.log(yearArr[0]);
-        console.log(yearIndex);
-        console.log(yearArr[0].slice(yearIndex - 3, yearIndex));
-        console.log(yearArr[0].slice(yearIndex - 3, yearIndex).date);
-
-        if (0 <= yearIndex && yearIndex <= (yearArr[0].length - 1)) {
+        if (0 <= yearIndex && yearIndex <= (yearArr.length - 1)) {
             setYearIndex(yearIndex + 1);
+            setYear(year +1);
         }
     }
 
-    const DecYear = () => {
-        console.log(yearArr[0]);
-        console.log(yearIndex);
-        console.log(yearArr[0].slice(yearIndex - 3, yearIndex));
-
-        console.log(yearArr[0].slice(yearIndex - 3, yearIndex).date);
-        if (yearIndex > yearArr[0].length - 1) {
+    const DecYear = () => { 
+        if (yearIndex >= yearArr.length && yearIndex -3 > 0) {
             setYearIndex(yearIndex - 1);
+            setYear(year - 1);
         }
     }
 
 
     return (
         <>
-            <h3>대시보드 </h3>
+            <h3>마스터대시보드 </h3>
             {
                 loading ?
                     <Skeleton variant="rectangular" width={210} height={118}/>
@@ -148,7 +139,7 @@ export default function MasterDash() {
                                     //stack: 1,
                                     hoverBackgroundColor: "rgba(255,99,132,0.4)",
                                     hoverBorderColor: "rgba(255,99,132,1)",
-                                    data: monArr[monIdex].map((a: any) => a.sum),
+                                    data: monArr[monIndex].map((a: any) => a.sum),
                                 },
                                 {
                                     label: "탈퇴자수",
@@ -158,7 +149,7 @@ export default function MasterDash() {
                                     //stack:tal
                                     hoverBackgroundColor: "rgba(255,99,132,0.4)",
                                     hoverBorderColor: "rgba(255,99,132,1)",
-                                    data: monArr[monIdex].map((a: any) => a.tal),
+                                    data: monArr[monIndex].map((a: any) => a.tal),
                                 }]
                         }}
                              options={
@@ -181,13 +172,13 @@ export default function MasterDash() {
                         <button onClick={IncMonYear}>+</button>
                     </>
             }
-            {
+            {   ///////////////////////////년도별
                 loading ?
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
                     <>
                         <Bar data={{
-                            labels: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => x.date),
+                            labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
                             datasets: [
                                 {
                                     label: "가입자수",
@@ -207,7 +198,7 @@ export default function MasterDash() {
                                     //stack:tal
                                     hoverBackgroundColor: "rgba(255,99,132,0.4)",
                                     hoverBorderColor: "rgba(255,99,132,1)",
-                                    data: yearArr.map((x: any) => (x.tal)),
+                                    data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.tal)),
                                 }]
                         }}
                              options={
@@ -226,11 +217,13 @@ export default function MasterDash() {
 
                              }/>
                         <button onClick={DecYear}>-</button>
-                        <label>{monYear}</label>
+                        <label>{year}</label>
                         <button onClick={IncYear}>+</button>
                     </>
             }
         </>
+
+
 
     )
 }

@@ -176,16 +176,9 @@ export default function OwnerMain() {
         console.log(yearArr.length);
     }
     const subYIdx = () => {
-        console.log('1!!!')
         console.log(yearIdx);
-        console.log('2!!!')
         console.log(yearArr.length - 1);
-        console.log('3!!!')
-        console.log(yearArr);
-        console.log('4!!!')
-        console.log(yearSumArr);
-        console.log('5!!!')
-        console.log(yearSumArr.slice(yearIdx - 3, yearIdx));
+
         if (yearIdx >= yearArr.length && yearIdx-3 >0 ) {
             setYearIdx(yearIdx - 1);
             console.log(yearIdx + "!!!!");
