@@ -37,7 +37,7 @@ export default function FCM() {
                 if (currentToken) {
                     console.log('current token for client: ', currentToken);
                     setTokenFound(true);
-                    client.post(URL, currentToken)
+                    client.post(URL, {token: currentToken})
                         .then(res => {
                             console.log(res);
                         })
