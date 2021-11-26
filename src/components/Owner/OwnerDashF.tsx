@@ -62,6 +62,8 @@ export default function OwnerDashF() {
 
     const [cateArr, setCateArr] = useState([]);
     const [cateCnt, setCateCnt] = useState([]);
+
+    const [total, setTotal] = useState(0);
     useEffect(() => {
         initialize();
     }, []);
@@ -73,7 +75,7 @@ export default function OwnerDashF() {
         const URLC = '/owner/getCategorySale';
         try {
             const reTime = await client.get(URLT);
-            setTime(reTime.data.map((x: any) => x.tal));
+            setTime(reTime.data.map((x: any) => x.tal+'시'));
             console.log(time);
             setTimeCnt(reTime.data.map((x: any) => x.sum));
             console.log('-----------------------')
@@ -93,7 +95,10 @@ export default function OwnerDashF() {
             setCateCnt(reCate.data.map((x: any) => x.sum));
 
 
+            setTotal(reGender.data[0].sum + reGender.data[1].sum);
+            
             console.log(reTime);
+            console.log(reCate);
         } catch (e) {
             console.log(e);
         }
@@ -105,6 +110,7 @@ export default function OwnerDashF() {
             </DivNav>
             <DivMain>
                 <h3>판매</h3>
+                <div> 총 예약 판매 건수 : {total} </div>
                 <DivChart>
                     <DivChart1>
                         <Line data={{

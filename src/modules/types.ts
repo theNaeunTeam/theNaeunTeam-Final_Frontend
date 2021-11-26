@@ -201,3 +201,8 @@ export type categoryType = {
 export type carouselType = {
     src: string, altText: string, header: string, description: string, link: string,
 }
+
+export type conType = {
+    sum : number,
+    tal : number,
+}
