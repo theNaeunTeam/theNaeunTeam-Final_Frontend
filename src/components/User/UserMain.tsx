@@ -31,9 +31,6 @@ export default function UserMain() {
     const [loading, setLoading] = useState(true);
     const [items, setItems] = useState<carouselType[]>([]);
     const history = useHistory();
-    useLayoutEffect(() => {
-        if (!localStorage.getItem('userToken')) history.push('/err');
-    }, []);
 
 
     useEffect(() => {
