@@ -212,3 +212,8 @@ export interface recommendType {
     g_price: number,
     o_name: string,
 }
+
+export type conType = {
+    sum : number,
+    tal : number,
+}
