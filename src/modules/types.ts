@@ -201,3 +201,12 @@ export type categoryType = {
 export type carouselType = {
     src: string, altText: string, header: string, description: string, link: string,
 }
+
+export interface recommendType {
+    g_owner:string,
+    g_discount: number,
+    g_image: string,
+    g_name: string,
+    g_price: number,
+    o_name: string,
+}
