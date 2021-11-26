@@ -1,11 +1,11 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
-import logo from '../../logo.svg';
 import {useHistory} from "react-router-dom";
-import {client} from "../../lib/api/client";
 import Carousel from 'react-material-ui-carousel'
 import {Button, Paper} from '@mui/material'
-import {carouselType} from "../../modules/types";
+import {carouselType, recommendType} from "../../../modules/types";
+import axios from "axios";
+import RecommendList from "./RecommendList";
 
 const DivContainer = styled.div`
   margin: 20px;
@@ -30,15 +30,18 @@ export default function UserMain() {
 
     const [loading, setLoading] = useState(true);
     const [items, setItems] = useState<carouselType[]>([]);
+    const [recommends, setRecommends] = useState<recommendType[]>([]);
     const history = useHistory();
-    useLayoutEffect(() => {
-        if (!localStorage.getItem('userToken')) history.push('/err');
-    }, []);
 
 
     useEffect(() => {
+        fetchBanner();
+        fetchRecommendList();
+    }, []);
+
+    const fetchBanner = () => {
         const URL = '/common/banner';
-        client.get(URL)
+        axios.get(URL)
             .then(res => {
                 setItems(res.data)
                 console.log(res.data);
@@ -48,8 +51,20 @@ export default function UserMain() {
                 console.log(err);
                 alert('페이지 초기화 실패');
             })
-    }, [])
+    }
 
+    const fetchRecommendList = () => {
+        const URL = '/common/recommendList';
+        axios.get(URL)
+            .then(res => {
+                console.log(res.data);
+                setRecommends(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }
 
     interface itemType {
         data: carouselType;
@@ -100,53 +115,10 @@ export default function UserMain() {
                 </Carousel>
                 }
             </DivCarouselContainer>
-            <h2>추천</h2>
+            <h2>지금 등록된 상품</h2>
             <br/>
             <DivRecommend>
-                <span>
-                    <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo} onClick={() => history.push('/shopView/123')}/>
-                        <br/>
-                        가계명 :
-                        <br/>
-                        원가 :
-                        <br/>
-                        할인가 :
-                    </div>
-                </span>
-                <span>
-                    <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo}/>
-                        <br/>
-                        가계명 :
-                        <br/>
-                        원가 :
-                        <br/>
-                        할인가 :
-                    </div>
-                </span>
-                <span>
-                    <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo}/>
-                        <br/>
-                        가계명 :
-                        <br/>
-                        원가 :
-                        <br/>
-                        할인가 :
-                    </div>
-                </span>
-                <span>
-                    <div style={{height: '200px', width: '200px'}}>
-                        <img src={logo}/>
-                        <br/>
-                        가계명 :
-                        <br/>
-                        원가 :
-                        <br/>
-                        할인가 :
-                    </div>
-                </span>
+                {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data} history={history}/>)}
             </DivRecommend>
         </DivContainer>
     )

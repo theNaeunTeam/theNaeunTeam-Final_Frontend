@@ -155,6 +155,7 @@ export type userMyPageType = {
 };
 
 export type orderSubmitType = {
+    r_firstDate: string,
     r_u_id: string,
     r_g_code: number,
     r_firstTime: string,
@@ -171,6 +172,7 @@ export type orderForm = {
     payment: string,
     tumbler: string,
     kudasai: string,
+    r_firstDate: string,
 }
 
 export type shopList = {
@@ -200,4 +202,18 @@ export type categoryType = {
 
 export type carouselType = {
     src: string, altText: string, header: string, description: string, link: string,
+}
+
+export interface recommendType {
+    g_owner: string,
+    g_discount: number,
+    g_image: string,
+    g_name: string,
+    g_price: number,
+    o_name: string,
+}
+
+export type conType = {
+    sum : number,
+    tal : number,
 }

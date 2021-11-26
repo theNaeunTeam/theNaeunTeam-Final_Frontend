@@ -27,6 +27,7 @@ const DivBorderd = styled.div`
 `;
 
 export default function Order() {
+    const today = new Date();
 
     const defaultValue = {
         who: '제가 직접 받음',
@@ -35,7 +36,7 @@ export default function Order() {
         payment: 'self',
         tumbler: '',
         kudasai: '',
-
+        r_firstDate: `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`
     }
 
     const history = useHistory();
@@ -64,6 +65,7 @@ export default function Order() {
 
         for (let i = 0; i < cartReducer.length; i++) {
             const data: orderSubmitType = {
+                r_firstDate: orderForm.r_firstDate,
                 r_u_id: authReducer.u_id,
                 r_g_code: cartReducer[i].g_code,
                 r_firstTime: orderForm.time,
@@ -143,7 +145,19 @@ export default function Order() {
                             inputProps={{
                                 step: 3000, // 30 min
                             }}
-                            sx={{width: 300}}
+                            sx={{width: 200}}
+                        />
+                        <TextField
+                            name={'r_firstDate'}
+                            id="r_firstDate"
+                            label="방문 예정 일자"
+                            type="date"
+                            defaultValue={orderForm.r_firstDate}
+                            sx={{width: 200}}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            InputProps={{inputProps: { min: orderForm.r_firstDate} }}
                         />
                     </DivBorderd>
                     <DivBorderd>

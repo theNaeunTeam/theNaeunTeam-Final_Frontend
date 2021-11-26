@@ -129,7 +129,7 @@ export default function OwnerMain() {
             console.log('aaaaaaaaaaaaaaaa');
 
 
-            setYearArr(response.data['year'].map((x: any) => x.date));
+            setYearArr(response.data['year'].map((x: any) => x.date+'년'));
             setYearSumArr(response.data['year'].map((x: any) => x.sum));
 
             console.log('---------------------');
@@ -179,13 +179,14 @@ export default function OwnerMain() {
         console.log(yearIdx);
         console.log(yearArr.length - 1);
 
-        if (yearIdx > yearArr.length) {
+        if (yearIdx >= yearArr.length && yearIdx-3 >0 ) {
             setYearIdx(yearIdx - 1);
             console.log(yearIdx + "!!!!");
         }
     }
     const desYIdx = () => {
-        if (0 <= yearIdx && yearIdx <= (yearArr.length - 1)) {
+        console.log(yearSumArr.slice(yearIdx - 3, yearIdx));
+        if (yearArr.length-3 <= yearIdx && yearIdx < yearArr.length) {
             setYearIdx(yearIdx + 1);
             console.log(yearIdx + "$$");
         }
@@ -338,6 +339,7 @@ export default function OwnerMain() {
 
                                         label: '연도별 매출액',
                                         data: yearSumArr.slice(yearIdx - 3, yearIdx),
+
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(255, 159, 64, 0.2)',

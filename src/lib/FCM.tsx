@@ -10,7 +10,13 @@ import Button from '@mui/material/Button';
 export default function FCM() {
     const [show, setShow] = useState(false);
     const [isTokenFound, setTokenFound] = useState(false);
-    const [notification, setNotification] = useState<{ title?: string, body?: string }>({title: '', body: ''});
+    const [notification, setNotification] = useState<{ title?: string, body?: string, etc?: string, img?: string, }>
+    ({
+        title: '',
+        body: '',
+        etc: '',
+        img: '',
+    });
 
     const firebaseConfig = {
         apiKey: "AIzaSyCdDnZLLw2wo1KpixiGqQKXKKOES0pi1bU",
@@ -67,10 +73,10 @@ export default function FCM() {
     onMessageListener()
         .then((payload: any) => {
             setShow(true);
-            setNotification({title: payload.notification.title, body: payload.notification.body})
             console.log(payload);
-            console.log(payload.notification.title);
-            console.log(payload.notification.body);
+            console.log(payload.data.title);
+            console.log(payload.data.body);
+            setNotification({title: payload.data.title, body: payload.data.body})
         })
         .catch(err => console.log('failed: ', err));
 

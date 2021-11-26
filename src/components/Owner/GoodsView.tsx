@@ -189,7 +189,6 @@ export default function GoodsView() {
                                 <MenuItem value=''>모두 보기</MenuItem>
                                 <MenuItem value={'0'}>판매중</MenuItem>
                                 <MenuItem value={'1'}>판매완료</MenuItem>
-                                <MenuItem value={'1'}>판매완료</MenuItem>
                                 <MenuItem value={'2'}>판매중지</MenuItem>
 
                             </Select>
