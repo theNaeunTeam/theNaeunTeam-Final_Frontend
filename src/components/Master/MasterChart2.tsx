@@ -63,12 +63,12 @@ export default function MasterChart2() {
 
     const yearInit = () => {
         setYearIndex(yearArr.length);
+        setMonYear(2019 + yearArr.length -1 );
     }
 
-
-    //차트 데이터 가져오기
+    // 차트 데이터 가져오기
     const chart = async () => {
-        const URL = '/master/OnwerUserChart';
+        const URL = '/master/OwnerUserChart2';
         try {
             const res = await client.get(URL);
 

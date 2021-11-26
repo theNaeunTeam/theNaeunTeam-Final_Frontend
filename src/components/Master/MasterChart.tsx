@@ -64,12 +64,13 @@ export default function MasterChart() {
 
     const yearInit = () => {
         setYearIndex(yearArr.length);
+        setMonYear(2019 + yearArr.length -1 );
     }
 
 
     //차트 데이터 가져오기
     const chart = async () => {
-        const URL = '/master/OnwerUserChart';
+        const URL = '/master/OwnerUserChart';
         try {
             const res = await client.get(URL);
 
@@ -152,8 +153,7 @@ export default function MasterChart() {
                         <button onClick={IncMonYear}>+</button>
                     </>
             }
-            {
-                ///////////////////////////년도별
+            {   ///////////////////////////년도별
                 loading ?
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
@@ -168,7 +168,6 @@ export default function MasterChart() {
                                     borderColor: 'rgba(75, 192, 192, 1)',
                                     data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.owner)),
                                     tension: 0.3
-
                                 },
                                 {
                                     label: "유저 가입자수",
@@ -177,7 +176,6 @@ export default function MasterChart() {
                                     backgroundColor: 'rgba(153, 102, 255, 0.2)', // 점색
                                     data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.user)),
                                     tension: 0.3
-
                                 }]
                         }}
                              />
