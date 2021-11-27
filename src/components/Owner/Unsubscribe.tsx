@@ -63,12 +63,9 @@ export default function Unsubscribe() {
             }
 
         } catch (e) {
-            const err = e as AxiosError;
-            if(err.response){
-                console.log(err.response);
-            }
-
-            alert("비밀번호가 틀렸습니다.")
+            // @ts-ignore
+            const err = e.response;
+            alert(err.data.error);
         }
     };
 
