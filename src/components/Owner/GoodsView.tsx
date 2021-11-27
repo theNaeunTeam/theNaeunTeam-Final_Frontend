@@ -221,7 +221,8 @@ export default function GoodsView() {
                         </tr>
                         </thead>
                         <tbody>
-                        {list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                        {list.length === 0? '등록한 상품이 없습니다.'
+                            :list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                         </tbody>
                     </TableStyled>
                 </DivMain>
