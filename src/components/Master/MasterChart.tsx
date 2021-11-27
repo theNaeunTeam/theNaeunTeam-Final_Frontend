@@ -6,6 +6,7 @@ import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
 import MasterChart2 from "./MasterChart2";
+import MasterChart3 from "./MasterChart3";
 
 export default function MasterChart() {
 
@@ -184,6 +185,7 @@ export default function MasterChart() {
                     </>
             }
             <MasterChart2/>
+            <MasterChart3/>
         </>
     )
 }
