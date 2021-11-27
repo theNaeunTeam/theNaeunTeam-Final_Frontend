@@ -62,8 +62,9 @@ export default function MasterMain() {
                 await ownerTableInit();
             }
         } catch (e) {
-            alert('아이디/비밀번호를 확인해주세요');
-            console.log(e);
+            // @ts-ignore
+            const err = e.response;
+            alert(err.data.error);
         }
 
     }

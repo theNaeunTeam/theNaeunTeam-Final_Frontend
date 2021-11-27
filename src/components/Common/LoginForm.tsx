@@ -60,7 +60,9 @@ export default function LoginForm(props: RouteComponentProps) {
                     alert('사업자번호 및 비밀번호를 확인해 주세요');
                 }
             } catch (e) {
-                console.log(e);
+                // @ts-ignore
+                const err = e.response;
+                alert(err.data.error);
             }
         } else {
             const URL = '/common/userlogin';
@@ -77,7 +79,11 @@ export default function LoginForm(props: RouteComponentProps) {
                     alert(`아이디 및 비밀번호를 확인해주세요`);
                 }
             } catch (e) {
+                // @ts-ignore
+                const err = e.response;
                 console.log(e);
+                console.log(err.data.error);
+                alert(err.data.error);
             }
         }
 
