@@ -491,7 +491,8 @@ export default function ShopView() {
                             onClick={categoryChange}>식품외 기타 {category.other}</Button>
                 </DivButton>
 
-                {rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                {rows.length === 0 ? <div>상품 준비 중 입니다</div>
+                    :rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                 <DivContainer>
                     <Button style={{background: 'red', width: '100%'}} variant="contained"
                             onClick={() => history.push('/user/shoppingcart')}>장바구니
