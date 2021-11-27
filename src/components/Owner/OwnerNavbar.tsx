@@ -30,7 +30,6 @@ export default function OwnerNavbar() {
                 <NavItem><Link to={'/owner/addProduct'}>상품등록</Link></NavItem>
                 <NavItem><Link to={'/owner/goodsview'}>상품조회</Link></NavItem>
                 <NavItem><Link to={'/owner/reservationview'}>예약현황</Link></NavItem>
-                <NavItem><Link to={'/owner/sellingview'}>판매내역</Link></NavItem>
                 <NavItem><Link to={'/owner/unsubscribe'}>이용해지신청</Link></NavItem>
             </ul>
         </Nav>

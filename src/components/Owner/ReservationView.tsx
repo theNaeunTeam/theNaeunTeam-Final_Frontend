@@ -144,7 +144,7 @@ export default function ReservationView() {
                     {props.data.r_customOrder}
                 </td>
                 <td>
-                    {props.data.r_firstTime}
+                    {props.data.r_firstDate} / {props.data.r_firstTime}
                 </td>
                 <td>
                     {props.data.r_status === 0 ? '예약 승인 대기중'
@@ -246,7 +246,7 @@ export default function ReservationView() {
                             <th>주문자</th>
                             <th>주문 수량</th>
                             <th>요청사항</th>
-                            <th>방문 예정 시간</th>
+                            <th>방문 예정 일자</th>
                             <th>상태</th>
                             <th>승인</th>
                         </tr>

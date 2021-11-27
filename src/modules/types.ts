@@ -85,6 +85,7 @@ export type goodsViewType = {
     g_expireDate: string,
     g_category: string,
     g_status: number,
+    cnt:number,
 };
 
 export type ownerPageType = {
@@ -125,6 +126,7 @@ export type reservationViewType = {
     r_firstTime: string,
     r_status: number,
     r_customOrder: string,
+    r_firstDate : string,
     g_name: string,
     g_category: string,
     g_expireDate: string,

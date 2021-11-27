@@ -65,6 +65,7 @@ export default function GoodsView() {
             const res = await client.get(`${URL}?o_sNumber=${localStorage.getItem('o_sNumber')}`);
             setList(res.data);
             setLoading(false);
+            console.log(res.data);
         } catch (e) {
             console.log(e);
         }
@@ -130,6 +131,9 @@ export default function GoodsView() {
                 <td> {props.data.g_status === 0 ? '판매중'
                     : props.data.g_status === 1 ? '판매완료'
                         : props.data.g_status === 2 ? '판매중지' : null}
+                </td>
+                <td>
+                    {props.data.cnt}
                 </td>
                 <td>
                     {props.data.g_count}
@@ -210,6 +214,7 @@ export default function GoodsView() {
                             <th>할인가</th>
                             <th>유통기한</th>
                             <th>상태</th>
+                            <th>판매수량</th>
                             <th>남은수량</th>
                             <th>수정</th>
                             <th>삭제</th>
