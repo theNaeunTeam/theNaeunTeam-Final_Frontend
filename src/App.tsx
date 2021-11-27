@@ -15,7 +15,6 @@ import OwnerMain from "./components/Owner/OwnerMain";
 import AddProduct from "./components/Owner/AddProduct";
 import GoodsView from "./components/Owner/GoodsView";
 import ReservationView from "./components/Owner/ReservationView";
-import SellingView from "./components/Owner/SellingView";
 import Unsubscribe from "./components/Owner/Unsubscribe";
 import {client} from "./lib/api/client";
 import UserNavbar from "./components/User/UserNavbar";
@@ -134,7 +133,6 @@ function App() {
             <Route path='/owner/addproduct' component={AddProduct}/>
             <Route path='/owner/goodsview' component={GoodsView}/>
             <Route path='/owner/reservationview' component={ReservationView}/>
-            <Route path='/owner/sellingview' component={SellingView}/>
             <Route path='/owner/unsubscribe' component={Unsubscribe}/>
             <Route path='/owner/ownerdashf' component={OwnerDashF}/>
             <Route path='/owner/ownerdashs' component={OwnerDashS}/>
