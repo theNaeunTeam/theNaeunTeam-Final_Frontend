@@ -8,13 +8,6 @@ import styled from "styled-components";
 
 export default function MasterChart2() {
 
-    const DivBorderd = styled.div`
-      display: flex;
-      justify-content: space-between;
-      border-top: solid lightgray 10px;
-      padding: 10px;
-    `;
-
     const history = useHistory();
 
     useLayoutEffect(() => {
@@ -82,7 +75,6 @@ export default function MasterChart2() {
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, owner: b.sum, user: b.tal})));
 
             setLoading(false);
-
         } catch (e) {
             console.log(e);
         }
