@@ -76,11 +76,11 @@ export default function FindPw() {
     }
 
     const submitForm = async () => {
-        const pw = match.params.token.replace(/가/gi, "/");
+
         const URL = '/common/changePW'
         const data = {
             u_id: match.params.id,
-            u_pw: pw,
+            u_pw: regForm.u_pw,
         }
         try{
             const res = await client.patch(URL, data);
