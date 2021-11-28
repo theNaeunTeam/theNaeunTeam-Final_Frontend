@@ -62,11 +62,13 @@ export default function GoodsView() {
     const initialize = async () => {
         const URL = '/owner/goodsView';
         try {
-            const res = await client.get(`${URL}?o_sNumber=${localStorage.getItem('o_sNumber')}`);
+            // const res = await client.get(`${URL}?o_sNumber=${localStorage.getItem('o_sNumber')}`);
+            const res = await client.get(URL);
             setList(res.data);
             setLoading(false);
             console.log(res.data);
         } catch (e) {
+            alert("데이터를 가져오는데 실패하였습니다.");
             console.log(e);
         }
     };
@@ -84,11 +86,16 @@ export default function GoodsView() {
         client.patch(URL, {g_code: g_code})
             .then(res => {
                 console.log(res);
-                alert('성공');
+
+                alert('상품 삭제 성공하였습니다.');
+
+
             })
             .catch(e => {
+                // @ts-ignore
+                const err = e.response;
                 console.log(e);
-                alert('실패');
+                alert(err.data.error);
             })
     };
 
@@ -221,8 +228,8 @@ export default function GoodsView() {
                         </tr>
                         </thead>
                         <tbody>
-                        {list.length === 0? '등록한 상품이 없습니다.'
-                            :list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                        {list.length === 0 ? '등록한 상품이 없습니다.'
+                            : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                         </tbody>
                     </TableStyled>
                 </DivMain>
