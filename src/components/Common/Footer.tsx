@@ -11,8 +11,7 @@ export default function Footer() {
 
     return (
         <DivFooter>
-            <hr/>
-            <h1>Footer</h1>
+            <a href={'/PrivacyPolicy'}>개인정보처리방침</a>
         </DivFooter>
     )
 }
