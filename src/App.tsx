@@ -40,6 +40,8 @@ import OwnerDashF from "./components/Owner/OwnerDashF";
 import UserDash from "./components/Master/UserDash";
 import MasterChart from "./components/Master/MasterChart";
 import PrivacyPolicy from "./components/Common/PrivacyPolicy";
+import FindPw from "./components/Common/findpw";
+
 
 function App() {
 
@@ -98,6 +100,8 @@ function App() {
                 <Route exact path='/user/register' component={UserRegisterForm}/>
 
                 <Route exact path='/owner/register' component={OwnerRegisterForm}/>
+
+                <Route exact path = '/findpw/:id/:token' component={FindPw}/>
 
             </Switch>
 

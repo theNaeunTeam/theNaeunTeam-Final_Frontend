@@ -211,7 +211,8 @@ export default function UserReserve() {
                 </thead>
                 <tbody>
 
-                {list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                {list.length === 0 ? '예약 기록이 없습니다. '
+                    : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                 </tbody>
             </TableStyled>
         </DivContainer>

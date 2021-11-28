@@ -129,12 +129,20 @@ export default function AddProduct() {
 
         try {
             const res = await client.post(URL, formData);
-            alert(actionType + '성공');
+
+            const result = '';
+            if(actionType ==='new'){
+                alert("상품 등록 되었습니다.");
+            }else{
+                alert("상품 수정 되었습니다.");
+            }
             dispatch({type: 'modifyOK'});
             setProduct(initValue);
             console.log(res);
         } catch (e) {
-            alert(actionType + '실패');
+            // @ts-ignore
+            const err = e.response;
+            alert(err.data.error);
             console.log(e);
         }
     };

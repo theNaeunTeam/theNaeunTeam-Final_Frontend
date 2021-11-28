@@ -45,11 +45,13 @@ export default function UserExit() {
         try {
             const res = await client.post(URL, userForm);
             console.log(res.data);
-            res.data === true
+            res.data === 1
                 ? (alert('회원 탈퇴 되었습니다.'), history.push('/'))
-                : alert('비밀번호가 맞지않습니다.')
+                : alert('회원 탈퇴 실패하였습니다.')
         } catch (e) {
-            console.log(e);
+            // @ts-ignore
+            const err = e.response;
+            alert(err.data.error);
         }
     };
 

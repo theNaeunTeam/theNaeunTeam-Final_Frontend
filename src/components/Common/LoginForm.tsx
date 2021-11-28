@@ -89,7 +89,25 @@ export default function LoginForm(props: RouteComponentProps) {
 
     }
 
-    const findId = () => {
+    const findId = async () => {
+        const URL = '/common/userFindPW';
+        console.log(findPw);
+        const data = {
+          u_id : findPw,
+        }
+        console.log(data);
+        try{
+            // 아이디 전송
+            const res = await client.post(URL,data);
+
+            if(res){
+                alert("이메일로 비밀전호 재설정 메일을 보내드렸습니다.");
+            }
+        }catch (e){
+            //@ts-ignore
+            const err = e.response
+            alert(err.data.error);
+        }
         // 백엔드로 아이디 전송
         setOpen(false);
     }
@@ -99,6 +117,7 @@ export default function LoginForm(props: RouteComponentProps) {
 
     // 비밀번호 찾기 버튼 눌렀을때
     const handleClickOpen = () => {
+
         setOpen(true);
     };
 
@@ -182,7 +201,7 @@ export default function LoginForm(props: RouteComponentProps) {
                             margin="dense"
                             id="id"
                             label="아이디"
-                            type="email"
+                            // type="email"
                             fullWidth
                             variant="standard"
                             value={findPw}

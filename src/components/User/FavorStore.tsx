@@ -148,7 +148,8 @@ export default function FavorStore() {
                 </tr>
                 </thead>
                 <tbody>
-                {list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                {list.length === 0 ? '즐겨찾는 가게가 없습니다. '
+                    :list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                 </tbody>
             </TableStyled>
         </DivContainer>
