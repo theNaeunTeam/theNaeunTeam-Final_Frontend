@@ -108,10 +108,16 @@ export default function OwnerRegisterForm() {
 
         try {
             const res = await client.post(URL, formData);
-            alert('등록성공');
-            console.log(res);
-        } catch (e) {
-            alert('실패');
+
+            if (res.data === 1) {
+
+                alert('등록성공');
+                console.log(res);
+            }
+        } catch(e) {
+            // @ts-ignore
+            const err = e.response;
+            alert(err.data.error);
             console.log(e);
         }
     }
