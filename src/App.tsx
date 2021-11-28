@@ -39,6 +39,7 @@ import OwnerDashS from "./components/Owner/OwnerDashS";
 import OwnerDashF from "./components/Owner/OwnerDashF";
 import UserDash from "./components/Master/UserDash";
 import MasterChart from "./components/Master/MasterChart";
+import PrivacyPolicy from "./components/Common/PrivacyPolicy";
 
 function App() {
 
@@ -139,6 +140,7 @@ function App() {
 
 
             <Route path={'/err'} component={PageNotFound}/>
+            <Route path={'/PrivacyPolicy'} component={PrivacyPolicy}/>
             <Footer/>
         </>
     );
