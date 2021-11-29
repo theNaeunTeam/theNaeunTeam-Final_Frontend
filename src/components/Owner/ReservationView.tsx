@@ -49,7 +49,6 @@ export default function ReservationView() {
     const [list, setList] = useState<reservationViewType[]>([]);
     const [g_category, setG_category] = useState('');
     const [r_status, setR_status] = useState('');
-    const [selectedStatus, setSelectedStatus] = useState(0);
     const [searchInput, setSearchInput] = useState('');
     const [loading, setLoading] = useState(true);
 
@@ -73,10 +72,10 @@ export default function ReservationView() {
         }
     };
 
-    const changeGoodsStatus = async (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const changeGoodsStatus = async (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>, idx:number) => {
         const data: { r_code: number, check: number } = {
             r_code: Number((input.target as HTMLButtonElement).name),
-            check: selectedStatus
+            check: list[idx].selectedStatus,
         };
 
         console.log('서버로 보내는 배열 : ', data);
@@ -162,8 +161,13 @@ export default function ReservationView() {
                         <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            value={selectedStatus}
-                            onChange={e => setSelectedStatus(e.target.value as number)}
+                            defaultValue={props.data.r_status}
+                            value={props.data.selectedStatus}
+                            onChange={e => {
+                                const cp = [...list];
+                                cp[props.idx].selectedStatus = Number(e.target.value);
+                                setList(cp);
+                            }}
                         >
                             <MenuItem value={1}>승인</MenuItem>
                             <MenuItem value={2}>거절</MenuItem>
@@ -173,7 +177,7 @@ export default function ReservationView() {
                     </FormControl>
                     {/*@ts-ignore*/}
                     <Button data-testid='my-test-id' name={props.data.r_code} variant="outlined"
-                            onClick={e => changeGoodsStatus(e)}>확인</Button>
+                            onClick={e => changeGoodsStatus(e, props.idx)}>확인</Button>
                 </td>
 
             </tr>
