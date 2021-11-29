@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
-import {client} from "../../lib/api/client";
+import {client} from "../../../lib/api/client";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../index";
+import {RootState} from "../../../index";
 import {Button} from "@mui/material";
 import {useHistory} from "react-router-dom";
-import {ShoppingCartDTO} from "../../modules/types";
+import {ShoppingCartDTO} from "../../../modules/types";
 import CircularProgress from '@mui/material/CircularProgress';
 
 const DivContainer = styled.div`
@@ -173,7 +173,7 @@ export default function ShoppingCart() {
                 </>
                 :
                 <>
-                    <h1>{loading ? <CircularProgress/> : '텅'}</h1>
+                    <h1>{loading ? <CircularProgress/> : '장바구니에 담은 상품이 없습니다`'}</h1>
                 </>
             }
 

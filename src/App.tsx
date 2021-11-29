@@ -18,7 +18,7 @@ import ReservationView from "./components/Owner/ReservationView";
 import Unsubscribe from "./components/Owner/Unsubscribe";
 import {client} from "./lib/api/client";
 import UserNavbar from "./components/User/UserNavbar";
-import ShoppingCart from "./components/User/ShoppingCart";
+import ShoppingCart from "./components/User/ShoppingCart/ShoppingCart";
 import PageNotFound from "./components/Common/PageNotFound";
 import UserMypage from "./components/User/UserMypage";
 import Order from './components/User/Order';
