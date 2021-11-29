@@ -8,8 +8,12 @@ import axios from "axios";
 import RecommendList from "./RecommendList";
 
 const DivContainer = styled.div`
+  clear:both;
   margin: 20px;
   text-align: center;
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 19px;
 `;
 
 const DivCarouselContainer = styled.div`
@@ -23,6 +27,7 @@ const DivRecommend = styled.div`
   text-align: center;
   display: flex;
   justify-content: space-evenly;
+  height: 100%;
 `;
 
 
@@ -74,12 +79,19 @@ export default function UserMain() {
     function Item({data, idx}: itemType) {
         return (
             <Paper>
-                <h2>{data.header}</h2>
-                <p>{data.description}</p>
-                <img src={data.src} alt={data.altText} height={'500px'} width={'100%'}/>
-                <Button variant="outlined" onClick={() => history.push(data.link)}>
-                    Check it out!
-                </Button>
+                <div style={{
+                    backgroundImage: `url(${data.src})`,
+                    width : "100%",
+                    height : "600px",
+                    backgroundSize : "100% 600px"
+                }}>
+                    <h2>{data.header}</h2>
+                    <p>{data.description}</p>
+                    {/*<img src={data.src} alt={data.altText} height={'500px'} width={'100%'}/>*/}
+                    {/*<Button variant="outlined" onClick={() => history.push(data.link)}>*/}
+                    {/*    Check it out!*/}
+                    {/*</Button>*/}
+                </div>
             </Paper>
         )
     }
@@ -115,10 +127,11 @@ export default function UserMain() {
                 </Carousel>
                 }
             </DivCarouselContainer>
-            <h2>지금 등록된 상품</h2>
+            <h2>최근 등록된 상품</h2>
             <br/>
             <DivRecommend>
-                {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data} history={history}/>)}
+                {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data}
+                                                                             history={history}/>)}
             </DivRecommend>
         </DivContainer>
     )

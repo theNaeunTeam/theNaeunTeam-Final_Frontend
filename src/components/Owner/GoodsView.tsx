@@ -86,9 +86,8 @@ export default function GoodsView() {
         client.patch(URL, {g_code: g_code})
             .then(res => {
                 console.log(res);
-
-                alert('상품 삭제 성공하였습니다.');
-
+                alert('상품 판매중지 되었습니다.');
+                initialize();
 
             })
             .catch(e => {
@@ -149,7 +148,7 @@ export default function GoodsView() {
                     <button name={`${props.data.g_code}`} onClick={e => modifyGoods(e)}>수정</button>
                 </td>
                 <td>
-                    <button name={`${props.data.g_code}`} onClick={e => deleteGoods(e)}>삭제</button>
+                    <button name={`${props.data.g_code}`} onClick={e => deleteGoods(e)}>판매중지</button>
                 </td>
             </tr>
         )
@@ -224,7 +223,7 @@ export default function GoodsView() {
                             <th>판매수량</th>
                             <th>남은수량</th>
                             <th>수정</th>
-                            <th>삭제</th>
+                            <th>판매중지</th>
                         </tr>
                         </thead>
                         <tbody>

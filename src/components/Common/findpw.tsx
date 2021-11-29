@@ -85,12 +85,10 @@ export default function FindPw() {
         try{
             const res = await client.patch(URL, data);
             alert("비밀번호 변경 성공하였습니다.");
-        }catch (e){
+        }catch (e) {
             console.log(e);
             alert("비밀번호 변경 실패하였습니다.");
         }
-
-
     };
 
     return (

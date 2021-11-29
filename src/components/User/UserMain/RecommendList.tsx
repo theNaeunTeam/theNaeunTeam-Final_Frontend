@@ -12,12 +12,12 @@ export default function RecommendList(props: recommendProps) {
     return (
         <>
             <span>
-                    <div style={{height: '200px', width: '200px'}}>
+                    <div style={{height: '100%', width: '100%'}}>
                         {props.data.o_name}
                         <br/>
                         <img src={props.data.g_image}
                              onClick={() => props.history.push(`/shopView/${props.data.g_owner}`)}
-                             style={{height: '100%', width: '100%' , cursor:'pointer'}}
+                             style={{height: '70%', width: '70%' , cursor:'pointer'}}
                         />
                         <br/>
                         {props.data.g_name}

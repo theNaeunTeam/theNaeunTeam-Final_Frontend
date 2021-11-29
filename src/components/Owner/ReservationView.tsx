@@ -127,9 +127,6 @@ export default function ReservationView() {
                     {props.data.g_expireDate}
                 </td>
                 <td>
-                    {props.data.g_count}
-                </td>
-                <td>
                     {props.data.g_status === 0 ? '판매중'
                         : props.data.g_status === 1 ? '판매 완료'
                             : props.data.g_status === 2 ? '판매 중지' : null}
@@ -241,7 +238,6 @@ export default function ReservationView() {
                             <th>상품명</th>
                             <th>상품분류</th>
                             <th>유통기한</th>
-                            <th>남은수량</th>
                             <th>상품 상태</th>
                             <th>주문자</th>
                             <th>주문 수량</th>
