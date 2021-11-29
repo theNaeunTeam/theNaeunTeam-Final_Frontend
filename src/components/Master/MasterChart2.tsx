@@ -5,6 +5,8 @@ import {Line} from "react-chartjs-2";
 import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
+import '../../styles/button.css';
+import '../../styles/masterOwnerDash.css';
 
 export default function MasterChart2() {
 
@@ -112,17 +114,19 @@ export default function MasterChart2() {
 
     return (
         <>
-            <h3>마스터대시보드2 </h3>
+            <div className="flex-container-1">
+                <div className="flex-items-1">
             {
                 loading ?
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
                     <>
+                        <h4>월별 오너/유저 탈퇴자수 통계</h4>
                         <Line data={{
                             labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                             datasets: [
                                 {
-                                    label: "오너 가입자수",
+                                    label: "오너 탈퇴수",
                                     data:monArr[monIndex].map((a:any) => a.owner),
                                     fill: false,
                                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -130,7 +134,7 @@ export default function MasterChart2() {
                                     tension: 0.3
                                 },
                                 {
-                                    label: "유저 가입자수",
+                                    label: "유저 탈퇴수",
                                     fill: false,
                                     borderColor: 'rgba(153, 102, 255, 1)', // 선색
                                     backgroundColor: 'rgba(153, 102, 255, 0.2)', // 점색
@@ -138,21 +142,26 @@ export default function MasterChart2() {
                                     tension: 0.3
                                 }]
                         }}/>
-                        <button onClick={DecMonYear}>-</button>
-                        <label>{monYear}</label>
-                        <button onClick={IncMonYear}>+</button>
+                        <div className='b'>
+                        <span onClick={DecMonYear}>◀</span>
+                        <label>{monYear}년도</label>
+                        <span onClick={IncMonYear}>▶</span>
+                        </div>
                     </>
             }
+                </div>
+                <div className="flex-items-1">
             {   ///////////////////////////년도별
                 loading ?
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
                     <>
+                        <h4>년도별 오너/유저 탈퇴자수 통계</h4>
                         <Line data={{
                             labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
                             datasets: [
                                 {
-                                    label: "오너 가입자수",
+                                    label: "오너 탈퇴수",
                                     fill: false,
                                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -160,7 +169,7 @@ export default function MasterChart2() {
                                     tension: 0.3
                                 },
                                 {
-                                    label: "유저 가입자수",
+                                    label: "유저 탈퇴수",
                                     fill: false,
                                     borderColor: 'rgba(153, 102, 255, 1)', // 선색
                                     backgroundColor: 'rgba(153, 102, 255, 0.2)', // 점색
@@ -169,10 +178,14 @@ export default function MasterChart2() {
                                 }]
                         }}
                         />
-                        <button onClick={DecYear}>-</button>
-                        <button onClick={IncYear}>+</button>
+                        <div className='b'>
+                        <span onClick={DecYear}>◀</span>
+                        <span onClick={IncYear}>▶</span>
+                        </div>
                     </>
             }
+                </div>
+            </div>
         </>
     )
 }

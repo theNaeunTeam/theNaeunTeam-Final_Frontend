@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap');
+
+.aa span{
+    opacity: 0.5;
+}
+.b span{
+    opacity: 0.5;
+}
+
+h4{
+    font-family: 'Nanum Myeongjo', serif;
+}
+
+.aa span:hover {
+    opacity: 1.0;
+    /*color: cornflowerblue;*/
+    font-size: x-large;
+    text-shadow: 4px 2px 2px gray;
+    cursor: pointer;
+}
+.b span:hover {
+    opacity: 1.0;
+    /*color: cornflowerblue;*/
+    font-size: x-large;
+    text-shadow: 4px 2px 2px gray;
+    cursor: pointer;
+}
+
+.aa{
+    height: 30px;
+    vertical-align: center;
+}
+
+.aa lebel{
+    position: fixed;
+}
+
+.b{
+    height: 50px;
+    vertical-align: center;
+}
+
+
+

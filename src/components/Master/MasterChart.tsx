@@ -7,15 +7,25 @@ import {useHistory} from "react-router-dom";
 import styled from "styled-components";
 import MasterChart2 from "./MasterChart2";
 import MasterChart3 from "./MasterChart3";
+import '../../styles/button.css';
+import '../../styles/masterOwnerDash.css'
+import {Button} from "@mui/material";
 
 export default function MasterChart() {
 
-    const DivBorderd = styled.div`
-      display: flex;
-      justify-content: space-between;
-      border-top: solid lightgray 10px;
-      padding: 10px;
+
+
+    const DivChart2 = styled.div`
+      display: block;
+      width: 50%;
+      text-align: center;
     `;
+
+    const DivChart3 = styled.div`
+      display: flex;
+      margin-block: fill;
+    `;
+
 
     const history = useHistory();
 
@@ -123,69 +133,89 @@ export default function MasterChart() {
 
     return (
         <>
-            <h3>마스터대시보드 </h3>
-            {
-                loading ?
-                    <Skeleton variant="rectangular" width={210} height={118}/>
-                    :
-                    <>
-                        <Line data={{
-                            labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-                            datasets: [
-                                {
-                                    label: "오너 가입자수",
-                                    data:monArr[monIndex].map((a:any) => a.owner),
-                                    fill: false,
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    tension: 0.3
-                                },
-                                {
-                                    label: "유저 가입자수",
-                                    fill: false,
-                                    borderColor: 'rgba(153, 102, 255, 1)', // 선색
-                                    backgroundColor: 'rgba(153, 102, 255, 0.2)', // 점색
-                                    data: monArr[monIndex].map((a:any) => a.user),
-                                    tension: 0.3
-                                }]
-                          }}/>
-                        <button onClick={DecMonYear}>-</button>
-                        <label>{monYear}</label>
-                        <button onClick={IncMonYear}>+</button>
-                    </>
-            }
-            {   ///////////////////////////년도별
-                loading ?
-                    <Skeleton variant="rectangular" width={210} height={118}/>
-                    :
-                    <>
-                        <Line data={{
-                            labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
-                            datasets: [
-                                {
-                                    label: "오너 가입자수",
-                                    fill: false,
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.owner)),
-                                    tension: 0.3
-                                },
-                                {
-                                    label: "유저 가입자수",
-                                    fill: false,
-                                    borderColor: 'rgba(153, 102, 255, 1)', // 선색
-                                    backgroundColor: 'rgba(153, 102, 255, 0.2)', // 점색
-                                    data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.user)),
-                                    tension: 0.3
-                                }]
-                        }}
-                             />
-                        <button onClick={DecYear}>-</button>
-                        <button onClick={IncYear}>+</button>
-                    </>
-            }
+            <div className="flex-container-1">
+                {/*<div className='c'>*/}
+
+                <div className="flex-items-1">
+
+                    {
+                        loading ?
+                            <Skeleton variant="rectangular" width={210} height={118}/>
+                            :
+                            <>
+                                <h5  style={{background:'#E7ECFF', backgroundSize:'10px'}}>월별 오너/유저 탈퇴자수 통계 </h5>
+                                <Line data={{
+                                    labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+                                    datasets: [
+                                        {
+                                            label: "오너 가입자수",
+                                            data:monArr[monIndex].map((a:any) => a.owner),
+                                            fill: false,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                            tension: 0.3
+                                        },
+                                        {
+                                            label: "유저 가입자수",
+                                            fill: false,
+                                            borderColor: 'rgba(153, 102, 255, 1)', // 선색
+                                            backgroundColor: 'rgba(153, 102, 255, 0.2)', // 점색
+                                            data: monArr[monIndex].map((a:any) => a.user),
+                                            tension: 0.3
+                                        }]
+                                  }}/>
+                                <div className='aa'>
+                                <span onClick={DecMonYear}>◀</span>
+                                <label className='b'>{monYear}년</label>
+                                <span onClick={IncMonYear}>▶</span>
+                                </div>
+                            </>
+                    }
+                </div>
+                <div className="flex-items-1">
+
+                    {   ///////////////////////////년도별
+                        loading ?
+                            <Skeleton variant="rectangular" width={210} height={118}/>
+                            :
+                            <>
+                                <Line data={{
+                                    labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
+                                    datasets: [
+                                        {
+                                            label: "오너 탈퇴자수",
+                                            fill: false,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                            data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.owner)),
+                                            tension: 0.3
+                                        },
+                                        {
+                                            label: "유저 탈퇴자수",
+                                            fill: false,
+                                            borderColor: 'rgba(153, 102, 255, 1)', // 선색
+                                            backgroundColor: 'rgba(153, 102, 255, 0.2)', // 점색
+                                            data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.user)),
+                                            tension: 0.3
+                                        }]
+                                }}
+                                     />
+                                <div className='aa'>
+                                <span onClick={DecYear}>◀</span>
+                                <span onClick={IncYear}>▶</span>
+                                </div>
+                            </>
+                    }
+                    </div>
+                {/*</div>*/}
+            </div>
+            <br/>
+
             <MasterChart2/>
-            <MasterChart3/>
+
+            <DivChart2>
+                <MasterChart3/>
+            </DivChart2>
         </>
     )
 }
