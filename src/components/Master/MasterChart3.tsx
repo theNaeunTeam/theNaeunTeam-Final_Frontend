@@ -56,7 +56,7 @@ export default function MasterChart3() {
 
     return (
         <>
-            <h3>마스터대시보드2 </h3>
+            <h4>지역별 점주 분포 통계</h4>
             {
                 loading ?
                     <Skeleton variant="rectangular" width={210} height={118}/>

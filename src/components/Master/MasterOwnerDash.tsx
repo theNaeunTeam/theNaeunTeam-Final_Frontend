@@ -4,6 +4,8 @@ import {client} from "../../lib/api/client";
 import {Bar} from "react-chartjs-2";
 import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
+import '../../styles/masterOwnerDash.css'
+import '../../styles/button.css'
 
 // 대시 보드
 export default function MasterOwnerDash() {
@@ -108,14 +110,12 @@ export default function MasterOwnerDash() {
     const IncYear = () => {
         if (0 <= yearIndex && yearIndex <= (yearArr.length - 1)) {
             setYearIndex(yearIndex + 1);
-            setYear(year +1);
         }
     }
 
     const DecYear = () => { 
         if (yearIndex >= yearArr.length && yearIndex -3 > 0) {
             setYearIndex(yearIndex - 1);
-            setYear(year - 1);
         }
     }
 
@@ -123,11 +123,14 @@ export default function MasterOwnerDash() {
     return (
         <>
             <h3>마스터대시보드 </h3>
+            <div className="flex-container">
+            <div className="flex-items">
             {
                 loading ?
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
                     <>
+
                         <Bar data={{
                             labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                             datasets: [
@@ -167,11 +170,15 @@ export default function MasterOwnerDash() {
                                  }
 
                              }/>
-                        <button onClick={DecMonYear}>-</button>
-                        <label>{monYear}</label>
-                        <button onClick={IncMonYear}>+</button>
+                        <div className='aa'>
+                            <span onClick={DecMonYear}>◀</span>
+                            <label className='b'>{monYear}년</label>
+                            <span onClick={IncMonYear}>▶</span>
+                        </div>
                     </>
             }
+            </div>
+            <div className="flex-items">
             {   ///////////////////////////년도별
                 loading ?
                     <Skeleton variant="rectangular" width={210} height={118}/>
@@ -216,14 +223,14 @@ export default function MasterOwnerDash() {
                                  }
 
                              }/>
-                        <button onClick={DecYear}>-</button>
-                        <label>{year}</label>
-                        <button onClick={IncYear}>+</button>
+                        <div className='aa'>
+                            <span onClick={DecYear}>◀</span>
+                            <span onClick={IncYear}>▶</span>
+                        </div>
                     </>
             }
+            </div>
+            </div>
         </>
-
-
-
     )
 }

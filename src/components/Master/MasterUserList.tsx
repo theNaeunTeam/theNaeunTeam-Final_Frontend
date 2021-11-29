@@ -153,6 +153,9 @@ export default function MasterUserList() {
             <Button variant="contained" color="error" onClick={() => updateDB('no')}>
                 삭제
             </Button>
+
+
+
         </>
     )
 }
