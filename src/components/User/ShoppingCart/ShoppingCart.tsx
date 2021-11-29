@@ -4,21 +4,13 @@ import {client} from "../../../lib/api/client";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
-import {Button} from "@mui/material";
+import {Button, Paper} from "@mui/material";
 import {useHistory} from "react-router-dom";
 import {ShoppingCartDTO} from "../../../modules/types";
 import CircularProgress from '@mui/material/CircularProgress';
-
-const DivContainer = styled.div`
-  border: solid black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-`;
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
+import './shoppingCart.css';
 
 export default function ShoppingCart() {
 
@@ -32,7 +24,7 @@ export default function ShoppingCart() {
         g_image: '',
         o_name: '',
         u_id: '',
-    }]
+    }];
 
     const history = useHistory();
 
@@ -117,47 +109,48 @@ export default function ShoppingCart() {
     const ListBuilder = (props: { data: ShoppingCartDTO, idx: number }) => {
 
         return (
-            <>
-                <hr/>
-                <div>
-                    상품명 : {props.data.g_name}
-                </div>
-                <div>
-                    가격 : {props.data.g_price}원
-                    할인가:{props.data.g_discount}원
-                </div>
-                <div>
+            <Paper elevation={3} className='cartPaper'>
+                <img style={{width: '200px', height: '200px'}} src={props.data.g_image}
+                     alt={'상품이미지'}/>
+                <span className={'cartItem'}>
+                    <strong>
                     {props.data.g_status === 0 ? '구매 가능!' : '품절'}
-                </div>
-                담긴 수량 :
-                <span>
-                <button id={`${props.data.g_count}`} style={{fontSize: '20px', cursor: 'grab'}}
-                        onClick={e => plus(e, props.idx)}>➕</button>
-                <strong style={{padding: '50px'}}>{props.data.g_count}</strong>
-                <button id={`${props.data.g_count}`} style={{fontSize: '20px', cursor: 'grab'}}
-                        onClick={e => minus(e, props.idx)}>➖</button>
-                    </span>
-                <br/>
-                <div>
-                    <img style={{width: '200px', height: '200px'}} src={props.data.g_image} alt={'상품이미지'}/>
-                </div>
-                <Button variant={'contained'} name={`${props.idx}`}
-                        onClick={() => removeItem(props.data.g_code, props.idx)}>상품
-                    삭제</Button>
-            </>
+                    </strong>
+                    <div>{props.data.g_name}</div>
+                    <div>
+                        원래 가격 : {props.data.g_price}원
+                    </div>
+                    <div>
+                        할인가 : {props.data.g_discount}원
+                    </div>
+
+                </span>
+
+                <span className='cartRight'>
+                        <Button id={`${props.data.g_count}`} onClick={e => plus(e, props.idx)}><AddIcon/></Button>
+                    <span>수량 : <strong>{props.data.g_count}</strong></span>
+                <Button id={`${props.data.g_count}`} onClick={e => minus(e, props.idx)}><RemoveIcon/>
+                </Button>
+
+
+                    <Button variant={'outlined'} name={`${props.idx}`} color="error"
+                            onClick={() => {
+                                if (!window.confirm('상품을 삭제하시겠습니까?')) return false;
+                                removeItem(props.data.g_code, props.idx)
+                            }}>
+                        삭제
+                    </Button>
+                </span>
+            </Paper>
         )
     }
 
     return (
-        <DivContainer>
-            <div>장바구니</div>
-            <hr/>
+        <div className={'cartDivContainer'}>
+            <strong>{cartReducer.length === 0 || `${cartReducer[0].o_name} `}장바구니</strong>
             {cartReducer.length ?
                 <>
-                    <div>
-                        {cartReducer.length === 0 || `가게명 : ${cartReducer[0].o_name}`}
-                    </div>
-
+                    <br/>
                     {cartReducer.map((data: ShoppingCartDTO, idx: number) => <ListBuilder data={data} idx={idx}
                                                                                           key={idx}/>)}
                     <br/>
@@ -166,17 +159,17 @@ export default function ShoppingCart() {
                         <br/>
                         총 금액 : {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
                     </div>
-                    <Button variant={'contained'} onClick={() => {
+                    <Button variant={'contained'} color="success" onClick={() => {
                         dispatch({type: 'orderIn'});
                         history.push('/user/order');
                     }}>주문하기</Button>
                 </>
                 :
                 <>
-                    <h1>{loading ? <CircularProgress/> : '장바구니에 담은 상품이 없습니다`'}</h1>
+                    <h3>{loading ? <CircularProgress/> : '장바구니에 담은 상품이 없습니다'}</h3>
                 </>
             }
 
-        </DivContainer>
+        </div>
     )
 }
