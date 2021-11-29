@@ -5,21 +5,29 @@ import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {userMyPageType} from "../../modules/types";
+import UserNavbar from "./UserNavbar";
 
 const DivContainer = styled.div`
   border: solid black;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
-  margin: 50px;
+  margin: 20px;
   padding: 10px;
+  height: 100%;
+  width: 100%;
+  clear: both;
 `;
 
-const DivHalfMenu = styled.div`
-  flex: 1;
-  margin: 10px;
-  padding: 10px;
-`;
 
+const DivNav = styled.div`
+  width: 20%;
+  font-size: large;
+
+`;
+const DivMain = styled.div`
+  width: 70%;
+  height: 100%;
+`;
 export default function UserMypage() {
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
@@ -52,11 +60,14 @@ export default function UserMypage() {
     }
     return (
         <DivContainer>
-            <DivHalfMenu>
+            <DivNav>
+                <UserNavbar />
+            </DivNav>
+            <DivMain>
                 <h3>{userData.u_id}님은 지구를 {userData.save} 번 구하셨습니다.</h3>
                 <h5>지구를 구하는 중 : {userData.reserve} </h5>
                 <h5>포인트 : {userData.u_point}</h5>
-            </DivHalfMenu>
+            </DivMain>
         </DivContainer>
     )
 }

@@ -18,6 +18,8 @@ import DialogActions from "@mui/material/DialogActions";
 import {RouteComponentProps, useHistory} from 'react-router-dom';
 import {client} from "../../lib/api/client";
 import {useDispatch} from "react-redux";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function LoginForm(props: RouteComponentProps) {
 
@@ -32,7 +34,7 @@ export default function LoginForm(props: RouteComponentProps) {
 
     const [loginForm, setloginForm] = useState(initValue);
     const [findPw, setFindPw] = useState('');
-
+    const [loading, setLoading] = useState(false);
 
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(loginForm);
@@ -90,20 +92,21 @@ export default function LoginForm(props: RouteComponentProps) {
     }
 
     const findId = async () => {
+        setLoading(true);
         const URL = '/common/userFindPW';
         console.log(findPw);
         const data = {
-          u_id : findPw,
+            u_id: findPw,
         }
         console.log(data);
-        try{
+        try {
             // 아이디 전송
-            const res = await client.post(URL,data);
-
-            if(res){
+            const res = await client.post(URL, data);
+            setLoading(false);
+            if (res) {
                 alert("이메일로 비밀전호 재설정 메일을 보내드렸습니다.");
             }
-        }catch (e){
+        } catch (e) {
             //@ts-ignore
             const err = e.response
             alert(err.data.error);
@@ -125,8 +128,10 @@ export default function LoginForm(props: RouteComponentProps) {
     const handleClose = () => {
         setOpen(false);
     };
+
     return (
         <>
+
             <div style={{textAlign: 'center'}}>
                 <form onChange={e => handleForm(e)} onSubmit={e => e.preventDefault()}>
 
@@ -207,6 +212,12 @@ export default function LoginForm(props: RouteComponentProps) {
                             value={findPw}
                             onChange={e => setFindPw(e.target.value)}
                         />
+                        <Backdrop
+                            sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                            open={loading}
+                        >
+                            <CircularProgress color="inherit"/>
+                        </Backdrop>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>취소</Button>

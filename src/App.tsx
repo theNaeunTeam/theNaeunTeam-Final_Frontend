@@ -41,6 +41,7 @@ import UserDash from "./components/Master/UserDash";
 import MasterChart from "./components/Master/MasterChart";
 import PrivacyPolicy from "./components/Common/PrivacyPolicy";
 import FindPw from "./components/Common/findpw";
+import MainBar from "./components/Common/MainBar";
 
 
 function App() {
@@ -92,8 +93,9 @@ function App() {
         <>
             <Header/>
 
-            <Switch>
-                <Route exact path='/' component={UserMain}/>
+
+                <Route path='/' component={MainBar}/>
+                <Route path='/'exact component={UserMain}/>
 
                 <Route exact path='/login' component={LoginForm}/>
 
@@ -103,7 +105,7 @@ function App() {
 
                 <Route exact path = '/findpw/:id/:token' component={FindPw}/>
 
-            </Switch>
+
 
             <Route path={'/master/changeBanner'} component={ChangeBanner}/>
 
@@ -123,7 +125,7 @@ function App() {
             <Route path='/master/masterchart' component={MasterChart}/>
 
 
-            <Route path='/user' component={UserNavbar}/>
+            {/*<Route path='/user' component={UserNavbar}/>*/}
             <Route path='/user' exact component={UserMypage}/>
             <Route path='/user/shoppingcart' component={ShoppingCart}/>
             <Route path='/user/order' component={Order}/>

@@ -14,8 +14,9 @@ const DivContainer = styled.div`
   justify-content: center;
   margin: 50px;
   padding: 10px;
-  height: 1000px;
+  height: 100%;
   width: 100%;
+  clear: both;
 
 
 `;

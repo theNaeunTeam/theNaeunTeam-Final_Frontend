@@ -1,0 +1,30 @@
+*{
+    margin : 0;
+    padding: 0;
+    vertical-align: top;
+}
+a{
+    color : black;
+    text-decoration: none;
+}
+
+li{
+    float: left;
+    list-style: none;
+    display: list-item;
+    margin-left: 0px;
+    text-align: -webkit-match-parent;
+    margin-right: 1em;
+    vertical-align: center;
+    /*line-height: 35px ;*/
+}
+
+button{
+    background-color: cornflowerblue;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    outline: 0;
+    padding: 0 10px 0 10px;
+}
+

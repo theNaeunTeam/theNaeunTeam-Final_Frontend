@@ -5,6 +5,7 @@ const DivFooter = styled.div`
   bottom: 0;
   width: 100%;
   text-align: center;
+  position: absolute;
 `;
 
 export default function Footer() {
