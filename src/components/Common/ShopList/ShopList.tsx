@@ -18,8 +18,16 @@ const marks = [
         label: '100m',
     },
     {
+      value: 0.5,
+      label: '500m'
+    },
+    {
         value: 1,
         label: '1000m',
+    },
+    {
+        value: 1.5,
+        label: '1500m',
     },
     {
         value: 2,
@@ -37,9 +45,10 @@ const DivContainer = styled.div`
 `;
 
 const DivHalfMenu = styled.div`
-  margin: 10px;
+  margin: 25px;
   padding: 10px;
   text-align: center;
+  width: 70%;
 `;
 
 const DivMarker = styled.div`
@@ -163,7 +172,7 @@ export default function ShopList() {
                             // @ts-ignore
                             onChange={e => setRange(e.target.value)}
                         />
-                        <Button color="success" onClick={getLoc} variant={'contained'}>{`내 주변 ${range}km ${'\n'} 이내의 가게 찾기`}</Button>
+                        <Button style={{width:'100%'}} color="success" onClick={getLoc} variant={'outlined'}>{`주변 ${range}km 내 찾기`}</Button>
                     </Box>
                 </DivHalfMenu>
                 {

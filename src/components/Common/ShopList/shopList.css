@@ -1,33 +1,50 @@
-.box{
+.box {
     white-space: pre-wrap;
 }
 
-@media screen and (max-width: 768px) {
-    .DivBorderd{
-        height: 100%;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        border-top: solid lightgray 10px;
-        padding: 10px;
-    }
-    .shopListItems{
-    flex:1;
+
+.DivBordered {
     height: 100%;
     width: 100%;
-    text-align: center;
-    margin: 10px;
-    }
+    display: flex;
+    justify-content: space-between;
+    /*border-top: solid lightgray 10px;*/
+    padding: 10px;
 }
 
-/* 화면 크기가 768 이상일떄 */
-@media screen and (min-width: 768px) {
-    .DivBorderd{
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        border-top: solid lightgray 10px;
-        padding: 10px;
+.shopListItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 300px;
+    width: 100%;
+    margin: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .doughnut {
+        display: none;
     }
+    .noDoughnut{
+        display: block;
+    }
+}
+/*!* 화면 크기가 768 이상일떄 *!*/
+@media screen and (min-width: 768px) {
+.doughnut {
+        display: block;
+    }
+    .noDoughnut{
+        display: none;
+    }
+}
+.shopListContents {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 300px;
+    width: 100%;
+    margin: 10px;
 }
