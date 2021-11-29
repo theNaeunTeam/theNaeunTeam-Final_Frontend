@@ -6,7 +6,7 @@ import styled from "styled-components";
 import {useHistory} from "react-router-dom";
 import {Doughnut} from 'react-chartjs-2';
 import Skeleton from '@mui/material/Skeleton';
-import {Button} from "@mui/material";
+import {Button, Paper} from "@mui/material";
 
 interface listType {
     data: shopList;
@@ -49,7 +49,7 @@ export default function ShopListBuilder({data, idx}: listType) {
 
     return (
         <>
-            <div className='DivBordered' key={idx}>
+            <Paper className='DivBordered' key={idx} elevation={3}>
                 <span className='doughnut'>
                     {
                         childLoading ?
@@ -113,7 +113,7 @@ export default function ShopListBuilder({data, idx}: listType) {
                     </MapMarker>
                 </Map>
                 </span>
-            </div>
+            </Paper>
         </>
     )
 }
