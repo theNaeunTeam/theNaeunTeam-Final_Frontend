@@ -46,12 +46,12 @@ export default function Order() {
     const dispatch = useDispatch();
     const {cartReducer, authReducer} = useSelector((state: RootState) => state);
     const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);
-    const [cookies, removeCookie] = useCookies(['cart']);
+    const [cookies, setCookie, removeCookie] = useCookies(['cart']); // 건들지 말것
 
-    // useLayoutEffect(() => {
-    //     if (!localStorage.getItem('userToken')) history.push('/err');
-    //     if (cartReducer[0] === undefined) history.push('/err');
-    // }, []);
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('userToken')) history.push('/err');
+        if (cartReducer[0] === undefined) history.push('/err');
+    }, []);
 
 
     useEffect(() => {
