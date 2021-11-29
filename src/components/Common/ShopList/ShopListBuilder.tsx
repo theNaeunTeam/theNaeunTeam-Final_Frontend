@@ -12,13 +12,6 @@ interface listType {
     idx: number;
 }
 
-const DivBorderd = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-top: solid lightgray 10px;
-  padding: 10px;
-`;
-
 export default function ShopListBuilder({data, idx}: listType) {
 
     const history = useHistory();
@@ -48,8 +41,8 @@ export default function ShopListBuilder({data, idx}: listType) {
 
     return (
         <>
-            <DivBorderd key={idx}>
-                                <span>
+            <div className='DivBorderd' key={idx}>
+                <span className='shopListItems'>
                     {
                         childLoading ?
                             <Skeleton variant="rectangular" width={210} height={118}/>
@@ -81,26 +74,28 @@ export default function ShopListBuilder({data, idx}: listType) {
                                 ],
                             }}/>}
                 </span>
-                <span>
+
+                <span className='shopListItems'>
+                <img style={{width: '30%', height: '30%'}} src={data.o_image}/><br/>
                                 가게명:{data.o_name}<br/>
                                 대표번호:{data.o_phone}<br/>
-                                현위치와의 거리 : {Number(data.distance) * 100}미터<br/>
+                                현위치와의 거리 : {Math.round(Number(data.distance) * 100)}미터<br/>
                     {data.o_time1} ~ {data.o_time2}<br/>
                                     <button onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
                                         이동하기</button>
                                     </span>
-                <img style={{width: '300px', height: '300px'}} src={data.o_image}/><br/>
 
-
+                <span className='shopListItems'>
                 <Map
                     center={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}
-                    style={{width: "300px", height: "360px"}}
+                    style={{width: '100%', height: '100%'}}
                 >
                     <MapMarker position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
                         <div style={{color: "#000"}}>{data.o_name}</div>
                     </MapMarker>
                 </Map>
-            </DivBorderd>
+                </span>
+            </div>
         </>
     )
 }

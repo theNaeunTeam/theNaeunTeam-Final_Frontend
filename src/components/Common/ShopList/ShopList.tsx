@@ -10,6 +10,7 @@ import {useHistory} from "react-router-dom";
 import ShopListBuilder from "./ShopListBuilder";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import './shopList.css';
 
 const marks = [
     {
@@ -31,7 +32,7 @@ const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px;
+  margin: 5px;
   padding: 10px;
 `;
 
@@ -47,7 +48,6 @@ const DivMarker = styled.div`
   padding-left: 10px;
   padding-right: 10px;
 `
-// 가운데 정렬 안먹음 ㅡㅡ
 
 const seoulLAT = 37.5540501787837;
 const seoulLON = 126.972330875495;
@@ -114,7 +114,7 @@ export default function ShopList() {
             <DivContainer>
                 <Map
                     center={{lat: lat, lng: lon}}
-                    style={{width: "100%", height: "500px"}}
+                    style={{width: "70%", height: "500px"}}
                     level={5}
                 >
                     <MarkerClusterer
@@ -152,7 +152,7 @@ export default function ShopList() {
 
                 </Map>
                 <DivHalfMenu>
-                    <Box sx={{m: 3, width: 300}}>
+                    <Box className='box'>
                         <Slider
                             min={0.1}
                             max={2}
@@ -163,7 +163,7 @@ export default function ShopList() {
                             // @ts-ignore
                             onChange={e => setRange(e.target.value)}
                         />
-                        <Button onClick={getLoc} variant={'contained'}>내 주변 {range} km 이내의 가게 찾기</Button>
+                        <Button color="success" onClick={getLoc} variant={'contained'}>{`내 주변 ${range}km ${'\n'} 이내의 가게 찾기`}</Button>
                     </Box>
                 </DivHalfMenu>
                 {
