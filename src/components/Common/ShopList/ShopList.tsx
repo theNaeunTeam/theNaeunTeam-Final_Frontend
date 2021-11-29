@@ -10,6 +10,7 @@ import {useHistory} from "react-router-dom";
 import ShopListBuilder from "./ShopListBuilder";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import './shopList.css';
 
 const marks = [
     {
@@ -17,8 +18,16 @@ const marks = [
         label: '100m',
     },
     {
+      value: 0.5,
+      label: '500m'
+    },
+    {
         value: 1,
         label: '1000m',
+    },
+    {
+        value: 1.5,
+        label: '1500m',
     },
     {
         value: 2,
@@ -31,14 +40,15 @@ const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px;
+  margin: 5px;
   padding: 10px;
 `;
 
 const DivHalfMenu = styled.div`
-  margin: 10px;
+  margin: 25px;
   padding: 10px;
   text-align: center;
+  width: 70%;
 `;
 
 const DivMarker = styled.div`
@@ -47,7 +57,6 @@ const DivMarker = styled.div`
   padding-left: 10px;
   padding-right: 10px;
 `
-// 가운데 정렬 안먹음 ㅡㅡ
 
 const seoulLAT = 37.5540501787837;
 const seoulLON = 126.972330875495;
@@ -114,7 +123,7 @@ export default function ShopList() {
             <DivContainer>
                 <Map
                     center={{lat: lat, lng: lon}}
-                    style={{width: "100%", height: "500px"}}
+                    style={{width: "80%", height: "400px"}}
                     level={5}
                 >
                     <MarkerClusterer
@@ -152,7 +161,7 @@ export default function ShopList() {
 
                 </Map>
                 <DivHalfMenu>
-                    <Box sx={{m: 3, width: 300}}>
+                    <Box className='box'>
                         <Slider
                             min={0.1}
                             max={2}
@@ -163,7 +172,7 @@ export default function ShopList() {
                             // @ts-ignore
                             onChange={e => setRange(e.target.value)}
                         />
-                        <Button onClick={getLoc} variant={'contained'}>내 주변 {range} km 이내의 가게 찾기</Button>
+                        <Button style={{width:'100%'}} color="error" onClick={getLoc} variant={'outlined'}>{`주변 ${range}km 내 찾기`}</Button>
                     </Box>
                 </DivHalfMenu>
                 {

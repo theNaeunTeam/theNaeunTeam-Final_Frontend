@@ -132,6 +132,7 @@ export type reservationViewType = {
     g_expireDate: string,
     g_count: number,
     g_status: number,
+    selectedStatus:number,
 };
 
 

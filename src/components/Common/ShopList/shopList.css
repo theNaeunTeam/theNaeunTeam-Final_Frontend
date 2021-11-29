@@ -1,0 +1,50 @@
+.box {
+    white-space: pre-wrap;
+}
+
+
+.DivBordered {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.shopListItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 300px;
+    width: 100%;
+    margin: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .doughnut {
+        display: none;
+    }
+    .noDoughnut{
+        display: block;
+    }
+}
+/*!* 화면 크기가 768 이상일떄 *!*/
+@media screen and (min-width: 768px) {
+.doughnut {
+        display: block;
+    }
+    .noDoughnut{
+        display: none;
+    }
+}
+.shopListContents {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 300px;
+    width: 100%;
+    margin: 10px;
+}

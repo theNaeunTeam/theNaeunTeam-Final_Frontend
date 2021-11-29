@@ -6,18 +6,19 @@ import styled from "styled-components";
 import {useHistory} from "react-router-dom";
 import {Doughnut} from 'react-chartjs-2';
 import Skeleton from '@mui/material/Skeleton';
+import {Button, Paper} from "@mui/material";
 
 interface listType {
     data: shopList;
     idx: number;
 }
 
-const DivBorderd = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-top: solid lightgray 10px;
-  padding: 10px;
-`;
+const DivMarker = styled.div`
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+`
 
 export default function ShopListBuilder({data, idx}: listType) {
 
@@ -48,8 +49,8 @@ export default function ShopListBuilder({data, idx}: listType) {
 
     return (
         <>
-            <DivBorderd key={idx}>
-                                <span>
+            <Paper className='DivBordered' key={idx} elevation={3}>
+                <span className='doughnut'>
                     {
                         childLoading ?
                             <Skeleton variant="rectangular" width={210} height={118}/>
@@ -81,26 +82,38 @@ export default function ShopListBuilder({data, idx}: listType) {
                                 ],
                             }}/>}
                 </span>
-                <span>
-                                가게명:{data.o_name}<br/>
-                                대표번호:{data.o_phone}<br/>
-                                현위치와의 거리 : {Number(data.distance) * 100}미터<br/>
-                    {data.o_time1} ~ {data.o_time2}<br/>
-                                    <button onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
-                                        이동하기</button>
-                                    </span>
-                <img style={{width: '300px', height: '300px'}} src={data.o_image}/><br/>
 
+                <span className='shopListItems'>
 
+                <img style={{width: '30%', height: '30%'}} src={data.o_image} alt={'가게대표이미지'}/><br/>
+                    <strong>{data.o_name}<br/></strong>
+                                        <div className={'noDoughnut'}>
+                        판매중인 상품:{category.other + category.freeze + category.freeze + category.cooked + category.fresh + category.gagong + category.drink}개
+                    </div>
+                    <br/>
+
+                    <div style={{fontSize: '10px', textAlign: 'center'}}>{data.o_address}
+                        <div>{data.o_phone}</div></div>
+                    <div className={'shopListContents'}>
+                    <span>{data.o_time1}~{data.o_time2}</span>
+                        <span>...{Math.round(Number(data.distance) * 100)}m</span>
+                    </div>
+
+                                    <Button style={{width: '100%'}} variant="outlined"
+                                            onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
+                                        상세보기</Button>
+                    </span>
+
+                <span className='shopListItems'>
                 <Map
                     center={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}
-                    style={{width: "300px", height: "360px"}}
+                    style={{width: '100%', height: '100%'}}
                 >
                     <MapMarker position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
-                        <div style={{color: "#000"}}>{data.o_name}</div>
                     </MapMarker>
                 </Map>
-            </DivBorderd>
+                </span>
+            </Paper>
         </>
     )
 }
