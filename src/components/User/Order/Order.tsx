@@ -1,16 +1,18 @@
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import {useHistory, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../index";
+import {RootState} from "../../../index";
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
 import {useCookies} from "react-cookie";
-import {orderForm, orderSubmitType} from "../../modules/types";
-import {client} from "../../lib/api/client";
+import {orderForm, orderSubmitType} from "../../../modules/types";
+import {client} from "../../../lib/api/client";
+import './order.css';
 
 const DivContainer = styled.div`
-  //border: solid black;
+  border: solid 0.5px green;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,8 +23,8 @@ const DivContainer = styled.div`
 `;
 
 const DivBordered = styled.div`
-  border-top: solid lightgray 10px;
-  padding: 10px;
+  border-top: solid ghostwhite 10px;
+  padding: 20px;
   text-align: left;
 `;
 
@@ -114,102 +116,117 @@ export default function Order() {
                 <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e)}>
                     <strong>주문하기</strong>
                     <hr/>
-                    <ul>
+                    <ol>
                         {cartReducer.map((data, idx) =>
                             <li>
                                 <div key={idx}>
                                     <img src={data.g_image} style={{width: '100px', height: '100px'}} alt={'상품이미지'}/>
-                                    <br/>
-                                    {data.g_name} {data.g_count}개
+                                    {data.g_name} {data.g_count}개 {' '}
                                     {data.g_discount * data.g_count}원
                                 </div>
                             </li>
                         )}
-                    </ul>
+                    </ol>
+                    <br/>
                     <div><Link to={'/list'}> + 상품 더 담기</Link></div>
+                    <br/>
                     <DivBordered>
-                        <strong>방문하시는분</strong>
-                        <br/>
-                        <input type={'radio'} defaultChecked={true} name={'who'} value={' 제가 직접 받아요 '} id={'who'}/> 제가 직접 받아요
-                        <br/>
+                        <div className='orderLeftSide'>
+                            <strong>방문하시는분</strong>
+                            <span>
+                        <input type={'radio'} defaultChecked={true} name={'who'} value={' 제가 직접 받아요 '} id={'who'}/>
+                                {' '}제가직접 받아요
+                                </span>
+                            <span>
                         <input type={'radio'} name={'who'} value={' 다른 사람이 받아요 '} id={'who'}/> 다른사람이 받아요
+                        </span>
+                        </div>
                     </DivBordered>
                     <DivBordered>
-                        <strong>방문 예정 시간</strong>
-                        <br/><br/>
-                        <TextField
-                            name={'o_time2'}
-                            id="time"
-                            label="방문 예정 시간"
-                            type="time"
-                            defaultValue="18:00"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            inputProps={{
-                                step: 3000, // 30 min
-                            }}
-                            sx={{width: 200}}
-                        />
-                        {' '}
-                        <TextField
-                            name={'r_firstDate'}
-                            id="r_firstDate"
-                            label="방문 예정 일자"
-                            type="date"
-                            defaultValue={orderForm.r_firstDate}
-                            sx={{width: 200}}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            InputProps={{inputProps: {min: orderForm.r_firstDate}}}
-                        />
+                        <div className='orderLeftSide'>
+                            <strong>방문 예정 시간</strong>
+                            <span>
+                                <TextField
+                                    name={'o_time2'}
+                                    id="time"
+                                    label="방문 예정 시간"
+                                    type="time"
+                                    defaultValue="18:00"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    inputProps={{
+                                        step: 3000, // 30 min
+                                    }}
+                                    sx={{width: 200}}
+                                />
+                                {' '}
+                                <TextField
+                                    name={'r_firstDate'}
+                                    id="r_firstDate"
+                                    label="방문 예정 일자"
+                                    type="date"
+                                    defaultValue={orderForm.r_firstDate}
+                                    sx={{width: 200}}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    InputProps={{inputProps: {min: orderForm.r_firstDate}}}
+                                />
+                            </span>
+                        </div>
                     </DivBordered>
                     <DivBordered>
-                        <strong>요청사항</strong>
-                        <br/>
-                        가게 사장님에게
-                        <br/>
-                        <textarea id={'r_customOrder'} rows={5} cols={50}/>
+                        <div className='orderLeftSide'>
+                        <strong> 요청사항 </strong>
+                        {/*<textarea id={'r_customOrder'} rows={3} cols={60}/>*/}
+                        <TextField
+                            id="r_customOrder"
+                            label="가게 사장님에게"
+                            multiline
+                            rows={4}
+                            style={{width:'80%'}}
+                        />
+                        </div>
                         <br/>
                         <input type={'checkbox'} id={'kudasai'} value={'일회용 수저, 포크 제외'}/> 일회용 수저, 포크 제외
                         <br/>
                         <input type={'checkbox'} id={'tumbler'} value={'텀블러 가져가요'}/> 텀블러 가져가요
                     </DivBordered>
+                    {/*<DivBordered>*/}
+                    {/*    <strong>주문서 쿠폰 / 포인트 사용</strong>*/}
+                    {/*    <br/><br/>*/}
+                    {/*    할인쿠폰*/}
+                    {/*    <br/>*/}
+                    {/*    <input disabled={true}/>*/}
+                    {/*    <button disabled={true}>쿠폰 선택</button>*/}
+                    {/*    <br/>*/}
+                    {/*    <input disabled={true}/>*/}
+                    {/*    <button disabled={true}>모두 사용</button>*/}
+                    {/*    <br/>*/}
+                    {/*    보유 0p*/}
+                    {/*</DivBordered>*/}
                     <DivBordered>
-                        <strong>주문서 쿠폰 / 포인트 사용</strong>
-                        <br/><br/>
-                        할인쿠폰
-                        <br/>
-                        <input disabled={true}/>
-                        <button disabled={true}>쿠폰 선택</button>
-                        <br/>
-                        <input disabled={true}/>
-                        <button disabled={true}>모두 사용</button>
-                        <br/>
-                        보유 0p
-                    </DivBordered>
-                    <DivBordered>
-                        <strong>총 결제금액</strong>
-                        <div style={{display: "flex", justifyContent: 'space-between'}}>
-                            <span>총 주문금액</span>
-                            <span>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원</span>
-                        </div>
-                        <div style={{display: "flex", justifyContent: 'space-between'}}>
-                            <span>주문서 쿠폰</span>
-                            <span>0원</span>
-                        </div>
-                        <div style={{display: "flex", justifyContent: 'space-between'}}>
-                            <span>더나은포인트</span>
-                            <span>0원</span>
-                        </div>
-                        <hr/>
+                        {/*<strong>총 결제 금액</strong>*/}
+                        {/*<div style={{display: "flex", justifyContent: 'space-between'}}>*/}
+                        {/*    <span>총 주문금액</span>*/}
+                        {/*    <span>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원</span>*/}
+                        {/*</div>*/}
+                        {/*<div style={{display: "flex", justifyContent: 'space-between'}}>*/}
+                        {/*    <span>주문서 쿠폰</span>*/}
+                        {/*    <span>0원</span>*/}
+                        {/*</div>*/}
+                        {/*<div style={{display: "flex", justifyContent: 'space-between'}}>*/}
+                        {/*    <span>더나은포인트</span>*/}
+                        {/*    <span>0원</span>*/}
+                        {/*</div>*/}
+                        {/*<hr/>*/}
                         <strong>총 결제 금액</strong>
-                        <div style={{background: "lightgray", display: "flex", justifyContent: 'space-between'}}>
-                            <span>적립혜택</span>
-                            <span>0원</span>
+                        <div style={{background: "ghostwhite", display: "flex", justifyContent: 'space-between'}}>
+                            <span>적립 예정 금액</span>
+                            <span>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0) / 10}원</span>
                         </div>
-                        <div style={{background: "lightgray", display: "flex", justifyContent: 'space-between'}}>
+                        <div style={{background: "ghostwhite", display: "flex", justifyContent: 'space-between'}}>
                             <strong>최종혜택가</strong>
                             <strong>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원</strong>
                         </div>
@@ -218,12 +235,13 @@ export default function Order() {
                         <strong>방문하시는분</strong>
                         <br/>
                         <input type={'radio'} name={'payment'} value={'self'} defaultChecked={true}
-                               id={'payment'}/> 직접 결제
+                               id={'payment'}/> 직접 결제 {' '}
                         <input type={'radio'} name={'payment'} value={'card'} disabled={true}
-                               id={'payment'}/> 카드결제
+                               id={'payment'}/> 카드결제 {' '}
                         <input type={'radio'} name={'payment'} value={'mobile'} id={'payment'} disabled={true}/> 휴대폰 결제
                     </DivBordered>
-                    <Button variant={'contained'} onClick={submitForm}>주문하기</Button>
+                    <br/>
+                    <Button variant={'contained'} onClick={submitForm} style={{width:'50%'}}>주문하기</Button>
                 </form>
             </DivContainer>
 
