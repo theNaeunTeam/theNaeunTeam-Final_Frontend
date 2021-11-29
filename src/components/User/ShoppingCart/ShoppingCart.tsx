@@ -132,7 +132,6 @@ export default function ShoppingCart() {
                 <Button id={`${props.data.g_count}`} onClick={e => minus(e, props.idx)}><RemoveIcon/>
                 </Button>
 
-
                     <Button variant={'outlined'} name={`${props.idx}`} color="error"
                             onClick={() => {
                                 if (!window.confirm('상품을 삭제하시겠습니까?')) return false;
