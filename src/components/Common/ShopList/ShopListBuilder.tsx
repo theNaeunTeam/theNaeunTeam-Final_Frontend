@@ -85,7 +85,7 @@ export default function ShopListBuilder({data, idx}: listType) {
 
                 <span className='shopListItems'>
 
-                <img style={{width: '30%', height: '30%'}} src={data.o_image}/><br/>
+                <img style={{width: '30%', height: '30%'}} src={data.o_image} alt={'가게대표이미지'}/><br/>
                     <strong>{data.o_name}<br/></strong>
                                         <div className={'noDoughnut'}>
                         판매중인 상품:{category.other + category.freeze + category.freeze + category.cooked + category.fresh + category.gagong + category.drink}개

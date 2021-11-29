@@ -123,7 +123,7 @@ export default function ShopList() {
             <DivContainer>
                 <Map
                     center={{lat: lat, lng: lon}}
-                    style={{width: "70%", height: "500px"}}
+                    style={{width: "80%", height: "400px"}}
                     level={5}
                 >
                     <MarkerClusterer
