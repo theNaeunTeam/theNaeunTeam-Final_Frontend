@@ -113,6 +113,7 @@ function App() {
 
             <Route path='/list' component={ShopList}/>
 
+
             <Route path='/master' component={MasterNavbar}/>
             <Route path='/master' exact component={MasterMain}/>
             <Route path='/master/masteruserlist' component={MasterUserList}/>

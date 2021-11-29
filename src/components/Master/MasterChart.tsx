@@ -143,7 +143,9 @@ export default function MasterChart() {
                             <Skeleton variant="rectangular" width={210} height={118}/>
                             :
                             <>
-                                <h5  style={{background:'#E7ECFF', backgroundSize:'10px'}}>월별 오너/유저 탈퇴자수 통계 </h5>
+                                <div>
+                                <h5  style={{background:'#E7ECFF'}}>월별 오너/유저 탈퇴자수 통계 </h5>
+                                </div>
                                 <Line data={{
                                     labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                                     datasets: [
@@ -179,6 +181,7 @@ export default function MasterChart() {
                             <Skeleton variant="rectangular" width={210} height={118}/>
                             :
                             <>
+                                <h5  style={{background:'#E7ECFF'}}>연별 오너/유저 탈퇴자수 통계 </h5>
                                 <Line data={{
                                     labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
                                     datasets: [
