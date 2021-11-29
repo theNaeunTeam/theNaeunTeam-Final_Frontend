@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import styled from "styled-components";
@@ -10,7 +10,7 @@ import {orderForm, orderSubmitType} from "../../modules/types";
 import {client} from "../../lib/api/client";
 
 const DivContainer = styled.div`
-  border: solid black;
+  //border: solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +20,7 @@ const DivContainer = styled.div`
   padding: 10px;
 `;
 
-const DivBorderd = styled.div`
+const DivBordered = styled.div`
   border-top: solid lightgray 10px;
   padding: 10px;
   text-align: left;
@@ -40,17 +40,17 @@ export default function Order() {
     }
 
     const history = useHistory();
-    useLayoutEffect(() => {
-        if (!localStorage.getItem('userToken')) history.push('/err');
-    }, []);
+
     const dispatch = useDispatch();
     const {cartReducer, authReducer} = useSelector((state: RootState) => state);
     const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);
-    const [cookies, setCookie, removeCookie] = useCookies(['cart']);
+    const [cookies, removeCookie] = useCookies(['cart']);
 
-    useLayoutEffect(() => {
-        if (cartReducer[0] === undefined) history.push('/err');
-    }, []);
+    // useLayoutEffect(() => {
+    //     if (!localStorage.getItem('userToken')) history.push('/err');
+    //     if (cartReducer[0] === undefined) history.push('/err');
+    // }, []);
+
 
     useEffect(() => {
         return () => {
@@ -95,7 +95,6 @@ export default function Order() {
                 console.log(err);
                 alert('실패');
             })
-
     };
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
@@ -113,24 +112,29 @@ export default function Order() {
         <>
             <DivContainer>
                 <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e)}>
-                    <div>주문하기</div>
+                    <strong>주문하기</strong>
                     <hr/>
-                    {cartReducer.map((data, idx) =>
-                        <div key={idx}>
-                            <img src={data.g_image} style={{width: '50px', height: '50px'}}/>
-                            {data.g_name} {data.g_count}개 {data.g_discount * data.g_count}원
-                        </div>
-                    )}
-                    <div> + 상품 더 담기</div>
-                    <DivBorderd>
+                    <ul>
+                        {cartReducer.map((data, idx) =>
+                            <li>
+                                <div key={idx}>
+                                    <img src={data.g_image} style={{width: '100px', height: '100px'}} alt={'상품이미지'}/>
+                                    <br/>
+                                    {data.g_name} {data.g_count}개
+                                    {data.g_discount * data.g_count}원
+                                </div>
+                            </li>
+                        )}
+                    </ul>
+                    <div><Link to={'/list'}> + 상품 더 담기</Link></div>
+                    <DivBordered>
                         <strong>방문하시는분</strong>
                         <br/>
-                        <input type={'radio'} defaultChecked={true} name={'who'} value={' 제가 직접 받음 '} id={'who'}/> 제가 직접
-                        받음
+                        <input type={'radio'} defaultChecked={true} name={'who'} value={' 제가 직접 받아요 '} id={'who'}/> 제가 직접 받아요
                         <br/>
-                        <input type={'radio'} name={'who'} value={' 딴사람이 받음 '} id={'who'}/> 딴사람이 받음
-                    </DivBorderd>
-                    <DivBorderd>
+                        <input type={'radio'} name={'who'} value={' 다른 사람이 받아요 '} id={'who'}/> 다른사람이 받아요
+                    </DivBordered>
+                    <DivBordered>
                         <strong>방문 예정 시간</strong>
                         <br/><br/>
                         <TextField
@@ -147,6 +151,7 @@ export default function Order() {
                             }}
                             sx={{width: 200}}
                         />
+                        {' '}
                         <TextField
                             name={'r_firstDate'}
                             id="r_firstDate"
@@ -157,21 +162,21 @@ export default function Order() {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            InputProps={{inputProps: { min: orderForm.r_firstDate} }}
+                            InputProps={{inputProps: {min: orderForm.r_firstDate}}}
                         />
-                    </DivBorderd>
-                    <DivBorderd>
+                    </DivBordered>
+                    <DivBordered>
                         <strong>요청사항</strong>
                         <br/>
                         가게 사장님에게
                         <br/>
                         <textarea id={'r_customOrder'} rows={5} cols={50}/>
                         <br/>
-                        <input type={'checkbox'} id={'kudasai'} value={'일회용 수저, 포크 제외'}/>일회용 수저, 포크 제외
+                        <input type={'checkbox'} id={'kudasai'} value={'일회용 수저, 포크 제외'}/> 일회용 수저, 포크 제외
                         <br/>
-                        <input type={'checkbox'} id={'tumbler'} value={'텀블러 가져감'}/> 텀블러 가져감
-                    </DivBorderd>
-                    <DivBorderd>
+                        <input type={'checkbox'} id={'tumbler'} value={'텀블러 가져가요'}/> 텀블러 가져가요
+                    </DivBordered>
+                    <DivBordered>
                         <strong>주문서 쿠폰 / 포인트 사용</strong>
                         <br/><br/>
                         할인쿠폰
@@ -183,8 +188,8 @@ export default function Order() {
                         <button disabled={true}>모두 사용</button>
                         <br/>
                         보유 0p
-                    </DivBorderd>
-                    <DivBorderd>
+                    </DivBordered>
+                    <DivBordered>
                         <strong>총 결제금액</strong>
                         <div style={{display: "flex", justifyContent: 'space-between'}}>
                             <span>총 주문금액</span>
@@ -208,8 +213,8 @@ export default function Order() {
                             <strong>최종혜택가</strong>
                             <strong>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원</strong>
                         </div>
-                    </DivBorderd>
-                    <DivBorderd>
+                    </DivBordered>
+                    <DivBordered>
                         <strong>방문하시는분</strong>
                         <br/>
                         <input type={'radio'} name={'payment'} value={'self'} defaultChecked={true}
@@ -217,7 +222,7 @@ export default function Order() {
                         <input type={'radio'} name={'payment'} value={'card'} disabled={true}
                                id={'payment'}/> 카드결제
                         <input type={'radio'} name={'payment'} value={'mobile'} id={'payment'} disabled={true}/> 휴대폰 결제
-                    </DivBorderd>
+                    </DivBordered>
                     <Button variant={'contained'} onClick={submitForm}>주문하기</Button>
                 </form>
             </DivContainer>

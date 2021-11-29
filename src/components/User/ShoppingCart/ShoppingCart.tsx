@@ -146,7 +146,7 @@ export default function ShoppingCart() {
 
     return (
         <div className={'cartDivContainer'}>
-            <strong>{cartReducer.length === 0 || `${cartReducer[0].o_name} `}장바구니</strong>
+            <strong>{cartReducer.length === 0 || `${cartReducer[0].o_name}에서 담은 `}장바구니</strong>
             {cartReducer.length ?
                 <>
                     <br/>
@@ -154,14 +154,15 @@ export default function ShoppingCart() {
                                                                                           key={idx}/>)}
                     <br/>
                     <div>
-                        주문 상품 수 : {cartReducer.length}
-                        <br/>
-                        총 금액 : {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
+                       총 주문 상품 수 : {cartReducer.length} 개, {' '}
+                        {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
                     </div>
-                    <Button variant={'contained'} color="success" onClick={() => {
+                    <span>
+                    <Button variant={'contained'} style={{width: '50%'}} onClick={() => {
                         dispatch({type: 'orderIn'});
                         history.push('/user/order');
                     }}>주문하기</Button>
+                        </span>
                 </>
                 :
                 <>
