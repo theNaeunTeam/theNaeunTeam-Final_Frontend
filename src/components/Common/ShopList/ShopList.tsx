@@ -172,7 +172,7 @@ export default function ShopList() {
                             // @ts-ignore
                             onChange={e => setRange(e.target.value)}
                         />
-                        <Button style={{width:'100%'}} color="success" onClick={getLoc} variant={'outlined'}>{`주변 ${range}km 내 찾기`}</Button>
+                        <Button style={{width:'100%'}} color="error" onClick={getLoc} variant={'outlined'}>{`주변 ${range}km 내 찾기`}</Button>
                     </Box>
                 </DivHalfMenu>
                 {
