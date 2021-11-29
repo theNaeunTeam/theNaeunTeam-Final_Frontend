@@ -34,7 +34,7 @@ export default function LoginForm(props: RouteComponentProps) {
 
     const [loginForm, setloginForm] = useState(initValue);
     const [findPw, setFindPw] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(loginForm);
@@ -212,12 +212,12 @@ export default function LoginForm(props: RouteComponentProps) {
                             value={findPw}
                             onChange={e => setFindPw(e.target.value)}
                         />
-                        {/*<Backdrop*/}
-                        {/*    sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}*/}
-                        {/*    open={loading}*/}
-                        {/*>*/}
-                        {/*    <CircularProgress color="inherit"/>*/}
-                        {/*</Backdrop>*/}
+                        <Backdrop
+                            sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                            open={loading}
+                        >
+                            <CircularProgress color="inherit"/>
+                        </Backdrop>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>취소</Button>
