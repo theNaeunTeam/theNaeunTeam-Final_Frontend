@@ -1,13 +1,9 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from "styled-components";
 
-import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import logo from '../../logo.svg';
 import {RootState} from "../../index";
-// import '../../styles/test.css';
 
 import '../../styles/Header.css'
 
