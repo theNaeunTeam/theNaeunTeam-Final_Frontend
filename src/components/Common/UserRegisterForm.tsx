@@ -70,7 +70,7 @@ export default function UserRegisterForm() {
 
 
     return (
-        <div style={{border: 'none', marginLeft: '200px', marginRight: '200px', marginTop: '10px', padding: '100px'}}>
+        <div style={{border: 'none', marginLeft: '200px', marginRight: '200px', marginTop: '10px', padding: '10px'}}>
             <Stack
                 onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
                 component="form"
@@ -81,7 +81,7 @@ export default function UserRegisterForm() {
                 autoComplete="off"
                 alignItems={"center"}
             >
-                <div><h3>회원가입</h3></div>
+                <div><h3>회원 가입</h3></div>
                 <TextField
                     error={formError.u_id}
                     required
@@ -105,6 +105,7 @@ export default function UserRegisterForm() {
                     label="패스워드"
                     type={'password'}
                     name={'u_pw'}
+                    helperText="비밀번호를 입력해주세요"
                 />
                 <TextField
                     error={formError.pwConfirm}
@@ -113,6 +114,7 @@ export default function UserRegisterForm() {
                     label="패스워드확인"
                     type={'password'}
                     name={'pwConfirm'}
+                    helperText="비밀번호를 다시 한 번 입력해주세요"
                 />
                 <TextField
                     error={formError.u_email}
@@ -120,6 +122,7 @@ export default function UserRegisterForm() {
                     id="outlined-required"
                     label="이메일"
                     name={'u_email'}
+                    helperText="이메일주소를 입력해주세요"
                 />
                 <TextField
                     error={formError.emailConfirm}
@@ -127,10 +130,11 @@ export default function UserRegisterForm() {
                     id="outlined-required"
                     label="이메일 확인"
                     name={'emailConfirm'}
+                    helperText="이메일주소를 다시 한 번 입력해주세요"
                 />
 
-                <div style={{width: '100%', marginBottom: '10px', display: 'flex', justifyContent: 'space-between'}}>
-                    <span>
+                <div style={{width: '100%', marginBottom: '10px', display: 'flex', justifyContent: 'center'}}>
+                    <span style={{marginLeft:'20px', marginRight:'20px'}}>
                     <InputLabel id="demo-simple-select-label">나이</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -150,7 +154,7 @@ export default function UserRegisterForm() {
                         <MenuItem value={'60'}>60대</MenuItem>
                     </Select>
                         </span>
-                    <span>
+                    <span style={{marginLeft:'20px', marginRight:'20px'}}>
                     <FormLabel component="legend">성별</FormLabel>
                     <RadioGroup row aria-label="gender" name={'u_gender'}>
                         <FormControlLabel id={'u_gender'} value="남성" control={<Radio/>} defaultChecked={true}
@@ -159,7 +163,7 @@ export default function UserRegisterForm() {
                     </RadioGroup>
                         </span>
                 </div>
-                <Button style={{width: '100%'}} variant="outlined" onClick={submitForm}>
+                <Button style={{width: '50%'}} variant="outlined" onClick={submitForm}>
                     회원가입
                 </Button>
             </Stack>

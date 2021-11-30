@@ -5,7 +5,7 @@ import {client} from "../../lib/api/client";
 import DaumPostcode from 'react-daum-postcode';
 import axios from "axios";
 import {ownerRegisterFormType} from "../../modules/types";
-
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 export default function OwnerRegisterForm() {
 
@@ -114,7 +114,7 @@ export default function OwnerRegisterForm() {
                 alert('등록성공');
                 console.log(res);
             }
-        } catch(e) {
+        } catch (e) {
             // @ts-ignore
             const err = e.response;
             alert(err.data.error);
@@ -132,7 +132,7 @@ export default function OwnerRegisterForm() {
     };
 
     return (
-        <>
+        <div style={{border: 'none', marginLeft: '200px', marginRight: '200px', marginTop: '10px', padding: '10px'}}>
             <Stack
                 onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
                 component="form"
@@ -143,12 +143,14 @@ export default function OwnerRegisterForm() {
                 alignItems={"center"}
                 autoComplete="off"
             >
+                <div><h3>가맹 신청</h3></div>
                 <TextField
                     error={formError.o_sNumber}
                     required
                     id="outlined-required"
                     label="사업자번호"
                     name={'o_sNumber'}
+                    helperText="사업자번호를 하이픈 없이 입력해주세요"
                 />
                 <TextField
                     error={formError.o_name}
@@ -156,6 +158,7 @@ export default function OwnerRegisterForm() {
                     id="outlined-required"
                     label="가게 이름"
                     name={'o_name'}
+                    helperText="가게명을 입력해주세요"
                 />
                 {isOpenPost ? (
                     //@ts-ignore
@@ -179,6 +182,7 @@ export default function OwnerRegisterForm() {
                     label="패스워드"
                     type={'password'}
                     name={'o_pw'}
+                    helperText="비밀번호를 입력해주세요"
                 />
                 <TextField
                     error={formError.pwConfirm}
@@ -187,13 +191,14 @@ export default function OwnerRegisterForm() {
                     label="패스워드확인"
                     type={'password'}
                     name={'pwConfirm'}
+                    helperText="비밀번호를 다시 한 번 입력해주세요"
                 />
                 <TextField
                     error={formError.o_phone}
                     required
                     id="outlined-required"
                     label="가게 대표 번호"
-                    helperText="하이픈 없이 입력해 주세요"
+                    helperText="가게 대표 번호를 하이픈 없이 입력해 주세요"
                     name={'o_phone'}
                 />
                 <TextField
@@ -201,7 +206,7 @@ export default function OwnerRegisterForm() {
                     required
                     id="outlined-required"
                     label="사장님 전화번호"
-                    helperText="하이픈 없이 입력해 주세요"
+                    helperText="사장님 전화번호를 하이픈 없이 입력해 주세요"
                     name={'o_cellPhone'}
                 />
                 <TextField
@@ -217,6 +222,7 @@ export default function OwnerRegisterForm() {
                         step: 600, // 10 min
                     }}
                     sx={{width: 150}}
+                    helperText="영업 시작 시간을 입력해 주세요"
                 />
                 <TextField
                     name={'o_time2'}
@@ -231,14 +237,23 @@ export default function OwnerRegisterForm() {
                         step: 600, // 10 min
                     }}
                     sx={{width: 150}}
+                    helperText="영업 종료 시간을 입력해 주세요"
                 />
-                <input type={'file'} ref={fileInputTag}/>
+                <div style={{
+                    border: 'solid lightgrey 0.5px', borderRadius: '5px',
+                    display: 'flex',
+                    alignItems: 'center', justifyContent: 'space-between',
+                    marginBottom:'20px', padding: '10px', width: '420px', height: '35px'
+                }}>
+                    <span><AddAPhotoIcon/> 가게 대표 사진  </span>
+                    <input type={'file'} ref={fileInputTag}/>
+                </div>
                 <div style={{width: '30%', margin: 'auto'}}>
                     <Button variant="outlined" onClick={submitForm} style={{width: '100%'}}>
                         입점등록
                     </Button>
                 </div>
             </Stack>
-        </>
+        </div>
     )
 }
