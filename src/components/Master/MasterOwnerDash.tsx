@@ -129,6 +129,7 @@ export default function MasterOwnerDash() {
                             padding:'15px'
                 }}>오너 가입/탈퇴 통계</h2>
             </div>
+            <div className="flex-container0">
             <div className="flex-container">
             <div className="flex-items">
             {
@@ -136,13 +137,7 @@ export default function MasterOwnerDash() {
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
                     <>
-                        <h3 style={{margin:'10px',
-                                    background:'#fce6d8',
-                                    marginLeft:'320px',
-                                    marginRight:'320px',
-                                    border:'solid #fce6d8 3px',
-                                    borderRadius:'40px',
-                        }}>Month</h3>
+                        <h3 className='MODH3'>Month</h3>
                         <Bar data={{
                             labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                             datasets: [
@@ -196,13 +191,7 @@ export default function MasterOwnerDash() {
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
                     <>
-                        <h3 style={{margin:'10px',
-                            background:'#fce6d8',
-                            marginLeft:'320px',
-                            marginRight:'320px',
-                            border:'solid #fce6d8 3px',
-                            borderRadius:'40px',
-                        }}>Year</h3>
+                        <h3 className='MODH3'>Year</h3>
                         <Bar data={{
                             labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
                             datasets: [
@@ -252,12 +241,12 @@ export default function MasterOwnerDash() {
             </div>
 
 
-            <div className='qqq2'>
-                <h2 style={{background:'#E7ECFF',
-                            borderRadius:'40px 10px',
-                            padding:'15px'
-                }}>오너 지역별 분포 통계</h2>
-            </div>
+            {/*<div className='qqq2'>*/}
+            {/*    <h2 style={{background:'#E7ECFF',*/}
+            {/*                borderRadius:'40px 10px',*/}
+            {/*                padding:'15px'*/}
+            {/*    }}>오너 지역별 분포 통계</h2>*/}
+            {/*</div>*/}
 
             <div className="flex-container-2">
                 <div className="flex-items-2">
@@ -266,6 +255,7 @@ export default function MasterOwnerDash() {
                 </div>
                 </div>
             </div>
+        </div>
         </>
     )
 }
