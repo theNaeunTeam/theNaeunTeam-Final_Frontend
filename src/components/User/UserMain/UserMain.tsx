@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
-import Carousel from 'react-material-ui-carousel'
-import {Button, Paper} from '@mui/material'
+import {Paper} from '@mui/material'
 import {carouselType, recommendType} from "../../../modules/types";
 import axios from "axios";
 import RecommendList from "./RecommendList";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const DivContainer = styled.div`
-  clear:both;
+  clear: both;
   margin: 20px;
   text-align: center;
   min-height: 100%;
@@ -76,14 +78,22 @@ export default function UserMain() {
         idx: number;
     }
 
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
+
     function Item({data, idx}: itemType) {
         return (
             <Paper>
                 <div style={{
                     backgroundImage: `url(${data.src})`,
-                    width : "100%",
-                    height : "600px",
-                    backgroundSize : "100% 600px"
+                    width: "100%",
+                    height: "600px",
+                    backgroundSize: "100% 600px"
                 }}>
                     <h2>{data.header}</h2>
                     <p>{data.description}</p>
@@ -100,31 +110,12 @@ export default function UserMain() {
     return (
         <DivContainer>
             <DivCarouselContainer>
-                {loading || <Carousel
-                    // IndicatorIcon={<Home/>}
-                    indicatorIconButtonProps={{
-                        style: {
-                            padding: '10px',    // 1
-                            color: 'gray'       // 3
-                        }
-                    }}
-                    activeIndicatorIconButtonProps={{
-                        style: {
-                            backgroundColor: 'lightgray' // 2
-                        }
-                    }}
-                    indicatorContainerProps={{
-                        style: {
-                            marginTop: '10px', // 5
-                            textAlign: 'center' // 4
-                        }
-                    }}
-                    navButtonsAlwaysVisible={true}
-                >
+                {loading || <Slider {...settings}>
+
                     {
                         items.map((data, idx) => <Item key={idx} data={data} idx={idx}/>)
                     }
-                </Carousel>
+                </Slider>
                 }
             </DivCarouselContainer>
             <h2>최근 등록된 상품</h2>
