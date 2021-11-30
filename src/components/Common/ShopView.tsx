@@ -16,6 +16,13 @@ import {categoryType, shopViewType} from "../../modules/types";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {fetch_Category_Per_sNumber} from "../../lib/api/Fetch_Category_Per_sNumber";
 
+const DivMarker = styled.div`
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+`
+
 const DivTitle = styled.div`
   flex-direction: column;
   display: flex;
@@ -502,7 +509,7 @@ export default function ShopView() {
                             onClick={categoryChange}>식품외 기타 {category.other}</Button>
                 </DivButton>
 
-                {rows.length === 0 ? <div>상품 준비 중 입니다</div>
+                {rows.length === 0 ? <div style={{textAlign:'center', margin:'100px'}}><h1>상품 준비 중 입니다</h1></div>
                     : rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                 <div style={{textAlign:'center', marginBottom:'100px'}}>
                     <Button variant="outlined" color={'error'} style={{width:'50%'}}
@@ -520,20 +527,20 @@ export default function ShopView() {
             <>
                 <DivContainer>
                     <DivHalfMenu>
-                        <h3>가게정보 {aboutStore.o_name}</h3><br/>
-                        <img src={aboutStore.o_image} alt={'image'}/>
+                        <img src={aboutStore.o_image} alt={'image'} style={{width:'100px', height:'100px'}}/>
+                        <h3>{aboutStore.o_name}</h3><br/>
                         <h5>가게 전화번호 {aboutStore.o_phone}</h5><br/>
                         <h5>영업시간 {aboutStore.o_time1} ~ {aboutStore.o_time2}</h5><br/>
-                        <h5>휴무일 {}</h5>
+                        <h4>{aboutStore.o_address}</h4>
                     </DivHalfMenu>
                     <DivHalfMenu>
                         <Map
                             center={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}
-                            style={{width: "100%", height: "360px"}}
+                            style={{width: "450px", height: "250px"}}
                         >
                             <MapMarker
                                 position={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}>
-                                <div style={{color: "#000"}}>{aboutStore.o_name}</div>
+                                <DivMarker>{aboutStore.o_name}</DivMarker>
                             </MapMarker>
                         </Map>
 
@@ -549,13 +556,11 @@ export default function ShopView() {
                         </CopyToClipboard>
                     </DivHalfMenu>
                 </DivContainer>
-                <h4 style={{display: "flex", justifyContent: "center"}}>주소 {aboutStore.o_address}</h4>
-
-
-                <DivContainer>
-                    <Button style={{background: 'red', width: '100%'}} variant="contained"
-                            onClick={() => history.push('/user/shoppingcart')}>장바구니 보기 </Button>
-                </DivContainer>
+                <div style={{textAlign:'center', marginBottom:'100px'}}>
+                    <Button variant="outlined" color={'error'} style={{width:'50%'}}
+                            onClick={() => history.push('/user/shoppingcart')}>
+                        장바구니 보기 </Button>
+                </div>
             </>
         )
     }
