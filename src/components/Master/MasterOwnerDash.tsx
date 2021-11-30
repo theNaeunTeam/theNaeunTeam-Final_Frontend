@@ -6,6 +6,7 @@ import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
 import '../../styles/masterOwnerDash.css'
 import '../../styles/button.css'
+import MasterChart3 from "./MasterChart3";
 
 // 대시 보드
 export default function MasterOwnerDash() {
@@ -122,7 +123,9 @@ export default function MasterOwnerDash() {
 
     return (
         <>
-            <h3>마스터대시보드 </h3>
+            <div className='qqq'>
+                <h3 style={{background:'#E7ECFF'}}>오너 가입/탈퇴 통계</h3>
+            </div>
             <div className="flex-container">
             <div className="flex-items">
             {
@@ -130,7 +133,13 @@ export default function MasterOwnerDash() {
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
                     <>
-
+                        <h3 style={{margin:'10px',
+                                    background:'#fce6d8',
+                                    marginLeft:'355px',
+                                    marginRight:'355px',
+                                    border:'solid #fce6d8 3px',
+                                    borderRadius:'40px',
+                        }}>Month</h3>
                         <Bar data={{
                             labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                             datasets: [
@@ -184,6 +193,13 @@ export default function MasterOwnerDash() {
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
                     <>
+                        <h3 style={{margin:'10px',
+                            background:'#fce6d8',
+                            marginLeft:'355px',
+                            marginRight:'355px',
+                            border:'solid #fce6d8 3px',
+                            borderRadius:'40px',
+                        }}>Year</h3>
                         <Bar data={{
                             labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
                             datasets: [
@@ -230,6 +246,18 @@ export default function MasterOwnerDash() {
                     </>
             }
             </div>
+            </div>
+
+
+            <div className='qqq2'>
+                <h3 style={{background:'#E7ECFF'}}>오너 지역별 분포 통계</h3>
+            </div>
+            <div className="flex-container-2">
+                <div className="flex-items-2">
+                <div className="qqq3">
+                    <MasterChart3/>
+                </div>
+                </div>
             </div>
         </>
     )

@@ -27,7 +27,7 @@ export default function MasterNavbar(props: RouteComponentProps) {
             <nav id='menu'  ref={bbb}>
                 <input type='checkbox' id='responsive-menu' ref={aaa} onClick={updatemenu}/><label></label>
                     <ul>
-                        <li><a href='http://'>Home</a></li>
+                        <li><Link to={'/master/masterchart'}>Home</Link></li>
                         <li><a className='dropdown-arrow' href='http://'>Products</a>
                             <ul className='sub-menus'>
                                 <li><Link to={'/master'}>점주리스트 </Link></li>
@@ -35,7 +35,7 @@ export default function MasterNavbar(props: RouteComponentProps) {
                             </ul>
                         </li>
 
-                        <li><a className='dropdown-arrow' href='http://'>Services</a>
+                        <li><Link className='dropdown-arrow' to={'/master/approvalwaiting'}>Services</Link>
                             <ul className='sub-menus'>
                                 <li><Link to={'/master/approvalwaiting'}>입점승인대기</Link></li>
                                 <li><Link to={'/master/approvalcompletion'}>입점승인완료</Link></li>
@@ -44,7 +44,7 @@ export default function MasterNavbar(props: RouteComponentProps) {
                             </ul>
                         </li>
 
-                        <li><a className='dropdown-arrow' href='http://'>통계자료</a>
+                        <li><Link className='dropdown-arrow' to={'/master/masterchart'}>통계자료</Link>
                             <ul className='sub-menus'>
                                 <li><Link to={'/master/masterownerdash'}>오너대시보드</Link></li>
                                 <li><Link to={'/master/userdash'}>유저대시보드</Link></li>

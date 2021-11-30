@@ -2,7 +2,11 @@
 
 .flex-container {
     display: inline-flex;
-    width: 100%;
+    width: 95%;
+    border: 1px solid #7EA0EA;
+    border-radius: 5px;
+    margin: 30px;
+    margin-left: 45px;
 }
 
 
@@ -11,9 +15,6 @@
     display: block;
     width: 45%;
     text-align: center;
-    border: 1px solid #7EA0EA;
-    border-radius: 5px;
-    margin: 10px;
     flex: 1;
 }
 
@@ -21,10 +22,6 @@
     display: block;
     width: 45%;
     text-align: center;
-
-    border: 1px solid #7EA0EA;
-    border-radius: 5px;
-    margin: 10px;
     flex: 1;
 }
 /*////////////////////////////////////////////////////////////////////////////*/
@@ -37,6 +34,9 @@
     margin: 30px;
 }
 
+.flex-container-1 h1{
+    text-align: center;
+}
 
 .flex-items-1:nth-child(1) {
     display: block;
@@ -46,6 +46,24 @@
     flex: 1;
 }
 
+/*오너+유저 통계 그래프 배너*/
+.flex-items-1:nth-child(1) h3{
+    border:solid #E7ECFF 7px;
+    border-radius: 40px 10px;
+    margin: 15px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.flex-items-1:nth-child(2) h3{
+    border:solid #E7ECFF 7px;
+    border-radius: 40px 10px;
+    margin: 15px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+
 .flex-items-1:nth-child(2) {
     display: block;
     width: 45%;
@@ -54,4 +72,52 @@
     flex: 1;
 }
 
+.flex-container-2 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: normal;
+    align-content: normal;
+    margin-top: 30px;
+}
 
+.flex-items-2:nth-child(1) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+    width: 750px;
+    height: 700px;
+    text-align: center;
+    border: 1px solid #7EA0EA;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.qqq{
+    text-align: center;
+    margin-top: 40px;
+    margin-left: 500px;
+    margin-right: 500px;
+    border:solid #E7ECFF 10px;
+    border-radius: 40px 10px;
+    /*border-color: #E7ECFF;*/
+}
+
+.qqq2{
+    text-align: center;
+    margin-top: 40px;
+    margin-left: 500px;
+    margin-right: 500px;
+    border:solid #E7ECFF 8px;
+    border-radius: 40px 10px;
+}
+
+.qqq3{
+    margin: 70px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
