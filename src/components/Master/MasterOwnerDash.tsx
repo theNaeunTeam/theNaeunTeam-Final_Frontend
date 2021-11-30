@@ -124,7 +124,10 @@ export default function MasterOwnerDash() {
     return (
         <>
             <div className='qqq'>
-                <h3 style={{background:'#E7ECFF'}}>오너 가입/탈퇴 통계</h3>
+                <h2 style={{background:'#E7ECFF',
+                            borderRadius:'40px 10px',
+                            padding:'15px'
+                }}>오너 가입/탈퇴 통계</h2>
             </div>
             <div className="flex-container">
             <div className="flex-items">
@@ -135,8 +138,8 @@ export default function MasterOwnerDash() {
                     <>
                         <h3 style={{margin:'10px',
                                     background:'#fce6d8',
-                                    marginLeft:'355px',
-                                    marginRight:'355px',
+                                    marginLeft:'320px',
+                                    marginRight:'320px',
                                     border:'solid #fce6d8 3px',
                                     borderRadius:'40px',
                         }}>Month</h3>
@@ -195,8 +198,8 @@ export default function MasterOwnerDash() {
                     <>
                         <h3 style={{margin:'10px',
                             background:'#fce6d8',
-                            marginLeft:'355px',
-                            marginRight:'355px',
+                            marginLeft:'320px',
+                            marginRight:'320px',
                             border:'solid #fce6d8 3px',
                             borderRadius:'40px',
                         }}>Year</h3>
@@ -250,8 +253,12 @@ export default function MasterOwnerDash() {
 
 
             <div className='qqq2'>
-                <h3 style={{background:'#E7ECFF'}}>오너 지역별 분포 통계</h3>
+                <h2 style={{background:'#E7ECFF',
+                            borderRadius:'40px 10px',
+                            padding:'15px'
+                }}>오너 지역별 분포 통계</h2>
             </div>
+
             <div className="flex-container-2">
                 <div className="flex-items-2">
                 <div className="qqq3">

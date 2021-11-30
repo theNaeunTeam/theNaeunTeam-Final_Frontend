@@ -2,7 +2,7 @@
 
 .flex-container {
     display: inline-flex;
-    width: 95%;
+    width: 96%;
     border: 1px solid #7EA0EA;
     border-radius: 5px;
     margin: 30px;
@@ -28,7 +28,7 @@
 
 .flex-container-1 {
     display: inline-flex;
-    width: 95%;
+    width: 96%;
     border: 1px solid #7EA0EA;
     border-radius: 5px;
     margin: 30px;
@@ -92,7 +92,7 @@
     width: 750px;
     height: 700px;
     text-align: center;
-    border: 1px solid #7EA0EA;
+    border: 1px solid #7EA0EA ;
     border-radius: 5px;
     margin-bottom: 30px;
 }
@@ -102,8 +102,8 @@
     margin-top: 40px;
     margin-left: 500px;
     margin-right: 500px;
-    border:solid #E7ECFF 10px;
-    border-radius: 40px 10px;
+    /*border:14px solid #E7ECFF ;*/
+    /*border-radius: 40px 10px;*/
     /*border-color: #E7ECFF;*/
 }
 
@@ -112,8 +112,8 @@
     margin-top: 40px;
     margin-left: 500px;
     margin-right: 500px;
-    border:solid #E7ECFF 8px;
-    border-radius: 40px 10px;
+    /*border:14px solid #E7ECFF ;*/
+    /*border-radius: 40px 10px;*/
 }
 
 .qqq3{
