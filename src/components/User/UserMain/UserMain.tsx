@@ -81,9 +81,11 @@ export default function UserMain() {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        autoplay: true,
+        speed: 500,
+        autoplaySpeed: 3000,
     };
 
     function Item({data, idx}: itemType) {
