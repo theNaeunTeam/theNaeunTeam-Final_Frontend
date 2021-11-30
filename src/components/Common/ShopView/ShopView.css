@@ -1,7 +1,18 @@
-.ShopViewDivContainer{
+.ShopViewDivContainer {
     display: flex;
+    text-align: center;
     justify-content: space-evenly;
-    margin: 100px;
+    margin: 20px;
     padding: 10px;
-    max-height: 300px;
 }
+
+.ShopViewDivContainerContainer {
+    display: flex;
+    flex-direction: column;
+    width: 96%;
+    border-radius: 5px;
+    margin: 30px;
+    align-items: center;
+}
+
+

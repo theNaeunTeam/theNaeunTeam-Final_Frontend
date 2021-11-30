@@ -47,6 +47,7 @@ const DivHalfMenu = styled.div`
   flex: 1;
   margin: 10px;
   padding: 10px;
+  width: 500px;
 `;
 
 export default function ShopView() {
@@ -458,7 +459,8 @@ export default function ShopView() {
                                     {optionTagBuilder(props.data.g_count).map(data => data)}
                                 </select> {' '}
                                 <input type={'hidden'} value={props.data.g_code}/>
-                                <button style={{background:'none', border:'none'}}><Button variant={"outlined"}>장바구니 담기</Button></button>
+                                <button style={{background: 'none', border: 'none'}}><Button variant={"outlined"}>장바구니
+                                    담기</Button></button>
                             </form>
                         </div>
                     </DivHalfMenu>
@@ -502,10 +504,13 @@ export default function ShopView() {
                             onClick={categoryChange}>식품외 기타 {category.other}</Button>
                 </DivButton>
 
-                {rows.length === 0 ? <div style={{textAlign:'center', margin:'100px'}}><h1>상품 준비 중 입니다</h1></div>
-                    : rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
-                <div style={{textAlign:'center', marginBottom:'100px'}}>
-                    <Button variant="outlined" color={'error'} style={{width:'50%'}}
+                <div className={'ShopViewDivContainerContainer'}>
+                    {rows.length === 0 ? <div style={{textAlign: 'center', margin: '100px'}}><h1>상품 준비 중 입니다</h1></div>
+                        : rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                </div>
+
+                <div style={{textAlign: 'center', marginBottom: '100px'}}>
+                    <Button variant="outlined" color={'error'} style={{width: '50%'}}
                             onClick={() => history.push('/user/shoppingcart')}>장바구니
                         보기 </Button>
                 </div>
@@ -513,14 +518,13 @@ export default function ShopView() {
         )
     }
 
-
     //매장정보
     function BBB() {
         return (
             <>
                 <Paper className={'ShopViewDivContainer'}>
                     <DivHalfMenu>
-                        <img src={aboutStore.o_image} alt={'image'} style={{width:'100px', height:'100px'}}/>
+                        <img src={aboutStore.o_image} alt={'image'} style={{width: '100px', height: '100px'}}/>
                         <h3>{aboutStore.o_name}</h3><br/>
                         <h5>가게 전화번호 {aboutStore.o_phone}</h5><br/>
                         <h5>영업시간 {aboutStore.o_time1} ~ {aboutStore.o_time2}</h5><br/>
@@ -548,8 +552,8 @@ export default function ShopView() {
                         </CopyToClipboard>
                     </DivHalfMenu>
                 </Paper>
-                <div style={{textAlign:'center', marginBottom:'100px'}}>
-                    <Button variant="outlined" color={'error'} style={{width:'50%'}}
+                <div style={{textAlign: 'center', marginBottom: '100px'}}>
+                    <Button variant="outlined" color={'error'} style={{width: '50%'}}
                             onClick={() => history.push('/user/shoppingcart')}>
                         장바구니 보기 </Button>
                 </div>
@@ -583,14 +587,11 @@ export default function ShopView() {
                     setModal(false)
                 }}>매장 정보</a>
             </div>
-
             {
                 modal
                     ? <AAA/>
                     : <BBB/>
             }
-
-
         </>
     );
 };
