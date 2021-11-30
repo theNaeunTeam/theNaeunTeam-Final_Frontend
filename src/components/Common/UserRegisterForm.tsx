@@ -5,8 +5,10 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import {Button} from "@mui/material";
-import {client} from "../../lib/api/client";
 import Stack from '@mui/material/Stack';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
 
 export default function UserRegisterForm() {
 
@@ -18,7 +20,7 @@ export default function UserRegisterForm() {
         u_email: '',
         emailConfirm: '',
         u_gender: '남성',
-        u_age: '',
+        u_age: '20',
     };
 
     const formErrorinit = {
@@ -42,7 +44,7 @@ export default function UserRegisterForm() {
     }
 
     const formValidate = (tagName: string) => {
-        if (regForm.u_id.length < 6) {
+        if (regForm.u_id.length < 5) {
             setFormError({...formError, [tagName]: true});
             return false;
         } else {
@@ -53,17 +55,22 @@ export default function UserRegisterForm() {
 
 
     const submitForm = async () => {
-        const URL = '/common/userjoin'
-        try {
-            const res = await client.post(URL, regForm);
-            console.log(res);
-        } catch (e) {
-            console.log(e);
-        }
+
+        console.log(regForm);
+
+        // const URL = '/common/userjoin'
+        // try {
+        //     const res = await client.post(URL, regForm);
+        //     console.log(res);
+        // } catch (e) {
+        //     console.log(e);
+        // }
+
     };
 
+
     return (
-        <>
+        <div style={{border: 'none', marginLeft: '200px', marginRight: '200px', marginTop: '10px', padding: '10px'}}>
             <Stack
                 onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
                 component="form"
@@ -74,6 +81,7 @@ export default function UserRegisterForm() {
                 autoComplete="off"
                 alignItems={"center"}
             >
+                <div><h3>회원 가입</h3></div>
                 <TextField
                     error={formError.u_id}
                     required
@@ -97,6 +105,7 @@ export default function UserRegisterForm() {
                     label="패스워드"
                     type={'password'}
                     name={'u_pw'}
+                    helperText="비밀번호를 입력해주세요"
                 />
                 <TextField
                     error={formError.pwConfirm}
@@ -105,6 +114,7 @@ export default function UserRegisterForm() {
                     label="패스워드확인"
                     type={'password'}
                     name={'pwConfirm'}
+                    helperText="비밀번호를 다시 한 번 입력해주세요"
                 />
                 <TextField
                     error={formError.u_email}
@@ -112,6 +122,7 @@ export default function UserRegisterForm() {
                     id="outlined-required"
                     label="이메일"
                     name={'u_email'}
+                    helperText="이메일주소를 입력해주세요"
                 />
                 <TextField
                     error={formError.emailConfirm}
@@ -119,35 +130,44 @@ export default function UserRegisterForm() {
                     id="outlined-required"
                     label="이메일 확인"
                     name={'emailConfirm'}
+                    helperText="이메일주소를 다시 한 번 입력해주세요"
                 />
 
-                <div style={{width: '30%', margin: 'auto'}}>
+                <div style={{width: '100%', marginBottom: '10px', display: 'flex', justifyContent: 'center'}}>
+                    <span style={{marginLeft:'20px', marginRight:'20px'}}>
+                    <InputLabel id="demo-simple-select-label">나이</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={regForm.u_age}
+                        label="나이"
+                        onChange={e => {
+                            setRegForm({...regForm, u_age: e.target.value})
+                        }}
+                        name={'u_age'}
+                    >
+                        <MenuItem value={'10'}>10대</MenuItem>
+                        <MenuItem value={'20'}>20대</MenuItem>
+                        <MenuItem value={'30'}>30대</MenuItem>
+                        <MenuItem value={'40'}>40대</MenuItem>
+                        <MenuItem value={'50'}>50대</MenuItem>
+                        <MenuItem value={'60'}>60대</MenuItem>
+                    </Select>
+                        </span>
+                    <span style={{marginLeft:'20px', marginRight:'20px'}}>
                     <FormLabel component="legend">성별</FormLabel>
                     <RadioGroup row aria-label="gender" name={'u_gender'}>
                         <FormControlLabel id={'u_gender'} value="남성" control={<Radio/>} defaultChecked={true}
                                           label="남성"/>
                         <FormControlLabel id={'u_gender'} value="여성" control={<Radio/>} label="여성"/>
                     </RadioGroup>
-                    나이
-                    <select name={'u_age'} style={{width: '50%'}}>
-                        <option>AGE</option>
-                        <option value="10">10대</option>
-                        <option value="20">20대</option>
-                        <option value="30">30대</option>
-                        <option value="40">40대</option>
-                        <option value="50">50대</option>
-                        <option value="60">60대</option>
-                        <option value="70">70대</option>
-                        <option value="80">80대</option>
-                        <option value="90">90대</option>
-                    </select>
-
-                    <Button style={{width: '100%'}} variant="outlined" onClick={submitForm}>
-                        회원가입
-                    </Button>
+                        </span>
                 </div>
+                <Button style={{width: '50%'}} variant="outlined" onClick={submitForm}>
+                    회원가입
+                </Button>
             </Stack>
-        </>
+        </div>
     )
 }
 

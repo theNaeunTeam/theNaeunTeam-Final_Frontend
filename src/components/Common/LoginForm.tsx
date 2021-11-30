@@ -131,10 +131,9 @@ export default function LoginForm(props: RouteComponentProps) {
 
     return (
         <>
-
-            <div style={{textAlign: 'center'}}>
-                <form onChange={e => handleForm(e)} onSubmit={e => e.preventDefault()}>
-
+            <div style={{textAlign: 'center', margin: '20px', padding: '20px'}}>
+                <form onChange={e => handleForm(e)} onSubmit={e => e.preventDefault()}
+                      style={{display: 'inline-block'}}>
                     <FormControl component="fieldset">
                         <FormLabel component="legend">회원 유형을 선택해 주세요</FormLabel>
                         <RadioGroup row aria-label="type" name="radio">
@@ -142,16 +141,11 @@ export default function LoginForm(props: RouteComponentProps) {
                             <FormControlLabel value="company" control={<Radio/>} label="업체회원"/>
                         </RadioGroup>
                     </FormControl>
-
                     <Box
-                        component="form"
                         sx={{
                             '& > :not(style)': {m: 1, width: '25ch'},
                         }}
-                        noValidate
-                        autoComplete="off"
                     >
-
                         <TextField id="outlined-basic" label={loginForm.radio === 'individual' ? '아이디' : '사업자번호'}
                                    variant="outlined" name={'u_id'}
                                    InputProps={{
@@ -172,17 +166,20 @@ export default function LoginForm(props: RouteComponentProps) {
                                        ),
                                    }}/>
                     </Box>
+                    <br/>
+                    <Button style={{width: '50%'}} variant="contained" onClick={login}>로그인</Button>
                 </form>
-                <Button variant="contained" onClick={login}>로그인</Button>
+                <br/><br/>
                 {
                     loginForm.radio === 'individual'
                         ?
-                        <div>
-                            <Button variant="outlined" onClick={() => props.history.push('/user/register')}>
+                        <div style={{display: "flex", justifyContent: 'center'}}>
+                            <Button style={{margin: '10px'}} variant="outlined"
+                                    onClick={() => props.history.push('/user/register')}>
                                 회원가입
                             </Button>
-                            <br/>
-                            <Button variant="outlined" onClick={handleClickOpen}>
+
+                            <Button style={{margin: '10px'}} variant="outlined" onClick={handleClickOpen}>
                                 비밀번호 찾기
                             </Button>
                         </div>

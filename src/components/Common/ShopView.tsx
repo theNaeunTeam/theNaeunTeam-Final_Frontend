@@ -16,6 +16,13 @@ import {categoryType, shopViewType} from "../../modules/types";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {fetch_Category_Per_sNumber} from "../../lib/api/Fetch_Category_Per_sNumber";
 
+const DivMarker = styled.div`
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+`
+
 const DivTitle = styled.div`
   flex-direction: column;
   display: flex;
@@ -25,7 +32,8 @@ const DivTitle = styled.div`
 `;
 
 const DivButton = styled.div`
-  margin: 5px;
+  margin-left: 100px;
+  margin-right: 100px;
   padding: 0;
   display: flex;
   list-style: none;
@@ -35,16 +43,17 @@ const DivButton = styled.div`
 const DivContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
-  margin: 50px;
+  margin: 100px;
   padding: 10px;
-  width: 100%;
+  max-height: 300px;
+  border: #0099CC solid 1px;
+  border-radius: 15px;
 `;
 
 const DivHalfMenu = styled.div`
   flex: 1;
   margin: 10px;
   padding: 10px;
-  width: 40%;
 `;
 
 export default function ShopView() {
@@ -441,27 +450,29 @@ export default function ShopView() {
             <>
                 <DivContainer>
                     <DivHalfMenu>
-                        <br/>
-                        <h3>{props.data.g_name}</h3>
-                        <h6>{props.data.g_expireDate}</h6>
-                        <br/>
-                        <h5 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h5>
-                        <h5>할인가 : {props.data.g_discount}</h5>
-                        <h6>남은 수량 : {props.data.g_count}</h6><br/>
+                        <div className={'goodsDetail'}>
+                            <h2>{props.data.g_name}</h2>
+                            <h5>{props.data.g_expireDate}</h5>
+                            <br/>
+                            <h4 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h4>
+                            <h4>할인가 : {props.data.g_discount}</h4>
+                            <br/>
+                            <h5>남은 수량 : {props.data.g_count}</h5>
 
-                        수량 선택 :
-                        <form onSubmit={event => saveGoods(event, props.data.g_count)}>
-                            <select>
-                                {optionTagBuilder(props.data.g_count).map(data => data)}
-                            </select>
-                            <input type={'hidden'} value={props.data.g_code}/>
-
-                            <button style={{background: 'gray'}}>장바구니 담기</button>
-                        </form>
-
+                            <form onSubmit={event => saveGoods(event, props.data.g_count)} className={'goodsForm'}>
+                                <span>수량 선택 : </span>
+                                <select>
+                                    {optionTagBuilder(props.data.g_count).map(data => data)}
+                                </select> {' '}
+                                <input type={'hidden'} value={props.data.g_code}/>
+                                <Button variant={"outlined"}>장바구니 담기</Button>
+                            </form>
+                        </div>
                     </DivHalfMenu>
                     <DivHalfMenu>
-                        <img style={{maxWidth: '100%'}} src={props.data.g_image}/>
+                        <div className={'goodsImageDiv'}>
+                            <img className={'goodsImage'} src={props.data.g_image} alt={'상품이미지'}/>
+                        </div>
                     </DivHalfMenu>
                 </DivContainer>
             </>
@@ -473,31 +484,38 @@ export default function ShopView() {
         return (
             <>
                 <DivButton>
-                    <Button name='case1' style={color.case1 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case1' style={color.case1 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={(e) => categoryChange(e)}>전체 {' '}
                         {category.drink + category.fresh + category.gagong + category.freeze + category.cooked + category.other}
                     </Button>
-                    <Button name='case2' style={color.case2 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case2' style={color.case2 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>마실것 {category.drink}</Button>
-                    <Button name='case3' style={color.case3 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case3' style={color.case3 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>신선식품 {category.fresh}</Button>
-                    <Button name='case4' style={color.case4 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case4' style={color.case4 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>가공식품 {category.gagong}</Button>
-                    <Button name='case5' style={color.case5 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case5' style={color.case5 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>냉동식품 {category.freeze}</Button>
-                    <Button name='case6' style={color.case6 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case6' style={color.case6 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>조리/반조리 {category.cooked}</Button>
-                    <Button name='case7' style={color.case7 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case7' style={color.case7 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>식품외 기타 {category.other}</Button>
                 </DivButton>
 
-                {rows.length === 0 ? <div>상품 준비 중 입니다</div>
-                    :rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
-                <DivContainer>
-                    <Button style={{background: 'red', width: '100%'}} variant="contained"
+                {rows.length === 0 ? <div style={{textAlign:'center', margin:'100px'}}><h1>상품 준비 중 입니다</h1></div>
+                    : rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                <div style={{textAlign:'center', marginBottom:'100px'}}>
+                    <Button variant="outlined" color={'error'} style={{width:'50%'}}
                             onClick={() => history.push('/user/shoppingcart')}>장바구니
                         보기 </Button>
-                </DivContainer>
+                </div>
             </>
         )
     }
@@ -509,20 +527,20 @@ export default function ShopView() {
             <>
                 <DivContainer>
                     <DivHalfMenu>
-                        <h3>가게정보 {aboutStore.o_name}</h3><br/>
-                        <img src={aboutStore.o_image} alt={'image'}/>
+                        <img src={aboutStore.o_image} alt={'image'} style={{width:'100px', height:'100px'}}/>
+                        <h3>{aboutStore.o_name}</h3><br/>
                         <h5>가게 전화번호 {aboutStore.o_phone}</h5><br/>
                         <h5>영업시간 {aboutStore.o_time1} ~ {aboutStore.o_time2}</h5><br/>
-                        <h5>휴무일 {}</h5>
+                        <h4>{aboutStore.o_address}</h4>
                     </DivHalfMenu>
                     <DivHalfMenu>
                         <Map
                             center={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}
-                            style={{width: "100%", height: "360px"}}
+                            style={{width: "450px", height: "250px"}}
                         >
                             <MapMarker
                                 position={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}>
-                                <div style={{color: "#000"}}>{aboutStore.o_name}</div>
+                                <DivMarker>{aboutStore.o_name}</DivMarker>
                             </MapMarker>
                         </Map>
 
@@ -538,13 +556,11 @@ export default function ShopView() {
                         </CopyToClipboard>
                     </DivHalfMenu>
                 </DivContainer>
-                <h4 style={{display: "flex", justifyContent: "center"}}>주소 {aboutStore.o_address}</h4>
-
-
-                <DivContainer>
-                    <Button style={{background: 'red', width: '100%'}} variant="contained"
-                            onClick={() => history.push('/user/shoppingcart')}>장바구니 보기 </Button>
-                </DivContainer>
+                <div style={{textAlign:'center', marginBottom:'100px'}}>
+                    <Button variant="outlined" color={'error'} style={{width:'50%'}}
+                            onClick={() => history.push('/user/shoppingcart')}>
+                        장바구니 보기 </Button>
+                </div>
             </>
         )
     }
@@ -563,19 +579,18 @@ export default function ShopView() {
                         : <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={emptyStar}
                                                                   onClick={favorInsert}/></span>
                 }
-                <h3>{aboutStore.o_name}</h3>
-                <h6 style={{color: 'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h6>
+                <h2>{aboutStore.o_name}</h2>
+                <h3 style={{color: 'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h3>
             </DivTitle>
             <hr/>
             <div className={"nav"}>
                 <a className={"a"} href="javascript:void(0);" onClick={() => {
                     setModal(true)
-                }}>상품정보</a>
+                }}>상품 정보</a>
                 <a className={"a"} href="javascript:void(0);" onClick={() => {
                     setModal(false)
-                }}>매장정보</a>
+                }}>매장 정보</a>
             </div>
-
 
             {
                 modal

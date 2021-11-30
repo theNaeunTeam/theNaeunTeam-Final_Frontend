@@ -8,6 +8,9 @@ import RecommendList from "./RecommendList";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import './UserMain.css';
 
 const DivContainer = styled.div`
   clear: both;
@@ -22,7 +25,6 @@ const DivCarouselContainer = styled.div`
   height: 600px;
   width: 100%;
   margin-bottom: 100px;
-  text-align: center;
 `;
 
 const DivRecommend = styled.div`
@@ -87,16 +89,30 @@ export default function UserMain() {
         autoplay: true,
         speed: 500,
         autoplaySpeed: 3000,
+        arrows: true,
+        nextArrow:<ArrowForwardIcon/>,
+        prevArrow:<ArrowBackIcon/>,
+        adaptiveHeight:true,
+        fade: true,
     };
+
+    // const settings = {
+    //     dots: true,
+    //     infinite: true,
+    //     speed: 500,
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     className: "mainBanner",
+    // };
 
     function Item({data, idx}: itemType) {
         return (
-            <Paper>
+            <div>
                 <div style={{
                     backgroundImage: `url(${data.src})`,
                     width: "100%",
                     height: "600px",
-                    backgroundSize: "100% 600px"
+                    backgroundSize: "100% 600px",
                 }}>
                     <h2>{data.header}</h2>
                     <p>{data.description}</p>
@@ -105,7 +121,7 @@ export default function UserMain() {
                     {/*    Check it out!*/}
                     {/*</Button>*/}
                 </div>
-            </Paper>
+            </div>
         )
     }
 

@@ -1,28 +1,31 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import styled from "styled-components";
-import {client} from "../../lib/api/client";
-import {carouselType} from "../../modules/types";
+import {client} from "../../../lib/api/client";
+import {carouselType} from "../../../modules/types";
 import {useHistory} from "react-router-dom";
+import './ChangeBanner.css';
+import {Button} from "@mui/material";
+import SaveIcon from '@mui/icons-material/Save';
 
 const DivContainer = styled.div`
-  border: solid black;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 50px;
+  margin: auto;
   padding: 10px;
   text-align: center;
+  width: 70%;
+  background-color: ghostwhite;
 `;
-const SpanContainer = styled.span`
-  display: flex;
-  align-items: center;
-`;
+
 const SpanRow = styled.span`
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  border: solid #282c34;
-  margin: 10px;
+  border: solid #282c34 0.5px;
+  border-radius: 10px;
+  margin: 20px;
   padding: 10px;
+  align-items: center;
+  width: 70%;
 `
 
 const emptyValue = {
@@ -95,6 +98,7 @@ export default function ChangeBanner() {
                 console.log(err);
             })
     }
+
     return (
         <>
             <DivContainer>
@@ -103,41 +107,49 @@ export default function ChangeBanner() {
                         <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e, idx)}>
                             <SpanRow>
                                 <strong> {idx + 1}번 배너 </strong>
-                                header<input type={"text"} defaultValue={data.header} id={`header${idx}`}
-                                             name={'header'}/>
                                 <br/>
-                                altText<input type={'text'} defaultValue={data.altText} id={`altText${idx}`}
-                                              name={'altText'}/>
-                                <br/>
-                                description<input type={'text'} defaultValue={data.description}
-                                                  id={`description${idx}`}
-                                                  name={'description'}/>
-                                <br/>
-                                link<input type={"text"} defaultValue={data.link} id={`link${idx}`} name={'link'}/>
-                                <br/>
-                                <input type={'file'} onChange={(e) => handleFileChange(e, idx)}/>
+                                Header text<input type={"text"} defaultValue={data.header} id={`header${idx}`}
+                                                name={'header'}/>
+                                Image ALT text 설정<input type={'text'} defaultValue={data.altText} id={`altText${idx}`}
+                                                    name={'altText'}/>
+                                Description text 설정<input type={'text'} defaultValue={data.description}
+                                               id={`description${idx}`}
+                                               name={'description'}/>
+                                Link href 설정<input type={"text"} defaultValue={data.link} id={`link${idx}`}
+                                                 name={'link'}/>
+                               이미지 파일 업로드 <input type={'file'} onChange={(e) => handleFileChange(e, idx)}/>
                                 <input type={'hidden'} defaultValue={data.src} id={`src${idx}`} name={'src'}/>
+                                <hr/>
                             </SpanRow>
                             <img src={data.src} height={'500px'} width={'100%'} alt={data.altText}/>
-                            <button onClick={() => {
-                                const cp = [...arr];
-                                cp.splice(idx, 1);
-                                setArr(cp);
-                            }}>배너 삭제
-                            </button>
+                            <hr/>
+                            <Button variant={'contained'} color={'error'}
+                                    style={{width: '50%', marginTop: '10px'}}
+                                    onClick={() => {
+                                        const cp = [...arr];
+                                        cp.splice(idx, 1);
+                                        setArr(cp);
+                                    }}>해당 배너 삭제
+                            </Button>
                         </form>
-                        <hr/>
                     </>
                 )}
                 <br/>
-                <button onClick={() => {
-                    const cp = [...arr];
-                    cp.push(emptyValue)
-                    setArr(cp);
-                }}>배너 추가
-                </button>
+                <div>
+                    <Button variant={'contained'}
+                            style={{width: '50%'}}
+                            onClick={() => {
+                                const cp = [...arr];
+                                cp.push(emptyValue)
+                                setArr(cp);
+                            }}>배너 페이지 추가
+                    </Button>
+                    <br/><br/>
+                    <Button
+                        style={{width: '50%'}}
+                        variant={'contained'} color={'success'} onClick={submitForm}>저장<SaveIcon/></Button>
+                </div>
             </DivContainer>
-            <button onClick={submitForm}>전송하기</button>
         </>
     )
 }

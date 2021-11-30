@@ -8,6 +8,19 @@
     margin: auto;
 }
 
+.nav a{
+    font-size: x-large;
+    border: #a8bcfb solid 1px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: ghostwhite;
+}
+
+.nav a:hover{
+    background-color: #a8bcfb;
+    color: white;
+}
+
 .a {
     position: relative;
     text-decoration: none;
@@ -42,14 +55,40 @@
     border: gray;
 }
 
+.goodsDetail{
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-right: #282c34 solid 1px;
+}
 
+.goodsImageDiv{
+    display:table-cell;
+    vertical-align:middle;
+}
 
+.goodsImage{
+    max-width:200px;
+    max-height:200px;
+    margin-left: 110px;
+}
 
+.goodsForm{
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+}
 
-
-
-
-
+.goodsForm select{
+    width: 100px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
 
 
