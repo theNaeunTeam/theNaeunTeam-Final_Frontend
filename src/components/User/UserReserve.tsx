@@ -10,6 +10,42 @@ import {client} from "../../lib/api/client";
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
+import UserNavbar from "./UserNavbar";
+import '../../styles/table.css'
+
+const DivContainer = styled.div`
+  //text-align: center;
+  border: solid black;
+  display: inline-flex;
+  justify-content: center;
+  margin: 20px;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  clear: both;
+`;
+
+const DivNav = styled.div`
+  border: solid blue;
+  width: 17%;
+  font-size: large;
+
+`;
+const DivMain = styled.div`
+  border: solid red;
+  width: 80%;
+  height: 100%;
+  text-align: center;
+  padding: 20px;
+
+`;
+const TableStyled = styled.table`
+  border: solid aqua;
+  padding: 30px;
+  margin: auto;
+  width: 100%;
+`;
+
 
 export default function UserReserve() {
 
@@ -19,15 +55,7 @@ export default function UserReserve() {
         if (!localStorage.getItem('userToken')) history.push('/err');
     }, []);
 
-    const TableStyled = styled.table`
-      padding: 30px;
-      margin: auto;
-      width: 80%;
-    `;
 
-    const DivContainer = styled.div`
-      text-align: center;
-    `;
     type dummyType = {
         r_g_code: number,
         r_code: number,
@@ -96,7 +124,7 @@ export default function UserReserve() {
     const TableBuilder = (props: { data: dummyType, idx: number }) => {
 
         return (
-            <tr>
+            <tr className={'tbl'}>
                 <td>
                     {props.idx + 1}
                 </td>
@@ -154,67 +182,70 @@ export default function UserReserve() {
 
     return (
         <DivContainer>
-            <h2>예약내역</h2>
-            <div>
-                <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
-                    <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={g_category}
-                        onChange={e => setG_category(e.target.value)}
-                    >
-                        <MenuItem value=''>모두 보기</MenuItem>
-                        <MenuItem value='과자류'>과자류</MenuItem>
-                        <MenuItem value='간편식'>간편식</MenuItem>
-                        <MenuItem value='음료'>음료</MenuItem>
-                        <MenuItem value='즉석조리'>즉석조리</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
-                    <InputLabel id="demo-simple-select-standard-label">상태</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={r_status}
-                        onChange={e => setR_status(e.target.value)}
-                    >
-                        <MenuItem value=''>모두 보기</MenuItem>
-                        <MenuItem value='0'>승인 대기 중</MenuItem>
-                        <MenuItem value='1'>승인</MenuItem>
-                        <MenuItem value='2'>거절</MenuItem>
-                        <MenuItem value='4'>노쇼</MenuItem>
-                        <MenuItem value='3'>구매완료</MenuItem>
-                        <MenuItem value='5'>취소</MenuItem>
-                    </Select>
-                </FormControl>
-                <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
-                           onChange={e => setSearchInput(e.target.value as string)}/>
-                <Button variant="outlined" onClick={searchReserve}>검색</Button>
-            </div>
-            <TableStyled>
-                <thead style={{border: "solid black 0.1px"}}>
-                <tr>
-                    <th>순번</th>
-                    <th>상품명</th>
-                    <th>상품분류</th>
-                    <th>유통기한</th>
-                    <th>남은수량</th>
-                    <th>상품 상태</th>
-                    <th>주문 수량</th>
-                    <th>요청사항</th>
-                    <th>방문 예정 시간</th>
-                    <th>결제금액</th>
-                    <th>상태</th>
-                    <th>취소</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                {list.length === 0 ? '예약 기록이 없습니다. '
-                    : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
-                </tbody>
-            </TableStyled>
+            <DivNav>
+                <UserNavbar/>
+            </DivNav>
+            <DivMain>
+                <div>
+                    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                        <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={g_category}
+                            onChange={e => setG_category(e.target.value)}
+                        >
+                            <MenuItem value=''>모두 보기</MenuItem>
+                            <MenuItem value='과자류'>과자류</MenuItem>
+                            <MenuItem value='간편식'>간편식</MenuItem>
+                            <MenuItem value='음료'>음료</MenuItem>
+                            <MenuItem value='즉석조리'>즉석조리</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                        <InputLabel id="demo-simple-select-standard-label">상태</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={r_status}
+                            onChange={e => setR_status(e.target.value)}
+                        >
+                            <MenuItem value=''>모두 보기</MenuItem>
+                            <MenuItem value='0'>승인 대기 중</MenuItem>
+                            <MenuItem value='1'>승인</MenuItem>
+                            <MenuItem value='2'>거절</MenuItem>
+                            <MenuItem value='4'>노쇼</MenuItem>
+                            <MenuItem value='3'>구매완료</MenuItem>
+                            <MenuItem value='5'>취소</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
+                               onChange={e => setSearchInput(e.target.value as string)}/>
+                    <Button variant="outlined" onClick={searchReserve}>검색</Button>
+                </div>
+                <TableStyled>
+                    <thead style={{border: "solid black 0.1px"}}>
+                    <tr>
+                        <th>순번</th>
+                        <th>상품명</th>
+                        <th>상품분류</th>
+                        <th>유통기한</th>
+                        <th>남은수량</th>
+                        <th>상품 상태</th>
+                        <th>주문 수량</th>
+                        <th>요청사항</th>
+                        <th>방문 예정 시간</th>
+                        <th>결제금액</th>
+                        <th>상태</th>
+                        <th>취소</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {list.length === 0 ? '예약 기록이 없습니다. '
+                        : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                    </tbody>
+                </TableStyled>
+            </DivMain>
         </DivContainer>
     )
 }

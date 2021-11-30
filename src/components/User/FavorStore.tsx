@@ -6,16 +6,41 @@ import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import fullStar from "../../styles/images/star1.png";
 import Swal from 'sweetalert2';
+import UserNavbar from "./UserNavbar";
+import '../../styles/table.css';
 
 const TableStyled = styled.table`
-
+  border: solid aqua;
   padding: 30px;
-  margin: auto;
-  width: 80%;
+  width: 100%;
+  margin : auto;
 `;
 
+
 const DivContainer = styled.div`
+  border: solid black;
+  display: inline-flex;
+  justify-content: center;
+  margin: 20px;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  clear: both;
+`;
+
+const DivNav = styled.div`
+  border: solid blue;
+  width: 17%;
+  font-size: large;
+
+`;
+const DivMain = styled.div`
+  border: solid red;
+  width: 80%;
+  height: 100%;
   text-align: center;
+  padding: 20px;
+
 `;
 export default function FavorStore() {
 
@@ -97,9 +122,8 @@ export default function FavorStore() {
         }
     }
     const TableBuilder = (props: { data: favorListType, idx: number }) => {
-
         return (
-            <tr>
+            <tr className={'tbl'}>
                 <td>
                     {props.idx + 1}
                 </td>
@@ -132,26 +156,30 @@ export default function FavorStore() {
     };
     return (
         <DivContainer>
-            <h2>즐겨찾는가게</h2>
+            <DivNav>
+                <UserNavbar/>
+            </DivNav>
 
-            <TableStyled>
-                <thead style={{border: "solid black 0.1px"}}>
-                <tr>
-                    <th>순번</th>
-                    <th>가게명</th>
-                    <th>가게주소</th>
-                    <th>가게번호</th>
-                    <th>운영시간</th>
-                    <th>가게 정보</th>
-                    <th></th>
+            <DivMain>
+                <TableStyled>
+                    <thead style={{border: "solid black 0.1px"}}>
+                    <tr>
+                        <th>순번</th>
+                        <th>가게명</th>
+                        <th>가게주소</th>
+                        <th>가게번호</th>
+                        <th>운영시간</th>
+                        <th>가게 정보</th>
+                        <th>해제</th>
 
-                </tr>
-                </thead>
-                <tbody>
-                {list.length === 0 ? '즐겨찾는 가게가 없습니다. '
-                    :list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
-                </tbody>
-            </TableStyled>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {list.length === 0 ? '즐겨찾는 가게가 없습니다. '
+                        : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                    </tbody>
+                </TableStyled>
+            </DivMain>
         </DivContainer>
     )
 }

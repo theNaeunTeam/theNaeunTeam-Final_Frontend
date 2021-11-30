@@ -93,7 +93,7 @@ function App() {
         <>
             <Header/>
 
-
+            {}
                 <Route path='/' component={MainBar}/>
                 <Route path='/'exact component={UserMain}/>
 
