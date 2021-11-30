@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 import {client} from "../../../lib/api/client";
-import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
 import {Button, Paper} from "@mui/material";
@@ -154,7 +153,7 @@ export default function ShoppingCart() {
                                                                                           key={idx}/>)}
                     <br/>
                     <div>
-                       총 주문 상품 수 : {cartReducer.length} 개, {' '}
+                        총 주문 상품 수 : {cartReducer.length} 개, {' '}
                         {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
                     </div>
                     <span>
@@ -166,7 +165,19 @@ export default function ShoppingCart() {
                 </>
                 :
                 <>
-                    <h3>{loading ? <CircularProgress/> : '장바구니에 담은 상품이 없습니다'}</h3>
+                    <div>
+                        {
+                            loading ? <CircularProgress/> :
+                                <>
+                                    <div>
+                                        <br/>
+                                        <div>장바구니에 담긴 상품이 없습니다.</div>
+                                        <br/>
+                                        <div><Button onClick={() => history.push('/')}>메인페이지로 돌아가기</Button></div>
+                                    </div>
+                                </>
+                        }
+                    </div>
                 </>
             }
 
