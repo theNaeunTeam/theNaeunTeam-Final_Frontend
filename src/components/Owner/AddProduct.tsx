@@ -165,11 +165,7 @@ export default function AddProduct() {
 
     return (
         <DivContainer>
-            <DivNav>
-                <OwnerNavbar/>
-            </DivNav>
 
-            <DivMain>
                 <h2>상품등록</h2>
 
                 <Stack
@@ -274,7 +270,7 @@ export default function AddProduct() {
                         </DialogActions>
                     </Dialog>
                 </Stack>
-            </DivMain>
+
         </DivContainer>
     )
 }

@@ -197,11 +197,9 @@ export default function ReservationView() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
             <DivContainer>
-                <DivNav>
-                    <OwnerNavbar/>
-                </DivNav>
 
-                <DivMain>
+
+
                     <h2>예약현황</h2>
                     <div>
                         <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
@@ -262,7 +260,7 @@ export default function ReservationView() {
                             :list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                         </tbody>
                     </TableStyled>
-                </DivMain>
+
             </DivContainer>
         </>
     )

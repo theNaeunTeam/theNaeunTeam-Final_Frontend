@@ -76,11 +76,6 @@ export default function Unsubscribe() {
 
     return (
         <DivContainer>
-            <DivNav>
-                <OwnerNavbar/>
-            </DivNav>
-
-            <DivMain>
                 <h1>이용해지신청</h1>
                 <h3>비밀번호 확인</h3>
 
@@ -107,7 +102,6 @@ export default function Unsubscribe() {
                         확인
                     </Button>
                 </Stack>
-            </DivMain>
         </DivContainer>
     )
 }

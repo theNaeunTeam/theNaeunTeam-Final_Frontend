@@ -15,7 +15,7 @@ const DivContainer = styled.div`
   margin: 20px;
   padding: 10px;
   height: 100%;
-  width: 100%;
+  width: 97%;
   clear: both;
 `;
 const DivHalfMenu = styled.div`
@@ -235,10 +235,7 @@ export default function OwnerMain() {
     }
     return (
         <DivContainer>
-            <DivNav>
-                <OwnerNavbar/>
-            </DivNav>
-            <DivMain>
+
                 <h3>{ownerPage.o_name}</h3>
                 <DivHalfMenu>
                     <FCM/>
@@ -369,7 +366,7 @@ export default function OwnerMain() {
                         </DivChart2>
                     </DivChart3>
                 </DivChart>
-            </DivMain>
+
         </DivContainer>
     )
 }

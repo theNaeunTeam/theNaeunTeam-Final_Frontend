@@ -42,6 +42,7 @@ import MasterChart from "./components/Master/MasterChart";
 import PrivacyPolicy from "./components/Common/PrivacyPolicy";
 import FindPw from "./components/Common/findpw";
 import MainBar from "./components/Common/MainBar";
+import OwnerNavbar from "./components/Owner/OwnerNavbar";
 
 
 function App() {
@@ -93,8 +94,11 @@ function App() {
         <>
             <Header/>
 
-            {}
-                <Route path='/' component={MainBar}/>
+            {authReducer.isMaster === true ? <Route path='/master' component={MasterNavbar}/>
+                : authReducer.isOwner === true? <Route path='/' component={OwnerNavbar}/>
+                    :<Route path='/' component={MainBar}/> }
+
+
                 <Route path='/'exact component={UserMain}/>
 
                 <Route exact path='/login' component={LoginForm}/>
@@ -114,7 +118,7 @@ function App() {
             <Route path='/list' component={ShopList}/>
 
 
-            <Route path='/master' component={MasterNavbar}/>
+
             <Route path='/master' exact component={MasterMain}/>
             <Route path='/master/masteruserlist' component={MasterUserList}/>
             <Route path='/master/approvalwaiting' component={ApprovalWaiting}/>
