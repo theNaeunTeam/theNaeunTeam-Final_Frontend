@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
+import './UserMain.css';
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
-import {Paper} from '@mui/material'
 import {carouselType, recommendType} from "../../../modules/types";
 import axios from "axios";
 import RecommendList from "./RecommendList";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import './UserMain.css';
+import {A11y, Autoplay, Navigation, Pagination, Scrollbar} from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
+
+import 'swiper/swiper.scss'; // core Swiper
+import 'swiper/modules/navigation/navigation.scss'; // Navigation module
+import 'swiper/modules/pagination/pagination.scss'; // Pagination module
+import 'swiper/modules/scrollbar/scrollbar.scss'; // ScrollBar module
+import 'swiper/modules/autoplay/autoplay.scss'; // Autoplay module
 
 const DivContainer = styled.div`
   clear: both;
@@ -81,29 +83,6 @@ export default function UserMain() {
         idx: number;
     }
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        speed: 500,
-        autoplaySpeed: 3000,
-        arrows: true,
-        nextArrow:<ArrowForwardIcon/>,
-        prevArrow:<ArrowBackIcon/>,
-        adaptiveHeight:true,
-        fade: true,
-    };
-
-    // const settings = {
-    //     dots: true,
-    //     infinite: true,
-    //     speed: 500,
-    //     slidesToShow: 1,
-    //     slidesToScroll: 1,
-    //     className: "mainBanner",
-    // };
 
     function Item({data, idx}: itemType) {
         return (
@@ -125,16 +104,30 @@ export default function UserMain() {
         )
     }
 
-
     return (
         <DivContainer>
             <DivCarouselContainer>
-                {loading || <Slider {...settings}>
+                {loading || <Swiper
+                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                    spaceBetween={50}
+                    slidesPerView={1}
+                    navigation
+                    pagination={{clickable: true}}
+                    scrollbar={{draggable: true}}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    onSlideChange={() => console.log('slide change')}
+                    autoplay={{ delay: 1000 }}
+                >
 
                     {
-                        items.map((data, idx) => <Item key={idx} data={data} idx={idx}/>)
+                        items.map((data, idx) => {
+                            return (<SwiperSlide>
+                                    <Item key={idx} data={data} idx={idx}/>
+                                </SwiperSlide>
+                            )
+                        })
                     }
-                </Slider>
+                </Swiper>
                 }
             </DivCarouselContainer>
             <h2>최근 등록된 상품</h2>
