@@ -66,12 +66,29 @@
     border-right: #282c34 solid 1px;
 }
 
+.goodsImageDiv{
+    display:table-cell;
+    vertical-align:middle;
+}
 
+.goodsImage{
+    max-width:200px;
+    max-height:200px;
+    margin-left: 110px;
+}
 
+.goodsForm{
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+}
 
-
-
-
+.goodsForm select{
+    width: 100px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
 
 

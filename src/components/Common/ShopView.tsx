@@ -47,7 +47,6 @@ const DivHalfMenu = styled.div`
   flex: 1;
   margin: 10px;
   padding: 10px;
-  width: 40%;
 `;
 
 export default function ShopView() {
@@ -445,27 +444,27 @@ export default function ShopView() {
                 <DivContainer>
                     <DivHalfMenu>
                         <div className={'goodsDetail'}>
-                            <h3>{props.data.g_name}</h3>
-                            <h6>{props.data.g_expireDate}</h6>
+                            <h2>{props.data.g_name}</h2>
+                            <h5>{props.data.g_expireDate}</h5>
                             <br/>
-                            <h5 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h5>
-                            <h5>할인가 : {props.data.g_discount}</h5>
-                            <h6>남은 수량 : {props.data.g_count}</h6><br/>
+                            <h4 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h4>
+                            <h4>할인가 : {props.data.g_discount}</h4>
+                            <br/>
+                            <h5>남은 수량 : {props.data.g_count}</h5>
 
-                            <span>수량 선택 :</span>
-                            <form onSubmit={event => saveGoods(event, props.data.g_count)}>
+                            <form onSubmit={event => saveGoods(event, props.data.g_count)} className={'goodsForm'}>
+                                <span>수량 선택 : </span>
                                 <select>
                                     {optionTagBuilder(props.data.g_count).map(data => data)}
-                                </select>
+                                </select> {' '}
                                 <input type={'hidden'} value={props.data.g_code}/>
-
-                                <button style={{background: 'gray'}}>장바구니 담기</button>
+                                <Button variant={"outlined"}>장바구니 담기</Button>
                             </form>
                         </div>
                     </DivHalfMenu>
                     <DivHalfMenu>
-                        <div>
-                            <img style={{width: '100%'}} src={props.data.g_image} alt={'상품이미지'}/>
+                        <div className={'goodsImageDiv'}>
+                            <img className={'goodsImage'} src={props.data.g_image} alt={'상품이미지'}/>
                         </div>
                     </DivHalfMenu>
                 </DivContainer>
@@ -505,11 +504,11 @@ export default function ShopView() {
 
                 {rows.length === 0 ? <div>상품 준비 중 입니다</div>
                     : rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
-                <DivContainer>
-                    <Button style={{background: 'red', width: '100%'}} variant="contained"
+                <div style={{textAlign:'center', marginBottom:'100px'}}>
+                    <Button variant="outlined" color={'error'} style={{width:'50%'}}
                             onClick={() => history.push('/user/shoppingcart')}>장바구니
                         보기 </Button>
-                </DivContainer>
+                </div>
             </>
         )
     }
