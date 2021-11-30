@@ -134,8 +134,6 @@ export default function MasterChart() {
     return (
         <>
             <div className="flex-container-1">
-                {/*<div className='c'>*/}
-
                 <div className="flex-items-1">
 
                     {
@@ -143,9 +141,8 @@ export default function MasterChart() {
                             <Skeleton variant="rectangular" width={210} height={118}/>
                             :
                             <>
-                                <div>
-                                <h5  style={{background:'#E7ECFF'}}>월별 오너/유저 탈퇴자수 통계 </h5>
-                                </div>
+                                <h3  style={{background:'#E7ECFF'}}>월별 오너/유저 가입자수 통계 </h3>
+                         
                                 <Line data={{
                                     labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                                     datasets: [
@@ -175,13 +172,12 @@ export default function MasterChart() {
                     }
                 </div>
                 <div className="flex-items-1">
-
                     {   ///////////////////////////년도별
                         loading ?
                             <Skeleton variant="rectangular" width={210} height={118}/>
                             :
                             <>
-                                <h5  style={{background:'#E7ECFF'}}>연별 오너/유저 탈퇴자수 통계 </h5>
+                                <h3  style={{background:'#E7ECFF'}}>년도별 오너/유저 가입자수 통계 </h3>
                                 <Line data={{
                                     labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
                                     datasets: [
@@ -210,15 +206,11 @@ export default function MasterChart() {
                             </>
                     }
                     </div>
-                {/*</div>*/}
             </div>
             <br/>
 
             <MasterChart2/>
 
-            <DivChart2>
-                <MasterChart3/>
-            </DivChart2>
         </>
     )
 }

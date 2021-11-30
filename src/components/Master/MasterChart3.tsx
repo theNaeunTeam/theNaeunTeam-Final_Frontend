@@ -56,7 +56,11 @@ export default function MasterChart3() {
 
     return (
         <>
-            <h4>지역별 점주 분포 통계</h4>
+                {/*<h3 style={{background:'#E7ECFF',*/}
+                {/*            margin:'30px',*/}
+                {/*            border: 'solid #E7ECFF 7px',*/}
+                {/*            borderRadius: '40px 10px'*/}
+                {/*}}>지역별 점주 분포 통계</h3>*/}
             {
                 loading ?
                     <Skeleton variant="rectangular" width={210} height={118}/>

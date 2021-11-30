@@ -4,6 +4,7 @@ import {client} from "../../lib/api/client";
 import {Bar} from "react-chartjs-2";
 import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
+import '../../styles/masterOwnerDash.css';
 
 
 export default function UserDash() {
@@ -67,8 +68,6 @@ export default function UserDash() {
 
             setMonArr(res.data['totalMon'].map((x: any) => x.map((b: any) => ({sum: b.sum, tal: b.tal}))));
             console.log(monArr);
-            // console.log(monArr[2].map((a:any)=> ({sum:a.sum})) );
-            // console.log(monArr.map((x:any)) => x.sum );
             console.log(monArr.length);
             console.log('------------');
             console.log(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
@@ -124,13 +123,24 @@ export default function UserDash() {
 
     return (
         <>
-            <>
-                <h3>유저대시보드 </h3>
+            <div className='qqq'>
+                <h3 style={{background:'#E7ECFF'}}>유저 가입/탈퇴 통계</h3>
+            </div>
+            
+            <div className="flex-container-1">
+                <div className="flex-items-1">
                 {
                     loading ?
                         <Skeleton variant="rectangular" width={210} height={118}/>
                         :
                         <>
+                            <h3 style={{margin:'10px',
+                                background:'#fce6d8',
+                                marginLeft:'355px',
+                                marginRight:'355px',
+                                border:'solid #fce6d8 3px',
+                                borderRadius:'40px',
+                            }}>Month</h3>
                             <Bar data={{
                                 labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                                 datasets: [
@@ -170,16 +180,27 @@ export default function UserDash() {
                                      }
 
                                  }/>
-                            <button onClick={DecMonYear}>-</button>
-                            <label>{monYear}</label>
-                            <button onClick={IncMonYear}>+</button>
+                            <div className='aa'>
+                                <span onClick={DecMonYear}>◀</span>
+                                <label className='b'>{monYear}년</label>
+                                <span onClick={IncMonYear}>▶</span>
+                            </div>
                         </>
                 }
+                </div>
+                <div className="flex-items-1">
                 {
                     loading ?
                         <Skeleton variant="rectangular" width={210} height={118}/>
                         :
                         <>
+                            <h3 style={{margin:'10px',
+                                background:'#fce6d8',
+                                marginLeft:'355px',
+                                marginRight:'355px',
+                                border:'solid #fce6d8 3px',
+                                borderRadius:'40px',
+                            }}>Year</h3>
                             <Bar data={{
                                 labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
                                 datasets: [
@@ -219,12 +240,14 @@ export default function UserDash() {
                                      }
 
                                  }/>
-                            <button onClick={DecYear}>-</button>
-                            <label>{year}</label>
-                            <button onClick={IncYear}>+</button>
+                            <div className='aa'>
+                                <span onClick={DecYear}>◀</span>
+                                <span onClick={IncYear}>▶</span>
+                            </div>
                         </>
                 }
-            </>
+                </div>
+            </div>
         </>
     );
 }
