@@ -3,27 +3,34 @@ import styled from 'styled-components'
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {ownerPageType} from "../../modules/types";
-
+import '../../styles/button.css'
 import {Bar} from 'react-chartjs-2';
 import OwnerNavbar from "./OwnerNavbar";
 import FCM from "../../lib/FCM";
 
 const DivContainer = styled.div`
   border: solid black;
-  display: inline-flex;
+  //display: inline-flex;
   justify-content: center;
   margin: 20px;
   padding: 10px;
   height: 100%;
-  width: 97%;
+  //width: 97%;
+  //min-width: 800px;
   clear: both;
+  align-items: center;
+
 `;
 const DivHalfMenu = styled.div`
   //flex: 1;
   display: inline-flex;
   margin: 10px;
-  padding: 10px;
-  width: 100%;
+  //padding: 10px;
+  //min-width: 97%;
+  border: solid green;
+  //min-width: 500px;
+  width: 90%;
+  padding-left: 5%;
 
 `;
 
@@ -33,6 +40,7 @@ const DivChart = styled.div`
   margin: 10px;
   padding: 10px;
   border: solid green;
+
 
 `;
 const DivChart1 = styled.div`
@@ -53,33 +61,24 @@ const DivChart3 = styled.div`
 
 const LineDiv = styled.div`
   display: block;
-  margin: 10px;
   padding: 10px;
   border: solid;
-  width: 33%;
-  height: 100%;
+  width: 20%;
+  height: 50px;
   text-align: center;
   border: solid grey;
+  margin-left: 10%;
 `;
 
 
-
-const DivNav = styled.div`
-  border: solid blue;
-  width: 17%;
-  font-size: large;
-`;
-const DivMain = styled.div`
-  border: solid red;
-  width: 80%;
-  height: 100%;
-  padding: 20px;
-`;
 export default function OwnerMain() {
 
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!localStorage.getItem('ownerToken')) history.push('/err');
+        if (!localStorage.getItem('ownerToken')) {
+            alert('가맹점 로그인 후 이용가능합니다.');
+            history.push('/login');
+        }
     }, []);
 
     const initialValue = {
@@ -138,7 +137,7 @@ export default function OwnerMain() {
             console.log('aaaaaaaaaaaaaaaa');
 
 
-            setYearArr(response.data['year'].map((x: any) => x.date+'년'));
+            setYearArr(response.data['year'].map((x: any) => x.date + '년'));
             setYearSumArr(response.data['year'].map((x: any) => x.sum));
 
             console.log('---------------------');
@@ -188,14 +187,14 @@ export default function OwnerMain() {
         console.log(yearIdx);
         console.log(yearArr.length - 1);
 
-        if (yearIdx >= yearArr.length && yearIdx-3 >0 ) {
+        if (yearIdx >= yearArr.length && yearIdx - 3 > 0) {
             setYearIdx(yearIdx - 1);
             console.log(yearIdx + "!!!!");
         }
     }
     const desYIdx = () => {
         console.log(yearSumArr.slice(yearIdx - 3, yearIdx));
-        if (yearArr.length-3 <= yearIdx && yearIdx < yearArr.length) {
+        if (yearArr.length - 3 <= yearIdx && yearIdx < yearArr.length) {
             setYearIdx(yearIdx + 1);
             console.log(yearIdx + "$$");
         }
@@ -236,48 +235,97 @@ export default function OwnerMain() {
     return (
         <DivContainer>
 
-                <h3>{ownerPage.o_name}</h3>
-                <DivHalfMenu>
-                    <FCM/>
-                    <LineDiv>총 판매 금액 : {ownerPage.total} 원</LineDiv>
-                    <LineDiv>이번달 수익 : {ownerPage.monTotal} 원</LineDiv>
-                    <LineDiv>총 구매자 : {ownerPage.buyTotal} 명</LineDiv>
-                </DivHalfMenu>
-                <DivChart>
-                    <DivChart1>
+            <h3>{ownerPage.o_name}</h3>
+            <DivHalfMenu>
+                <FCM />
+                <LineDiv> 총 판매 금액 : {ownerPage.total} 원</LineDiv>
+                <LineDiv>이번달 수익 : {ownerPage.monTotal} 원</LineDiv>
+                <LineDiv>총 구매자 : {ownerPage.buyTotal} 명</LineDiv>
+            </DivHalfMenu>
+            <DivChart>
+                <DivChart1>
 
+                    <Bar
+                        data={{
+                            labels: dayArr[dayIdx],
+                            datasets: [{
+                                label: '일일 매출액',
+                                data: daySumArr[dayIdx],
+                                backgroundColor: [
+                                    'rgba(255, 051, 102,0.2)',
+                                    'rgba(255, 051, 000,0.2)',
+                                    'rgba(255, 99, 132,0.2)',
+                                    'rgba(255, 204, 000,0.2)',
+                                    'rgba(255, 159, 64,0.2)',
+                                    'rgba(255, 205, 86,0.2)',
+                                    'rgba(75, 192, 192,0.2)',
+                                    'rgba(000, 051, 255,0.2)',
+                                    'rgba(54, 162, 235,0.2)',
+                                    'rgba(153, 102, 255,0.2)',
+                                    'rgba(102, 051, 204,0.2)',
+                                    'rgba(201, 203, 207,0.2)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 051, 102)',
+                                    'rgb(255, 051, 000)',
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 204, 000)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(000, 051, 255)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(102, 051, 204)',
+                                    'rgb(201, 203, 207)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        }}
+                        options={option}
+
+                    />
+                    <div className='aa'>
+                        <span onClick={subDIdx}>◀ </span>
+                        {dayIdx <= dayArr.length ? 2019 + parseInt(String(dayIdx / 12)) : null} 년 {dayIdx - parseInt(String(dayIdx / 12)) * 12 + 1} 월
+                        <span onClick={desDIdx}> ▶</span>
+                    </div>
+                </DivChart1>
+                <DivChart3>
+                    <DivChart2>
                         <Bar
                             data={{
-                                labels: dayArr[dayIdx],
+                                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                                 datasets: [{
-                                    label: '일일 매출액',
-                                    data: daySumArr[dayIdx],
+                                    label: '월별 매출',
+                                    data: monSumArr[monIdx],
                                     backgroundColor: [
+
                                         'rgba(255, 051, 102,0.2)',
                                         'rgba(255, 051, 000,0.2)',
-                                        'rgba(255, 99, 132,0.2)',
+                                        'rgb(255, 99, 132,0.2)',
                                         'rgba(255, 204, 000,0.2)',
-                                        'rgba(255, 159, 64,0.2)',
-                                        'rgba(255, 205, 86,0.2)',
-                                        'rgba(75, 192, 192,0.2)',
+                                        'rgb(255, 159, 64,0.2)',
+                                        'rgb(255, 205, 86,0.2)',
+                                        'rgb(75, 192, 192,0.2)',
                                         'rgba(000, 051, 255,0.2)',
-                                        'rgba(54, 162, 235,0.2)',
-                                        'rgba(153, 102, 255,0.2)',
+                                        'rgb(54, 162, 235,0.2)',
+                                        'rgb(153, 102, 255,0.2)',
                                         'rgba(102, 051, 204,0.2)',
-                                        'rgba(201, 203, 207,0.2)'
+                                        'rgb(201, 203, 207,0.2)'
                                     ],
                                     borderColor: [
-                                        'rgb(255, 051, 102)',
-                                        'rgb(255, 051, 000)',
+                                        'rgba(255, 051, 102)',
+                                        'rgba(255, 051, 000)',
                                         'rgb(255, 99, 132)',
-                                        'rgb(255, 204, 000)',
+                                        'rgba(255, 204, 000)',
                                         'rgb(255, 159, 64)',
                                         'rgb(255, 205, 86)',
                                         'rgb(75, 192, 192)',
-                                        'rgb(000, 051, 255)',
+                                        'rgba(000, 051, 255)',
                                         'rgb(54, 162, 235)',
                                         'rgb(153, 102, 255)',
-                                        'rgb(102, 051, 204)',
+                                        'rgba(102, 051, 204)',
                                         'rgb(201, 203, 207)'
                                     ],
                                     borderWidth: 1
@@ -286,86 +334,43 @@ export default function OwnerMain() {
                             options={option}
 
                         />
-                        <button onClick={subDIdx}>-</button>
-                        {dayIdx <= dayArr.length ? 2019 + parseInt(String(dayIdx / 12)) : null} 년 {dayIdx - parseInt(String(dayIdx / 12)) * 12 + 1} 월
-                        <button onClick={desDIdx}>+</button>
-                    </DivChart1>
-                    <DivChart3>
-                        <DivChart2>
-                            <Bar
-                                data={{
-                                    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                                    datasets: [{
-                                        label: '월별 매출',
-                                        data: monSumArr[monIdx],
-                                        backgroundColor: [
-
-                                            'rgba(255, 051, 102,0.2)',
-                                            'rgba(255, 051, 000,0.2)',
-                                            'rgb(255, 99, 132,0.2)',
-                                            'rgba(255, 204, 000,0.2)',
-                                            'rgb(255, 159, 64,0.2)',
-                                            'rgb(255, 205, 86,0.2)',
-                                            'rgb(75, 192, 192,0.2)',
-                                            'rgba(000, 051, 255,0.2)',
-                                            'rgb(54, 162, 235,0.2)',
-                                            'rgb(153, 102, 255,0.2)',
-                                            'rgba(102, 051, 204,0.2)',
-                                            'rgb(201, 203, 207,0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(255, 051, 102)',
-                                            'rgba(255, 051, 000)',
-                                            'rgb(255, 99, 132)',
-                                            'rgba(255, 204, 000)',
-                                            'rgb(255, 159, 64)',
-                                            'rgb(255, 205, 86)',
-                                            'rgb(75, 192, 192)',
-                                            'rgba(000, 051, 255)',
-                                            'rgb(54, 162, 235)',
-                                            'rgb(153, 102, 255)',
-                                            'rgba(102, 051, 204)',
-                                            'rgb(201, 203, 207)'
-                                        ],
-                                        borderWidth: 1
-                                    }]
-                                }}
-                                options={option}
-
-                            />
-                            <button onClick={subIdx}>-</button>
+                        <div className='aa'>
+                            <span onClick={subIdx}>◀ </span>
                             {monYear}
-                            <button onClick={desIdx}>+</button>
-                        </DivChart2>
-                        <DivChart2>
-                            <Bar
-                                data={{
-                                    labels: yearArr.slice(yearIdx - 3, yearIdx),
-                                    datasets: [{
+                            <span onClick={desIdx}> ▶</span>
+                        </div>
+                    </DivChart2>
+                    <DivChart2>
+                        <Bar
+                            data={{
+                                labels: yearArr.slice(yearIdx - 3, yearIdx),
+                                datasets: [{
 
-                                        label: '연도별 매출액',
-                                        data: yearSumArr.slice(yearIdx - 3, yearIdx),
+                                    label: '연도별 매출액',
+                                    data: yearSumArr.slice(yearIdx - 3, yearIdx),
 
-                                        backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)',
-                                            'rgba(255, 205, 86, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgb(255, 99, 132)',
-                                            'rgb(255, 159, 64)',
-                                            'rgb(255, 205, 86)'
-                                        ],
-                                        borderWidth: 1
-                                    }]
-                                }}
-                                options={option}
-                            />
-                            <button onClick={subYIdx}>-</button>
-                            <button onClick={desYIdx}>+</button>
-                        </DivChart2>
-                    </DivChart3>
-                </DivChart>
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)',
+                                        'rgba(255, 205, 86, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgb(255, 99, 132)',
+                                        'rgb(255, 159, 64)',
+                                        'rgb(255, 205, 86)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            }}
+                            options={option}
+                        />
+                        <div className='aa'>
+                            <span onClick={subYIdx}>◀</span>
+                            <span onClick={desYIdx}>▶</span>
+                        </div>
+                    </DivChart2>
+                </DivChart3>
+            </DivChart>
 
         </DivContainer>
     )

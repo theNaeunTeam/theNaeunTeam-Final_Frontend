@@ -10,25 +10,13 @@ import {Doughnut, Line} from 'react-chartjs-2';
 
 const DivContainer = styled.div`
   border: solid black;
-  display: inline-flex;
+  //display: inline-flex;
   justify-content: center;
   margin: 20px;
   padding: 10px;
   height: 100%;
-  width: 100%;
+  //width: 100%;
   clear: both;
-`;
-
-const DivNav = styled.div`
-  border: solid blue;
-  width: 17%;
-  font-size: large;
-`;
-const DivMain = styled.div`
-  border: solid red;
-  width: 80%;
-  height: 100%;
-  padding: 20px;
 `;
 
 const DivChart = styled.div`
@@ -43,7 +31,20 @@ const DivChart1 = styled.div`
 const DivChart2 = styled.div`
   display: inline-flex;
   border: solid;
+  margin : 20px;
+  width: 30%;
 `;
+const LineDiv = styled.div`
+  display: block;
+  padding: 10px;
+  border: solid;
+  width: 20%;
+  height: 50px;
+  text-align: center;
+  border: solid grey;
+  margin-left: 10%;
+`;
+
 
 export default function OwnerDashF() {
 
@@ -108,9 +109,8 @@ export default function OwnerDashF() {
     }
     return (
         <DivContainer>
-
                 <h3>판매</h3>
-                <div> 총 예약 판매 건수 : {total} </div>
+                <LineDiv> 총 예약 판매 건수 : {total} </LineDiv>
                 <DivChart>
                     <DivChart1>
                         <Line data={{
