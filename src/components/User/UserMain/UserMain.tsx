@@ -30,6 +30,7 @@ const DivRecommend = styled.div`
   display: flex;
   justify-content: space-evenly;
   height: 100%;
+  border: solid red;
 `;
 
 

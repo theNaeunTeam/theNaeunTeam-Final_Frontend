@@ -20,13 +20,15 @@ const DivContainer = styled.div`
 
 
 const DivNav = styled.div`
-  width: 20%;
+  border: solid blue;
+  width: 17%;
   font-size: large;
-
 `;
 const DivMain = styled.div`
-  width: 70%;
+  border: solid red;
+  width: 80%;
   height: 100%;
+  padding: 20px;
 `;
 export default function UserMypage() {
     const {authReducer} = useSelector((state: RootState) => state);

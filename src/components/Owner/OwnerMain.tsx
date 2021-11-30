@@ -12,15 +12,12 @@ const DivContainer = styled.div`
   border: solid black;
   display: inline-flex;
   justify-content: center;
-  margin: 50px;
+  margin: 20px;
   padding: 10px;
   height: 100%;
   width: 100%;
   clear: both;
-
-
 `;
-
 const DivHalfMenu = styled.div`
   //flex: 1;
   display: inline-flex;
@@ -35,18 +32,24 @@ const DivChart = styled.div`
   display: block;
   margin: 10px;
   padding: 10px;
+  border: solid green;
 
 `;
 const DivChart1 = styled.div`
   display: block;
+  border: solid blue;
+
 `;
 const DivChart2 = styled.div`
   display: block;
   width: 50%;
+  border: solid red;
+
 `;
 const DivChart3 = styled.div`
-  display: flex;`;
-
+  display: flex;
+  border: solid grey;
+`;
 
 const LineDiv = styled.div`
   display: block;
@@ -56,16 +59,21 @@ const LineDiv = styled.div`
   width: 33%;
   height: 100%;
   text-align: center;
+  border: solid grey;
 `;
+
+
 
 const DivNav = styled.div`
-  width: 20%;
+  border: solid blue;
+  width: 17%;
   font-size: large;
-
 `;
 const DivMain = styled.div`
-  width: 70%;
+  border: solid red;
+  width: 80%;
   height: 100%;
+  padding: 20px;
 `;
 export default function OwnerMain() {
 

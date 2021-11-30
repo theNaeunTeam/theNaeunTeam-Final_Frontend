@@ -1,33 +1,75 @@
 import React from "react";
 
-import {Link} from 'react-router-dom';
-import styled from 'styled-components'
-
-// @ts-ignore
-const Sidebar = ({width, height, children})=>{
-    return(
-        <div style={{width : width, height:height}}>
-            <React.Fragment>{children}</React.Fragment>
-        </div>
-    )
-};
-
+import {useHistory, useLocation} from 'react-router-dom';
+import {Navigation} from 'react-minimal-side-navigation';
+import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
+import {AiFillSignal,AiOutlineAppstoreAdd,AiOutlineSearch,AiOutlineBarcode,AiOutlineUsergroupDelete} from 'react-icons/ai'
 export default function OwnerNavbar() {
+    const history = useHistory();
+    const location = useLocation();
 
     return (
-        <>
-            <Sidebar width={'100%'} height={'100%'}>
-                <h5> 대시보드
-                        <h5><Link to={'/owner'}>매출현황</Link></h5>
-                        <h5><Link to={'/owner/ownerdashf'}>판매</Link></h5>
-                        <h5><Link to={'/owner/ownerdashs'}>기타</Link></h5>
-                </h5>
-                <h5><Link to={'/owner/addProduct'}>상품등록</Link></h5>
-                <h5><Link to={'/owner/goodsview'}>상품조회</Link></h5>
-                <h5><Link to={'/owner/reservationview'}>예약현황</Link></h5>
-                <h5><Link to={'/owner/unsubscribe'}>이용해지신청</Link></h5>
-            </Sidebar>
-        </>
+        <React.Fragment>
+
+            {/* Sidebar */}
+
+            <Navigation
+                activeItemId={location.pathname}
+                onSelect={({itemId}) => {
+                    history.push(itemId);
+                }}
+                items={[
+                    {
+                        title: '대시보드',
+                        itemId: `/owner`,
+                        elemBefore: () => <AiFillSignal/>,
+                        subNav:[
+                            {
+                                title : '매출현황',
+                                itemId : '/owner',
+                            },
+                            {
+                                title:'판매',
+                                itemId:'/owner/ownerdashf',
+                            },
+                            {
+                                title:'기타',
+                                itemId:'/owner/ownerdashs'
+                            }
+                        ]
+                    },
+                    {
+                        title : '상품등록',
+                        itemId : '/owner/addproduct',
+                        elemBefore: () => <AiOutlineAppstoreAdd/>,
+                    },
+                    {
+                        title : '상품조회',
+                        itemId : '/owner/goodsview',
+                        elemBefore: () => <AiOutlineSearch/>,
+                    },
+                    {
+                        title:'예약현황',
+                        itemId : '/owner/reservationview',
+                        elemBefore: () => <AiOutlineBarcode/>,
+                    },
+                    {
+                        title: '이용해지신청',
+                        itemId:'/owner/unsubscribe',
+                        elemBefore: () => <AiOutlineUsergroupDelete/>,
+                    }
+
+                ]}
+            />
+
+
+
+        </React.Fragment>
+            
+            
+            
+           
+
 
     )
 }

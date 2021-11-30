@@ -21,23 +21,28 @@ const TableStyled = styled.table`
   width: 80%;
 `;
 
+
 const DivContainer = styled.div`
+  border: solid black;
   display: inline-flex;
   justify-content: center;
-  margin: 50px;
+  margin: 20px;
   padding: 10px;
+  height: 100%;
   width: 100%;
-
+  clear: both;
 `;
 
 const DivNav = styled.div`
-  width: 20%;
+  border: solid blue;
+  width: 17%;
   font-size: large;
-
 `;
 const DivMain = styled.div`
-  width: 70%;
+  border: solid red;
+  width: 80%;
   height: 100%;
+  padding: 20px;
 `;
 export default function GoodsView() {
 

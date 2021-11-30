@@ -98,7 +98,7 @@ export default function Header() {
                     <Link to={'/user'}>마이페이지</Link>
                 </li>
                 <li>장바구니</li>
-                <li><button onClick={logout}>로그아웃</button></li>
+                <li><button onClick={logout} className={'button'}>로그아웃</button></li>
             </>
         )
     }

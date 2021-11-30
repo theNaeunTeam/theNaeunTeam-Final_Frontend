@@ -12,7 +12,7 @@ export default function RecommendList(props: recommendProps) {
     return (
         <>
             <span>
-                    <div style={{height: '100%', width: '100%'}}>
+                    <div style={{height: '100%', width: '100%', border:'solid blue'}}>
                         {props.data.o_name}
                         <br/>
                         <img src={props.data.g_image}

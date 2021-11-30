@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {client} from "../../lib/api/client";
 import {useHistory} from "react-router-dom";
 import Stack from "@mui/material/Stack";
+import UserNavbar from "./UserNavbar";
 
 const TableStyled = styled.table`
   padding: 30px;
@@ -14,10 +15,30 @@ const TableStyled = styled.table`
 `;
 
 const DivContainer = styled.div`
-  text-align: center;
+  border: solid black;
+  display: inline-flex;
+  justify-content: center;
+  margin: 20px;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  clear: both;
 `;
 
+const DivNav = styled.div`
+  border: solid blue;
+  width: 17%;
+  font-size: large;
 
+`;
+const DivMain = styled.div`
+  border: solid red;
+  width: 80%;
+  height: 100%;
+  text-align: center;
+  padding: 20px;
+
+`;
 export default function UserExit() {
 
     const history = useHistory();
@@ -58,6 +79,10 @@ export default function UserExit() {
 
     return (
         <DivContainer>
+            <DivNav>
+                <UserNavbar />
+            </DivNav>
+            <DivMain>
             <h2>회원탈퇴</h2>
             <h3>비밀번호 확인 </h3>
             <Stack
@@ -83,6 +108,7 @@ export default function UserExit() {
                     확인
                 </Button>
             </Stack>
+            </DivMain>
         </DivContainer>
     )
 }
