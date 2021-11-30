@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
-import {Button} from "@mui/material";
-import {client} from "../../lib/api/client";
+import {Button, Paper} from "@mui/material";
+import {client} from "../../../lib/api/client";
 import {useHistory} from 'react-router-dom';
 import {useRouteMatch} from 'react-router';
-import '../../styles/ShopStyle.css';
+import '../../../styles/ShopStyle.css';
 import {Map, MapMarker} from "react-kakao-maps-sdk";
 import {useCookies} from 'react-cookie';
 import {useSelector} from "react-redux";
-import {RootState} from "../../index";
-import fullStar from "../../styles/images/star1.png";
-import emptyStar from "../../styles/images/star2.png";
+import {RootState} from "../../../index";
+import fullStar from "../../../styles/images/star1.png";
+import emptyStar from "../../../styles/images/star2.png";
 import Swal from 'sweetalert2';
-import {categoryType, shopViewType} from "../../modules/types";
+import {categoryType, shopViewType} from "../../../modules/types";
 import {CopyToClipboard} from "react-copy-to-clipboard";
-import {fetch_Category_Per_sNumber} from "../../lib/api/Fetch_Category_Per_sNumber";
+import {fetch_Category_Per_sNumber} from "../../../lib/api/Fetch_Category_Per_sNumber";
+import './ShopView.css';
+
 
 const DivMarker = styled.div`
   margin-left: 10px;
@@ -40,15 +42,6 @@ const DivButton = styled.div`
   justify-content: space-around;
 `;
 
-const DivContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  margin: 100px;
-  padding: 10px;
-  max-height: 300px;
-  border: #0099CC solid 1px;
-  border-radius: 15px;
-`;
 
 const DivHalfMenu = styled.div`
   flex: 1;
@@ -448,7 +441,7 @@ export default function ShopView() {
     const TableBuilder = (props: { data: shopViewType, idx: number }) => {
         return (
             <>
-                <DivContainer>
+                <Paper className={'ShopViewDivContainer'}>
                     <DivHalfMenu>
                         <div className={'goodsDetail'}>
                             <h2>{props.data.g_name}</h2>
@@ -474,7 +467,7 @@ export default function ShopView() {
                             <img className={'goodsImage'} src={props.data.g_image} alt={'상품이미지'}/>
                         </div>
                     </DivHalfMenu>
-                </DivContainer>
+                </Paper>
             </>
         )
     }
@@ -525,7 +518,7 @@ export default function ShopView() {
     function BBB() {
         return (
             <>
-                <DivContainer>
+                <Paper className={'ShopViewDivContainer'}>
                     <DivHalfMenu>
                         <img src={aboutStore.o_image} alt={'image'} style={{width:'100px', height:'100px'}}/>
                         <h3>{aboutStore.o_name}</h3><br/>
@@ -547,7 +540,6 @@ export default function ShopView() {
                         <button
                             onClick={() => window.open(`https://map.kakao.com/link/to/${aboutStore.o_name},${aboutStore.o_latitude},${aboutStore.o_longitude}`, '_blank')}>길찾기
                         </button>
-                        {/*<button onClick={() => window.open('https://map.kakao.com/link/to/동서대센텀캠퍼스,' + aboutStore.o_latitude + ',' + aboutStore.o_longitude, '_blank')}>길찾기</button>*/}
                         <CopyToClipboard text={aboutStore.o_address}>
                             <button onClick={() => {
                                 alert('주소가 복사되었습니다.')
@@ -555,7 +547,7 @@ export default function ShopView() {
                             </button>
                         </CopyToClipboard>
                     </DivHalfMenu>
-                </DivContainer>
+                </Paper>
                 <div style={{textAlign:'center', marginBottom:'100px'}}>
                     <Button variant="outlined" color={'error'} style={{width:'50%'}}
                             onClick={() => history.push('/user/shoppingcart')}>
