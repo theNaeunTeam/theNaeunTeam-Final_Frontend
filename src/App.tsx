@@ -34,7 +34,7 @@ import ApprovalCompletion from "./components/Master/ApprovalCompletion";
 import MasterOwnerDash from "./components/Master/MasterOwnerDash";
 import TerminationWaiting from "./components/Master/TerminationWaiting";
 import TerminationCompletion from "./components/Master/TerminationCompletion";
-import ChangeBanner from "./components/Master/ChangeBanner";
+import ChangeBanner from "./components/Master/ChangeBanner/ChangeBanner";
 import OwnerDashS from "./components/Owner/OwnerDashS";
 import OwnerDashF from "./components/Owner/OwnerDashF";
 import UserDash from "./components/Master/UserDash";
