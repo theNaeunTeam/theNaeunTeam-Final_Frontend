@@ -24,7 +24,7 @@ const TableStyled = styled.table`
 
 const DivContainer = styled.div`
   border: solid black;
-  display: inline-flex;
+  //display: inline-flex;
   justify-content: center;
   margin: 20px;
   padding: 10px;

@@ -12,8 +12,18 @@ const DivContainer = styled.div`
   margin: 20px;
   padding: 10px;
   height: 100%;
-  width: 100%;
+  width: 90%;
   clear: both;
+`;
+const LineDiv = styled.div`
+  display: block;
+  padding: 10px;
+  border: solid;
+  width: 20%;
+  height: 50px;
+  text-align: center;
+  border: solid grey;
+  margin-left: 10%;
 `;
 
 export default function OwnerDashS() {
@@ -23,8 +33,8 @@ export default function OwnerDashS() {
     }, []);
 
     const value = {
-        sum : 0 ,
-        tal : 0,
+        sum: 0,
+        tal: 0,
     }
     const [noShow, setNoShow] = useState<conType>(value);
     const [cancel, setCancel] = useState<conType>(value);
@@ -52,10 +62,17 @@ export default function OwnerDashS() {
 
     return (
         <DivContainer>
-                <h3>기타</h3>
-                <div> 노쇼 건수 : {noShow.sum} 건/ 발생 비율 {noShow.tal} %</div>
-                <div> 취소 건수 : {cancel.sum}건 / 발생 비율 {cancel.tal} %</div>
-                <div> 유통기한 경과 폐기 상품 : {over.sum} 개 / 발생 비율 {over.tal} %</div>
+            <h3>기타</h3>
+            <LineDiv>
+                <b>노쇼 발생 </b>{noShow.sum} 건 <br/>
+                <b>발생 비율</b> {noShow.tal} %</LineDiv>
+            <LineDiv>
+                <b>취소 발생 </b> {cancel.sum}건 <br/>
+                <b>발생 비율 </b>{cancel.tal} %</LineDiv>
+            <LineDiv>
+                <b>유통기한 경과 폐기 상품 </b>{over.sum} 개 <br/>
+                <b>발생 비율 </b> {over.tal} %
+            </LineDiv>
         </DivContainer>
     )
 }

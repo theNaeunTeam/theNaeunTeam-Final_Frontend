@@ -34,7 +34,10 @@ export default function UserMypage() {
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!localStorage.getItem('userToken')) history.push('/err');
+        if (!localStorage.getItem('userToken')){
+            alert('로그인 후 이용가능합니다.');
+            history.push('/login');
+        }
     }, []);
 
 

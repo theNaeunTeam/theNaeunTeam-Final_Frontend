@@ -31,7 +31,6 @@ export default function Header() {
     `;
     const DivMaster = styled.div`
       float: left;
-
       margin-block-start: 1em;
       margin-block-end: 1em;
       margin-inline-start: 0px;
@@ -108,7 +107,8 @@ export default function Header() {
             <DivWrap>
                 {/*관리자 인증 들어간 왼쪽 div*/}
                 <DivMaster>
-                    <Link to={'/master'}>관리자 인증</Link>
+                    <Link to={'/master'} style={{marginRight : '20px'}}>관리자 인증</Link>
+                    <Link to={'/owner'}>가맹점 인증</Link>
                 </DivMaster>
 
                 {/*로그인 회원가입 가맹신청 들어갈 오른쪽 div*/}
