@@ -124,7 +124,10 @@ export default function UserDash() {
     return (
         <>
             <div className='qqq'>
-                <h3 style={{background:'#E7ECFF'}}>유저 가입/탈퇴 통계</h3>
+                <h3 style={{background:'#E7ECFF',
+                            borderRadius:'40px 10px',
+                            padding:'15px'
+                }}>유저 가입/탈퇴 통계</h3>
             </div>
             
             <div className="flex-container-1">
@@ -136,8 +139,8 @@ export default function UserDash() {
                         <>
                             <h3 style={{margin:'10px',
                                 background:'#fce6d8',
-                                marginLeft:'355px',
-                                marginRight:'355px',
+                                marginLeft:'310px',
+                                marginRight:'310px',
                                 border:'solid #fce6d8 3px',
                                 borderRadius:'40px',
                             }}>Month</h3>
@@ -196,8 +199,8 @@ export default function UserDash() {
                         <>
                             <h3 style={{margin:'10px',
                                 background:'#fce6d8',
-                                marginLeft:'355px',
-                                marginRight:'355px',
+                                marginLeft:'320px',
+                                marginRight:'320px',
                                 border:'solid #fce6d8 3px',
                                 borderRadius:'40px',
                             }}>Year</h3>
