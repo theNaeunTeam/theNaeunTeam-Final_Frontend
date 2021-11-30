@@ -108,10 +108,7 @@ export default function OwnerDashF() {
     }
     return (
         <DivContainer>
-            <DivNav>
-                <OwnerNavbar/>
-            </DivNav>
-            <DivMain>
+
                 <h3>판매</h3>
                 <div> 총 예약 판매 건수 : {total} </div>
                 <DivChart>
@@ -207,7 +204,7 @@ export default function OwnerDashF() {
                         }}/>
                     </DivChart2>
                 </DivChart>
-            </DivMain>
+
         </DivContainer>
     )
 }

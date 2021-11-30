@@ -169,11 +169,8 @@ export default function GoodsView() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
             <DivContainer>
-                <DivNav>
-                    <OwnerNavbar/>
-                </DivNav>
 
-                <DivMain>
+
                     <h2>상품조회</h2>
                     <div>
                         <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
@@ -236,7 +233,7 @@ export default function GoodsView() {
                             : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                         </tbody>
                     </TableStyled>
-                </DivMain>
+
             </DivContainer>
         </>
     )

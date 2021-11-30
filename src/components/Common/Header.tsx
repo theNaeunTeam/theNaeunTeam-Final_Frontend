@@ -82,7 +82,7 @@ export default function Header() {
                 </li>
                 <li>
                     {authReducer.isOwner === true || authReducer.isMaster === true ?
-                        <button onClick={logout}>로그아웃</button>
+                        <button onClick={logout} className={'button'}>로그아웃</button>
                         : null}
                     {authReducer.isUser === true ?
                         <User/>

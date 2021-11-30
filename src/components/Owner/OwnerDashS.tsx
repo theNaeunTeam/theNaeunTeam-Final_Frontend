@@ -16,17 +16,6 @@ const DivContainer = styled.div`
   clear: both;
 `;
 
-const DivNav = styled.div`
-  border: solid blue;
-  width: 17%;
-  font-size: large;
-`;
-const DivMain = styled.div`
-  border: solid red;
-  width: 80%;
-  height: 100%;
-  padding: 20px;
-`;
 export default function OwnerDashS() {
     const history = useHistory();
     useLayoutEffect(() => {
@@ -44,6 +33,7 @@ export default function OwnerDashS() {
     useEffect(() => {
         initialize();
     }, []);
+
     const initialize = async () => {
         const URL = '/owner/getOwnerBoard';
 
@@ -59,17 +49,13 @@ export default function OwnerDashS() {
             console.log(e);
         }
     }
+
     return (
         <DivContainer>
-            <DivNav>
-                <OwnerNavbar/>
-            </DivNav>
-            <DivMain>
                 <h3>기타</h3>
                 <div> 노쇼 건수 : {noShow.sum} 건/ 발생 비율 {noShow.tal} %</div>
                 <div> 취소 건수 : {cancel.sum}건 / 발생 비율 {cancel.tal} %</div>
                 <div> 유통기한 경과 폐기 상품 : {over.sum} 개 / 발생 비율 {over.tal} %</div>
-            </DivMain>
         </DivContainer>
     )
 }
