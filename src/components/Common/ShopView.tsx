@@ -465,7 +465,7 @@ export default function ShopView() {
                                     {optionTagBuilder(props.data.g_count).map(data => data)}
                                 </select> {' '}
                                 <input type={'hidden'} value={props.data.g_code}/>
-                                <Button variant={"outlined"}>장바구니 담기</Button>
+                                <button style={{background:'none', border:'none'}}><Button variant={"outlined"}>장바구니 담기</Button></button>
                             </form>
                         </div>
                     </DivHalfMenu>
