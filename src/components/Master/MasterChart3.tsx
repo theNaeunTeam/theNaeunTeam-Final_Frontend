@@ -4,6 +4,7 @@ import {client} from "../../lib/api/client";
 import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
 import {Pie} from "react-chartjs-2";
+import '../../styles/masterOwnerDash.css'
 
 export default function MasterChart3() {
 
@@ -66,6 +67,7 @@ export default function MasterChart3() {
                     <Skeleton variant="rectangular" width={210} height={118}/>
                     :
                     <>
+                        <h3 className='MODH3-1'>지역별 오너 분포 통계</h3>
                         <Pie
                             type="outlabeledPie"
                             data={{

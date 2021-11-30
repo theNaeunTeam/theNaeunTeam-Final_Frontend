@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {masterMainType2} from "../../modules/types";
 import Skeleton from '@mui/material/Skeleton';
+import '../../styles/masterOwnerDash.css'
 
 export default function MasterMain() {
 
@@ -174,6 +175,16 @@ export default function MasterMain() {
         <>
             {authReducer.isMaster ?
                 <>
+                    <h3 className='mainH3'> 점주 리스트 </h3>
+                        <div className='MasterMainBtn'>
+                            <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
+                                승인
+                            </Button>
+                            {' '}
+                            <Button variant="contained" color="error" onClick={() => updateDB('no')}>
+                                반려
+                            </Button>
+                        </div>
                     <div style={{height: 650, width: '100%', margin: 'auto'}}>
                         {loading ?
                             <Box sx={{width: 1500}}>
@@ -204,13 +215,6 @@ export default function MasterMain() {
                             />
                         }
                     </div>
-                    <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
-                        승인
-                    </Button>
-                    {' '}
-                    <Button variant="contained" color="error" onClick={() => updateDB('no')}>
-                        반려
-                    </Button>
                 </>
                 :
                 <>
