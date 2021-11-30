@@ -25,7 +25,8 @@ const DivTitle = styled.div`
 `;
 
 const DivButton = styled.div`
-  margin: 5px;
+  margin-left: 100px;
+  margin-right: 100px;
   padding: 0;
   display: flex;
   list-style: none;
@@ -35,9 +36,11 @@ const DivButton = styled.div`
 const DivContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
-  margin: 50px;
+  margin: 100px;
   padding: 10px;
-  width: 100%;
+  max-height: 300px;
+  border: #0099CC solid 1px;
+  border-radius: 15px;
 `;
 
 const DivHalfMenu = styled.div`
@@ -441,27 +444,29 @@ export default function ShopView() {
             <>
                 <DivContainer>
                     <DivHalfMenu>
-                        <br/>
-                        <h3>{props.data.g_name}</h3>
-                        <h6>{props.data.g_expireDate}</h6>
-                        <br/>
-                        <h5 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h5>
-                        <h5>할인가 : {props.data.g_discount}</h5>
-                        <h6>남은 수량 : {props.data.g_count}</h6><br/>
+                        <div className={'goodsDetail'}>
+                            <h3>{props.data.g_name}</h3>
+                            <h6>{props.data.g_expireDate}</h6>
+                            <br/>
+                            <h5 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h5>
+                            <h5>할인가 : {props.data.g_discount}</h5>
+                            <h6>남은 수량 : {props.data.g_count}</h6><br/>
 
-                        수량 선택 :
-                        <form onSubmit={event => saveGoods(event, props.data.g_count)}>
-                            <select>
-                                {optionTagBuilder(props.data.g_count).map(data => data)}
-                            </select>
-                            <input type={'hidden'} value={props.data.g_code}/>
+                            <span>수량 선택 :</span>
+                            <form onSubmit={event => saveGoods(event, props.data.g_count)}>
+                                <select>
+                                    {optionTagBuilder(props.data.g_count).map(data => data)}
+                                </select>
+                                <input type={'hidden'} value={props.data.g_code}/>
 
-                            <button style={{background: 'gray'}}>장바구니 담기</button>
-                        </form>
-
+                                <button style={{background: 'gray'}}>장바구니 담기</button>
+                            </form>
+                        </div>
                     </DivHalfMenu>
                     <DivHalfMenu>
-                        <img style={{maxWidth: '100%'}} src={props.data.g_image}/>
+                        <div>
+                            <img style={{width: '100%'}} src={props.data.g_image} alt={'상품이미지'}/>
+                        </div>
                     </DivHalfMenu>
                 </DivContainer>
             </>
@@ -473,26 +478,33 @@ export default function ShopView() {
         return (
             <>
                 <DivButton>
-                    <Button name='case1' style={color.case1 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case1' style={color.case1 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={(e) => categoryChange(e)}>전체 {' '}
                         {category.drink + category.fresh + category.gagong + category.freeze + category.cooked + category.other}
                     </Button>
-                    <Button name='case2' style={color.case2 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case2' style={color.case2 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>마실것 {category.drink}</Button>
-                    <Button name='case3' style={color.case3 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case3' style={color.case3 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>신선식품 {category.fresh}</Button>
-                    <Button name='case4' style={color.case4 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case4' style={color.case4 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>가공식품 {category.gagong}</Button>
-                    <Button name='case5' style={color.case5 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case5' style={color.case5 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>냉동식품 {category.freeze}</Button>
-                    <Button name='case6' style={color.case6 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case6' style={color.case6 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>조리/반조리 {category.cooked}</Button>
-                    <Button name='case7' style={color.case7 ? {background: 'red'} : undefined} variant="contained"
+                    <Button name='case7' style={color.case7 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                            variant="outlined"
                             onClick={categoryChange}>식품외 기타 {category.other}</Button>
                 </DivButton>
 
                 {rows.length === 0 ? <div>상품 준비 중 입니다</div>
-                    :rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                    : rows.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                 <DivContainer>
                     <Button style={{background: 'red', width: '100%'}} variant="contained"
                             onClick={() => history.push('/user/shoppingcart')}>장바구니
@@ -563,19 +575,18 @@ export default function ShopView() {
                         : <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={emptyStar}
                                                                   onClick={favorInsert}/></span>
                 }
-                <h3>{aboutStore.o_name}</h3>
-                <h6 style={{color: 'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h6>
+                <h2>{aboutStore.o_name}</h2>
+                <h3 style={{color: 'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h3>
             </DivTitle>
             <hr/>
             <div className={"nav"}>
                 <a className={"a"} href="javascript:void(0);" onClick={() => {
                     setModal(true)
-                }}>상품정보</a>
+                }}>상품 정보</a>
                 <a className={"a"} href="javascript:void(0);" onClick={() => {
                     setModal(false)
-                }}>매장정보</a>
+                }}>매장 정보</a>
             </div>
-
 
             {
                 modal
