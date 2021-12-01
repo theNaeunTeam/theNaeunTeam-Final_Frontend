@@ -6,10 +6,8 @@ import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
 import MasterChart2 from "./MasterChart2";
-import MasterChart3 from "./MasterChart3";
 import '../../styles/button.scss';
 import '../../styles/masterOwnerDash.scss'
-import {Button} from "@mui/material";
 
 export default function MasterChart() {
 
@@ -199,6 +197,7 @@ export default function MasterChart() {
                                         }]
                                 }}
                                      />
+
                                 <div className='aa'>
                                 <span onClick={DecYear}>◀</span>
                                 <span onClick={IncYear}>▶</span>
