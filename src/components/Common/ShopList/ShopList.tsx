@@ -36,12 +36,14 @@ const marks = [
 ];
 
 const DivContainer = styled.div`
-  border: solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 5px;
   padding: 10px;
+  margin-top: 10px;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-bottom: 10px;
 `;
 
 const DivHalfMenu = styled.div`
@@ -123,7 +125,7 @@ export default function ShopList() {
             <DivContainer>
                 <Map
                     center={{lat: lat, lng: lon}}
-                    style={{width: "80%", height: "400px"}}
+                    style={{width: "80%", height: "500px"}}
                     level={5}
                 >
                     <MarkerClusterer

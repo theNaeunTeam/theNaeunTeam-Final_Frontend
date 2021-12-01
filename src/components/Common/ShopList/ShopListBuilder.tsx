@@ -85,14 +85,14 @@ export default function ShopListBuilder({data, idx}: listType) {
 
                 <span className='shopListItems'>
 
-                <img style={{width: '30%', height: '30%'}} src={data.o_image} alt={'가게대표이미지'}/><br/>
+                <img style={{width: '200px', height: '200px'}} src={data.o_image} alt={'가게대표이미지'}/><br/>
                     <strong>{data.o_name}<br/></strong>
                                         <div className={'noDoughnut'}>
                         판매중인 상품:{category.other + category.freeze + category.freeze + category.cooked + category.fresh + category.gagong + category.drink}개
                     </div>
                     <br/>
 
-                    <div style={{fontSize: '10px', textAlign: 'center'}}>{data.o_address}
+                    <div style={{fontSize: '14px', textAlign: 'center'}}>{data.o_address}
                         <div>{data.o_phone}</div></div>
                     <div className={'shopListContents'}>
                     <span>{data.o_time1}~{data.o_time2}</span>
@@ -101,7 +101,7 @@ export default function ShopListBuilder({data, idx}: listType) {
 
                                     <Button style={{width: '100%'}} variant="outlined"
                                             onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
-                                        상세보기</Button>
+                                        <h3>상세보기</h3></Button>
                     </span>
 
                 <span className='shopListItems'>

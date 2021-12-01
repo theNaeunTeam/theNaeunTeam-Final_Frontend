@@ -253,7 +253,7 @@ export default function Order() {
                     {/*    <input type={'radio'} name={'payment'} value={'mobile'} id={'payment'} disabled={true}/> 휴대폰 결제*/}
                     {/*</DivBordered>*/}
                     <br/>
-                    <Button variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h2>주문하기</h2></Button>
+                    <Button variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h3>주문하기</h3></Button>
                 </form>
             </DivContainer>
 

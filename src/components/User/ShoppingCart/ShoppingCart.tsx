@@ -163,7 +163,7 @@ export default function ShoppingCart() {
                     <Button variant={'contained'} style={{width: '300px'}} onClick={() => {
                         dispatch({type: 'orderIn'});
                         history.push('/user/order');
-                    }}>주문하기</Button>
+                    }}><h3>주문하기</h3></Button>
                         </div>
                 </>
                 :

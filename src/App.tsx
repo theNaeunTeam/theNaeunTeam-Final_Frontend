@@ -1,7 +1,7 @@
 import React, {useLayoutEffect} from 'react';
 
 import {Route, Switch} from 'react-router-dom';
-import LoginForm from "./components/Common/LoginForm";
+import LoginForm from "./components/Common/LoginForm/LoginForm";
 import Header from "./components/Common/Header";
 import MasterMain from "./components/Master/MasterMain";
 import UserRegisterForm from "./components/Common/UserRegisterForm";
