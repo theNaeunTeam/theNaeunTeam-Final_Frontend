@@ -21,11 +21,11 @@ import {useDispatch} from "react-redux";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import styles from './LoginForm.module.css';
-import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import AddBusinessTwoToneIcon from '@mui/icons-material/AddBusinessTwoTone';
 import {CgUserlane} from "react-icons/cg";
+import CancelIcon from '@mui/icons-material/Cancel';
 
-export default function LoginForm(props: RouteComponentProps) {
+export default function LoginForm(props: any) {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -62,6 +62,7 @@ export default function LoginForm(props: RouteComponentProps) {
                     dispatch({type: 'ownerMode', payload: loginForm.u_id});
                     alert('가게 로그인 성공');
                     history.push('/owner');
+                    props.setShowLoginForm(false);
                 } else {
                     alert('사업자번호 및 비밀번호를 확인해 주세요');
                 }
@@ -69,6 +70,7 @@ export default function LoginForm(props: RouteComponentProps) {
                 // @ts-ignore
                 const err = e.response;
                 alert(err.data.error);
+                props.setShowLoginForm(false);
             }
         } else {
             const URL = '/common/userlogin';
@@ -80,6 +82,7 @@ export default function LoginForm(props: RouteComponentProps) {
                     localStorage.setItem('u_id', loginForm.u_id);
                     dispatch({type: 'userMode', payload: loginForm.u_id});
                     alert('유저 로그인 성공');
+                    props.setShowLoginForm(false);
                     history.push('/');
                 } else {
                     alert(`아이디 및 비밀번호를 확인해주세요`);
@@ -90,6 +93,7 @@ export default function LoginForm(props: RouteComponentProps) {
                 console.log(e);
                 console.log(err.data.error);
                 alert(err.data.error);
+                props.setShowLoginForm(false);
             }
         }
 
@@ -114,9 +118,10 @@ export default function LoginForm(props: RouteComponentProps) {
             //@ts-ignore
             const err = e.response
             alert(err.data.error);
+        } finally {
+            setOpen(false);
+            props.setShowLoginForm(false);
         }
-        // 백엔드로 아이디 전송
-        setOpen(false);
     }
 
     // 비번 찾기 모달창 열기닫기
@@ -140,9 +145,10 @@ export default function LoginForm(props: RouteComponentProps) {
                     <form onChange={e => handleForm(e)} onSubmit={e => e.preventDefault()}
                           style={{display: 'inline-block'}}>
                         <div className={styles.fadeIn + " " + styles.first}>
-                            <br/><br/>
-                                <h1 className={styles.underlineHover}>로그인</h1>
-                            <br/><br/>
+                            <span className={styles.loginFormHeader}>
+                                <CancelIcon style={{cursor: 'pointer'}} onClick={() => props.setShowLoginForm(false)}/>
+                            </span>
+                            <h1>탄다마켓 로그인</h1>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">회원 유형을 선택해 주세요</FormLabel>
                                 <RadioGroup row aria-label="type" name="radio" defaultValue={'individual'}>
@@ -202,7 +208,7 @@ export default function LoginForm(props: RouteComponentProps) {
                             ?
                             <div id={styles.formFooter}>
                                 <Button variant="outlined"
-                                        onClick={() => props.history.push('/user/register')}>
+                                        onClick={() => history.push('/user/register')}>
                                     회원가입
                                 </Button> {' '}
                                 <Button variant="outlined" onClick={handleClickOpen}>
@@ -211,7 +217,7 @@ export default function LoginForm(props: RouteComponentProps) {
                             </div>
                             :
                             <div id={styles.formFooter}>
-                                <Button variant="outlined" onClick={() => props.history.push('/owner/register')}>
+                                <Button variant="outlined" onClick={() => history.push('/owner/register')}>
                                     입점신청
                                 </Button>
                             </div>

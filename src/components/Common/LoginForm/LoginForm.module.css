@@ -310,3 +310,8 @@ h2.active {
 .fadeIn.fourth.loginBtn:hover{
     background-color: #39ace7;
 }
+
+.loginFormHeader{
+    display: flex;
+    justify-content: right;
+}
