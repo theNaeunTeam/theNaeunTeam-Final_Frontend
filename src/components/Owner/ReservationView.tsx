@@ -13,36 +13,28 @@ import {useHistory} from "react-router-dom";
 import {reservationViewType} from "../../modules/types";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import OwnerNavbar from "./OwnerNavbar";
 
 const TableStyled = styled.table`
   padding: 30px;
   margin: auto;
-  width: 80%;
+  width: 100%;
+  border: solid chartreuse;
+  table-layout: fixed;
 `;
 
 const DivContainer = styled.div`
   border: solid black;
-  display: inline-flex;
+  //display: inline-flex;
   justify-content: center;
   margin: 20px;
   padding: 10px;
   height: 100%;
   width: 100%;
   clear: both;
+  text-align: center;
 `;
 
-const DivNav = styled.div`
-  border: solid blue;
-  width: 17%;
-  font-size: large;
-`;
-const DivMain = styled.div`
-  border: solid red;
-  width: 80%;
-  height: 100%;
-  padding: 20px;
-`;
+
 export default function ReservationView() {
 
     const {authReducer} = useSelector((state: RootState) => state);
@@ -143,7 +135,7 @@ export default function ReservationView() {
                     {props.data.r_count}
                 </td>
                 <td>
-                    {props.data.r_customOrder}
+                    {props.data.r_customOrder}kjllllllllllllllllll
                 </td>
                 <td>
                     {props.data.r_firstDate} / {props.data.r_firstTime}
@@ -179,7 +171,7 @@ export default function ReservationView() {
                         </Select>
                     </FormControl>
                     {/*@ts-ignore*/}
-                    <Button data-testid='my-test-id' name={props.data.r_code} variant="outlined"
+                    <Button sx={{mr: 1, mt : 2}} data-testid='my-test-id' name={props.data.r_code} variant="outlined"
                             onClick={e => changeGoodsStatus(e, props.idx)}>확인</Button>
                 </td>
 
@@ -197,12 +189,9 @@ export default function ReservationView() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
             <DivContainer>
-
-
-
                     <h2>예약현황</h2>
-                    <div>
-                        <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                    <div style={{border:'solid red'}}>
+                        <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
                             <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
                             <Select
                                 labelId="demo-simple-select-standard-label"
@@ -219,7 +208,7 @@ export default function ReservationView() {
                                 <MenuItem value='식품외 기타'>식품외 기타</MenuItem>
                             </Select>
                         </FormControl>
-                        <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                        <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
                             <InputLabel id="demo-simple-select-standard-label">상태</InputLabel>
                             <Select
                                 labelId="demo-simple-select-standard-label"
@@ -234,16 +223,16 @@ export default function ReservationView() {
                                 <MenuItem value='3'>판매완료</MenuItem>
                             </Select>
                         </FormControl>
-                        <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
+                        <TextField className='goodsNameS' id="outlined-basic" label="상품명" variant="outlined" name={'total'}
                                    onChange={e => setSearchInput(e.target.value as string)}/>
-                        <Button variant="outlined" onClick={searchGoods}>검색</Button>
+                        <Button sx={{m: 1.3}} variant="outlined" onClick={searchGoods}>검색</Button>
                     </div>
 
-                    <TableStyled>
-                        <thead style={{border: "solid black 0.1px"}}>
+                    <TableStyled className='resertbl'>
+                        <thead>
                         <tr>
                             <th>순번</th>
-                            <th>상품명</th>
+                            <th >상품명</th>
                             <th>상품분류</th>
                             <th>유통기한</th>
                             <th>상품 상태</th>

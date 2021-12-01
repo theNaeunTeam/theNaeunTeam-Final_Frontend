@@ -18,10 +18,10 @@ const DivContainer = styled.div`
   border: solid black;
   display: inline-flex;
   justify-content: center;
-  margin: 20px;
+  margin: 0 13px 0 0;
   padding: 10px;
   height: 100%;
-  width: 100%;
+  width: 98%;
   clear: both;
 `;
 
@@ -41,8 +41,8 @@ const DivMain = styled.div`
 `;
 const TableStyled = styled.table`
   border: solid aqua;
-  padding: 30px;
-  margin: auto;
+  padding: 10px;
+  //margin: auto;
   width: 100%;
 `;
 
@@ -62,6 +62,7 @@ export default function UserReserve() {
         r_u_id: string,
         r_count: number,
         r_firstTime: string,
+        r_firstDate:string,
         r_status: number,
         r_customOrder: string,
         r_pay: number,
@@ -153,7 +154,7 @@ export default function UserReserve() {
                     {props.data.r_customOrder}
                 </td>
                 <td>
-                    {props.data.r_firstTime}
+                    {props.data.r_firstDate} / {props.data.r_firstTime}
                 </td>
                 <td>
                     {props.data.r_pay}
@@ -172,7 +173,7 @@ export default function UserReserve() {
 
                     {/*@ts-ignore*/}
                     <Button data-testid='my-test-id' name={props.data.r_code} variant="outlined"
-                            onClick={e => changeReserveStatus(e)}
+                           sx={{m:1}} onClick={e => changeReserveStatus(e)}
                     >취소</Button>
                 </td>
 
@@ -187,7 +188,7 @@ export default function UserReserve() {
             </DivNav>
             <DivMain>
                 <div>
-                    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                    <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
                         <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
@@ -202,7 +203,7 @@ export default function UserReserve() {
                             <MenuItem value='즉석조리'>즉석조리</MenuItem>
                         </Select>
                     </FormControl>
-                    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                    <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
                         <InputLabel id="demo-simple-select-standard-label">상태</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
@@ -219,12 +220,12 @@ export default function UserReserve() {
                             <MenuItem value='5'>취소</MenuItem>
                         </Select>
                     </FormControl>
-                    <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
+                    <TextField className='goodsNameS' id="outlined-basic" label="상품명" variant="outlined" name={'total'}
                                onChange={e => setSearchInput(e.target.value as string)}/>
-                    <Button variant="outlined" onClick={searchReserve}>검색</Button>
+                    <Button sx={{m: 1.3}} variant="outlined" onClick={searchReserve}>검색</Button>
                 </div>
-                <TableStyled>
-                    <thead style={{border: "solid black 0.1px"}}>
+                <TableStyled className='favor'>
+                    <thead>
                     <tr>
                         <th>순번</th>
                         <th>상품명</th>

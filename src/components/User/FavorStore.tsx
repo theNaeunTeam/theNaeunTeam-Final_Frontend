@@ -11,9 +11,9 @@ import '../../styles/table.css';
 
 const TableStyled = styled.table`
   border: solid aqua;
-  padding: 30px;
+  padding: 10px;
   width: 100%;
-  margin : auto;
+  
 `;
 
 
@@ -21,10 +21,10 @@ const DivContainer = styled.div`
   border: solid black;
   display: inline-flex;
   justify-content: center;
-  margin: 20px;
+  margin: 0 13px 0 0;
   padding: 10px;
   height: 100%;
-  width: 100%;
+  width: 98%;
   clear: both;
 `;
 
@@ -123,7 +123,7 @@ export default function FavorStore() {
     }
     const TableBuilder = (props: { data: favorListType, idx: number }) => {
         return (
-            <tr className={'tbl'}>
+            <tr>
                 <td>
                     {props.idx + 1}
                 </td>
@@ -161,8 +161,8 @@ export default function FavorStore() {
             </DivNav>
 
             <DivMain>
-                <TableStyled>
-                    <thead style={{border: "solid black 0.1px"}}>
+                <TableStyled className='favor'>
+                    <thead>
                     <tr>
                         <th>순번</th>
                         <th>가게명</th>

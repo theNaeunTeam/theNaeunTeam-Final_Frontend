@@ -90,8 +90,8 @@ export default function UserMain() {
                 <div style={{
                     backgroundImage: `url(${data.src})`,
                     width: "100%",
-                    height: "600px",
-                    backgroundSize: "100% 600px",
+                    height: "500px",
+                    backgroundSize: "100% 500px",
                 }}>
                     <h2>{data.header}</h2>
                     <p>{data.description}</p>

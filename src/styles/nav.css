@@ -21,11 +21,12 @@
 #menu a {
     display: block;
     line-height: 49px;
-    padding: 0 14px;
+    padding: 0 30px;
     text-decoration: none;
     color: #FCFFFF;
-    font-size: 17px;
+    font-size: 23px;
     text-transform: uppercase;
+    font-weight: bold;
 }
 #menu a.dropdown-arrow:after {
     content: "\2B9F";

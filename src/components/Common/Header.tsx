@@ -96,7 +96,7 @@ export default function Header() {
                 <li>
                     <Link to={'/user'}>마이페이지</Link>
                 </li>
-                <li>장바구니</li>
+                <li><Link to={'/user/shoppingcart'}>장바구니</Link></li>
                 <li><button onClick={logout} className={'button'}>로그아웃</button></li>
             </>
         )
@@ -104,7 +104,7 @@ export default function Header() {
     return (
         <>
 
-            <DivWrap>
+            <DivWrap className='header'>
                 {/*관리자 인증 들어간 왼쪽 div*/}
                 <DivMaster>
                     <Link to={'/master'} style={{marginRight : '20px'}}>관리자 인증</Link>
