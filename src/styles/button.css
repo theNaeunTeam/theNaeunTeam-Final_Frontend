@@ -1,14 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap');
 
 .aa span{
     opacity: 0.5;
 }
 .b span{
     opacity: 0.5;
-}
-
-h4{
-    font-family: 'Nanum Myeongjo', serif;
 }
 
 .aa span:hover {

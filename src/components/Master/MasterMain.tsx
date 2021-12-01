@@ -11,7 +11,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {masterMainType2} from "../../modules/types";
 import Skeleton from '@mui/material/Skeleton';
-import '../../styles/masterOwnerDash.css'
+import '../../styles/masterOwnerDash.css';
+import '../../styles/loginForm.css';
 
 export default function MasterMain() {
 
@@ -218,42 +219,101 @@ export default function MasterMain() {
                 </>
                 :
                 <>
-                    <Box
-                        component="form"
-                        sx={{
-                            '& > :not(style)': {m: 1, width: '25ch'},
-                        }}
-                        noValidate
-                        autoComplete="off"
-                    >
+                    {/*<div className='MasterLogin' >*/}
+                    {/*    <Box*/}
+                    {/*        component="form"*/}
+                    {/*        sx={{*/}
+                    {/*            '& > :not(style)': {m: 1, width: '25ch'},*/}
+                    {/*        }}*/}
+                    {/*        noValidate*/}
+                    {/*        autoComplete="off"*/}
+                    {/*    >*/}
 
-                        <TextField id="outlined-basic" label={'아이디'}
-                                   variant="outlined" name={'u_id'}
-                                   InputProps={{
-                                       startAdornment: (
-                                           <InputAdornment position="start">
-                                               <AccountCircle/>
-                                           </InputAdornment>
-                                       ),
-                                   }}
-                                   onChange={e => setLoginForm({...loginForm, m_id: e.target.value})}
-                        />
 
-                        <TextField id="outlined-basic" type='password' label="비밀번호" variant="filled" name={'u_pw'}
-                                   InputProps={{
-                                       startAdornment: (
-                                           <InputAdornment position="start">
-                                               <VpnKeyIcon/>
-                                           </InputAdornment>
-                                       ),
-                                   }}
-                                   onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}
-                                   onKeyPress={e => {
-                                       if (e.key === 'Enter') login();
-                                   }
-                                   }/>
-                        <Button onClick={login}>로그인</Button>
-                    </Box>
+                    {/*        <TextField id="outlined-basic" label={'아이디'}*/}
+                    {/*                   variant="outlined" name={'u_id'}*/}
+                    {/*                   InputProps={{*/}
+                    {/*                       startAdornment: (*/}
+                    {/*                           <InputAdornment position="start">*/}
+                    {/*                               <AccountCircle/>*/}
+                    {/*                           </InputAdornment>*/}
+                    {/*                       ),*/}
+                    {/*                   }}*/}
+                    {/*                   onChange={e => setLoginForm({...loginForm, m_id: e.target.value})}*/}
+                    {/*        />*/}
+                    {/*        <br/>*/}
+                    {/*        <TextField id="outlined-basic" type='password' label="비밀번호" variant="filled" name={'u_pw'}*/}
+                    {/*                   InputProps={{*/}
+                    {/*                       startAdornment: (*/}
+                    {/*                           <InputAdornment position="start">*/}
+                    {/*                               <VpnKeyIcon/>*/}
+                    {/*                           </InputAdornment>*/}
+                    {/*                       ),*/}
+                    {/*                   }}*/}
+                    {/*                   onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}*/}
+                    {/*                   onKeyPress={e => {*/}
+                    {/*                       if (e.key === 'Enter') login();*/}
+                    {/*                   }*/}
+                    {/*                   }/>*/}
+                    {/*        <br/>*/}
+                    {/*        <Button onClick={login}>로그인</Button>*/}
+                    {/*    </Box>*/}
+                    {/*</div>*/}
+
+                    <div className="wrapper fadeInDown">
+                        <div id="formContent">
+                            <h2 className="active"> Sign In </h2>
+                            {/*<h2 className="inactive underlineHover">Sign Up </h2>*/}
+
+                            <div className="fadeIn first">
+                               <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon"/>
+                            </div>
+
+                                <input type="text" id="login" className="fadeIn second" name={'u_id'}
+                                       placeholder="login"
+                                       onChange={e => setLoginForm({...loginForm, m_id: e.target.value})}
+                                />
+                                    <input type="text" id="password" className="fadeIn third" name={'u_pw'}
+                                           placeholder="password"
+                                           onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}
+                                           onKeyPress={e => {
+                                               if (e.key === 'Enter') login();
+                                           }
+                                           }
+                                    />
+                                <br/>
+                                <button className="fadeIn fourth" onClick={login}>Log In</button>
+
+                            {/*<div id="formFooter">*/}
+                            {/*    <a style={{color:'#92badd'}} className="underlineHover" href="#">Forgot Password?</a>*/}
+                            {/*</div>*/}
+
+                        </div>
+                    </div>
+
+                    {/*<div className="wrapper fadeInDown">*/}
+                    {/*    <div id="formContent">*/}
+                    {/*        <h2 className="active"> Sign In </h2>*/}
+                    {/*        <h2 className="inactive underlineHover">Sign Up </h2>*/}
+
+                    {/*        <div className="fadeIn first">*/}
+                    {/*            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon"/>*/}
+                    {/*        </div>*/}
+
+                            {/*<form>*/}
+                            {/*    <input type="text" id="login" className="fadeIn second" name="login"*/}
+                            {/*           placeholder="login">*/}
+                            {/*        <input type="text" id="password" className="fadeIn third" name="login"*/}
+                            {/*               placeholder="password">*/}
+                            {/*            <input type="submit" className="fadeIn fourth" value="Log In">*/}
+                            {/*</form>*/}
+
+                    {/*        <div id="formFooter">*/}
+                    {/*            <a className="underlineHover" href="#">Forgot Password?</a>*/}
+                    {/*        </div>*/}
+
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </>
             }
 

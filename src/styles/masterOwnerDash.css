@@ -197,5 +197,13 @@
     margin: auto;
 }
 
+.MasterLogin{
+    text-align: center;
+    margin: 120px 550px 70px;
+    padding: 60px;
+    border: solid #7EA0EA;
+    /*margin-top: 70px;*/
+}
+
 /*MasterMain*/
 
