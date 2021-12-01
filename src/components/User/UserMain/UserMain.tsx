@@ -7,6 +7,7 @@ import axios from "axios";
 import RecommendList from "./RecommendList";
 import {A11y, Autoplay, Navigation, Pagination, Scrollbar} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react/swiper-react.js';
+import {Link} from 'react-router-dom';
 
 import 'swiper/swiper.scss'; // core Swiper
 import 'swiper/modules/navigation/navigation.scss'; // Navigation module
@@ -87,19 +88,23 @@ export default function UserMain() {
     function Item({data, idx}: itemType) {
         return (
             <div>
-                <div style={{
-                    backgroundImage: `url(${data.src})`,
-                    width: "100%",
-                    height: "500px",
-                    backgroundSize: "100% 500px",
-                }}>
-                    <h2>{data.header}</h2>
-                    <p>{data.description}</p>
-                    {/*<img src={data.src} alt={data.altText} height={'500px'} width={'100%'}/>*/}
-                    {/*<Button variant="outlined" onClick={() => history.push(data.link)}>*/}
-                    {/*    Check it out!*/}
-                    {/*</Button>*/}
-                </div>
+                <Link to={data.link}>
+                    <div style={{
+                        backgroundImage: `url(${data.src})`,
+                        width: "100%",
+                        height: "500px",
+                        backgroundSize: '100% 500px',
+                        color : 'black',
+                        textDecoration : 'none',
+                    }}>
+                        <h2>{data.header}</h2>
+                        <p>{data.description}</p>
+                        {/*<img src={data.src} alt={data.altText} height={'500px'} width={'100%'}/>*/}
+                        {/*<Button variant="outlined" onClick={() => history.push(data.link)}>*/}
+                        {/*    Check it out!*/}
+                        {/*</Button>*/}
+                    </div>
+                </Link>
             </div>
         )
     }
