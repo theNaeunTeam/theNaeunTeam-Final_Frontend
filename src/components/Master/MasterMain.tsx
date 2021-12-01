@@ -12,7 +12,8 @@ import {RootState} from "../../index";
 import {masterMainType2} from "../../modules/types";
 import Skeleton from '@mui/material/Skeleton';
 import '../../styles/masterOwnerDash.scss';
-import '../../styles/loginForm.scss';
+import '../../styles/MasterLoginForm.scss';
+import { FaUserTie } from "react-icons/fa";
 
 export default function MasterMain() {
 
@@ -187,25 +188,26 @@ export default function MasterMain() {
                             </Button>
                         </div>
                     <div style={{height: 650, width: '100%', margin: 'auto'}}>
-                        {loading ?
-                            <Box sx={{width: 1500}}>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                            </Box>
-                            :
+                        {
+                            // loading ?
+                            // <Box sx={{width: 1500}}>
+                            //     <Skeleton/>
+                            //     <Skeleton animation="wave"/>
+                            //     <Skeleton animation='pulse'/>
+                            //     <Skeleton/>
+                            //     <Skeleton animation="wave"/>
+                            //     <Skeleton animation='pulse'/>
+                            //     <Skeleton/>
+                            //     <Skeleton animation="wave"/>
+                            //     <Skeleton animation='pulse'/>
+                            //     <Skeleton/>
+                            //     <Skeleton animation="wave"/>
+                            //     <Skeleton animation='pulse'/>
+                            //     <Skeleton/>
+                            //     <Skeleton animation="wave"/>
+                            //     <Skeleton animation='pulse'/>
+                            // </Box>
+                            // :
                             <DataGrid
                                 onStateChange={({selection}) => setSelected(selection)}
                                 rows={rows}
@@ -219,13 +221,15 @@ export default function MasterMain() {
                 </>
                 :
                 <>
-                    <div className="wrapper fadeInDown">
+                <div className="aaa">
+                    <div className="wrapper fadeInDown MasterLoginForm">
                         <div id="formContent">
-                            <h2 className="active"> Sign In </h2>
-                            {/*<h2 className="inactive underlineHover">Sign Up </h2>*/}
+                            <h2 className="active inactive tiger "> Master 로그인 </h2>
+                            {/*<h2 className="inactive underlineHover tiger">Sign Up </h2>*/}
 
                             <div className="fadeIn first">
-                               <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon"/>
+                               {/*<img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon"/>*/}
+                                <FaUserTie style={{width:'50px', height:'50px', margin:'20px'}}/>
                             </div>
 
                                 <input type="text" id="login" className="fadeIn second" name={'u_id'}
@@ -241,20 +245,15 @@ export default function MasterMain() {
                                            }
                                     />
                                 <br/>
-                                <button className="fadeIn fourth" onClick={login}>Log In</button>
+                                <button className="fadeIn fourth loginBtn" onClick={login}>Log In</button>
 
-                            {/*<div id="formFooter">*/}
-                            {/*    <a style={{color:'#92badd'}} className="underlineHover" href="#">Forgot Password?</a>*/}
-                            {/*</div>*/}
+                            <div id="formFooter">
+                                <a style={{color:'#92badd'}} >Master Login</a>
+                            </div>
 
                         </div>
                     </div>
-
-
-
-
-
-
+                </div>
 
                 </>
             }
