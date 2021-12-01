@@ -105,7 +105,7 @@ export default function ChangeBanner() {
                 {arr.map((data, idx) =>
                     <>
                         <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e, idx)}>
-                            <SpanRow>
+                            <SpanRow className={'SpanRow'}>
                                 <strong> {idx + 1}번 배너 </strong>
                                 <br/>
                                 Header text<input type={"text"} defaultValue={data.header} id={`header${idx}`}

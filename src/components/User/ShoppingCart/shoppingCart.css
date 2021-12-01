@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    align-items: center;
     margin: auto;
     width: 70%;
     padding: 10px;
@@ -21,13 +22,15 @@
 }
 
 .cartPaper {
-    width: 100%;
+    width: 80%;
     height: 200px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
 }
 
 .cartItem {
