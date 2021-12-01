@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
+import '../../styles/masterOwnerDash.css'
 
 export default function TerminationCompletion() {
     const history = useHistory();
@@ -130,8 +131,8 @@ export default function TerminationCompletion() {
 
     return (
         <>
-            <h3>해지신청 완료 </h3>
-            <div style={{height: 400, width: '100%', margin: 'auto'}}>
+            <h3 className='mainH3'>해지신청 완료 </h3>
+            <div style={{height: 650, width: '100%', margin: 'auto'}}>
                 {loading ?
                     <Box sx={{width: 1500}}>
                         <Skeleton/>
@@ -155,8 +156,8 @@ export default function TerminationCompletion() {
                         onStateChange={({selection}) => setSelected(selection)}
                         rows={rows}
                         columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
+                        pageSize={10}
+                        rowsPerPageOptions={[10]}
                         checkboxSelection
                     />
                 }

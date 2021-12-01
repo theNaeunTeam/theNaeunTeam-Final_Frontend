@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
-
+import '../../styles/masterOwnerDash.css'
 
 export default function MasterUserList() {
     const history = useHistory();
@@ -103,20 +103,29 @@ export default function MasterUserList() {
     };
 
     const columns: GridColDef[] = [
-        {field: 'u_id', headerName: '유저아이디', width: 150},
-        {field: 'u_pw', headerName: '유저패스워드', width: 170},
-        {field: 'u_cellPhone', headerName: '휴대폰번호', width: 150},
-        {field: 'u_email', headerName: '이메일', width: 150,},
-        {field: 'u_gender', headerName: '성별', width: 150},
-        {field: 'u_age', headerName: '나이', width: 150},
-        {field: 'u_status', headerName: '유저상태', width: 150},
-        {field: 'u_noShowCnt', headerName: 'NoShow', width: 130},
+        {field: 'u_id', headerName: '유저아이디', width: 180},
+        {field: 'u_pw', headerName: '유저패스워드', width: 200},
+        {field: 'u_cellPhone', headerName: '휴대폰번호', width: 180},
+        {field: 'u_email', headerName: '이메일', width: 180,},
+        {field: 'u_gender', headerName: '성별', width: 180},
+        {field: 'u_age', headerName: '나이', width: 180},
+        {field: 'u_status', headerName: '유저상태', width: 180},
+        {field: 'u_noShowCnt', headerName: 'NoShow', width: 160},
     ]; // 그리드 설정
 
     return (
         <>
             <h3 className='mainH3'> 회원 리스트 </h3>
-            <div style={{height: 400, width: '100%', margin: 'auto'}}>
+            <div className='MasterMainBtn'>
+                <Button variant="contained" color="error" onClick={() => updateDB('yes')}>
+                    수정
+                </Button>
+                {' '}
+                <Button variant="contained" color="error" onClick={() => updateDB('no')}>
+                    삭제
+                </Button>
+            </div>
+            <div style={{height: 650, width: '100%', margin: 'auto'}}>
                 {loading ?
                     <Box sx={{width: 1500}}>
                         <Skeleton/>
@@ -140,19 +149,12 @@ export default function MasterUserList() {
                         onStateChange={({selection}) => setSelected(selection)}
                         rows={rows}
                         columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
+                        pageSize={10}
+                        rowsPerPageOptions={[10]}
                         checkboxSelection
                     />
                 }
             </div>
-            <Button variant="contained" color="error" onClick={() => updateDB('yes')}>
-                수정
-            </Button>
-            {' '}
-            <Button variant="contained" color="error" onClick={() => updateDB('no')}>
-                삭제
-            </Button>
 
 
 

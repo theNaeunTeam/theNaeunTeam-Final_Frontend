@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
-
+import '../../styles/masterOwnerDash.css'
 
 // 입점 승인완료
 export default function ApprovalCompletion() {
@@ -131,8 +131,8 @@ export default function ApprovalCompletion() {
 
     return (
         <>
-            <h3>입점신청 승인완료 </h3>
-            <div style={{height: 400, width: '100%', margin: 'auto'}}>
+            <h3 className='mainH3'>입점신청 승인완료 </h3>
+            <div style={{height: 650, width: '100%', margin: 'auto'}}>
                 {loading ?
                     <Box sx={{width: 1500}}>
                         <Skeleton/>
@@ -156,8 +156,8 @@ export default function ApprovalCompletion() {
                         onStateChange={({selection}) => setSelected(selection)}
                         rows={rows}
                         columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
+                        pageSize={10}
+                        rowsPerPageOptions={[10]}
                         checkboxSelection
                     />
                 }
