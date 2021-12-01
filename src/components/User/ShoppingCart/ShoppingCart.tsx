@@ -36,7 +36,7 @@ export default function ShoppingCart() {
 
     type cookieType = { g_count: string, g_code: string, id: string };
     useLayoutEffect(() => {
-        if (!localStorage.getItem('userToken')) history.push('/err');
+        if (!localStorage.getItem('userToken')) history.replace('/err');
     }, []);
     useEffect(() => {
         readCookie();

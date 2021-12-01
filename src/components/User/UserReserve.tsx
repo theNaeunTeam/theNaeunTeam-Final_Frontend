@@ -52,7 +52,7 @@ export default function UserReserve() {
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!localStorage.getItem('userToken')) history.push('/err');
+        if (!localStorage.getItem('userToken')) history.replace('/err');
     }, []);
 
 

@@ -43,7 +43,7 @@ export default function UserExit() {
 
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!localStorage.getItem('userToken')) history.push('/err');
+        if (!localStorage.getItem('userToken')) history.replace('/err');
     }, []);
 
     const initPassword = {

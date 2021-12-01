@@ -35,7 +35,7 @@ const DivMain = styled.div`
 export default function Unsubscribe() {
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!localStorage.getItem('ownerToken')) history.push('/err');
+        if (!localStorage.getItem('ownerToken')) history.replace('/err');
     }, []);
 
     const initPassword = {
