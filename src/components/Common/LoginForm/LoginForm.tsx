@@ -210,7 +210,10 @@ export default function LoginForm(props: any) {
                             ?
                             <div id={styles.formFooter}>
                                 <Button variant="outlined"
-                                        onClick={() => history.push('/user/register')}>
+                                        onClick={() => {
+                                            props.setShowLoginForm(false);
+                                            history.push('/user/register');
+                                        }}>
                                     회원가입
                                 </Button> {' '}
                                 <Button variant="outlined" onClick={handleClickOpen}>
