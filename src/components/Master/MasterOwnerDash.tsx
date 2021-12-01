@@ -4,8 +4,8 @@ import {client} from "../../lib/api/client";
 import {Bar} from "react-chartjs-2";
 import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
-import '../../styles/masterOwnerDash.css'
-import '../../styles/button.css'
+import '../../styles/masterOwnerDash.scss'
+import '../../styles/button.scss'
 import MasterChart3 from "./MasterChart3";
 
 // 대시 보드

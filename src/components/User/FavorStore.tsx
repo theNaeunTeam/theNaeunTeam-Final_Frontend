@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 import fullStar from "../../styles/images/star1.png";
 import Swal from 'sweetalert2';
 import UserNavbar from "./UserNavbar";
-import '../../styles/table.css';
+import '../../styles/table.scss';
 
 const TableStyled = styled.table`
   border: solid aqua;

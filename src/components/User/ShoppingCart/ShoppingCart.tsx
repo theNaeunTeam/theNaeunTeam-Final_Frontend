@@ -9,7 +9,7 @@ import {ShoppingCartDTO} from "../../../modules/types";
 import CircularProgress from '@mui/material/CircularProgress';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import './shoppingCart.css';
+import './shoppingCart.scss';
 
 export default function ShoppingCart() {
 

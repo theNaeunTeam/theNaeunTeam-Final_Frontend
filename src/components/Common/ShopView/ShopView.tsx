@@ -4,7 +4,7 @@ import {Button, Paper} from "@mui/material";
 import {client} from "../../../lib/api/client";
 import {useHistory} from 'react-router-dom';
 import {useRouteMatch} from 'react-router';
-import '../../../styles/ShopStyle.css';
+import '../../../styles/ShopStyle.scss';
 import {Map, MapMarker} from "react-kakao-maps-sdk";
 import {useCookies} from 'react-cookie';
 import {useSelector} from "react-redux";
@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 import {categoryType, shopViewType} from "../../../modules/types";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {fetch_Category_Per_sNumber} from "../../../lib/api/Fetch_Category_Per_sNumber";
-import './ShopView.css';
+import './ShopView.scss';
 
 
 const DivMarker = styled.div`

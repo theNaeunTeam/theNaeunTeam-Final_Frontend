@@ -4,7 +4,7 @@ import {client} from "../../lib/api/client";
 import {Bar} from "react-chartjs-2";
 import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
-import '../../styles/masterOwnerDash.css';
+import '../../styles/masterOwnerDash.scss';
 
 
 export default function UserDash() {

@@ -11,7 +11,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import UserNavbar from "./UserNavbar";
-import '../../styles/table.css'
+import '../../styles/table.scss'
 
 const DivContainer = styled.div`
   //text-align: center;

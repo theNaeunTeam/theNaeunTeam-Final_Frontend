@@ -7,8 +7,8 @@ import {useHistory} from "react-router-dom";
 import styled from "styled-components";
 import MasterChart2 from "./MasterChart2";
 import MasterChart3 from "./MasterChart3";
-import '../../styles/button.css';
-import '../../styles/masterOwnerDash.css'
+import '../../styles/button.scss';
+import '../../styles/masterOwnerDash.scss'
 import {Button} from "@mui/material";
 
 export default function MasterChart() {

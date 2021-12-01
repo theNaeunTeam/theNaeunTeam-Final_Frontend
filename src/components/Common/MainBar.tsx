@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import '../../styles/nav.css'
+import '../../styles/nav.scss'
 import {Link} from 'react-router-dom';
 import logo from '../../logo.svg';
 import {IconButton} from "material-ui";

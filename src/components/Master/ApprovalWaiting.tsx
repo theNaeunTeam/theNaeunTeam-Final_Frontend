@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
-import '../../styles/masterOwnerDash.css'
+import '../../styles/masterOwnerDash.scss'
 
 // 입점 신청 승인대기 리스트
 export default function ApprovalWaiting() {

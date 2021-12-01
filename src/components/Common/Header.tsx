@@ -5,7 +5,7 @@ import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 
-import '../../styles/Header.css'
+import '../../styles/Header.scss'
 
 export default function Header() {
 

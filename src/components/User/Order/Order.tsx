@@ -8,7 +8,7 @@ import {Button} from "@mui/material";
 import {useCookies} from "react-cookie";
 import {orderForm, orderSubmitType} from "../../../modules/types";
 import {client} from "../../../lib/api/client";
-import './order.css';
+import './order.scss';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';

@@ -4,7 +4,7 @@ import {client} from "../../lib/api/client";
 import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
 import {Pie} from "react-chartjs-2";
-import '../../styles/masterOwnerDash.css'
+import '../../styles/masterOwnerDash.scss'
 
 export default function MasterChart3() {
 

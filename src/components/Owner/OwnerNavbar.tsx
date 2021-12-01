@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 
 import {useHistory, useLocation} from 'react-router-dom';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import '../../styles/nav.css'
+import '../../styles/nav.scss'
 import {Link} from 'react-router-dom';
 
 
