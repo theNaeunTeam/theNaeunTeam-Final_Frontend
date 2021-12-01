@@ -82,9 +82,13 @@ export default function OwnerRegisterForm() {
     };
 
 
-    const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
         console.log(regForm);
         const tagName = (e.target as HTMLFormElement).name;
+        if (tagName === 'o_sNumber' || tagName === 'o_phone' || tagName === 'o_cellPhone') {
+            setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value.replace(/[^0-9]/g, '')});
+            return false;
+        }
         setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value});
     }
 
@@ -134,7 +138,7 @@ export default function OwnerRegisterForm() {
     return (
         <div style={{border: 'none', marginLeft: '200px', marginRight: '200px', marginTop: '10px', padding: '10px'}}>
             <Stack
-                onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
+                onChange={(e: React.FormEvent<HTMLFormElement>) => handleFormChange(e)}
                 component="form"
                 sx={{
                     '& .MuiTextField-root': {m: 3, width: '50ch'},
@@ -151,6 +155,7 @@ export default function OwnerRegisterForm() {
                     label="사업자번호"
                     name={'o_sNumber'}
                     helperText="사업자번호를 하이픈 없이 입력해주세요"
+                    value={regForm.o_sNumber}
                 />
                 <TextField
                     error={formError.o_name}
@@ -200,6 +205,7 @@ export default function OwnerRegisterForm() {
                     label="가게 대표 번호"
                     helperText="가게 대표 번호를 하이픈 없이 입력해 주세요"
                     name={'o_phone'}
+                    value={regForm.o_phone}
                 />
                 <TextField
                     error={formError.o_cellPhone}
@@ -208,6 +214,7 @@ export default function OwnerRegisterForm() {
                     label="사장님 전화번호"
                     helperText="사장님 전화번호를 하이픈 없이 입력해 주세요"
                     name={'o_cellPhone'}
+                    value={regForm.o_cellPhone}
                 />
                 <TextField
                     name={'o_time1'}
@@ -243,7 +250,7 @@ export default function OwnerRegisterForm() {
                     border: 'solid lightgrey 0.5px', borderRadius: '5px',
                     display: 'flex',
                     alignItems: 'center', justifyContent: 'space-between',
-                    marginBottom:'20px', padding: '10px', width: '420px', height: '35px'
+                    marginBottom: '20px', padding: '10px', width: '420px', height: '35px'
                 }}>
                     <span><AddAPhotoIcon/> 가게 대표 사진  </span>
                     <input type={'file'} ref={fileInputTag}/>

@@ -34,17 +34,21 @@ export default function UserRegisterForm() {
         u_age: false,
     }
 
-    const [regForm, setRegForm] = useState(initValue);
+    const [regForm, setRegForm] = useState<{[key: string]: string}>(initValue);
     const [formError, setFormError] = useState(formErrorinit);
 
-    const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
         const tagName = (e.target as HTMLFormElement).name;
+        if (tagName === 'u_cellPhone') {
+            setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value.replace(/[^0-9]/g, '')});
+            return false;
+        }
         setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value});
         formValidate(tagName);
     }
 
     const formValidate = (tagName: string) => {
-        if (regForm.u_id.length < 5) {
+        if (regForm[tagName].length < 5) {
             setFormError({...formError, [tagName]: true});
             return false;
         } else {
@@ -72,7 +76,7 @@ export default function UserRegisterForm() {
     return (
         <div style={{border: 'none', marginLeft: '200px', marginRight: '200px', marginTop: '10px', padding: '10px'}}>
             <Stack
-                onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
+                onChange={(e: React.FormEvent<HTMLFormElement>) => handleFormChange(e)}
                 component="form"
                 sx={{
                     '& .MuiTextField-root': {m: 3, width: '50ch'},
@@ -97,6 +101,7 @@ export default function UserRegisterForm() {
                     label="휴대전화"
                     helperText="하이픈 없이 입력해 주세요"
                     name={'u_cellPhone'}
+                    value={regForm.u_cellPhone}
                 />
                 <TextField
                     error={formError.u_pw}
