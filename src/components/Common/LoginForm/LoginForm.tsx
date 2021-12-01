@@ -145,9 +145,11 @@ export default function LoginForm(props: any) {
                     <form onChange={e => handleForm(e)} onSubmit={e => e.preventDefault()}
                           style={{display: 'inline-block'}}>
                         <div className={styles.fadeIn + " " + styles.first}>
-                            <span className={styles.loginFormHeader}>
+                            {props.setShowLoginForm &&
+                                <span className={styles.loginFormHeader}>
                                 <CancelIcon style={{cursor: 'pointer'}} onClick={() => props.setShowLoginForm(false)}/>
-                            </span>
+                                </span>
+                            }
                             <h1>탄다마켓 로그인</h1>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">회원 유형을 선택해 주세요</FormLabel>
