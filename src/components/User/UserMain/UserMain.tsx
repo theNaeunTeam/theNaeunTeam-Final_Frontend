@@ -6,7 +6,7 @@ import {carouselType, recommendType} from "../../../modules/types";
 import axios from "axios";
 import RecommendList from "./RecommendList";
 import {A11y, Autoplay, Navigation, Pagination, Scrollbar} from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
+import {Swiper, SwiperSlide} from 'swiper/react/swiper-react.js';
 
 import 'swiper/swiper.scss'; // core Swiper
 import 'swiper/modules/navigation/navigation.scss'; // Navigation module
@@ -116,12 +116,12 @@ export default function UserMain() {
                     scrollbar={{draggable: true}}
                     onSwiper={(swiper) => console.log(swiper)}
                     onSlideChange={() => console.log('slide change')}
-                    autoplay={{ delay: 1000 }}
+                    autoplay={{delay: 5000}}
                 >
-
                     {
                         items.map((data, idx) => {
-                            return (<SwiperSlide>
+                            return (
+                                <SwiperSlide>
                                     <Item key={idx} data={data} idx={idx}/>
                                 </SwiperSlide>
                             )

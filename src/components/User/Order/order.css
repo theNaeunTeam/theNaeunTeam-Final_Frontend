@@ -2,5 +2,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
 
+.orderRightSide {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 10px;
+}
+
+.cartListItem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: #0099CC 1px solid;
 }

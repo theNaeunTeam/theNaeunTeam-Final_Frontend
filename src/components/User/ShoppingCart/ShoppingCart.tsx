@@ -158,12 +158,13 @@ export default function ShoppingCart() {
                         총 주문 상품 수 : {cartReducer.length} 개, {' '}
                         {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
                     </div>
-                    <span>
-                    <Button variant={'contained'} style={{width: '50%'}} onClick={() => {
+                    <br/>
+                    <div>
+                    <Button variant={'contained'} style={{width: '300px'}} onClick={() => {
                         dispatch({type: 'orderIn'});
                         history.push('/user/order');
                     }}>주문하기</Button>
-                        </span>
+                        </div>
                 </>
                 :
                 <>

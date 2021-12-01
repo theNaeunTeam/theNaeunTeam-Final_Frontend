@@ -9,17 +9,25 @@ import {useCookies} from "react-cookie";
 import {orderForm, orderSubmitType} from "../../../modules/types";
 import {client} from "../../../lib/api/client";
 import './order.css';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
 
 const DivContainer = styled.div`
   border: solid 0.5px green;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  //display: flex;
+  //flex-direction: column;
+  //justify-content: center;
   text-align: center;
   margin: auto;
   width: 50%;
   padding: 10px;
+  vertical-align: center;
+  margin-top: 20px;
+  margin-bottom: 100px;
 `;
 
 const DivBordered = styled.div`
@@ -32,7 +40,7 @@ export default function Order() {
     const today = new Date();
 
     const defaultValue = {
-        who: '제가 직접 받음',
+        who: ' 제가 직접 받아요 ',
         time: '18:00',
         r_customOrder: '',
         payment: 'self',
@@ -52,7 +60,6 @@ export default function Order() {
         if (!localStorage.getItem('userToken')) history.push('/err');
         if (cartReducer[0] === undefined) history.push('/err');
     }, []);
-
 
     useEffect(() => {
         return () => {
@@ -100,6 +107,7 @@ export default function Order() {
     };
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
+
         const tagName = (e.target as HTMLFormElement).id;
 
         if (tagName === 'kudasai' || tagName === 'tumbler') {
@@ -114,52 +122,55 @@ export default function Order() {
         <>
             <DivContainer>
                 <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e)}>
-                    <strong>주문하기</strong>
+                    <h1>주문서</h1>
+                    <br/>
                     <hr/>
-                    <ol>
-                        {cartReducer.map((data, idx) =>
-                            <li>
-                                <div key={idx}>
-                                    <img src={data.g_image} style={{width: '100px', height: '100px'}} alt={'상품이미지'}/>
-                                    {data.g_name} {data.g_count}개 {' '}
-                                    {data.g_discount * data.g_count}원
-                                </div>
-                            </li>
-                        )}
-                    </ol>
+                    {cartReducer.map((data, idx) =>
+                        <div className={'cartListItem'}>
+                            <img src={data.g_image} style={{width: '100px', height: '100px'}} alt={'상품이미지'}/>
+                            <span>{data.g_name}</span>
+                            <span>{data.g_count}개 </span>
+                            <span>{data.g_discount * data.g_count}원</span>
+                        </div>
+                    )}
                     <br/>
-                    <div><Link to={'/list'}> + 상품 더 담기</Link></div>
-                    <br/>
+                    <Button onClick={() => history.replace('/')}><h3>+ 상품 더 담기 </h3></Button>
+                    <br/><br/>
                     <DivBordered>
                         <div className='orderLeftSide'>
-                            <strong>방문하시는분</strong>
-                            <span>
-                        <input type={'radio'} defaultChecked={true} name={'who'} value={' 제가 직접 받아요 '} id={'who'}/>
-                                {' '}제가직접 받아요
-                                </span>
-                            <span>
-                        <input type={'radio'} name={'who'} value={' 다른 사람이 받아요 '} id={'who'}/> 다른사람이 받아요
-                        </span>
+                            <h3>방문하시는분</h3>
+
+                            <RadioGroup
+                                row
+                                aria-label="방문자"
+                                defaultValue=" 제가 직접 받아요 "
+                            >
+                                <FormControlLabel value=" 제가 직접 받아요 " control={<Radio id={'who'}/>}
+                                                  label=" 제가 직접 받아요 "/>
+                                <FormControlLabel value=" 다른 사람이 받아요 " control={<Radio id={'who'}/>}
+                                                  label=" 다른 사람이 받아요 "/>
+                            </RadioGroup>
+
                         </div>
                     </DivBordered>
                     <DivBordered>
                         <div className='orderLeftSide'>
-                            <strong>방문 예정 시간</strong>
+                            <h3>방문 예정 시간</h3>
                             <span>
-                                <TextField
-                                    name={'o_time2'}
-                                    id="time"
-                                    label="방문 예정 시간"
-                                    type="time"
-                                    defaultValue="18:00"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    inputProps={{
-                                        step: 3000, // 30 min
-                                    }}
-                                    sx={{width: 200}}
-                                />
+                        <TextField
+                            name={'o_time2'}
+                            id="time"
+                            label="방문 예정 시간"
+                            type="time"
+                            defaultValue="18:00"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            inputProps={{
+                                step: 3000, // 30 min
+                            }}
+                            sx={{width: 200}}
+                        />
                                 {' '}
                                 <TextField
                                     name={'r_firstDate'}
@@ -173,25 +184,25 @@ export default function Order() {
                                     }}
                                     InputProps={{inputProps: {min: orderForm.r_firstDate}}}
                                 />
-                            </span>
+                        </span>
                         </div>
                     </DivBordered>
                     <DivBordered>
                         <div className='orderLeftSide'>
-                        <strong> 요청사항 </strong>
-                        {/*<textarea id={'r_customOrder'} rows={3} cols={60}/>*/}
-                        <TextField
-                            id="r_customOrder"
-                            label="가게 사장님에게"
-                            multiline
-                            rows={4}
-                            style={{width:'80%'}}
-                        />
+                            <h3> 요청사항 </h3>
+                            <TextField
+                                id="r_customOrder"
+                                label="가게 사장님에게"
+                                multiline
+                                rows={4}
+                                style={{width: '70%'}}
+                            />
                         </div>
-                        <br/>
-                        <input type={'checkbox'} id={'kudasai'} value={'일회용 수저, 포크 제외'}/> 일회용 수저, 포크 제외
-                        <br/>
-                        <input type={'checkbox'} id={'tumbler'} value={'텀블러 가져가요'}/> 텀블러 가져가요
+                        <span className={'orderRightSide'}>
+                        <FormControlLabel control={<Checkbox value={' 일회용 수저, 포크 제외 '} id={'kudasai'}/>}
+                                          label="일회용 수저, 포크 제외"/>
+                        <FormControlLabel control={<Checkbox value={' 텀블러 가져가요 '} id={'tumbler'}/>} label="텀블러 가져가요"/>
+                        </span>
                     </DivBordered>
                     {/*<DivBordered>*/}
                     {/*    <strong>주문서 쿠폰 / 포인트 사용</strong>*/}
@@ -221,7 +232,8 @@ export default function Order() {
                         {/*    <span>0원</span>*/}
                         {/*</div>*/}
                         {/*<hr/>*/}
-                        <strong>총 결제 금액</strong>
+                        <h3>총 결제 금액</h3>
+                        <br/><br/>
                         <div style={{background: "ghostwhite", display: "flex", justifyContent: 'space-between'}}>
                             <span>적립 예정 금액</span>
                             <span>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0) / 10}원</span>
@@ -231,17 +243,17 @@ export default function Order() {
                             <strong>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원</strong>
                         </div>
                     </DivBordered>
-                    <DivBordered>
-                        <strong>방문하시는분</strong>
-                        <br/>
-                        <input type={'radio'} name={'payment'} value={'self'} defaultChecked={true}
-                               id={'payment'}/> 직접 결제 {' '}
-                        <input type={'radio'} name={'payment'} value={'card'} disabled={true}
-                               id={'payment'}/> 카드결제 {' '}
-                        <input type={'radio'} name={'payment'} value={'mobile'} id={'payment'} disabled={true}/> 휴대폰 결제
-                    </DivBordered>
+                    {/*<DivBordered>*/}
+                    {/*    <strong>방문하시는분</strong>*/}
+                    {/*    <br/>*/}
+                    {/*    <input type={'radio'} name={'payment'} value={'self'} defaultChecked={true}*/}
+                    {/*           id={'payment'}/> 직접 결제 {' '}*/}
+                    {/*    <input type={'radio'} name={'payment'} value={'card'} disabled={true}*/}
+                    {/*           id={'payment'}/> 카드결제 {' '}*/}
+                    {/*    <input type={'radio'} name={'payment'} value={'mobile'} id={'payment'} disabled={true}/> 휴대폰 결제*/}
+                    {/*</DivBordered>*/}
                     <br/>
-                    <Button variant={'contained'} onClick={submitForm} style={{width:'50%'}}>주문하기</Button>
+                    <Button variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h2>주문하기</h2></Button>
                 </form>
             </DivContainer>
 
