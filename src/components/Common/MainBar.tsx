@@ -35,9 +35,9 @@ export default function MainBar() {
                             근처 가게 찾기
                         </Link>
                     </li>
-                    <li><Link to={'#'}>진행중인 이벤트</Link></li>
+                    <li><Link to={'/event'}>진행중인 이벤트</Link></li>
                     <li>
-                        <Link to={'#'}>탄다오더 소개</Link>
+                        <Link to={'/tandaorder'}>탄다오더 소개</Link>
                     </li>
                     <li><Link to={'/user'} className='dropdown-arrow'>마이페이지 </Link>
                         <ul className='sub-menus'>

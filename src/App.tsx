@@ -91,15 +91,15 @@ function App() {
     };
 
     return (
-        <>
+        <div className='bodyWrapper'>
             <Header/>
+            <div className='bodyContent'>
+                {authReducer.isMaster === true ? <Route path='/' component={MasterNavbar}/>
+                    : authReducer.isOwner === true ? <Route path='/' component={OwnerNavbar}/>
+                        : <Route path='/' component={MainBar}/>}
 
-            {authReducer.isMaster === true ? <Route path='/master' component={MasterNavbar}/>
-                : authReducer.isOwner === true? <Route path='/' component={OwnerNavbar}/>
-                    :<Route path='/' component={MainBar}/> }
 
-
-                <Route path='/'exact component={UserMain}/>
+                <Route path='/' exact component={UserMain}/>
 
                 <Route exact path='/login' component={LoginForm}/>
 
@@ -107,53 +107,52 @@ function App() {
 
                 <Route exact path='/owner/register' component={OwnerRegisterForm}/>
 
-                <Route exact path = '/findpw/:id/:token' component={FindPw}/>
+                <Route exact path='/findpw/:id/:token' component={FindPw}/>
 
 
+                <Route path={'/master/changeBanner'} component={ChangeBanner}/>
 
-            <Route path={'/master/changeBanner'} component={ChangeBanner}/>
+                <Route path='/shopView/:o_sNumber' component={ShopView}/>
 
-            <Route path='/shopView/:o_sNumber' component={ShopView}/>
-
-            <Route path='/list' component={ShopList}/>
-
+                <Route path='/list' component={ShopList}/>
 
 
-            <Route path='/master' exact component={MasterMain}/>
-            <Route path='/master/masteruserlist' component={MasterUserList}/>
-            <Route path='/master/approvalwaiting' component={ApprovalWaiting}/>
-            <Route path='/master/approvalcompletion' component={ApprovalCompletion}/>
-            <Route path='/master/terminationwaiting' component={TerminationWaiting}/>
-            <Route path='/master/terminationcompletion' component={TerminationCompletion}/>
-            <Route path='/master/masterownerdash' component={MasterOwnerDash}/>
-            <Route path='/master/userdash' component={UserDash}/>
-            <Route path='/master/masterchart' component={MasterChart}/>
+                <Route path='/master' exact component={MasterMain}/>
+                <Route path='/master/masteruserlist' component={MasterUserList}/>
+                <Route path='/master/approvalwaiting' component={ApprovalWaiting}/>
+                <Route path='/master/approvalcompletion' component={ApprovalCompletion}/>
+                <Route path='/master/terminationwaiting' component={TerminationWaiting}/>
+                <Route path='/master/terminationcompletion' component={TerminationCompletion}/>
+                <Route path='/master/masterownerdash' component={MasterOwnerDash}/>
+                <Route path='/master/userdash' component={UserDash}/>
+                <Route path='/master/masterchart' component={MasterChart}/>
 
 
-            {/*<Route path='/user' component={UserNavbar}/>*/}
-            <Route path='/user' exact component={UserMypage}/>
-            <Route path='/user/shoppingcart' component={ShoppingCart}/>
-            <Route path='/user/order' component={Order}/>
-            <Route path='/user/userreserve' component={UserReserve}/>
-            <Route path='/user/favorstore' component={FavorStore}/>
-            <Route path='/user/useredit' component={UserEdit}/>
-            <Route path='/user/userexit' component={UserExit}/>
+                {/*<Route path='/user' component={UserNavbar}/>*/}
+                <Route path='/user' exact component={UserMypage}/>
+                <Route path='/user/shoppingcart' component={ShoppingCart}/>
+                <Route path='/user/order' component={Order}/>
+                <Route path='/user/userreserve' component={UserReserve}/>
+                <Route path='/user/favorstore' component={FavorStore}/>
+                <Route path='/user/useredit' component={UserEdit}/>
+                <Route path='/user/userexit' component={UserExit}/>
 
 
-            {/*<Route path='/owner' component={OwnerNavbar}/>*/}
-            <Route path='/owner' exact component={OwnerMain}/>
-            <Route path='/owner/addproduct' component={AddProduct}/>
-            <Route path='/owner/goodsview' component={GoodsView}/>
-            <Route path='/owner/reservationview' component={ReservationView}/>
-            <Route path='/owner/unsubscribe' component={Unsubscribe}/>
-            <Route path='/owner/ownerdashf' component={OwnerDashF}/>
-            <Route path='/owner/ownerdashs' component={OwnerDashS}/>
+                {/*<Route path='/owner' component={OwnerNavbar}/>*/}
+                <Route path='/owner' exact component={OwnerMain}/>
+                <Route path='/owner/addproduct' component={AddProduct}/>
+                <Route path='/owner/goodsview' component={GoodsView}/>
+                <Route path='/owner/reservationview' component={ReservationView}/>
+                <Route path='/owner/unsubscribe' component={Unsubscribe}/>
+                <Route path='/owner/ownerdashf' component={OwnerDashF}/>
+                <Route path='/owner/ownerdashs' component={OwnerDashS}/>
 
 
-            <Route path={'/err'} component={PageNotFound}/>
-            <Route path={'/PrivacyPolicy'} component={PrivacyPolicy}/>
+                <Route path={'/err'} component={PageNotFound}/>
+                <Route path={'/PrivacyPolicy'} component={PrivacyPolicy}/>
+            </div>
             <Footer/>
-        </>
+        </div>
     );
 }
 
