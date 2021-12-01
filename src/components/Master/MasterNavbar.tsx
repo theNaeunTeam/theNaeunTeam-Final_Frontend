@@ -28,7 +28,7 @@ export default function MasterNavbar(props: RouteComponentProps) {
                 <input type='checkbox' id='responsive-menu' ref={aaa} onClick={updatemenu}/><label></label>
                     <ul>
                         <li><Link to={'/master/masterchart'}>Home</Link></li>
-                        <li><a className='dropdown-arrow' href='http://'>Products</a>
+                        <li><Link className='dropdown-arrow' to={'/master'}>Products</Link>
                             <ul className='sub-menus'>
                                 <li><Link to={'/master'}>점주리스트 </Link></li>
                                 <li><Link to={'/master/masteruserlist'}>회원리스트</Link></li>

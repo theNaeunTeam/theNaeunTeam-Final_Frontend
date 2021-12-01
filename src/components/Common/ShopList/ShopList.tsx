@@ -11,6 +11,9 @@ import ShopListBuilder from "./ShopListBuilder";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import './shopList.scss';
+import {userLocalMap} from "../../../reducers/userLocalMap";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../index";
 
 const marks = [
     {
@@ -69,6 +72,7 @@ const centumLON = 129.127655001351;
 export default function ShopList() {
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const [list, setList] = useState<shopList[]>([]);
     const [range, setRange] = useState('1');
@@ -77,9 +81,13 @@ export default function ShopList() {
     const [loading, setLoading] = useState(true);
     const [marker, setMarker] = useState<boolean[]>([])
 
+    const {userLocalMap} = useSelector( (state:RootState) => state);
 
     useEffect(() => {
-        init();
+        userLocalMap.lat != 0 && userLocalMap.lon !=0
+        ? init(userLocalMap.lat, userLocalMap.lon)
+        : init();
+
     }, []);
 
     const init = (LAT = lat, LON = lon) => {
@@ -99,13 +107,15 @@ export default function ShopList() {
 
     function getLoc() {
         setLoading(true);
-
+        
+        // 위치 허용 팝업
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
         function onGeoOK(position: any) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             init(lat, lon);
+            dispatch({type:'getLocaled', payload: {lat:lat ,lon:lon} });
         }
 
         function onGeoError(e: any) {

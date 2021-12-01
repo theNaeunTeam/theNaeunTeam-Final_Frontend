@@ -13,7 +13,7 @@ import {masterMainType2} from "../../modules/types";
 import Skeleton from '@mui/material/Skeleton';
 import '../../styles/masterOwnerDash.scss';
 import '../../styles/MasterLoginForm.scss';
-import { FaUserTie } from "react-icons/fa";
+import { FaUserSecret } from "react-icons/fa";
 
 export default function MasterMain() {
 
@@ -229,7 +229,7 @@ export default function MasterMain() {
 
                             <div className="fadeIn first">
                                {/*<img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon"/>*/}
-                                <FaUserTie style={{width:'50px', height:'50px', margin:'20px'}}/>
+                                <FaUserSecret style={{width:'50px', height:'50px', margin:'20px'}}/>
                             </div>
 
                                 <input type="text" id="login" className="fadeIn second input1" name={'u_id'}
