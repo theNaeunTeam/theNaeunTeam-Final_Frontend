@@ -232,11 +232,11 @@ export default function MasterMain() {
                                 <FaUserTie style={{width:'50px', height:'50px', margin:'20px'}}/>
                             </div>
 
-                                <input type="text" id="login" className="fadeIn second" name={'u_id'}
+                                <input type="text" id="login" className="fadeIn second input1" name={'u_id'}
                                        placeholder="login"
                                        onChange={e => setLoginForm({...loginForm, m_id: e.target.value})}
                                 />
-                                    <input type="text" id="password" className="fadeIn third" name={'u_pw'}
+                                    <input type="text" id="password" className="fadeIn third input1" name={'u_pw'}
                                            placeholder="password"
                                            onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}
                                            onKeyPress={e => {
