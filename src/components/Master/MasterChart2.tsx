@@ -5,8 +5,8 @@ import {Line} from "react-chartjs-2";
 import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
-import '../../styles/button.css';
-import '../../styles/masterOwnerDash.css';
+import '../../styles/button.scss';
+import '../../styles/masterOwnerDash.scss';
 
 export default function MasterChart2() {
 

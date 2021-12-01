@@ -10,7 +10,7 @@ import {useHistory} from "react-router-dom";
 import ShopListBuilder from "./ShopListBuilder";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import './shopList.css';
+import './shopList.scss';
 
 const marks = [
     {

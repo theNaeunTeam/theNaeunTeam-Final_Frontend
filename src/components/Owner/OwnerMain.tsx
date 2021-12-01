@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {ownerPageType} from "../../modules/types";
-import '../../styles/button.css'
+import '../../styles/button.scss'
 import {Bar} from 'react-chartjs-2';
 import OwnerNavbar from "./OwnerNavbar";
 import FCM from "../../lib/FCM";

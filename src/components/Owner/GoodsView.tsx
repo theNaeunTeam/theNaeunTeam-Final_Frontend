@@ -13,7 +13,7 @@ import {useHistory} from "react-router-dom";
 import {goodsViewType} from '../../modules/types';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import '../../styles/table.css'
+import '../../styles/table.scss'
 
 const TableStyled = styled.table`
   padding: 30px;

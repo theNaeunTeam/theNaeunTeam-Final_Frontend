@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Link, useHistory, useLocation} from 'react-router-dom';
 import {Navigation} from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import '../../styles/nav.css'
+import '../../styles/nav.scss'
 
 export default function UserNavbar() {
     const history = useHistory();

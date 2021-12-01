@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {Link, RouteComponentProps} from 'react-router-dom';
-import '../../styles/nav.css'
+import '../../styles/nav.scss'
 
 export default function MasterNavbar(props: RouteComponentProps) {
 
