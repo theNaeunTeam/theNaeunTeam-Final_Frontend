@@ -88,14 +88,13 @@ export default function UserMain() {
     function Item({data, idx}: itemType) {
         return (
             <div>
-                <Link to={data.link}>
+                <Link to={data.link} style={{width:'100%'}}>
                     <div style={{
                         backgroundImage: `url(${data.src})`,
                         width: "100%",
                         height: "500px",
                         backgroundSize: '100% 500px',
                         color : 'black',
-                        textDecoration : 'none',
                     }}>
                         <h2>{data.header}</h2>
                         <p>{data.description}</p>
