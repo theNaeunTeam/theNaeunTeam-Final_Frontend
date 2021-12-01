@@ -1,299 +1,262 @@
-*, *:before, *:after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+/* BASIC */
+
+
+
+
+
+//a {
+//  color: #92badd;
+//  display:inline-block;
+//  text-decoration: none;
+//  font-weight: 400;
+//}
+
+.active {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline-block;
+  margin: 40px 8px 10px 8px;
+  color: #cccccc;
 }
 
-body {
-    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-    background: #ededed;
+
+
+/* STRUCTURE */
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
 }
 
-input, button {
-    border: none;
-    outline: none;
-    background: none;
-    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+#formContent {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
 }
 
-$contW: 900px;
-$imgW: 260px;
-$formW: $contW - $imgW;
-$switchAT: 1.2s;
-
-$inputW: 260px;
-$btnH: 36px;
-
-$diffRatio: ($contW - $imgW) / $contW;
-
-@mixin signUpActive {
-    .cont.s--signup & {
-    @content;
-}
+#formFooter {
+  background-color: #f6f6f6;
+  border-top: 1px solid #dce8f1;
+  padding: 25px;
+  text-align: center;
+  -webkit-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
 }
 
-.tip {
-    font-size: 20px;
-    margin: 40px auto 50px;
-    text-align: center;
+
+
+/* TABS */
+
+h2.inactive {
+  color: #cccccc;
 }
 
-.cont {
-    overflow: hidden;
-    position: relative;
-    width: $contW;
-    height: 550px;
-    margin: 0 auto 100px;
-    background: #fff;
+h2.active {
+  color: #0d0d0d;
+  border-bottom: 2px solid #5fbae9;
 }
 
-.form {
-    position: relative;
-    width: $formW;
-    height: 100%;
-    transition: transform $switchAT ease-in-out;
-    padding: 50px 30px 0;
+
+
+/* FORM TYPOGRAPHY*/
+
+input[type=button], input[type=submit], input[type=reset]  {
+  background-color: #56baed;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px 20px 40px 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-.sub-cont {
-    overflow: hidden;
-    position: absolute;
-    left: $formW;
-    top: 0;
-    width: $contW;
-    height: 100%;
-    padding-left: $imgW;
-    background: #fff;
-    transition: transform $switchAT ease-in-out;
-
-@include signUpActive {
-    transform: translate3d($formW * -1,0,0);
-}
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+  background-color: #39ace7;
 }
 
-button {
-    display: block;
-    margin: 0 auto;
-    width: $inputW;
-    height: $btnH;
-    border-radius: 30px;
-    color: #fff;
-    font-size: 15px;
-    cursor: pointer;
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+  -moz-transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
 }
 
-.img {
-    overflow: hidden;
-    z-index: 2;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: $imgW;
-    height: 100%;
-    padding-top: 360px;
-
-&:before {
-     content: '';
-     position: absolute;
-     right: 0;
-     top: 0;
-     width: $contW;
-     height: 100%;
-     background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg');
-     background-size: cover;
-     transition: transform $switchAT ease-in-out;
- }
-
-&:after {
-     content: '';
-     position: absolute;
-     left: 0;
-     top: 0;
-     width: 100%;
-     height: 100%;
-     background: rgba(0,0,0,0.6);
- }
-
-@include signUpActive {
-&:before {
-    transform: translate3d($formW,0,0);
-}
+input[type=text] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
 }
 
-&__text {
-     z-index: 2;
-     position: absolute;
-     left: 0;
-     top: 50px;
-     width: 100%;
-     padding: 0 20px;
-     text-align: center;
-     color: #fff;
-     transition: transform $switchAT ease-in-out;
-
-h2 {
-    margin-bottom: 10px;
-    font-weight: normal;
+input[type=text]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
 }
 
-p {
-    font-size: 14px;
-    line-height: 1.5;
+input[type=text]::placeholder {
+  color: #cccccc;
 }
 
-&.m--up {
 
-@include signUpActive {
-    transform: translateX($imgW*2);
-}
-}
 
-&.m--in {
-     transform: translateX($imgW * -2);
+/* ANIMATIONS */
 
-@include signUpActive {
-    transform: translateX(0);
-}
-}
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
 
-&__btn {
-     overflow: hidden;
-     z-index: 2;
-     position: relative;
-     width: 100px;
-     height: $btnH;
-     margin: 0 auto;
-     background: transparent;
-     color: #fff;
-     text-transform: uppercase;
-     font-size: 15px;
-     cursor: pointer;
-
-&:after {
-     content: '';
-     z-index: 2;
-     position: absolute;
-     left: 0;
-     top: 0;
-     width: 100%;
-     height: 100%;
-     border: 2px solid #fff;
-     border-radius: 30px;
- }
-
-span {
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    transition: transform $switchAT;
-
-&.m--in {
-     transform: translateY($btnH*-2);
-
-@include signUpActive {
-    transform: translateY(0);
-}
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
 }
 
-&.m--up {
-@include signUpActive {
-    transform: translateY($btnH*2);
-}
-}
-}
-}
-}
-
-h2 {
-    width: 100%;
-    font-size: 26px;
-    text-align: center;
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
 }
 
-label {
-    display: block;
-    width: $inputW;
-    margin: 25px auto 0;
-    text-align: center;
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
-span {
-    font-size: 12px;
-    color: #cfcfcf;
-    text-transform: uppercase;
-}
-}
+.fadeIn {
+  opacity:0;
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
 
-input {
-    display: block;
-    width: 100%;
-    margin-top: 5px;
-    padding-bottom: 5px;
-    font-size: 16px;
-    border-bottom: 1px solid rgba(0,0,0,0.4);
-    text-align: center;
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
 }
 
-.forgot-pass {
-    margin-top: 15px;
-    text-align: center;
-    font-size: 12px;
-    color: #cfcfcf;
+.fadeIn.first {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
 }
 
-.submit {
-    margin-top: 40px;
-    margin-bottom: 20px;
-    background: #d4af7a;
-    text-transform: uppercase;
+.fadeIn.second {
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
+  animation-delay: 0.6s;
 }
 
-.fb-btn {
-    border: 2px solid #d3dae9;
-    color: darken(#d3dae9, 20%);
-
-span {
-    font-weight: bold;
-    color: darken(#768cb6, 20%);
-}
+.fadeIn.third {
+  -webkit-animation-delay: 0.8s;
+  -moz-animation-delay: 0.8s;
+  animation-delay: 0.8s;
 }
 
-.sign-in {
-    transition-timing-function: ease-out;
-
-@include signUpActive {
-    transition-timing-function: ease-in-out;
-    transition-duration: $switchAT;
-    transform: translate3d($formW,0,0);
-}
+.fadeIn.fourth {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s;
 }
 
-.sign-up {
-    transform: translate3d($contW * -1,0,0);
-
-@include signUpActive {
-    transform: translate3d(0,0,0);
-}
-}
-
-.icon-link {
-    position: absolute;
-    left: 5px;
-    bottom: 5px;
-    width: 32px;
-
-img {
-    width: 100%;
-    vertical-align: top;
+/* Simple CSS3 Fade-in Animation */
+.underlineHover:after {
+  display: block;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 2px;
+  background-color: #56baed;
+  content: "";
+  transition: width 0.2s;
 }
 
-&--twitter {
-     left: auto;
-     right: 5px;
- }
+.underlineHover:hover {
+  color: #0d0d0d;
+}
+
+.underlineHover:hover:after{
+  width: 100%;
+}
+
+
+
+/* OTHERS */
+
+*:focus {
+  outline: none;
+}
+
+#icon {
+  width:60%;
+}
+
+* {
+  box-sizing: border-box;
 }
