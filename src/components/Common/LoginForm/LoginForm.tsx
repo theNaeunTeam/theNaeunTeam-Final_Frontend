@@ -140,6 +140,9 @@ export default function LoginForm(props: RouteComponentProps) {
                     <form onChange={e => handleForm(e)} onSubmit={e => e.preventDefault()}
                           style={{display: 'inline-block'}}>
                         <div className={styles.fadeIn + " " + styles.first}>
+                            <br/><br/>
+                                <h1 className={styles.underlineHover}>로그인</h1>
+                            <br/><br/>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">회원 유형을 선택해 주세요</FormLabel>
                                 <RadioGroup row aria-label="type" name="radio" defaultValue={'individual'}>
