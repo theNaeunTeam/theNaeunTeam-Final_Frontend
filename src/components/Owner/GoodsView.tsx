@@ -13,12 +13,13 @@ import {useHistory} from "react-router-dom";
 import {goodsViewType} from '../../modules/types';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import OwnerNavbar from "./OwnerNavbar";
+import '../../styles/table.css'
 
 const TableStyled = styled.table`
   padding: 30px;
   margin: auto;
-  width: 80%;
+  width: 100%;
+  border: solid red;
 `;
 
 
@@ -31,19 +32,9 @@ const DivContainer = styled.div`
   height: 100%;
   width: 100%;
   clear: both;
+  text-align: center;
 `;
 
-const DivNav = styled.div`
-  border: solid blue;
-  width: 17%;
-  font-size: large;
-`;
-const DivMain = styled.div`
-  border: solid red;
-  width: 80%;
-  height: 100%;
-  padding: 20px;
-`;
 export default function GoodsView() {
 
     const history = useHistory();
@@ -150,10 +141,10 @@ export default function GoodsView() {
                     {props.data.g_count}
                 </td>
                 <td>
-                    <button name={`${props.data.g_code}`} onClick={e => modifyGoods(e)}>수정</button>
+                    <Button variant="outlined" name={`${props.data.g_code}`} onClick={e => modifyGoods(e)} className = 'editbtn'>수정</Button>
                 </td>
                 <td>
-                    <button name={`${props.data.g_code}`} onClick={e => deleteGoods(e)}>판매중지</button>
+                    <Button variant="outlined" name={`${props.data.g_code}`} onClick={e => deleteGoods(e)} className = 'editbtn'>판매중지</Button>
                 </td>
             </tr>
         )
@@ -169,11 +160,9 @@ export default function GoodsView() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
             <DivContainer>
-
-
                     <h2>상품조회</h2>
                     <div>
-                        <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                        <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
                             <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
                             <Select
                                 labelId="demo-simple-select-standard-label"
@@ -190,7 +179,7 @@ export default function GoodsView() {
                                 <MenuItem value='식품외 기타'>식품외 기타</MenuItem>
                             </Select>
                         </FormControl>
-                        <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                        <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
                             <InputLabel id="demo-simple-select-standard-label">상태</InputLabel>
                             <Select
                                 labelId="demo-simple-select-standard-label"
@@ -206,14 +195,14 @@ export default function GoodsView() {
                             </Select>
                         </FormControl>
 
-                        <TextField id="outlined-basic" label="상품명" variant="outlined" name={'total'}
+                        <TextField className='goodsNameS' id="outlined-basic" label="상품명" variant="outlined" name={'total'}
                                    onChange={e => setSearchInput(e.target.value as string)}/>
 
-                        <Button variant="outlined" onClick={searchGoods}>검색</Button>
+                        <Button sx={{m: 1.3}} variant="outlined" onClick={searchGoods}>검색</Button>
                     </div>
-
-                    <TableStyled>
+                    <TableStyled className='goodstbl'>
                         <thead style={{border: "solid black 0.1px"}}>
+
                         <tr>
                             <th>순번</th>
                             <th>상품명</th>
@@ -227,8 +216,9 @@ export default function GoodsView() {
                             <th>수정</th>
                             <th>판매중지</th>
                         </tr>
+
                         </thead>
-                        <tbody>
+                        <tbody className='tbody'>
                         {list.length === 0 ? '등록한 상품이 없습니다.'
                             : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                         </tbody>

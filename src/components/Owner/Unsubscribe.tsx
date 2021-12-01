@@ -10,13 +10,14 @@ import {AxiosError} from "axios";
 
 const DivContainer = styled.div`
   border: solid black;
-  display: inline-flex;
+  //display: inline-flex;
   justify-content: center;
   margin: 20px;
   padding: 10px;
   height: 100%;
   width: 100%;
   clear: both;
+  text-align: center;
 `;
 
 const DivNav = styled.div`

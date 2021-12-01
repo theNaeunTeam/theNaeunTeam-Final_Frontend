@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {useCookies} from 'react-cookie';
 import {client} from "../../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
@@ -35,7 +35,9 @@ export default function ShoppingCart() {
     const dispatch = useDispatch();
 
     type cookieType = { g_count: string, g_code: string, id: string };
-
+    useLayoutEffect(() => {
+        if (!localStorage.getItem('userToken')) history.push('/err');
+    }, []);
     useEffect(() => {
         readCookie();
     }, []);

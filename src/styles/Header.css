@@ -1,13 +1,32 @@
-*{
-    margin : 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Dongle&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
-a{
-    color : black;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nanum Gothic', sans-serif;
+    /*font-size: 25px;*/
+    /*letter-spacing: 0.2em;*/
+}
+
+.header{
+    font-family: 'GongGothicMedium', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.header a {
+    color: black;
     text-decoration: none;
 }
 
-li{
+.header li {
     float: left;
     list-style: none;
     display: list-item;
@@ -18,7 +37,7 @@ li{
     /*line-height: 35px ;*/
 }
 
-.button{
+.button {
     background-color: cornflowerblue;
     color: white;
     border: 0;
