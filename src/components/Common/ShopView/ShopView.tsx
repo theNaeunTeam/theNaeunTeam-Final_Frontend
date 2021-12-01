@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from "styled-components";
 import {Button, Paper} from "@mui/material";
 import {client} from "../../../lib/api/client";
@@ -53,6 +53,7 @@ const DivHalfMenu = styled.div`
 export default function ShopView() {
 
     const {authReducer} = useSelector((state: RootState) => state);
+    const initialSelect = useRef(null);
 
     const initColor = {
         case1: true,
@@ -336,6 +337,8 @@ export default function ShopView() {
 
     // 정보 받아오는 함수 실행
     useEffect(() => {
+        //@ts-ignore
+        initialSelect.current.focus();
         gooodsTableInit();
         storeTableInit();
         window.scrollTo(0, 0);
@@ -580,9 +583,9 @@ export default function ShopView() {
             </DivTitle>
             <hr/>
             <div className={"nav"}>
-                <a className={"a"} href="javascript:void(0);" onClick={() => {
-                    setModal(true)
-                }}>상품 정보</a>
+                <a className={"a"} href="javascript:void(0);" onClick={() => setModal(true)}
+                   ref={initialSelect}
+                >상품 정보</a>
                 <a className={"a"} href="javascript:void(0);" onClick={() => {
                     setModal(false)
                 }}>매장 정보</a>
