@@ -41,7 +41,7 @@ export default function ChangeBanner() {
     const [arr, setArr] = useState<carouselType[]>([]);
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!localStorage.getItem('masterToken')) history.push('/err');
+        if (!localStorage.getItem('masterToken')) history.replace('/err');
     }, []);
     useEffect(() => {
         const URL = '/common/banner';

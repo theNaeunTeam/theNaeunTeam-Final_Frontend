@@ -13,7 +13,7 @@ export default function MasterChart2() {
     const history = useHistory();
 
     useLayoutEffect(() => {
-        if (!localStorage.getItem('masterToken')) history.push('/err');
+        if (!localStorage.getItem('masterToken')) history.replace('/err');
     }, []);
 
     // 년도별 월데이터를 담을 어레이

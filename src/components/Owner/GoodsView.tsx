@@ -41,7 +41,7 @@ export default function GoodsView() {
     const dispatch = useDispatch();
     const {authReducer} = useSelector((state: RootState) => state);
     useLayoutEffect(() => {
-        if (!localStorage.getItem('ownerToken')) history.push('/err');
+        if (!localStorage.getItem('ownerToken')) history.replace('/err');
     }, []);
 
 

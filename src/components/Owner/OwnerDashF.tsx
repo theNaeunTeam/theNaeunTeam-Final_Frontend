@@ -53,7 +53,7 @@ export default function OwnerDashF() {
 
     const [childLoading, setChildLoading] = useState(true);
     useLayoutEffect(() => {
-        if (!localStorage.getItem('ownerToken')) history.push('/err');
+        if (!localStorage.getItem('ownerToken')) history.replace('/err');
     }, []);
 
     const [time, setTime] = useState([]);

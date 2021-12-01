@@ -57,8 +57,8 @@ export default function Order() {
     const [cookies, setCookie, removeCookie] = useCookies(['cart']); // 건들지 말것
 
     useLayoutEffect(() => {
-        if (!localStorage.getItem('userToken')) history.push('/err');
-        if (cartReducer[0] === undefined) history.push('/err');
+        if (!localStorage.getItem('userToken')) history.replace('/err');
+        if (cartReducer[0] === undefined) history.replace('/err');
     }, []);
 
     useEffect(() => {

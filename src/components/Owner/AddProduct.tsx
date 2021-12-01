@@ -58,7 +58,7 @@ export default function AddProduct() {
     const {goodsReducer, authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!localStorage.getItem('ownerToken')) history.push('/err');
+        if (!localStorage.getItem('ownerToken')) history.replace('/err');
     }, []);
 
 

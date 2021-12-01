@@ -11,7 +11,7 @@ import '../../styles/masterOwnerDash.scss'
 export default function TerminationWaiting() {
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!localStorage.getItem('masterToken')) history.push('/err');
+        if (!localStorage.getItem('masterToken')) history.replace('/err');
     }, []);
     const initialValue = [{
         id: '',

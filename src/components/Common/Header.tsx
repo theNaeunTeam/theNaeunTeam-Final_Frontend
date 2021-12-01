@@ -1,17 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
-
 import '../../styles/Header.scss'
+import LoginForm from "./LoginForm/LoginForm";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from "@mui/material/CircularProgress";
+
 
 export default function Header() {
 
     const history = useHistory();
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
+    const [showLoginForm, setShowLoginForm] = React.useState(false);
 
     const logout = () => {
         localStorage.removeItem('userToken');
@@ -56,8 +59,9 @@ export default function Header() {
     const First = () => {
         return (
             <>
-                <li>
-                    <Link to={'/login'}>로그인</Link>
+                <li onClick={() => setShowLoginForm(true)} style={{cursor: 'pointer'}}>
+                    {/*<Link to={'/login'}>로그인</Link>*/}
+                    로그인
                 </li>
                 <li>
                     <Link to={'/user/register'}>회원가입</Link>
@@ -97,17 +101,24 @@ export default function Header() {
                     <Link to={'/user'}>마이페이지</Link>
                 </li>
                 <li><Link to={'/user/shoppingcart'}>장바구니</Link></li>
-                <li><button onClick={logout} className={'button'}>로그아웃</button></li>
+                <li>
+                    <button onClick={logout} className={'button'}>로그아웃</button>
+                </li>
             </>
         )
     }
     return (
         <>
-
+            <Backdrop
+                sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={showLoginForm}
+            >
+                {showLoginForm && <LoginForm setShowLoginForm={setShowLoginForm}/>}
+            </Backdrop>
             <DivWrap className='header'>
                 {/*관리자 인증 들어간 왼쪽 div*/}
                 <DivMaster>
-                    <Link to={'/master'} style={{marginRight : '20px'}}>관리자 인증</Link>
+                    <Link to={'/master'} style={{marginRight: '20px'}}>관리자 인증</Link>
                     <Link to={'/owner'}>가맹점 인증</Link>
                 </DivMaster>
 

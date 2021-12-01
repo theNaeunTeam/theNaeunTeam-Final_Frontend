@@ -77,7 +77,7 @@ export default function OwnerMain() {
     useLayoutEffect(() => {
         if (!localStorage.getItem('ownerToken')) {
             alert('가맹점 로그인 후 이용가능합니다.');
-            history.push('/login');
+            history.replace('/login');
         }
     }, []);
 

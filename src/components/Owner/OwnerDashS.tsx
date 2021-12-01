@@ -29,7 +29,7 @@ const LineDiv = styled.div`
 export default function OwnerDashS() {
     const history = useHistory();
     useLayoutEffect(() => {
-        if (!localStorage.getItem('ownerToken')) history.push('/err');
+        if (!localStorage.getItem('ownerToken')) history.replace('/err');
     }, []);
 
     const value = {

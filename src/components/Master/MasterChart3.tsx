@@ -11,7 +11,7 @@ export default function MasterChart3() {
     const history = useHistory();
 
     useLayoutEffect(() => {
-        if (!localStorage.getItem('masterToken')) history.push('/err');
+        if (!localStorage.getItem('masterToken')) history.replace('/err');
     }, []);
 
     // 지역
