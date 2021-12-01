@@ -8,6 +8,7 @@ import styled from "styled-components";
 import MasterChart2 from "./MasterChart2";
 import '../../styles/button.scss';
 import '../../styles/masterOwnerDash.scss'
+import { IoCaretForward } from "react-icons/io5";
 
 export default function MasterChart() {
 
