@@ -73,6 +73,9 @@ export default function GoodsView() {
     const searchGoods = async () => {
         const URL = '/owner/search';
         console.log(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
+        if(g_category != '' || g_status != '' || searchInput != ''){
+            setStartIndex(0);
+        }
         try {
             const res = await client.get(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}&startIndex=${startIndex}`);
             console.log(res);

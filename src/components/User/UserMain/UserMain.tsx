@@ -8,6 +8,8 @@ import RecommendList from "./RecommendList";
 import {A11y, Autoplay, Navigation, Pagination, Scrollbar} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react/swiper-react.js';
 import {Link} from 'react-router-dom';
+import {Paper} from "@mui/material";
+
 
 import 'swiper/swiper.scss'; // core Swiper
 import 'swiper/modules/navigation/navigation.scss'; // Navigation module
@@ -37,6 +39,8 @@ const DivRecommend = styled.div`
   display: flex;
   justify-content: space-evenly;
   height: 100%;
+  width: 100%;
+  margin-bottom: 50px;
   border: solid red;
 `;
 
@@ -141,7 +145,7 @@ export default function UserMain() {
             <>
 
                 <span>
-                    <div style={{height: '100%', width: '100%', border: 'solid aqua'}}>
+                    <div className='goodsSide'>
 
                         <img src={props.data.o_image}
                              onClick={() => props.history.push(`/shopView/${props.data.o_sNumber}`)}
@@ -149,7 +153,8 @@ export default function UserMain() {
                         />
                         <br/>
                         <b>{props.data.o_name}</b><br/>
-                        {props.data.o_address}
+                        {props.data.o_address}<br/>
+                        {props.data.o_time1}~{props.data.o_time2}
                         <br/>
                     </div>
                 </span>
@@ -186,23 +191,23 @@ export default function UserMain() {
             </DivCarouselContainer>
             <div>
                 {shopList.length != 0 ?
-                    <h2>근처 가게</h2>
+                    <h1>근처 가게</h1>
                     : null
                 }
-                <DivRecommend>
+                <Paper className='divRecommend'>
                     {shopList.length != 0 ?
                         shopList.map((data: shopList, idx) => <LocalList key={`l${idx}`} idx={idx} data={data}
                                                                          history={history}/>)
                         : null}
-                </DivRecommend>
+                </Paper>
             </div>
             <div>
-                <h2>최근 등록된 상품</h2>
+                <h1>최근 등록된 상품</h1>
                 <br/>
-                <DivRecommend>
+                <Paper className='divRecommend'>
                     {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data}
                                                                                  history={history}/>)}
-                </DivRecommend>
+                </Paper>
             </div>
         </DivContainer>
     )

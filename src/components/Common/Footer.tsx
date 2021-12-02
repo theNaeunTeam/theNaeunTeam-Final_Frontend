@@ -4,10 +4,12 @@ import styled from "styled-components";
 const DivFooter = styled.div`
   bottom: 0;
   width: 100%;
-  height: 30px;
+  height: 100px;
   text-align: center;
   position: absolute;
-  border: solid darkblue;
+  //border: solid darkblue;
+  background: #b3d5f1;
+  //background: linear-gradient(to bottom, white,#b3d5f1 80%);
 `;
 
 export default function Footer() {

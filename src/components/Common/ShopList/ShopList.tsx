@@ -14,7 +14,7 @@ import './shopList.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
 import {useInView} from "react-intersection-observer"
-import { GrMapLocation } from "react-icons/gr";
+import {GrMapLocation} from "react-icons/gr";
 
 const marks = [
     {
@@ -44,9 +44,11 @@ const DivContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px;
+  width: 100%;
+  //border: solid red;
   margin-top: 50px;
-  margin-left: 200px;
-  margin-right: 200px;
+  //margin-left: 200px;
+  //margin-right: 200px;
   margin-bottom: 10px;
 `;
 
@@ -58,7 +60,7 @@ const DivHalfMenu = styled.div`
   border: solid #d2e5bf;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  
+
 `;
 
 const DivMarker = styled.div`
@@ -154,15 +156,17 @@ export default function ShopList() {
             </Backdrop>
 
             <DivContainer>
-                <h3 style={{background:'#f6f7f3',
-                            // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
-                            color:'black',
-                            fontWeight:'bold',
-                            padding: '20px 36.8% ',
-                            margin:'1px',
-                            borderTopRightRadius: '15px',
-                            borderTopLeftRadius: '15px',
-                }}>주변 검색   <GrMapLocation/></h3>
+                <h3 style={{
+                    background: '#f6f7f3',
+                    // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
+                    color: 'black',
+                    fontWeight: 'bold',
+                    padding: '20px 36.8% ',
+                    margin: '1px',
+                    borderTopRightRadius: '15px',
+                    borderTopLeftRadius: '15px',
+                    width:'80%'
+                }}>주변 검색 <GrMapLocation/></h3>
 
                 <Map
                     center={{lat: lat, lng: lon}}
@@ -204,17 +208,18 @@ export default function ShopList() {
 
                 <DivHalfMenu>
                     <Box className='box'>
-                        <Slider style={{ margin: '30px 0px 50px'}}
-                            min={0.1}
-                            max={2}
-                            defaultValue={1}
-                            step={0.1}
-                            marks={marks}
-                            valueLabelDisplay="auto"
-                            onChange={e => setRange((e.target as HTMLInputElement).value)}
+                        <Slider style={{margin: '30px 0px 50px'}}
+                                min={0.1}
+                                max={2}
+                                defaultValue={1}
+                                step={0.1}
+                                marks={marks}
+                                valueLabelDisplay="auto"
+                                onChange={e => setRange((e.target as HTMLInputElement).value)}
                         />
 
-                        <button className='shopMapBtn' style={{width:'75%', margin:'15px'}} color="error" onClick={getLoc} >{`주변 ${range}km 내 찾기`}</button>
+                        <button className='shopMapBtn' style={{width: '50%', margin: '15px'}} color="error"
+                                onClick={getLoc}>{`주변 ${range}km 내 찾기`}</button>
                     </Box>
 
                 </DivHalfMenu>
@@ -223,7 +228,7 @@ export default function ShopList() {
                 }
             </DivContainer>
             {list.length !== 0 &&
-                <div ref={ref}>
+                <div ref={ref} style={{textAlign: 'center'}}>
                     {noData && <h1>리스트의 마지막입니다.</h1>}
                 </div>
             }

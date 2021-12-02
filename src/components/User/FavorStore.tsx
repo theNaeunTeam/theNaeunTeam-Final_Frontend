@@ -9,43 +9,41 @@ import Swal from 'sweetalert2';
 import UserNavbar from "./UserNavbar";
 import '../../styles/table.scss';
 
-const TableStyled = styled.table`
-  border: solid aqua;
-  padding: 10px;
-  width: 100%;
-  
-`;
-
 
 const DivContainer = styled.div`
-  border: solid black;
+  //border: solid black;
   display: inline-flex;
   justify-content: center;
   margin: 0 13px 0 0;
   padding: 10px;
   height: 100%;
-  width: 98%;
+  width: 100%;
   clear: both;
 `;
 
 const DivNav = styled.div`
-  border: solid blue;
+  //border: solid blue;
   width: 17%;
-  font-size: large;
-
+  font-size: 20px;
 `;
 const DivMain = styled.div`
-  border: solid red;
+  //border: solid red;
   width: 80%;
   height: 100%;
   text-align: center;
   padding: 20px;
+  min-height: 800px;
+  margin-right: 15%;
+
 
 `;
+
 export default function FavorStore() {
 
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
+    const [startIndex, setStartIndex] = useState(0);
+
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) history.replace('/err');
     }, []);
@@ -82,12 +80,12 @@ export default function FavorStore() {
 
     useEffect(() => {
         initialize();
-    }, []);
+    }, [startIndex]);
 
     const initialize = async () => {
         const URL = '/user/favorList';
         try {
-            const res = await client.get(URL);
+            const res = await client.get(URL+`?startIndex=${startIndex}`);
             // setList(res.data);
 
             setList(res.data);
@@ -121,12 +119,26 @@ export default function FavorStore() {
             console.log(e);
         }
     }
+    const indexMinus = () => {
+        if (startIndex === 0) {
+            alert('첫 페이지입니다.');
+        } else {
+            setStartIndex(startIndex - 10);
+        }
+    }
+    const indexPlus = () => {
+        if (list.length === 10) {
+            setStartIndex(startIndex + 10);
+        }else{
+            alert('마지막 페이지입니다.');
+        }
+    }
     const TableBuilder = (props: { data: favorListType, idx: number }) => {
         return (
             <tr>
-                <td>
-                    {props.idx + 1}
-                </td>
+                {/*<td>*/}
+                {/*    {props.idx + 1}*/}
+                {/*</td>*/}
                 <td>
                     {props.data.o_name}
                 </td>
@@ -161,10 +173,11 @@ export default function FavorStore() {
             </DivNav>
 
             <DivMain>
-                <TableStyled className='favor'>
+                <h1 style={{marginBottom:'50px'}}>즐겨찾는가게</h1>
+                <table className='favor'>
                     <thead>
                     <tr>
-                        <th>순번</th>
+                        {/*<th>순번</th>*/}
                         <th>가게명</th>
                         <th>가게주소</th>
                         <th>가게번호</th>
@@ -175,10 +188,15 @@ export default function FavorStore() {
                     </tr>
                     </thead>
                     <tbody>
-                    {list.length === 0 ? '즐겨찾는 가게가 없습니다. '
+                    {list.length === 0 ? <div className='centerDiv1'><span className='centerSpan'>즐겨찾는 가게가 없습니다. </span></div>
                         : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                     </tbody>
-                </TableStyled>
+                </table>
+                <div className='aa' style={{height: '80px', display: 'inline-flex'}}>
+                    <span onClick={indexMinus}>◀ 이전</span>
+                    <div style={{fontSize: '20px', margin: '0 10px'}}>{startIndex / 10 + 1}</div>
+                    <span onClick={indexPlus}> 다음 ▶</span>
+                </div>
             </DivMain>
         </DivContainer>
     )

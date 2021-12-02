@@ -16,27 +16,30 @@ import UserNavbar from "./UserNavbar";
 
 
 const DivContainer = styled.div`
-  border: solid black;
+  //border: solid black;
   display: inline-flex;
   justify-content: center;
-  margin: 20px;
+  margin: 0 13px 0 0;
   padding: 10px;
   height: 100%;
   width: 100%;
   clear: both;
 `;
 const DivNav = styled.div`
-  border: solid blue;
+  //border: solid blue;
   width: 17%;
-  font-size: large;
-
+  font-size: 20px;
 `;
 const DivMain = styled.div`
-  border: solid red;
+  //border: solid red;
   width: 80%;
   height: 100%;
   text-align: center;
   padding: 20px;
+  min-height: 1000px;
+  margin-right: 15%;
+  //align-content: center;
+  
 
 `;
 export default function UserEdit() {
@@ -131,7 +134,7 @@ export default function UserEdit() {
                 <UserNavbar/>
             </DivNav>
             <DivMain>
-                <h3>회원정보수정</h3>
+                <h1 style={{marginBottom: '50px'}}>회원정보수정</h1>
                 <Stack
                     onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
                     component="form"
@@ -141,75 +144,73 @@ export default function UserEdit() {
                     noValidate
                     autoComplete="off"
                     alignItems={"center"}
-                    style={{border : "solid aqua"}}
+                    className='editForm'
                 >
-
-                    <TextField
-                        required
-                        id="outlined-required"
-                        label="아이디"
-                        name={'u_id'}
-                        value={userForm.u_id}
-                        // disabled={true}
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                        style={{border:"solid red"}}
-                    />
-                    <TextField
-                        error={formError.u_pw}
-                        required
-                        id="outlined-required"
-                        label="변경할 패스워드"
-                        type={'password'}
-                        name={'u_pw'}
-                    />
-                    <TextField
-                        error={formError.pwConfirm}
-                        required
-                        id="outlined-required"
-                        label="패스워드 확인"
-                        type={'password'}
-                        name={'pwConfirm'}
-                    />
-                    <TextField
-                        error={formError.u_cellPhone}
-                        required
-                        id="outlined-required"
-                        label="휴대전화"
-                        helperText="하이픈 없이 입력해 주세요"
-                        name={'u_cellPhone'}
-                        value={userForm.u_cellPhone}
-                        InputProps={{
-                            readOnly: false,
-                        }}
-                    />
-                    <TextField
-                        required
-                        id="outlined-required"
-                        label="이메일"
-                        value={userEmail.u_email}
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                    />
-                    <TextField
-                        error={formError.u_email}
-                        required
-                        id="outlined-required"
-                        label="변경할 이메일"
-                        name={'u_email'}
-                    />
-
+                            <TextField
+                                required
+                                id="outlined-required"
+                                label="아이디"
+                                name={'u_id'}
+                                value={userForm.u_id}
+                                // disabled={true}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                        <TextField
+                            error={formError.u_pw}
+                            required
+                            id="outlined-required"
+                            label="변경할 패스워드"
+                            type={'password'}
+                            name={'u_pw'}
+                        />
+                        <TextField
+                            error={formError.pwConfirm}
+                            required
+                            id="outlined-required"
+                            label="패스워드 확인"
+                            type={'password'}
+                            name={'pwConfirm'}
+                        />
+                        <TextField
+                            error={formError.u_cellPhone}
+                            required
+                            id="outlined-required"
+                            label="휴대전화"
+                            helperText="하이픈 없이 입력해 주세요"
+                            name={'u_cellPhone'}
+                            value={userForm.u_cellPhone}
+                            InputProps={{
+                                readOnly: false,
+                            }}
+                        />
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="이메일"
+                            value={userEmail.u_email}
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                        />
+                        <TextField
+                            error={formError.u_email}
+                            required
+                            id="outlined-required"
+                            label="변경할 이메일"
+                            name={'u_email'}
+                        />
                     <div style={{width: '30%', margin: 'auto'}}>
                         <FormLabel component="legend">성별</FormLabel>
-                        <RadioGroup row aria-label="gender" name={'u_gender'} value={userForm.u_gender}>
+                        <RadioGroup row aria-label="gender" name={'u_gender'} value={userForm.u_gender}
+                                    style={{width: '200px', margin: '10px auto'}}>
                             <FormControlLabel id={'u_gender'} value="남성" control={<Radio/>} defaultChecked={true}
                                               label="남성"/>
                             <FormControlLabel id={'u_gender'} value="여성" control={<Radio/>} label="여성"/>
                         </RadioGroup>
                         나이
-                        <select name={'u_age'} style={{width: '50%'}} value={userForm.u_age}>
+                        <select name={'u_age'} style={{width: '50%', margin: '12px'}} value={userForm.u_age}>
                             <option>AGE</option>
                             <option value="10">10대</option>
                             <option value="20">20대</option>
@@ -222,7 +223,7 @@ export default function UserEdit() {
                             <option value="90">90대</option>
                         </select>
 
-                        <Button style={{width: '100%'}} variant="outlined" onClick={submitForm}>
+                        <Button style={{width: '60%', margin: '20px', border: 'solid'}} variant="outlined" onClick={submitForm}>
                             정보 수정
                         </Button>
                     </div>

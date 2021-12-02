@@ -1,9 +1,10 @@
 #menu {
-    background: #a8bcfb;
-    color: #FFF;
+    //background: #a8bcfb;
+    //color: #FFF;
     height: 49px;
-    padding-left: 18px;
-    border-radius: 0px;
+    padding-left: 15px;
+    padding-bottom:50px ;
+    border-bottom: 3px solid #7EA0EA;
 }
 #menu ul, #menu li {
     margin: 0 auto;
@@ -23,7 +24,7 @@
     line-height: 49px;
     padding: 0 30px;
     text-decoration: none;
-    color: #FCFFFF;
+    color: #7EA0EA;
     font-size: 23px;
     text-transform: uppercase;
     font-weight: bold;
@@ -60,8 +61,8 @@
 #menu ul.sub-menus{
     height: auto;
     overflow: hidden;
-    width: 170px;
-    background: #E7ECFF;
+    width: 207px;
+    background: #ffffff;
     position: absolute;
     z-index: 99;
     display: none;
