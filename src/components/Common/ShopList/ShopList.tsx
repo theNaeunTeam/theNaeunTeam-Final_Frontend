@@ -94,6 +94,7 @@ export default function ShopList() {
     const [noMoreData, setNoMoreData] = useState(false);
     let [goodsName, setGoodsName] = useState('');
     let [sortOption, setSortOption] = useState('가까운순');
+    const [aaaa, setAaaa] = useState(false);
 
 
     const {userLocalMap} = useSelector((state: RootState) => state);
@@ -129,11 +130,10 @@ export default function ShopList() {
                 console.log(res.data);
 
                 if (startIndex === 0) {
-                    // setList(JSON.parse(JSON.stringify(res.data)));
                     if (goodsName !== '') {
                         const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
-                        console.log('massage',massage);
-                        console.log('massage.length',massage.length);
+                        console.log('massage', massage);
+                        console.log('massage.length', massage.length);
                         if (massage.length < 10) {
                             setNoMoreData(true);
                         } else {
@@ -148,8 +148,8 @@ export default function ShopList() {
                     if (goodsName !== '') {
 
                         const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
-                        console.log('massage',massage);
-                        console.log('massage.length',massage.length);
+                        console.log('massage', massage);
+                        console.log('massage.length', massage.length);
 
                         if (massage.length < 10) {
                             setNoMoreData(true);
@@ -163,7 +163,6 @@ export default function ShopList() {
                 }
                 setLat(Number(LAT));
                 setLon(Number(LON));
-                setLoading(false);
 
                 if (res.data.length === 0) {
                     setNoMoreData(true);
@@ -173,8 +172,11 @@ export default function ShopList() {
             })
             .catch(err => {
                 console.log(err);
-                setLoading(false);
             })
+            .finally(() => {
+                setLoading(false);
+                setAaaa(!aaaa);
+            });
     }
 
     function getLoc() {
@@ -288,7 +290,6 @@ export default function ShopList() {
                                     value={sortOption}
                                     label="정렬"
                                     onChange={e => {
-                                        // setList([...sortList(list, e.target.value)]);
                                         setSortOption(e.target.value);
                                     }}
                                 >
@@ -304,7 +305,8 @@ export default function ShopList() {
 
                 </DivHalfMenu>
                 {
-                   loading || list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
+                    aaaa ? list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
+                        : list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
             </DivContainer>
             {list.length !== 0 &&
