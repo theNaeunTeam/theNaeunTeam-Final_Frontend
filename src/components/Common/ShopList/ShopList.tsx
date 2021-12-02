@@ -121,7 +121,7 @@ export default function ShopList() {
 
                 if (startIndex === 0) {
                     // setList(JSON.parse(JSON.stringify(res.data)));
-                    setList([...res.data])
+                    setList([...res.data]);
                 } else {
                     setList([...list, ...res.data]);
                 }
