@@ -1,72 +1,168 @@
-.goodstbl td{
-    border: solid green;
-    margin : auto;
-    text-align: center;
-    padding: 5px;
-    font-weight: bold;
+.goodstbl td {
+  //border: solid green;
+  margin: auto;
+  text-align: center;
+  padding: 15px;
+  font-weight: bold;
+}
+
+.resertbl td {
+  //border: solid green;
+  margin: auto;
+  text-align: center;
+  padding: 15px;
+  font-weight: bold;
+}
+
+.editbtn {
+  background-color: cornflowerblue;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  outline: 0;
+  padding: 10px;
 }
 
 
-.editbtn{
-    background-color: cornflowerblue;
-    color: white;
-    border: 0;
-    border-radius: 10px;
-    outline: 0;
-    padding: 10px;
-}
-.resertbl td{
-    margin : auto;
-    text-align: center;
-    padding: 5px;
-    font-weight: bold;
-}
-.resertbl th{
-    border: #0099CC solid;
-}
-/*순번*/
-.resertbl th:nth-child(1){
-    width: 3%;
-}
 /* 상품분류*/
-.resertbl th:nth-child(3){
-    width: 7%;
+.resertbl th:nth-child(2) {
+  width: 6%;
 }
+
 /*상품상태*/
-.resertbl th:nth-child(5){
-    width: 5%;
+.resertbl th:nth-child(4) {
+  width: 6%;
 }
+
 /*주문수량*/
-.resertbl th:nth-child(6){
-    width: 8%;
+.resertbl th:nth-child(6) {
+  width: 5%;
 }
-/*주문수량*/
-.resertbl th:nth-child(7){
-    width: 4%;
-}
+
 /*요청사항*/
-.resertbl th:nth-child(8){
-    width: 11%;
-    /*overflow: hidden;*/
-    table-layout: fixed;
+.resertbl th:nth-child(7) {
+  width: 11%;
+  /*overflow: hidden;*/
+  table-layout: fixed;
 }
+
 /*상태*/
-.resertbl th:nth-child(10){
-    width: 5%;
+.resertbl th:nth-child(9) {
+  width: 6%;
 }
 
-
-
-.goodsNameS{
-    width: 250px;
-    margin-right: 10px;
-    border: darkcyan solid;
+/*승인*/
+.resertbl th:nth-child(10) {
+  width: 13%;
 }
 
-.favor td{
-    border: solid greenyellow;
+// 상품조회
+// 분류
+.goodstbl th:nth-child(2) {
+  width: 7%;
 }
-.favor th{
-    border: #0099CC solid;
-    padding: 8px;
+
+// 상태
+.goodstbl th:nth-child(6) {
+  width: 6%;
+}
+
+// 판매수량
+.goodstbl th:nth-child(7) {
+  width: 5%;
+}
+
+// 남은수량
+.goodstbl th:nth-child(8) {
+  width: 5%;
+}
+
+// 수정, 판매중지
+.goodstbl th:nth-child(9), th:nth-child(10) {
+  width: 7%;
+}
+
+.goodsNameS {
+  width: 250px;
+  margin-right: 10px;
+  border: darkcyan solid;
+}
+
+.favor td {
+  border: solid greenyellow;
+}
+
+.favor th {
+  border: #0099CC solid;
+  padding: 8px;
+}
+
+// 상품조회
+.centerDiv {
+  position: relative;
+  height: 100vh;
+  left: 273%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: 50px;
+  text-align: center;
+}
+//예약조회
+.centerDiv2 {
+  position: relative;
+  height: 100vh;
+  left: 334%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.centerSpan{
+  font-size: 30px;
+  font-weight: bold;
+}
+.resertbl {
+  width: 100%;
+  justify-items: center;
+}
+
+.resertbl tbody > tr {
+  border-bottom: #5EAFCC solid 0.5px;
+}
+
+.goodstbl tbody > tr {
+  border-bottom: #5EAFCC solid 0.5px;
+}
+
+.resertbl thead {
+  border-bottom: grey solid;
+}
+
+.resertbl thead th {
+  padding: 10px;
+}
+
+.goodstbl thead {
+  border-bottom: grey solid;
+}
+
+.goodstbl thead th {
+  padding: 10px;
+}
+
+.goodstbl {
+  padding: 30px;
+  margin-top: 30px;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.resertbl {
+  padding: 30px;
+  margin-top: 30px;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
 }

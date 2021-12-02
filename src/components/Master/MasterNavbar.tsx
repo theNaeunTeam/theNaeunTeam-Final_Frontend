@@ -48,7 +48,7 @@ export default function MasterNavbar(props: RouteComponentProps) {
                             <ul className='sub-menus'>
                                 <li><Link to={'/master/masterownerdash'}>오너대시보드</Link></li>
                                 <li><Link to={'/master/userdash'}>유저대시보드</Link></li>
-                                <li><Link to={'/master/masterchart'}>유저+오너통합 대시보드</Link></li>
+                                <li><Link to={'/master/masterchart'}>유저+오너통합</Link></li>
                                 <li></li>
                             </ul>
                         </li>
