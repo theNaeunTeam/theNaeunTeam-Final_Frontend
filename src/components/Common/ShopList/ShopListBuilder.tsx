@@ -7,6 +7,7 @@ import {useHistory} from "react-router-dom";
 import {Doughnut} from 'react-chartjs-2';
 import Skeleton from '@mui/material/Skeleton';
 import {Button, Paper} from "@mui/material";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 interface listType {
     data: shopList;
@@ -53,7 +54,7 @@ export default function ShopListBuilder({data, idx}: listType) {
                                 <span className='shopListItems'>
                 <Map
                     center={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}
-                    style={{width: '100%', height: '100%'}}
+                    style={{width: '100%', height: '100%', borderRadius:'15px', border:'6px solid #d2e5bf'}}
                 >
                     <MapMarker position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
                     </MapMarker>
@@ -75,9 +76,9 @@ export default function ShopListBuilder({data, idx}: listType) {
                         <span>...{Math.round(Number(data.distance) * 100)}m</span>
                     </div>
 
-                                    <Button style={{width: '60%'}} variant="outlined"
+                                    <button className='shopListBtn' style={{width: '60%', padding:'10px'}}
                                             onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
-                                        <strong>상세보기</strong></Button>
+                                        <strong>상세보기</strong></button>
                     </span>
                 <span className='doughnut'>
                     {

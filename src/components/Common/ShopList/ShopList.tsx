@@ -11,9 +11,10 @@ import ShopListBuilder from "./ShopListBuilder";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import './shopList.scss';
-import {userLocalMap} from "../../../reducers/userLocalMap";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
+import {useInView} from "react-intersection-observer"
+import { GrMapLocation } from "react-icons/gr";
 
 const marks = [
     {
@@ -21,8 +22,8 @@ const marks = [
         label: '100m',
     },
     {
-      value: 0.5,
-      label: '500m'
+        value: 0.5,
+        label: '500m'
     },
     {
         value: 1,
@@ -43,17 +44,21 @@ const DivContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 50px;
   margin-left: 200px;
   margin-right: 200px;
   margin-bottom: 10px;
 `;
 
 const DivHalfMenu = styled.div`
-  margin: 25px;
-  padding: 10px;
+  margin: -1px -5px 50px;
+  padding: 20px 200px;
   text-align: center;
-  width: 70%;
+  width: 80.1%;
+  border: solid #d2e5bf;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  
 `;
 
 const DivMarker = styled.div`
@@ -70,7 +75,7 @@ const centumLAT = 35.1730461532695;
 const centumLON = 129.127655001351;
 
 export default function ShopList() {
-
+    const [ref, inView] = useInView();
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -79,25 +84,40 @@ export default function ShopList() {
     const [lat, setLat] = useState(seoulLAT);
     const [lon, setLon] = useState(seoulLON);
     const [loading, setLoading] = useState(true);
-    const [marker, setMarker] = useState<boolean[]>([])
+    const [marker, setMarker] = useState<boolean[]>([]);
+    const [startIndex, setStartIndex] = useState(0);
+    const [noData, setNodata] = useState(false);
 
-    const {userLocalMap} = useSelector( (state:RootState) => state);
+    const {userLocalMap} = useSelector((state: RootState) => state);
 
     useEffect(() => {
-        userLocalMap.lat != 0 && userLocalMap.lon !=0
-        ? init(userLocalMap.lat, userLocalMap.lon)
-        : init();
+        userLocalMap.lat != 0 && userLocalMap.lon != 0
+            ? init(userLocalMap.lat, userLocalMap.lon)
+            : init();
 
-    }, []);
+    }, [startIndex]);
+
+    useEffect(() => {
+        if (inView && !loading && !noData) {
+            setLoading(true);
+            setStartIndex(startIndex + 10);
+        }
+    }, [inView]);
 
     const init = (LAT = lat, LON = lon) => {
-        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}`)
+
+        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}`)
             .then(res => {
-                console.log(res);
-                setList(res.data);
+                console.log(res.data);
+                setList([...list, ...res.data]);
                 setLat(Number(LAT));
                 setLon(Number(LON));
                 setLoading(false);
+                if (res.data.length === 0) {
+                    setNodata(true);
+                } else {
+                    setNodata(false);
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -107,7 +127,7 @@ export default function ShopList() {
 
     function getLoc() {
         setLoading(true);
-        
+
         // 위치 허용 팝업
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
@@ -115,7 +135,7 @@ export default function ShopList() {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             init(lat, lon);
-            dispatch({type:'getLocaled', payload: {lat:lat ,lon:lon} });
+            dispatch({type: 'getLocaled', payload: {lat: lat, lon: lon}});
         }
 
         function onGeoError(e: any) {
@@ -132,7 +152,18 @@ export default function ShopList() {
             >
                 <CircularProgress color="inherit"/>
             </Backdrop>
+
             <DivContainer>
+                <h3 style={{background:'#f6f7f3',
+                            // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
+                            color:'black',
+                            fontWeight:'bold',
+                            padding: '20px 36.8% ',
+                            margin:'1px',
+                            borderTopRightRadius: '15px',
+                            borderTopLeftRadius: '15px',
+                }}>주변 검색   <GrMapLocation/></h3>
+
                 <Map
                     center={{lat: lat, lng: lon}}
                     style={{width: "80%", height: "500px"}}
@@ -153,7 +184,6 @@ export default function ShopList() {
                                                    setMarker(cp);
                                                }}
                                     >
-
                                         {marker[idx] && <DivMarker key={`DivMarker${idx}`}
                                                                    onClick={() => history.push(`/shopView/${data.o_sNumber}`)}
                                                                    onMouseLeave={() => {
@@ -170,27 +200,33 @@ export default function ShopList() {
                             }
                         )}
                     </MarkerClusterer>
-
                 </Map>
+
                 <DivHalfMenu>
                     <Box className='box'>
-                        <Slider
+                        <Slider style={{ margin: '30px 0px 50px'}}
                             min={0.1}
                             max={2}
                             defaultValue={1}
                             step={0.1}
                             marks={marks}
                             valueLabelDisplay="auto"
-                            // @ts-ignore
-                            onChange={e => setRange(e.target.value)}
+                            onChange={e => setRange((e.target as HTMLInputElement).value)}
                         />
-                        <Button style={{width:'100%'}} color="error" onClick={getLoc} variant={'outlined'}>{`주변 ${range}km 내 찾기`}</Button>
+
+                        <button className='shopMapBtn' style={{width:'75%', margin:'15px'}} color="error" onClick={getLoc} >{`주변 ${range}km 내 찾기`}</button>
                     </Box>
+
                 </DivHalfMenu>
                 {
                     list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
             </DivContainer>
+            {list.length !== 0 &&
+                <div ref={ref}>
+                    {noData && <h1>리스트의 마지막입니다.</h1>}
+                </div>
+            }
         </>
     )
 }
