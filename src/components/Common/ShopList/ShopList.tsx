@@ -91,7 +91,7 @@ export default function ShopList() {
     const [loading, setLoading] = useState(true);
     const [marker, setMarker] = useState<boolean[]>([]);
     const [startIndex, setStartIndex] = useState(0);
-    const [noData, setNodata] = useState(false);
+    const [noMoreData,setNoMoreData] = useState(false);
     const [goodsName, setGoodsName] = useState('');
     const [sortOption, setSortOption] = useState('가까운순');
 
@@ -106,7 +106,7 @@ export default function ShopList() {
     }, [startIndex]);
 
     useEffect(() => {
-        if (inView && !loading && !noData) {
+        if (inView && !loading && !noMoreData) {
             setLoading(true);
             setStartIndex(startIndex + 10);
         }
@@ -116,6 +116,11 @@ export default function ShopList() {
 
         client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`)
             .then(res => {
+                if (res.data.length < 10) {
+                    setNoMoreData(true);
+                } else {
+                    setNoMoreData(false);
+                }
 
                 console.log(res.data);
 
@@ -123,6 +128,11 @@ export default function ShopList() {
                     // setList(JSON.parse(JSON.stringify(res.data)));
                     if (goodsName !== '') {
                         const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
+                        if (massage < 10) {
+                            setNoMoreData(true);
+                        } else {
+                            setNoMoreData(false);
+                        }
                         setList(massage);
                     } else {
                         setList([...res.data]);
@@ -131,6 +141,11 @@ export default function ShopList() {
                 } else {
                     if (goodsName !== '') {
                         const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
+                        if (massage < 10) {
+                            setNoMoreData(true);
+                        } else {
+                            setNoMoreData(false);
+                        }
                         setList([...list, ...massage]);
                     } else {
                         setList([...list, ...res.data]);
@@ -141,9 +156,9 @@ export default function ShopList() {
                 setLoading(false);
 
                 if (res.data.length === 0) {
-                    setNodata(true);
+                    setNoMoreData(true);
                 } else {
-                    setNodata(false);
+                    setNoMoreData(false);
                 }
             })
             .catch(err => {
@@ -283,7 +298,7 @@ export default function ShopList() {
             </DivContainer>
             {list.length !== 0 &&
                 <div ref={ref}>
-                    {noData && <h1>리스트의 마지막입니다.</h1>}
+                    {noMoreData && <h1>리스트의 마지막입니다.</h1>}
                 </div>
             }
         </>
