@@ -81,7 +81,6 @@ export default function LoginForm(props: any) {
                     localStorage.setItem('userToken', res.headers["x-auth-token"]);
                     localStorage.setItem('u_id', loginForm.u_id);
                     dispatch({type: 'userMode', payload: loginForm.u_id});
-                    alert('유저 로그인 성공');
                     props.setShowLoginForm(false);
                     history.push('/');
                 } else {

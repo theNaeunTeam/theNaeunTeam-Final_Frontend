@@ -14,6 +14,7 @@ import './shopList.scss';
 import {userLocalMap} from "../../../reducers/userLocalMap";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
+import { GrMapLocation } from "react-icons/gr";
 
 const marks = [
     {
@@ -43,17 +44,21 @@ const DivContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 50px;
   margin-left: 200px;
   margin-right: 200px;
   margin-bottom: 10px;
 `;
 
 const DivHalfMenu = styled.div`
-  margin: 25px;
-  padding: 10px;
+  margin: -1px -5px 50px;
+  padding: 20px 200px;
   text-align: center;
-  width: 70%;
+  width: 80.1%;
+  border: solid #d2e5bf;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  
 `;
 
 const DivMarker = styled.div`
@@ -132,7 +137,18 @@ export default function ShopList() {
             >
                 <CircularProgress color="inherit"/>
             </Backdrop>
+
             <DivContainer>
+                <h3 style={{background:'#f6f7f3',
+                            // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
+                            color:'black',
+                            fontWeight:'bold',
+                            padding: '20px 36.8% ',
+                            margin:'1px',
+                            borderTopRightRadius: '15px',
+                            borderTopLeftRadius: '15px',
+                }}>주변 검색   <GrMapLocation/></h3>
+
                 <Map
                     center={{lat: lat, lng: lon}}
                     style={{width: "80%", height: "500px"}}
@@ -153,7 +169,6 @@ export default function ShopList() {
                                                    setMarker(cp);
                                                }}
                                     >
-
                                         {marker[idx] && <DivMarker key={`DivMarker${idx}`}
                                                                    onClick={() => history.push(`/shopView/${data.o_sNumber}`)}
                                                                    onMouseLeave={() => {
@@ -172,9 +187,10 @@ export default function ShopList() {
                     </MarkerClusterer>
 
                 </Map>
+
                 <DivHalfMenu>
                     <Box className='box'>
-                        <Slider
+                        <Slider style={{ margin: '30px 0px 50px'}}
                             min={0.1}
                             max={2}
                             defaultValue={1}
@@ -184,7 +200,7 @@ export default function ShopList() {
                             // @ts-ignore
                             onChange={e => setRange(e.target.value)}
                         />
-                        <Button style={{width:'100%'}} color="error" onClick={getLoc} variant={'outlined'}>{`주변 ${range}km 내 찾기`}</Button>
+                        <button className='shopMapBtn' style={{width:'75%', margin:'15px'}} color="error" onClick={getLoc} >{`주변 ${range}km 내 찾기`}</button>
                     </Box>
                 </DivHalfMenu>
                 {
