@@ -41,12 +41,12 @@ const DivChart = styled.div`
   padding: 10px;
   border: solid green;
 
-
 `;
 const DivChart1 = styled.div`
   display: block;
   border: solid blue;
-
+  width: 70%;
+  margin : 0 auto
 `;
 const DivChart2 = styled.div`
   display: block;
@@ -237,52 +237,51 @@ export default function OwnerMain() {
 
             <h3>{ownerPage.o_name}</h3>
             <DivHalfMenu>
-                <FCM />
+                <FCM/>
                 <LineDiv> 총 판매 금액 : {ownerPage.total} 원</LineDiv>
                 <LineDiv>이번달 수익 : {ownerPage.monTotal} 원</LineDiv>
                 <LineDiv>총 구매자 : {ownerPage.buyTotal} 명</LineDiv>
             </DivHalfMenu>
             <DivChart>
                 <DivChart1>
-
-                    <Bar
-                        data={{
-                            labels: dayArr[dayIdx],
-                            datasets: [{
-                                label: '일일 매출액',
-                                data: daySumArr[dayIdx],
-                                backgroundColor: [
-                                    'rgba(255, 051, 102,0.2)',
-                                    'rgba(255, 051, 000,0.2)',
-                                    'rgba(255, 99, 132,0.2)',
-                                    'rgba(255, 204, 000,0.2)',
-                                    'rgba(255, 159, 64,0.2)',
-                                    'rgba(255, 205, 86,0.2)',
-                                    'rgba(75, 192, 192,0.2)',
-                                    'rgba(000, 051, 255,0.2)',
-                                    'rgba(54, 162, 235,0.2)',
-                                    'rgba(153, 102, 255,0.2)',
-                                    'rgba(102, 051, 204,0.2)',
-                                    'rgba(201, 203, 207,0.2)'
-                                ],
-                                borderColor: [
-                                    'rgb(255, 051, 102)',
-                                    'rgb(255, 051, 000)',
-                                    'rgb(255, 99, 132)',
-                                    'rgb(255, 204, 000)',
-                                    'rgb(255, 159, 64)',
-                                    'rgb(255, 205, 86)',
-                                    'rgb(75, 192, 192)',
-                                    'rgb(000, 051, 255)',
-                                    'rgb(54, 162, 235)',
-                                    'rgb(153, 102, 255)',
-                                    'rgb(102, 051, 204)',
-                                    'rgb(201, 203, 207)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        }}
-                        options={option}
+                    <Bar style={{height: '100px'}}
+                         data={{
+                             labels: dayArr[dayIdx],
+                             datasets: [{
+                                 label: '일일 매출액',
+                                 data: daySumArr[dayIdx],
+                                 backgroundColor: [
+                                     'rgba(255, 051, 102,0.2)',
+                                     'rgba(255, 051, 000,0.2)',
+                                     'rgba(255, 99, 132,0.2)',
+                                     'rgba(255, 204, 000,0.2)',
+                                     'rgba(255, 159, 64,0.2)',
+                                     'rgba(255, 205, 86,0.2)',
+                                     'rgba(75, 192, 192,0.2)',
+                                     'rgba(000, 051, 255,0.2)',
+                                     'rgba(54, 162, 235,0.2)',
+                                     'rgba(153, 102, 255,0.2)',
+                                     'rgba(102, 051, 204,0.2)',
+                                     'rgba(201, 203, 207,0.2)'
+                                 ],
+                                 borderColor: [
+                                     'rgb(255, 051, 102)',
+                                     'rgb(255, 051, 000)',
+                                     'rgb(255, 99, 132)',
+                                     'rgb(255, 204, 000)',
+                                     'rgb(255, 159, 64)',
+                                     'rgb(255, 205, 86)',
+                                     'rgb(75, 192, 192)',
+                                     'rgb(000, 051, 255)',
+                                     'rgb(54, 162, 235)',
+                                     'rgb(153, 102, 255)',
+                                     'rgb(102, 051, 204)',
+                                     'rgb(201, 203, 207)'
+                                 ],
+                                 borderWidth: 1
+                             }]
+                         }}
+                         options={option}
 
                     />
                     <div className='aa'>
