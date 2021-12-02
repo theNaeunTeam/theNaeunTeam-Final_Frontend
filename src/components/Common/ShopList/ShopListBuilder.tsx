@@ -38,7 +38,6 @@ export default function ShopListBuilder({data, idx}: listType) {
     });
 
     useEffect(() => {
-
         setChildLoading(true);
         fetch_Category_Per_sNumber(data.o_sNumber)
             .then(res => {
@@ -81,38 +80,38 @@ export default function ShopListBuilder({data, idx}: listType) {
                                             onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
                                         <strong>상세보기</strong></button>
                     </span>
-                {/*<span className='doughnut'>*/}
-                {/*    {*/}
-                {/*        childLoading ?*/}
-                {/*            <Skeleton variant="rectangular" width={210} height={118}/>*/}
-                {/*            :*/}
-                {/*            <Doughnut data={{*/}
-                {/*                labels: ['기타', '냉동식품', '조리/반조리', '신선식품', '가공식품', '드링크'],*/}
-                {/*                datasets: [*/}
-                {/*                    {*/}
-                {/*                        label: '상품 리스트',*/}
-                {/*                        data: [category.other, category.freeze, category.cooked, category.fresh, category.gagong, category.drink],*/}
-                {/*                        backgroundColor: [*/}
-                {/*                            'rgba(255, 99, 132, 0.2)',*/}
-                {/*                            'rgba(54, 162, 235, 0.2)',*/}
-                {/*                            'rgba(255, 206, 86, 0.2)',*/}
-                {/*                            'rgba(75, 192, 192, 0.2)',*/}
-                {/*                            'rgba(153, 102, 255, 0.2)',*/}
-                {/*                            'rgba(255, 159, 64, 0.2)',*/}
-                {/*                        ],*/}
-                {/*                        borderColor: [*/}
-                {/*                            'rgba(255, 99, 132, 1)',*/}
-                {/*                            'rgba(54, 162, 235, 1)',*/}
-                {/*                            'rgba(255, 206, 86, 1)',*/}
-                {/*                            'rgba(75, 192, 192, 1)',*/}
-                {/*                            'rgba(153, 102, 255, 1)',*/}
-                {/*                            'rgba(255, 159, 64, 1)',*/}
-                {/*                        ],*/}
-                {/*                        borderWidth: 1,*/}
-                {/*                    },*/}
-                {/*                ],*/}
-                {/*            }}/>}*/}
-                {/*</span>*/}
+                <span className='doughnut'>
+                    {
+                        childLoading ?
+                            <Skeleton variant="rectangular" width={'100%'} height={'100%'}/>
+                            :
+                            <Doughnut data={{
+                                labels: ['기타', '냉동식품', '조리/반조리', '신선식품', '가공식품', '드링크'],
+                                datasets: [
+                                    {
+                                        label: '상품 리스트',
+                                        data: [category.other, category.freeze, category.cooked, category.fresh, category.gagong, category.drink],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)',
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)',
+                                        ],
+                                        borderWidth: 1,
+                                    },
+                                ],
+                            }}/>}
+                </span>
             </Paper>
         </>
     )

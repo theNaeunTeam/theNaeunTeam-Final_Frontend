@@ -91,9 +91,9 @@ export default function ShopList() {
     const [loading, setLoading] = useState(true);
     const [marker, setMarker] = useState<boolean[]>([]);
     const [startIndex, setStartIndex] = useState(0);
-    const [noMoreData,setNoMoreData] = useState(false);
-    const [goodsName, setGoodsName] = useState('');
-    const [sortOption, setSortOption] = useState('가까운순');
+    const [noMoreData, setNoMoreData] = useState(false);
+    let [goodsName, setGoodsName] = useState('');
+    let [sortOption, setSortOption] = useState('가까운순');
 
 
     const {userLocalMap} = useSelector((state: RootState) => state);
@@ -114,6 +114,10 @@ export default function ShopList() {
 
     const init = (LAT = lat, LON = lon) => {
 
+        if (goodsName !== '') {
+            sortOption = '상품많은순'
+        }
+
         client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`)
             .then(res => {
                 if (res.data.length < 10) {
@@ -128,7 +132,9 @@ export default function ShopList() {
                     // setList(JSON.parse(JSON.stringify(res.data)));
                     if (goodsName !== '') {
                         const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
-                        if (massage < 10) {
+                        console.log('massage',massage);
+                        console.log('massage.length',massage.length);
+                        if (massage.length < 10) {
                             setNoMoreData(true);
                         } else {
                             setNoMoreData(false);
@@ -140,8 +146,12 @@ export default function ShopList() {
 
                 } else {
                     if (goodsName !== '') {
+
                         const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
-                        if (massage < 10) {
+                        console.log('massage',massage);
+                        console.log('massage.length',massage.length);
+
+                        if (massage.length < 10) {
                             setNoMoreData(true);
                         } else {
                             setNoMoreData(false);
@@ -294,11 +304,11 @@ export default function ShopList() {
 
                 </DivHalfMenu>
                 {
-                    list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
+                   loading || list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
             </DivContainer>
             {list.length !== 0 &&
-                <div ref={noMoreData ? null : ref}>
+                <div ref={noMoreData ? undefined : ref}>
                     {noMoreData && <h1>리스트의 마지막입니다.</h1>}
                 </div>
             }
