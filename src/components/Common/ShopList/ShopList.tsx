@@ -82,6 +82,7 @@ export default function ShopList() {
     const [loading, setLoading] = useState(true);
     const [marker, setMarker] = useState<boolean[]>([]);
     const [startIndex, setStartIndex] = useState(0);
+    const [noData, setNodata] = useState(false);
 
     const {userLocalMap} = useSelector((state: RootState) => state);
 
@@ -93,7 +94,7 @@ export default function ShopList() {
     }, [startIndex]);
 
     useEffect(() => {
-        if (inView && !loading) {
+        if (inView && !loading && !noData) {
             setLoading(true);
             setStartIndex(startIndex + 10);
         }
@@ -101,13 +102,18 @@ export default function ShopList() {
 
     const init = (LAT = lat, LON = lon) => {
 
-        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${10}&startIndex=${startIndex}`)
+        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}`)
             .then(res => {
                 console.log(res.data);
                 setList([...list, ...res.data]);
                 setLat(Number(LAT));
                 setLon(Number(LON));
                 setLoading(false);
+                if (res.data.length === 0) {
+                    setNodata(true);
+                } else {
+                    setNodata(false);
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -203,7 +209,7 @@ export default function ShopList() {
             </DivContainer>
             {list.length !== 0 &&
                 <div ref={ref}>
-                    현재페이지{startIndex} {inView.toString()}
+                    {noData && <h1>리스트의 마지막입니다.</h1>}
                 </div>
             }
         </>
