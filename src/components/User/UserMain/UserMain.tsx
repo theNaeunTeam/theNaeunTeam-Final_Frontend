@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './UserMain.css';
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
-import {carouselType, recommendType} from "../../../modules/types";
+import {carouselType, recommendType, shopList, shopViewType} from "../../../modules/types";
 import axios from "axios";
 import RecommendList from "./RecommendList";
 import {A11y, Autoplay, Navigation, Pagination, Scrollbar} from 'swiper';
@@ -13,7 +13,9 @@ import 'swiper/swiper.scss'; // core Swiper
 import 'swiper/modules/navigation/navigation.scss'; // Navigation module
 import 'swiper/modules/pagination/pagination.scss'; // Pagination module
 import 'swiper/modules/scrollbar/scrollbar.scss'; // ScrollBar module
-import 'swiper/modules/autoplay/autoplay.scss'; // Autoplay module
+import 'swiper/modules/autoplay/autoplay.scss';
+import {useSelector} from "react-redux";
+import {RootState} from "../../../index"; // Autoplay module
 
 const DivContainer = styled.div`
   clear: both;
@@ -27,7 +29,7 @@ const DivContainer = styled.div`
 const DivCarouselContainer = styled.div`
   height: 600px;
   width: 100%;
-  margin-bottom: 100px;
+  //margin-bottom: 100px;
 `;
 
 const DivRecommend = styled.div`
@@ -45,11 +47,13 @@ export default function UserMain() {
     const [items, setItems] = useState<carouselType[]>([]);
     const [recommends, setRecommends] = useState<recommendType[]>([]);
     const history = useHistory();
-
+    const {userLocalMap} = useSelector((state: RootState) => state);
+    const [shopList, setShopList] = useState<shopList[]>([]);
 
     useEffect(() => {
         fetchBanner();
         fetchRecommendList();
+        fetchLocalList();
     }, []);
 
     const fetchBanner = () => {
@@ -76,7 +80,25 @@ export default function UserMain() {
             .catch(err => {
                 console.log(err);
             })
+    }
+    const fetchLocalList = () => {
+        if (userLocalMap.lat != 0 && userLocalMap.lon != 0) {
+            axios.get('/common/localList?LAT=' + userLocalMap.lat + '&LON=' + userLocalMap.lon)
+                .then(res => {
+                    console.log(res.data);
+                    setShopList(res.data);
+                    console.log(shopList);
 
+                })
+                .catch(err => {
+                    console.log(err);
+                    console.log(shopList);
+                })
+        } else {
+            console.log('위치 지정 안되어있음');
+            console.log(shopList.length === 0);
+            console.log(shopList);
+        }
     }
 
     interface itemType {
@@ -88,13 +110,13 @@ export default function UserMain() {
     function Item({data, idx}: itemType) {
         return (
             <div>
-                <Link to={data.link} style={{width:'100%'}}>
+                <Link to={data.link} style={{width: '100%'}}>
                     <div style={{
                         backgroundImage: `url(${data.src})`,
                         width: "100%",
                         height: "500px",
                         backgroundSize: '100% 500px',
-                        color : 'black',
+                        color: 'black',
                     }}>
                         <h2>{data.header}</h2>
                         <p>{data.description}</p>
@@ -105,6 +127,34 @@ export default function UserMain() {
                     </div>
                 </Link>
             </div>
+        )
+    }
+
+    interface localProps {
+        history: any,
+        data: shopList,
+        idx: number
+    }
+
+    function LocalList(props: localProps) {
+        return (
+            <>
+
+                <span>
+                    <div style={{height: '100%', width: '100%', border: 'solid aqua'}}>
+
+                        <img src={props.data.o_image}
+                             onClick={() => props.history.push(`/shopView/${props.data.o_sNumber}`)}
+                             style={{height: '77%', width: '70%', cursor: 'pointer'}}
+                        />
+                        <br/>
+                        <b>{props.data.o_name}</b><br/>
+                        {props.data.o_address}
+                        <br/>
+                    </div>
+                </span>
+
+            </>
         )
     }
 
@@ -134,12 +184,26 @@ export default function UserMain() {
                 </Swiper>
                 }
             </DivCarouselContainer>
-            <h2>최근 등록된 상품</h2>
-            <br/>
-            <DivRecommend>
-                {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data}
-                                                                             history={history}/>)}
-            </DivRecommend>
+            <div>
+                {shopList.length != 0 ?
+                    <h2>근처 가게</h2>
+                    : null
+                }
+                <DivRecommend>
+                    {shopList.length != 0 ?
+                        shopList.map((data: shopList, idx) => <LocalList key={`l${idx}`} idx={idx} data={data}
+                                                                         history={history}/>)
+                        : null}
+                </DivRecommend>
+            </div>
+            <div>
+                <h2>최근 등록된 상품</h2>
+                <br/>
+                <DivRecommend>
+                    {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data}
+                                                                                 history={history}/>)}
+                </DivRecommend>
+            </div>
         </DivContainer>
     )
 }

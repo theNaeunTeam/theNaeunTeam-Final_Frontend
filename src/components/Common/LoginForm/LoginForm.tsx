@@ -90,7 +90,7 @@ export default function LoginForm(props: any) {
                 // @ts-ignore
                 const err = e.response;
                 console.log(e);
-                console.log(err.data.error);
+                // console.log(err.data.error);
                 alert(err.data.error);
                 props.setShowLoginForm(false);
             }
