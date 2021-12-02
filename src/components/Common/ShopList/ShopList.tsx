@@ -3,7 +3,6 @@ import {client} from "../../../lib/api/client";
 import {shopList} from "../../../modules/types";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import {Button} from "@mui/material";
 import {Map, MapMarker, MarkerClusterer} from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
@@ -14,7 +13,13 @@ import './shopList.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
 import {useInView} from "react-intersection-observer"
-import { GrMapLocation } from "react-icons/gr";
+import {GrMapLocation} from "react-icons/gr";
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const marks = [
     {
@@ -58,7 +63,7 @@ const DivHalfMenu = styled.div`
   border: solid #d2e5bf;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  
+
 `;
 
 const DivMarker = styled.div`
@@ -87,6 +92,9 @@ export default function ShopList() {
     const [marker, setMarker] = useState<boolean[]>([]);
     const [startIndex, setStartIndex] = useState(0);
     const [noData, setNodata] = useState(false);
+    const [goodsName, setGoodsName] = useState('');
+    const [sortOption, setSortOption] = useState('가까운순');
+
 
     const {userLocalMap} = useSelector((state: RootState) => state);
 
@@ -106,13 +114,21 @@ export default function ShopList() {
 
     const init = (LAT = lat, LON = lon) => {
 
-        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}`)
+        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`)
             .then(res => {
+
                 console.log(res.data);
-                setList([...list, ...res.data]);
+
+                if (startIndex === 0) {
+                    // setList(JSON.parse(JSON.stringify(res.data)));
+                    setList([...res.data])
+                } else {
+                    setList([...list, ...res.data]);
+                }
                 setLat(Number(LAT));
                 setLon(Number(LON));
                 setLoading(false);
+
                 if (res.data.length === 0) {
                     setNodata(true);
                 } else {
@@ -127,14 +143,16 @@ export default function ShopList() {
 
     function getLoc() {
         setLoading(true);
-
+        setStartIndex(0);
         // 위치 허용 팝업
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
         function onGeoOK(position: any) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
+
             init(lat, lon);
+
             dispatch({type: 'getLocaled', payload: {lat: lat, lon: lon}});
         }
 
@@ -142,6 +160,7 @@ export default function ShopList() {
             alert("위치를 찾을 수 없습니다");
             console.log(e);
         }
+
     }
 
     return (
@@ -154,15 +173,16 @@ export default function ShopList() {
             </Backdrop>
 
             <DivContainer>
-                <h3 style={{background:'#f6f7f3',
-                            // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
-                            color:'black',
-                            fontWeight:'bold',
-                            padding: '20px 36.8% ',
-                            margin:'1px',
-                            borderTopRightRadius: '15px',
-                            borderTopLeftRadius: '15px',
-                }}>주변 검색   <GrMapLocation/></h3>
+                <h3 style={{
+                    background: '#f6f7f3',
+                    // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
+                    color: 'black',
+                    fontWeight: 'bold',
+                    padding: '20px 36.8% ',
+                    margin: '1px',
+                    borderTopRightRadius: '15px',
+                    borderTopLeftRadius: '15px',
+                }}>주변 검색 <GrMapLocation/></h3>
 
                 <Map
                     center={{lat: lat, lng: lon}}
@@ -204,17 +224,45 @@ export default function ShopList() {
 
                 <DivHalfMenu>
                     <Box className='box'>
-                        <Slider style={{ margin: '30px 0px 50px'}}
-                            min={0.1}
-                            max={2}
-                            defaultValue={1}
-                            step={0.1}
-                            marks={marks}
-                            valueLabelDisplay="auto"
-                            onChange={e => setRange((e.target as HTMLInputElement).value)}
+                        <Slider style={{margin: '30px 0px 50px'}}
+                                min={0.1}
+                                max={2}
+                                defaultValue={1}
+                                step={0.1}
+                                marks={marks}
+                                valueLabelDisplay="auto"
+                                onChange={e => setRange((e.target as HTMLInputElement).value)}
                         />
 
-                        <button className='shopMapBtn' style={{width:'75%', margin:'15px'}} color="error" onClick={getLoc} >{`주변 ${range}km 내 찾기`}</button>
+                        <button className='shopMapBtn' style={{width: '75%', margin: '15px'}} color="error"
+                                onClick={getLoc}>{`주변 ${range}km 내 찾기`}</button>
+
+                        <div>
+                            <TextField
+                                label="상품명으로 검색"
+                                defaultValue=''
+                                value={goodsName}
+                                onChange={e => setGoodsName(e.target.value)}
+                            />
+                            <FormControl sx={{m: 1, minWidth: 120}}>
+                                <InputLabel id="demo-simple-select-helper-label">정렬</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-helper-label"
+                                    value={sortOption}
+                                    label="정렬"
+                                    onChange={e => {
+                                        // setList([...sortList(list, e.target.value)]);
+                                        setSortOption(e.target.value);
+                                    }}
+                                >
+                                    <MenuItem value={'가까운순'}>가까운순</MenuItem>
+                                    <MenuItem value={'멀리있는순'}>멀리있는순</MenuItem>
+                                    <MenuItem value={'상품많은순'}>상품많은순</MenuItem>
+                                    <MenuItem value={'상품적은순'}>상품적은순</MenuItem>
+                                </Select>
+                                <FormHelperText>거리,상품 갯수로 정렬할 수 있습니다</FormHelperText>
+                            </FormControl>
+                        </div>
                     </Box>
 
                 </DivHalfMenu>

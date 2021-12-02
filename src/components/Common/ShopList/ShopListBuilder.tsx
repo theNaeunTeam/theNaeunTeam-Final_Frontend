@@ -38,6 +38,8 @@ export default function ShopListBuilder({data, idx}: listType) {
     });
 
     useEffect(() => {
+
+        setChildLoading(true);
         fetch_Category_Per_sNumber(data.o_sNumber)
             .then(res => {
                 setCategory(res);
@@ -73,9 +75,8 @@ export default function ShopListBuilder({data, idx}: listType) {
                         <div>{data.o_phone}</div></div>
                     <div className={'shopListContents'}>
                     <span>{data.o_time1}~{data.o_time2}</span>
-                        <span>...{Math.round(Number(data.distance) * 100)}m</span>
+                        <span>...{Math.round(Number(data.distance) * 1000)}m</span>
                     </div>
-
                                     <button className='shopListBtn' style={{width: '60%', padding:'10px'}}
                                             onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
                                         <strong>상세보기</strong></button>
