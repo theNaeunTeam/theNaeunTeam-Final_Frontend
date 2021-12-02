@@ -11,9 +11,9 @@ import ShopListBuilder from "./ShopListBuilder";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import './shopList.scss';
-import {userLocalMap} from "../../../reducers/userLocalMap";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
+import {useInView} from "react-intersection-observer"
 import { GrMapLocation } from "react-icons/gr";
 
 const marks = [
@@ -22,8 +22,8 @@ const marks = [
         label: '100m',
     },
     {
-      value: 0.5,
-      label: '500m'
+        value: 0.5,
+        label: '500m'
     },
     {
         value: 1,
@@ -75,7 +75,7 @@ const centumLAT = 35.1730461532695;
 const centumLON = 129.127655001351;
 
 export default function ShopList() {
-
+    const [ref, inView] = useInView();
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -84,25 +84,40 @@ export default function ShopList() {
     const [lat, setLat] = useState(seoulLAT);
     const [lon, setLon] = useState(seoulLON);
     const [loading, setLoading] = useState(true);
-    const [marker, setMarker] = useState<boolean[]>([])
+    const [marker, setMarker] = useState<boolean[]>([]);
+    const [startIndex, setStartIndex] = useState(0);
+    const [noData, setNodata] = useState(false);
 
-    const {userLocalMap} = useSelector( (state:RootState) => state);
+    const {userLocalMap} = useSelector((state: RootState) => state);
 
     useEffect(() => {
-        userLocalMap.lat != 0 && userLocalMap.lon !=0
-        ? init(userLocalMap.lat, userLocalMap.lon)
-        : init();
+        userLocalMap.lat != 0 && userLocalMap.lon != 0
+            ? init(userLocalMap.lat, userLocalMap.lon)
+            : init();
 
-    }, []);
+    }, [startIndex]);
+
+    useEffect(() => {
+        if (inView && !loading && !noData) {
+            setLoading(true);
+            setStartIndex(startIndex + 10);
+        }
+    }, [inView]);
 
     const init = (LAT = lat, LON = lon) => {
-        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}`)
+
+        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}`)
             .then(res => {
-                console.log(res);
-                setList(res.data);
+                console.log(res.data);
+                setList([...list, ...res.data]);
                 setLat(Number(LAT));
                 setLon(Number(LON));
                 setLoading(false);
+                if (res.data.length === 0) {
+                    setNodata(true);
+                } else {
+                    setNodata(false);
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -112,7 +127,7 @@ export default function ShopList() {
 
     function getLoc() {
         setLoading(true);
-        
+
         // 위치 허용 팝업
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
@@ -120,7 +135,7 @@ export default function ShopList() {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             init(lat, lon);
-            dispatch({type:'getLocaled', payload: {lat:lat ,lon:lon} });
+            dispatch({type: 'getLocaled', payload: {lat: lat, lon: lon}});
         }
 
         function onGeoError(e: any) {
@@ -185,7 +200,6 @@ export default function ShopList() {
                             }
                         )}
                     </MarkerClusterer>
-
                 </Map>
 
                 <DivHalfMenu>
@@ -197,16 +211,22 @@ export default function ShopList() {
                             step={0.1}
                             marks={marks}
                             valueLabelDisplay="auto"
-                            // @ts-ignore
-                            onChange={e => setRange(e.target.value)}
+                            onChange={e => setRange((e.target as HTMLInputElement).value)}
                         />
+
                         <button className='shopMapBtn' style={{width:'75%', margin:'15px'}} color="error" onClick={getLoc} >{`주변 ${range}km 내 찾기`}</button>
                     </Box>
+
                 </DivHalfMenu>
                 {
                     list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
             </DivContainer>
+            {list.length !== 0 &&
+                <div ref={ref}>
+                    {noData && <h1>리스트의 마지막입니다.</h1>}
+                </div>
+            }
         </>
     )
 }
