@@ -208,7 +208,8 @@ export default function ShopList() {
                     margin: '1px',
                     borderTopRightRadius: '15px',
                     borderTopLeftRadius: '15px',
-                }}>주변 검색 <GrMapLocation/></h3>
+                }}>주변 검색 <GrMapLocation/>
+                </h3>
 
                 <Map
                     center={{lat: lat, lng: lon}}
