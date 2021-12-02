@@ -121,9 +121,20 @@ export default function ShopList() {
 
                 if (startIndex === 0) {
                     // setList(JSON.parse(JSON.stringify(res.data)));
-                    setList([...res.data]);
+                    if (goodsName !== '') {
+                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
+                        setList(massage);
+                    } else {
+                        setList([...res.data]);
+                    }
+
                 } else {
-                    setList([...list, ...res.data]);
+                    if (goodsName !== '') {
+                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
+                        setList([...list, ...massage]);
+                    } else {
+                        setList([...list, ...res.data]);
+                    }
                 }
                 setLat(Number(LAT));
                 setLon(Number(LON));
