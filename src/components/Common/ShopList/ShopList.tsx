@@ -297,7 +297,7 @@ export default function ShopList() {
                 }
             </DivContainer>
             {list.length !== 0 &&
-                <div ref={ref}>
+                <div ref={noMoreData ? null : ref}>
                     {noMoreData && <h1>리스트의 마지막입니다.</h1>}
                 </div>
             }
