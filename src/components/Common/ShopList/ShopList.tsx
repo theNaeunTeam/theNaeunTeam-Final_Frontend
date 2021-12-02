@@ -90,7 +90,7 @@ export default function ShopList() {
     const [lon, setLon] = useState(seoulLON);
     const [loading, setLoading] = useState(true);
     const [marker, setMarker] = useState<boolean[]>([]);
-    const [startIndex, setStartIndex] = useState(0);
+    const [startIndex, setStartIndex] = useState(-1);
     const [noMoreData, setNoMoreData] = useState(false);
     let [goodsName, setGoodsName] = useState('');
     let [sortOption, setSortOption] = useState('가까운순');
@@ -118,7 +118,7 @@ export default function ShopList() {
         if (goodsName !== '') {
             sortOption = '상품많은순'
         }
-
+        console.log(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`);
         client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`)
             .then(res => {
                 if (res.data.length < 10) {
@@ -129,9 +129,9 @@ export default function ShopList() {
 
                 console.log(res.data);
 
-                if (startIndex === 0) {
-                    if (goodsName !== '') {
-                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
+                if (startIndex === 0) { // 페이지 로드되고 첫페이지다
+                    if (goodsName !== '') { // 검색창에 뭔가 있으면
+                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0); // 필터로 그것만 꺼냄
                         console.log('massage', massage);
                         console.log('massage.length', massage.length);
                         if (massage.length < 10) {
@@ -140,14 +140,14 @@ export default function ShopList() {
                             setNoMoreData(false);
                         }
                         setList(massage);
-                    } else {
-                        setList([...res.data]);
+                    } else { // 검색창이 비어있으면 그대로 스테이트에 저장
+                        setList(res.data);
                     }
 
-                } else {
-                    if (goodsName !== '') {
+                } else { // 다음페이지 넘어갈때
+                    if (goodsName !== '') { // 검색창에 뭔가 있으면
 
-                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0);
+                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0); // 필터로 그것만 꺼냄
                         console.log('massage', massage);
                         console.log('massage.length', massage.length);
 
@@ -156,40 +156,42 @@ export default function ShopList() {
                         } else {
                             setNoMoreData(false);
                         }
-                        setList([...list, ...massage]);
+                        // setList([...list, ...massage]);
+                        const cp = [...list];
+                        massage.forEach((data: shopList)=>cp.push(data));
+                        setList(cp);
                     } else {
-                        setList([...list, ...res.data]);
+                        // setList([...list, ...res.data]);
+                        const cp = [...list];
+                        res.data.forEach((data:shopList)=>cp.push(data));
+                        setList(cp);
                     }
                 }
                 setLat(Number(LAT));
                 setLon(Number(LON));
-
-                if (res.data.length === 0) {
-                    setNoMoreData(true);
-                } else {
-                    setNoMoreData(false);
-                }
             })
             .catch(err => {
                 console.log(err);
             })
             .finally(() => {
                 setLoading(false);
-                setAaaa(!aaaa);
+                setAaaa(true);
             });
     }
 
     function getLoc() {
         setLoading(true);
-        setStartIndex(0);
+        setAaaa(false);
         // 위치 허용 팝업
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
         function onGeoOK(position: any) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
-
-            init(lat, lon);
+            setLat(lat);
+            setLon(lon);
+            setStartIndex(0);
+            // init(lat, lon);
 
             dispatch({type: 'getLocaled', payload: {lat: lat, lon: lon}});
         }
@@ -279,10 +281,10 @@ export default function ShopList() {
                         <div>
                             <TextField
                                 label="상품명으로 검색"
-                                defaultValue=''
                                 value={goodsName}
                                 onChange={e => setGoodsName(e.target.value)}
                             />
+
                             <FormControl sx={{m: 1, minWidth: 120}}>
                                 <InputLabel id="demo-simple-select-helper-label">정렬</InputLabel>
                                 <Select
@@ -305,13 +307,13 @@ export default function ShopList() {
 
                 </DivHalfMenu>
                 {
-                    aaaa ? list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
-                        : list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
+                    aaaa && list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
             </DivContainer>
+            <br/><br/>
             {list.length !== 0 &&
                 <div ref={noMoreData ? undefined : ref}>
-                    {noMoreData && <h1>리스트의 마지막입니다.</h1>}
+                    {/*{noMoreData && <h1>리스트의 마지막입니다.</h1>}*/}
                 </div>
             }
         </>
