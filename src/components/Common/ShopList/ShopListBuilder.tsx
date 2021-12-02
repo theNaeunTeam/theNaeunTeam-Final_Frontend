@@ -7,6 +7,7 @@ import {useHistory} from "react-router-dom";
 import {Doughnut} from 'react-chartjs-2';
 import Skeleton from '@mui/material/Skeleton';
 import {Button, Paper} from "@mui/material";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 interface listType {
     data: shopList;
@@ -74,9 +75,8 @@ export default function ShopListBuilder({data, idx}: listType) {
                     <span>{data.o_time1}~{data.o_time2}</span>
                         <span>...{Math.round(Number(data.distance) * 100)}m</span>
                     </div>
-
-                                    <Button style={{width: '60%'}} variant="outlined"
-                                            onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
+                    <Button style={{width: '60%'}} variant="outlined"
+                            onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
                                         <strong>상세보기</strong></Button>
                     </span>
                 <span className='doughnut'>

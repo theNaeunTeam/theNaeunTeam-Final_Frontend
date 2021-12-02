@@ -190,7 +190,7 @@ export type shopList = {
     o_sNumber: string,
     o_time1: string,
     o_time2: string,
-    radius?: string
+    radius?: string,
 }
 
 export type categoryType = {
