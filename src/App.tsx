@@ -10,7 +10,7 @@ import ShopView from "./components/Common/ShopView/ShopView";
 import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./index";
-import OwnerRegisterForm from "./components/Common/OwnerRegisterForm";
+import OwnerRegisterForm from "./components/Common/OwnerRegisterForm/OwnerRegisterForm";
 import OwnerMain from "./components/Owner/OwnerMain";
 import AddProduct from "./components/Owner/AddProduct";
 import GoodsView from "./components/Owner/GoodsView";
