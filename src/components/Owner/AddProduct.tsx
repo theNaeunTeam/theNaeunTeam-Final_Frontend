@@ -7,7 +7,7 @@ import {
     DialogActions,
     DialogContent,
     DialogContentText,
-    DialogTitle,
+    DialogTitle, FormControl,
     Slide,
     Stack,
 } from "@mui/material";
@@ -17,9 +17,11 @@ import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {addProductType} from "../../modules/types";
 import styled from "styled-components";
-import OwnerNavbar from "./OwnerNavbar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 
 
 // 등록알림창
@@ -45,13 +47,16 @@ const DivContainer = styled.div`
   text-align: center;
 `;
 export default function AddProduct() {
+    const fileDiv = useRef(null);
 
     const {goodsReducer, authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
+
     useLayoutEffect(() => {
         if (!localStorage.getItem('ownerToken')) history.replace('/err');
     }, []);
 
+    const today = new Date();
 
     const initValue = {
         isModify: false,
@@ -61,28 +66,24 @@ export default function AddProduct() {
         g_price: '',
         g_discount: '',
         g_detail: '',
-        g_expireDate: '',
-        g_category: '',
+        g_expireDate: `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`,
+        g_category: '마실것',
     };
-
-    const formErrorinit = {
-        g_name: false,
-        g_count: false,
-        g_price: false,
-        g_discount: false,
-        g_detail: false,
-        g_expireDate: false,
-        g_category: false
-    };
-
 
     const dispatch = useDispatch();
 
-    const [productForm, setProduct] = useState<addProductType>(initValue);
-    const [formError, setFormError] = useState(formErrorinit);
-    const [loading, setLoading] = useState(false);
     const fileInputTag = useRef<HTMLInputElement>(null);
 
+    const [productForm, setProduct] = useState<addProductType>(initValue);
+    const [loading, setLoading] = useState(false);
+
+    const [g_name, setG_name] = useState(false);
+    const [g_count, setG_count] = useState(false);
+    const [g_price, setG_price] = useState(false);
+    const [g_discount, setG_discount] = useState(false);
+    const [g_detail, setG_detail] = useState(false);
+    const [g_expireDate, setG_expireDate] = useState(false);
+    const [g_category, setG_category] = useState(false);
 
     useEffect(() => {
         setProduct({...productForm, ...goodsReducer, g_owner: authReducer.o_sNumber}); // 리듀서에 저장된 사업자번호 불러옴
@@ -90,6 +91,49 @@ export default function AddProduct() {
             dispatch({type: 'modifyOK'});
         }
     }, []);
+
+    useEffect(() => {
+        fomValidate();
+    }, [productForm])
+
+    const fomValidate = (): boolean => {
+        if (productForm.g_name == '') {
+            setG_name(true);
+            return false;
+        }
+        setG_name(false);
+
+        if (Number(productForm.g_count) === 0) {
+            setG_count(true);
+            return false;
+        }
+        setG_count(false);
+
+        if (productForm.g_category == '') {
+            setG_category(true);
+            return false;
+        }
+        setG_category(false);
+
+        if (Number(productForm.g_price) === 0) {
+            setG_price(true);
+            return false;
+        }
+        setG_price(false);
+
+        if (Number(productForm.g_discount) === 0) {
+            setG_discount(true);
+            return false;
+        }
+        setG_discount(false);
+        if (productForm.g_expireDate == '') {
+            setG_expireDate(true);
+            return false;
+        }
+        setG_expireDate(false);
+
+        return true;
+    };
 
     /// 알림창
     const [open, setOpen] = React.useState(false);
@@ -103,8 +147,19 @@ export default function AddProduct() {
         setOpen(false);
     };
 
-
     const submitForm = async () => {
+        if (!fomValidate()) {
+            alert('제출 양식을 확인해주세요');
+            return false;
+        }
+
+        // @ts-ignore
+        if (fileInputTag.current.files.length === 0) {
+            if (fileDiv.current) (fileDiv.current as HTMLDivElement).style.border = '1px solid red';
+            alert('파일을 첨부해주세요');
+            return false;
+        }
+
         setLoading(true)
         const URL = '/owner/addGoods'
         const formData = new FormData();
@@ -181,9 +236,8 @@ export default function AddProduct() {
                 autoComplete="off"
                 alignItems="center"
             >
-
                 <TextField
-                    error={formError.g_name}
+                    error={g_name}
                     required
                     id="outlined-required"
                     label="상품 이름"
@@ -191,7 +245,7 @@ export default function AddProduct() {
                     value={productForm.g_name}
                 />
                 <TextField
-                    error={formError.g_count}
+                    error={g_count}
                     type='number'
                     required
                     id="outlined-required"
@@ -202,20 +256,29 @@ export default function AddProduct() {
                     }}
                     value={productForm.g_count}
                 />
+                <FormControl sx={{m: 1, minWidth: 500}}>
+                    <InputLabel id="demo-simple-select-helper-label">상품 분류 선택</InputLabel>
+                    <Select
+                        error={g_category}
+                        name={'g_category'}
+                        labelId="demo-simple-select-helper-label"
+                        value={productForm.g_category}
+                        label="상품 분류 선택"
+                        onChange={e => {
+                            setProduct({...productForm, g_category: e.target.value});
+                        }}
+                    >
+                        <MenuItem value={'마실것'}>마실것</MenuItem>
+                        <MenuItem value={'신선식품'}>신선식품</MenuItem>
+                        <MenuItem value={'가공식품'}>가공식품</MenuItem>
+                        <MenuItem value={'냉동식품'}>냉동식품</MenuItem>
+                        <MenuItem value={'조리/반조리'}>조리/반조리</MenuItem>
+                        <MenuItem value={'식품외 기타'}>식품외 기타</MenuItem>
+                    </Select>
+                </FormControl>
 
-                <label>상품 이미지파일</label><p/>
-                <input type={'file'} ref={fileInputTag}/>
-                <select name={'g_category'} value={productForm.g_category}>
-                    <option value={""}>상품분류 선택</option>
-                    <option value={"마실것"}>마실것</option>
-                    <option value={"신선식품"}>신선식품</option>
-                    <option value={"가공식품"}>가공식품</option>
-                    <option value={'냉동식품'}>냉동식품</option>
-                    <option value={'조리/반조리'}>조리/반조리</option>
-                    <option value={'식품외 기타'}>식품외 기타</option>
-                </select>
                 <TextField
-                    error={formError.g_price}
+                    error={g_price}
                     required
                     id="outlined-required"
                     label="상품정가"
@@ -223,7 +286,7 @@ export default function AddProduct() {
                     value={productForm.g_price}
                 />
                 <TextField
-                    error={formError.g_discount}
+                    error={g_discount}
                     required
                     id="outlined-required"
                     label="할인가"
@@ -231,21 +294,38 @@ export default function AddProduct() {
                     value={productForm.g_discount}
                 />
                 <TextField
-                    error={formError.g_expireDate}
                     required
-                    id="outlined-required"
+                    error={g_expireDate}
+                    name='g_expireDate'
+                    id='g_expireDate'
                     label="유통기한"
-                    name={'g_expireDate'}
-                    value={productForm.g_expireDate}
+                    type="date"
+                    defaultValue={productForm.g_expireDate}
+                    sx={{width: 200}}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    InputProps={{inputProps: {min: `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`}}}
                 />
                 <TextField
-                    error={formError.g_detail}
-                    required
+                    error={g_detail}
                     id="outlined-required"
                     label="상세설명"
                     name={'g_detail'}
                     value={productForm.g_detail}
+                    multiline={true}
+                    rows={5}
                 />
+                <div style={{
+                    border: 'solid lightgrey 0.5px', borderRadius: '5px',
+                    display: 'flex',
+                    alignItems: 'center', justifyContent: 'space-between',
+                    marginBottom: '20px', padding: '10px', width: '500px', height: '55px'
+                }}
+                     ref={fileDiv}>
+                    <label>상품 이미지파일</label><p/>
+                    <input type={'file'} ref={fileInputTag}/>
+                </div>
                 {goodsReducer.isModify ?
                     <Button onClick={handleClickOpen} variant="outlined">
                         상품 수정 하기
@@ -254,6 +334,7 @@ export default function AddProduct() {
                     <Button variant="outlined" onClick={handleClickOpen}>
                         상품 등록하기
                     </Button>}
+
                 <Dialog
                     open={open}
                     TransitionComponent={Transition}

@@ -344,3 +344,37 @@ export default function OwnerRegisterForm() {
         </div>
     )
 }
+
+
+
+const initValue = {
+    isModify: false,
+    g_owner: '',
+    g_name: '',
+    g_count: '',
+    g_price: '',
+    g_discount: '',
+    g_detail: '',
+    g_expireDate: '',
+    g_category: '',
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

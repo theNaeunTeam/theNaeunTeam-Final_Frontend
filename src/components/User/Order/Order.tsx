@@ -183,7 +183,7 @@ export default function Order() {
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
-                                    InputProps={{inputProps: {min: orderForm.r_firstDate}}}
+                                    InputProps={{inputProps: {min: `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`}}}
                                 />
                         </span>
                         </div>
