@@ -95,8 +95,9 @@ export default function ShopList() {
     const [noMoreData, setNoMoreData] = useState(false);
     let [goodsName, setGoodsName] = useState('');
     let [sortOption, setSortOption] = useState('가까운순');
-    const [aaaa, setAaaa] = useState(false);
-
+    const [showList, setShowList] = useState(false);
+    const [displayName, setDisplayName] = useState('');
+    const [displayRange, setDisplayRange] = useState('');
 
     const {userLocalMap} = useSelector((state: RootState) => state);
 
@@ -144,8 +145,10 @@ export default function ShopList() {
                             setNoMoreData(false);
                         }
                         setList(massage);
+                        setDisplayName(goodsName);
                     } else { // 검색창이 비어있으면 그대로 스테이트에 저장
                         setList(res.data);
+                        setDisplayName('');
                     }
 
                 } else { // 다음페이지 넘어갈때
@@ -164,29 +167,32 @@ export default function ShopList() {
                         const cp = [...list];
                         massage.forEach((data: shopList) => cp.push(data));
                         setList(cp);
+                        setDisplayName(goodsName);
                     } else {
                         // setList([...list, ...res.data]);
                         const cp = [...list];
                         res.data.forEach((data: shopList) => cp.push(data));
                         setList(cp);
+                        setDisplayName('');
                     }
                 }
                 setLat(Number(LAT));
                 setLon(Number(LON));
+                setDisplayRange(range);
             })
             .catch(err => {
                 console.log(err);
             })
             .finally(() => {
                 setLoading(false);
-                setAaaa(true);
+                setShowList(true);
             });
     }
 
     function getLoc() {
-        setAaaa(!aaaa);
+        setShowList(!showList);
         setLoading(true);
-        setAaaa(false);
+        setShowList(false);
         // 위치 허용 팝업
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
@@ -315,10 +321,12 @@ export default function ShopList() {
                             </FormControl>
                         </div>
                     </Box>
-
                 </DivHalfMenu>
+                <h2>
+                    {`주변 ${displayRange}km 내 ${displayName ? displayName : '모든상품'}에 대한 검색 결과`}
+                </h2>
                 {
-                    aaaa && list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
+                    showList && list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
             </DivContainer>
             <br/><br/>
