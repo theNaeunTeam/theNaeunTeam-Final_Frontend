@@ -1,4 +1,3 @@
-
 const defaultValue = {
     lat:0,
     lon:0,
@@ -10,10 +9,12 @@ interface actionTypes {
 }
 
 export  function userLocalMap(state = defaultValue, action:actionTypes){
-    switch( action.type){
+    switch(action.type){
         case 'getLocaled':
             console.log(action.type, '리듀서 콜');
             console.log('payload => ', action.payload);
+            localStorage.setItem('lat', action.payload.lat);
+            localStorage.setItem('lon', action.payload.lon);
             return{...state, ...action.payload }
         default:
             return state;

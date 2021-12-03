@@ -87,6 +87,16 @@ function App() {
                 localStorage.clear();
             })
         }
+        if (localStorage.getItem('lat') && localStorage.getItem('lon')) {
+            dispatch(
+                {
+                    type: 'getLocaled',
+                    payload: {
+                        lat: localStorage.getItem('lat'),
+                        lon: localStorage.getItem('lon')
+                    }
+                })
+        }
     };
 
     return (

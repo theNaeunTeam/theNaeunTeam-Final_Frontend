@@ -201,7 +201,6 @@ export default function ShopList() {
                 init(lat, lon);
             }
 
-
             dispatch({type: 'getLocaled', payload: {lat: lat, lon: lon}});
         }
 
