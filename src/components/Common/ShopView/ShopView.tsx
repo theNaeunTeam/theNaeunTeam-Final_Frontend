@@ -388,9 +388,17 @@ export default function ShopView() {
             if (findDiffOwner.length !== 0) { // 파라메타의 사업자번호와 다른 사업자번호를 가진 쿠기가 있을 경우
                 if (window.confirm('장바구니에 다른 가게의 상품이 담겨있습니다. 삭제하시겠습니까?')) {
                     removeCookie('cart', {path: '/'});
+                    // return false;
+                    cookieCart = [{
+                        g_count: g_count,
+                        g_code: g_code,
+                        id: authReducer.u_id,
+                        o_sNumber: match.params.o_sNumber
+                    }];
                 } else {
                     return false;
                 }
+
             } else {
 
                 const findSameGoods = cookieCart.findIndex((x: any) => x.g_code == g_code);
