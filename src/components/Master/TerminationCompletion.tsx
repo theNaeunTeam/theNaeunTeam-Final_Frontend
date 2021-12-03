@@ -116,11 +116,7 @@ export default function TerminationCompletion() {
     return (
         <>
             <h3 className='mainH3'>해지신청 완료 </h3>
-            <div className='MasterMainBtn'>
-            <button className='masterBtn' onClick={() => updateDB('ok')}>
-                반려
-            </button>
-            </div>
+
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
                 {
                     <DataGrid

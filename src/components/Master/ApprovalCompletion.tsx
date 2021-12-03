@@ -116,11 +116,6 @@ export default function ApprovalCompletion() {
     return (
         <>
             <h3 className='mainH3'>입점신청 승인완료 </h3>
-            <div className='MasterMainBtn'>
-                <button  className='masterBtn' onClick={() => updateDB('no')}>
-                    반려
-                </button>
-            </div>
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
                 {
                     <DataGrid
