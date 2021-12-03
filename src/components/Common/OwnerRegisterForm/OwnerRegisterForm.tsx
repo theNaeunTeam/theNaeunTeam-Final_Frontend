@@ -1,11 +1,11 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import TextField from '@mui/material/TextField'
 import {Button, Stack} from "@mui/material";
-import {client} from "../../lib/api/client";
 import DaumPostcode from 'react-daum-postcode';
 import axios from "axios";
-import {ownerRegisterFormType} from "../../modules/types";
+import {ownerRegisterFormType} from "../../../modules/types";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import {client} from "../../../lib/api/client";
 
 export default function OwnerRegisterForm() {
 
@@ -23,6 +23,7 @@ export default function OwnerRegisterForm() {
         o_latitude: '',
         o_longitude: '',
     };
+
     const errorInit = {
         o_sNumber: false,
         o_pw: false,
@@ -36,12 +37,27 @@ export default function OwnerRegisterForm() {
         o_image: false,
     };
 
+    const o_nameRef = useRef(null);
+    const o_addressRef = useRef(null);
+    const fileDiv = useRef(null);
+
     const [regForm, setRegForm] = useState<ownerRegisterFormType>(initValue);
-    const [formError, setFormError] = useState(errorInit);
+
     const fileInputTag = useRef<HTMLInputElement>(null);
     const [address, setAddress] = useState(''); // 주소
     const [addressDetail, setAddressDetail] = useState(''); // 상세주소
     const [isOpenPost, setIsOpenPost] = useState(false);
+
+    //객체로 만들어서 변경하면 재랜더링 안됨....
+    const [o_sNumber, seto_sNumber] = useState(false);
+    const [o_pw, seto_pw] = useState(false);
+    const [pwConfirm, setpwConfirm] = useState(false);
+    const [o_phone, seto_phone] = useState(false);
+    const [o_name, seto_name] = useState(false);
+    const [o_cellPhone, seto_cellPhone] = useState(false);
+    const [o_address, seto_address] = useState(false);
+    const [pwCompare, setPwCompare] = useState(false);
+
 
     const onChangeOpenPost = () => {
         setIsOpenPost(!isOpenPost);
@@ -81,11 +97,73 @@ export default function OwnerRegisterForm() {
             })
     };
 
+    useEffect(() => {
+        formVal();
+    }, [regForm]);
+
+    const formVal = () => {
+        if (regForm.o_sNumber.length < 10 || regForm.o_sNumber.length > 10) {
+            seto_sNumber(true);
+            return false;
+        }
+        seto_sNumber(false);
+        if (o_nameRef.current) (o_nameRef.current as HTMLInputElement).focus();
+
+        if (!regForm.o_name) {
+            seto_name(true);
+            return false;
+        }
+        seto_name(false);
+
+        if (addressDetail === '') {
+            seto_address(true);
+            return false;
+        }
+        seto_address(false);
+
+        if (regForm.o_pw.length < 5) {
+            seto_pw(true);
+            return false;
+        }
+        seto_pw(false);
+
+        if (!regForm.pwConfirm) {
+            setpwConfirm(true);
+            return false;
+        }
+        setpwConfirm(false);
+
+        if (regForm.o_pw !== regForm.pwConfirm) {
+            setpwConfirm(true);
+            seto_pw(true);
+            setPwCompare(true)
+            return false;
+        }
+        setpwConfirm(false);
+        seto_pw(false);
+        setPwCompare(false);
+
+        if (!regForm.o_phone) {
+            seto_phone(true);
+            return false;
+        }
+        seto_phone(false);
+
+        if (!regForm.o_cellPhone) {
+            seto_cellPhone(true);
+            return false;
+        }
+        seto_cellPhone(false);
+
+        return true;
+    }
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
+
         console.log(regForm);
         const tagName = (e.target as HTMLFormElement).name;
-        if (tagName === 'o_sNumber' || tagName === 'o_phone' || tagName === 'o_cellPhone') {
+
+        if (tagName === 'o_sNumber' || tagName === 'o_phone' || tagName === 'o_cellPhone') { // 숫자만 입력할수있게
             setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value.replace(/[^0-9]/g, '')});
             return false;
         }
@@ -93,6 +171,18 @@ export default function OwnerRegisterForm() {
     }
 
     const submitForm = async () => {
+
+        if (!formVal()) {
+            alert('제출 양식을 확인해주세요');
+            return false;
+        }
+
+        // @ts-ignore
+        if (fileInputTag.current.files.length === 0) {
+            if (fileDiv.current) (fileDiv.current as HTMLDivElement).style.border = '1px solid red';
+            alert('파일을 첨부해주세요');
+            return false;
+        }
 
         const URL = '/common/request';
         const formData = new FormData();
@@ -149,21 +239,22 @@ export default function OwnerRegisterForm() {
             >
                 <div><h3>가맹 신청</h3></div>
                 <TextField
-                    error={formError.o_sNumber}
+                    error={o_sNumber}
                     required
                     id="outlined-required"
                     label="사업자번호"
                     name={'o_sNumber'}
-                    helperText="사업자번호를 하이픈 없이 입력해주세요"
+                    helperText="10자리 숫자로 입력해 주세요"
                     value={regForm.o_sNumber}
                 />
                 <TextField
-                    error={formError.o_name}
+                    error={o_name}
                     required
                     id="outlined-required"
                     label="가게 이름"
                     name={'o_name'}
                     helperText="가게명을 입력해주세요"
+                    ref={o_nameRef}
                 />
                 {isOpenPost ? (
                     //@ts-ignore
@@ -171,7 +262,7 @@ export default function OwnerRegisterForm() {
                 ) : null}
                 <TextField
                     onClick={onChangeOpenPost}
-                    error={formError.o_address}
+                    error={o_address}
                     required
                     id="outlined-required"
                     label="가게 주소"
@@ -179,27 +270,28 @@ export default function OwnerRegisterForm() {
                     name={'o_address'}
                     disabled={true}
                     value={addressDetail}
+                    ref={o_addressRef}
                 />
                 <TextField
-                    error={formError.o_pw}
+                    error={o_pw}
                     required
                     id="outlined-required"
                     label="패스워드"
                     type={'password'}
                     name={'o_pw'}
-                    helperText="비밀번호를 입력해주세요"
+                    helperText={pwCompare ? '비밀번호가 일치하지 않습니다' : '비밀번호를 5글자 이상 입력해주세요'}
                 />
                 <TextField
-                    error={formError.pwConfirm}
+                    error={pwConfirm}
                     required
                     id="outlined-required"
                     label="패스워드확인"
                     type={'password'}
                     name={'pwConfirm'}
-                    helperText="비밀번호를 다시 한 번 입력해주세요"
+                    helperText={pwCompare ? '비밀번호가 일치하지 않습니다' : '비밀번호를 한번더 입력해주세요'}
                 />
                 <TextField
-                    error={formError.o_phone}
+                    error={o_phone}
                     required
                     id="outlined-required"
                     label="가게 대표 번호"
@@ -208,11 +300,11 @@ export default function OwnerRegisterForm() {
                     value={regForm.o_phone}
                 />
                 <TextField
-                    error={formError.o_cellPhone}
+                    error={o_cellPhone}
                     required
                     id="outlined-required"
                     label="사장님 전화번호"
-                    helperText="사장님 전화번호를 하이픈 없이 입력해 주세요"
+                    helperText="전화번호를 하이픈 없이 입력해 주세요"
                     name={'o_cellPhone'}
                     value={regForm.o_cellPhone}
                 />
@@ -251,7 +343,8 @@ export default function OwnerRegisterForm() {
                     display: 'flex',
                     alignItems: 'center', justifyContent: 'space-between',
                     marginBottom: '20px', padding: '10px', width: '420px', height: '35px'
-                }}>
+                }}
+                     ref={fileDiv}>
                     <span><AddAPhotoIcon/> 가게 대표 사진  </span>
                     <input type={'file'} ref={fileInputTag}/>
                 </div>

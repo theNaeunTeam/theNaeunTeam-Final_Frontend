@@ -221,3 +221,7 @@ export type conType = {
     sum : number,
     tal : number,
 }
+
+export interface ownerFormErrorType {
+    [index: string]: boolean;
+}
