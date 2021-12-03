@@ -141,7 +141,32 @@ export default function MasterChart2() {
                                     data: monArr[monIndex].map((a:any) => a.user),
                                     tension: 0.3
                                 }]
-                        }}/>
+                        }}
+                              options={
+                                  {
+                                      plugins: {
+                                          legend: {
+                                              labels: {
+                                                  // This more specific font property overrides the global property
+                                                  font: {
+                                                      size: 18
+                                                  }
+                                              }
+                                          }
+                                      },
+                                      scales: {
+                                          yAxes: {
+                                              ticks: {
+                                                  callback: function (value: string | number) {
+                                                      return value + '명';
+                                                  }
+
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                        />
                         <div className='b'>
                         <span onClick={DecMonYear}>◀</span>
                         <label>{monYear}년도</label>
@@ -177,6 +202,30 @@ export default function MasterChart2() {
                                     tension: 0.3
                                 }]
                         }}
+                              options={
+                                  {
+                                      plugins: {
+                                          legend: {
+                                              labels: {
+                                                  // This more specific font property overrides the global property
+                                                  font: {
+                                                      size: 18
+                                                  }
+                                              }
+                                          }
+                                      },
+                                      scales: {
+                                          yAxes: {
+                                              ticks: {
+                                                  callback: function (value: string | number) {
+                                                      return value + '명';
+                                                  }
+
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
                         />
                         <div className='b'>
                         <span onClick={DecYear}>◀</span>

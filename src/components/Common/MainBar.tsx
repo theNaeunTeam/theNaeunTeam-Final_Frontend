@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom';
 import logo from '../../logo.svg';
 import {IconButton} from "material-ui";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-
+import { AiFillEdit } from "react-icons/ai";
+import { BiStore } from "react-icons/bi";
 
 export default function MainBar() {
     const aaa = useRef(null);
@@ -32,14 +33,14 @@ export default function MainBar() {
                     <li><Link to={'/'}><img src={logo} style={{height: '30px'}} alt="logo"/>HOME</Link></li>
                     <li>
                         <Link to={'/list'}>
-                            근처 가게 찾기
+                            <BiStore /> 근처 가게 찾기
                         </Link>
                     </li>
                     <li><Link to={'/event'}>진행중인 이벤트</Link></li>
                     <li>
-                        <Link to={'/tandaorder'}>탄다오더 소개</Link>
+                        <Link to={'/tandaorder'}>탄다오더 소개  </Link>
                     </li>
-                    <li><Link to={'/user'} className='dropdown-arrow'>마이페이지 </Link>
+                    <li><Link to={'/user'} className='dropdown-arrow'><AiFillEdit/> &nbsp; 마이페이지 </Link>
                         <ul className='sub-menus'>
                             <li><Link to={'/user/userreserve'}>예약 내역</Link></li>
                             <li><Link to={'/user/favorstore'}>즐겨찾는 가게</Link></li>

@@ -170,6 +170,16 @@ export default function UserDash() {
                             }}
                                  options={
                                      {
+                                         plugins: {
+                                             legend: {
+                                                 labels: {
+                                                     // This more specific font property overrides the global property
+                                                     font: {
+                                                         size: 18
+                                                     }
+                                                 }
+                                             }
+                                         },
                                          scales: {
                                              yAxes: {
                                                  ticks: {
@@ -230,6 +240,16 @@ export default function UserDash() {
                             }}
                                  options={
                                      {
+                                         plugins: {
+                                             legend: {
+                                                 labels: {
+                                                     // This more specific font property overrides the global property
+                                                     font: {
+                                                         size: 18
+                                                     }
+                                                 }
+                                             }
+                                         },
                                          scales: {
                                              yAxes: {
                                                  ticks: {

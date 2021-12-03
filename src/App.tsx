@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 
 import {Route, Switch} from 'react-router-dom';
 import LoginForm from "./components/Common/LoginForm/LoginForm";
@@ -43,7 +43,6 @@ import PrivacyPolicy from "./components/Common/PrivacyPolicy";
 import FindPw from "./components/Common/findpw";
 import MainBar from "./components/Common/MainBar";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
-
 
 function App() {
 
@@ -99,7 +98,7 @@ function App() {
                         : <Route path='/' component={MainBar}/>}
 
 
-                <Route path='/' exact component={UserMain}/>
+                <Route path='/' exact component={UserMain}  />
 
                 <Route exact path='/login' component={LoginForm}/>
 

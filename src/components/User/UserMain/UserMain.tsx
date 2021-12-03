@@ -17,6 +17,7 @@ import 'swiper/modules/autoplay/autoplay.scss';
 import {useSelector} from "react-redux";
 import {RootState} from "../../../index"; // Autoplay module
 
+
 const DivContainer = styled.div`
   clear: both;
   margin: 20px;
@@ -158,8 +159,10 @@ export default function UserMain() {
         )
     }
 
+
     return (
         <DivContainer>
+
             <DivCarouselContainer>
                 {loading || <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
@@ -207,3 +210,4 @@ export default function UserMain() {
         </DivContainer>
     )
 }
+
