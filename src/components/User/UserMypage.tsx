@@ -8,10 +8,10 @@ import {userMyPageType} from "../../modules/types";
 import UserNavbar from "./UserNavbar";
 
 const DivContainer = styled.div`
-  border: solid black;
+  //border: solid black;
   display: inline-flex;
   justify-content: center;
-  margin: 20px;
+  margin: 0 13px 0 0;
   padding: 10px;
   height: 100%;
   width: 100%;
@@ -20,15 +20,20 @@ const DivContainer = styled.div`
 
 
 const DivNav = styled.div`
-  border: solid blue;
+  //border: solid blue;
   width: 17%;
-  font-size: large;
+  font-size: 20px;
 `;
 const DivMain = styled.div`
+  margin-top: 50px;
   border: solid red;
   width: 80%;
   height: 100%;
-  padding: 20px;
+  padding: 50px 70px;
+  min-height: 800px;
+  margin-right: 15%;
+
+
 `;
 export default function UserMypage() {
     const {authReducer} = useSelector((state: RootState) => state);
@@ -69,9 +74,9 @@ export default function UserMypage() {
                 <UserNavbar />
             </DivNav>
             <DivMain>
-                <h3>{userData.u_id}님은 지구를 {userData.save} 번 구하셨습니다.</h3>
-                <h5>지구를 구하는 중 : {userData.reserve} </h5>
-                <h5>포인트 : {userData.u_point}</h5>
+                <div className='subjectContent'>{userData.u_id}님은 지구를 {userData.save} 번 구하셨습니다.</div>
+                <div className='smallSubject'>지구를 구하는 중 : {userData.reserve} </div>
+                <div className='smallSubject'>포인트 : {userData.u_point}</div>
             </DivMain>
         </DivContainer>
     )

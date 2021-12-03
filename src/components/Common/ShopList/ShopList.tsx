@@ -21,6 +21,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ScrollToTop from "../ScrollToTop/ScrollToTop";
 
+
 const marks = [
     {
         value: 0.1,
@@ -49,9 +50,11 @@ const DivContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px;
+  width: 100%;
+  //border: solid red;
   margin-top: 50px;
-  margin-left: 200px;
-  margin-right: 200px;
+  //margin-left: 200px;
+  //margin-right: 200px;
   margin-bottom: 10px;
 `;
 
@@ -240,8 +243,9 @@ export default function ShopList() {
                     margin: '1px',
                     borderTopRightRadius: '15px',
                     borderTopLeftRadius: '15px',
-                }}>주변 검색 <GrMapLocation/>
-                </h3>
+                    width:'80%'
+                }}>주변 검색 <GrMapLocation/></h3>
+
 
                 <Map
                     center={{lat: lat, lng: lon}}
@@ -321,7 +325,6 @@ export default function ShopList() {
 
                         <button className='shopMapBtn' style={{width: '75%', margin: '15px'}} color="error"
                                 onClick={getLoc}>{`주변 ${range}km 내 찾기`}</button>
-
                     </Box>
                 </DivHalfMenu>
                 {list.length !== 0 &&
@@ -336,6 +339,7 @@ export default function ShopList() {
             </DivContainer>
             <br/><br/>
             {list.length !== 0 &&
+
                 <div ref={noMoreData ? undefined : ref}>
                     {/*{noMoreData && <h1>리스트의 마지막입니다.</h1>}*/}
                 </div>

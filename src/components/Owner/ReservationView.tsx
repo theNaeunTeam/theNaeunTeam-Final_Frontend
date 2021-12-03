@@ -65,6 +65,9 @@ export default function ReservationView() {
     // };
     const searchGoods = async () => {
         const URL = '/owner/searchReserve';
+        if(g_category != '' || r_status != '' || searchInput != ''){
+            setStartIndex(0);
+        }
         try {
             const res = await client.get(`${URL}?g_category=${g_category}&r_status=${r_status}&searchInput=${searchInput}&startIndex=${startIndex}`);
             console.log(res);
@@ -114,7 +117,6 @@ export default function ReservationView() {
         }else{
             alert('마지막 페이지입니다.');
         }
-
     }
 
 
@@ -228,6 +230,7 @@ export default function ReservationView() {
                             onChange={e => setR_status(e.target.value)}
                         >
                             <MenuItem value=''>모두 보기</MenuItem>
+                            <MenuItem value='0'>승인 대기 중</MenuItem>
                             <MenuItem value='1'>승인</MenuItem>
                             <MenuItem value='2'>거절</MenuItem>
                             <MenuItem value='4'>노쇼</MenuItem>
