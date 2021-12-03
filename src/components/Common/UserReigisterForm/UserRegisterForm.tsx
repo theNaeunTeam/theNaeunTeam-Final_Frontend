@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import TextField from '@mui/material/TextField'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -9,6 +9,11 @@ import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
+import {userFormType} from "../../../modules/types";
+import {formValidate} from "./formValidate";
+
+const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
 export default function UserRegisterForm() {
 
@@ -26,16 +31,20 @@ export default function UserRegisterForm() {
     const formErrorinit = {
         u_id: false,
         u_pw: false,
-        pwConfirm: false,
         u_cellPhone: false,
+        pwConfirm: false,
         u_email: false,
         emailConfirm: false,
         u_gender: false,
         u_age: false,
     }
 
-    const [regForm, setRegForm] = useState<{[key: string]: string}>(initValue);
-    const [formError, setFormError] = useState(formErrorinit);
+    const [regForm, setRegForm] = useState<{ [key: string]: string }>(initValue);
+    const [formError, setFormError] = useState<userFormType>(formErrorinit);
+
+    useEffect(() => {
+        formValidate(regForm, formError, setFormError);
+    }, [regForm])
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
         const tagName = (e.target as HTMLFormElement).name;
@@ -44,18 +53,18 @@ export default function UserRegisterForm() {
             return false;
         }
         setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value});
-        formValidate(tagName);
+        // formValidate(tagName);
     }
 
-    const formValidate = (tagName: string) => {
-        if (regForm[tagName].length < 5) {
-            setFormError({...formError, [tagName]: true});
-            return false;
-        } else {
-            setFormError({...formError, [tagName]: false});
-            // 서버로 아이디를 보내는 코드
-        }
-    };
+    // const formValidate = (tagName: string) => {
+    //     if (regForm[tagName].length < 5) {
+    //         setFormError({...formError, [tagName]: true});
+    //         return false;
+    //     } else {
+    //         setFormError({...formError, [tagName]: false});
+    //         // 서버로 아이디를 보내는 코드
+    //     }
+    // };
 
 
     const submitForm = async () => {
@@ -139,7 +148,7 @@ export default function UserRegisterForm() {
                 />
 
                 <div style={{width: '100%', marginBottom: '10px', display: 'flex', justifyContent: 'center'}}>
-                    <span style={{marginLeft:'20px', marginRight:'20px'}}>
+                    <span style={{marginLeft: '20px', marginRight: '20px'}}>
                     <InputLabel id="demo-simple-select-label">나이</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -159,9 +168,9 @@ export default function UserRegisterForm() {
                         <MenuItem value={'60'}>60대</MenuItem>
                     </Select>
                         </span>
-                    <span style={{marginLeft:'20px', marginRight:'20px'}}>
+                    <span style={{marginLeft: '20px', marginRight: '20px'}}>
                     <FormLabel component="legend">성별</FormLabel>
-                    <RadioGroup row aria-label="gender" name={'u_gender'}>
+                    <RadioGroup row aria-label="gender" name={'u_gender'} defaultValue={'남성'}>
                         <FormControlLabel id={'u_gender'} value="남성" control={<Radio/>} defaultChecked={true}
                                           label="남성"/>
                         <FormControlLabel id={'u_gender'} value="여성" control={<Radio/>} label="여성"/>

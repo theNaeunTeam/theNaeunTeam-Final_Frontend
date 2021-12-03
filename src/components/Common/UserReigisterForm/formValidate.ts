@@ -1,25 +1,32 @@
-import {ownerFormErrorType, ownerRegisterFormType} from "../modules/types";
 import React from "react";
+import {userFormType} from "../../../modules/types";
 
-export const formValidate = (form: ownerRegisterFormType,
-                             error: ownerFormErrorType,
-                             setError: React.Dispatch<React.SetStateAction<ownerFormErrorType>>): boolean => {
+const formErrorinit = {
+    u_id: false,
+    u_cellPhone: false,
+    u_pw: false,
+    pwConfirm: false,
+    u_email: false,
+    emailConfirm: false,
+    u_gender: false,
+    u_age: false,
+}
 
-    if (!form.o_sNumber) {
-        setError({...error, o_sNumber: true});
-        alert('사업자등록번호를 입력해주세요.');
+const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+export const formValidate = (form: { [key: string]: string },
+                             error: { [key: string]: boolean },
+                             setError: React.Dispatch<React.SetStateAction<userFormType>>): boolean => {
+
+    if (form.u_id.length < 5) {
+        setError({...error, u_id: true});
         return false;
     }
-    if (form.o_sNumber.length !== 10) {
-        setError({...error, o_sNumber: true});
-        alert('10글자가 아닙니다.');
-        return false;
-    }
-    setError({...error, o_sNumber: false});
+    setError({...error, u_id: false});
 
-    if (!form.o_name) {
-        setError({...error, o_name: true});
-        alert('가게이름을 입력해주세요');
+    if (!regPhone.test(form.u_cellPhone)) {
+        setError({...error, u_cellPhone: true});
         return false;
     }
     setError({...error, o_name: false});
