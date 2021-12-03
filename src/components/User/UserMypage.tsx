@@ -42,12 +42,13 @@ export default function UserMypage() {
     const {showLoginModal} = useSelector((state: RootState) => state);
     const history = useHistory();
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
 
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) {
             alert('로그인 후 이용가능합니다.');
+            history.push('/');
             dispatch({type: true});
         }
     }, []);

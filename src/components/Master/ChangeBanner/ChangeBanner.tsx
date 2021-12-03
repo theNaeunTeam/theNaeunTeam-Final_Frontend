@@ -71,7 +71,7 @@ export default function ChangeBanner() {
             })
             .catch(err => {
                 console.log(err);
-                alert('이미지 등록 실패');
+                alert('이미지 등록 실패하는데 실패하였습니다.');
             })
     }
 
@@ -90,11 +90,11 @@ export default function ChangeBanner() {
 
         client.put('/master/bannerContents', arr)
             .then(res => {
-                alert('배너 업데이트 성공')
+                alert('배너 업데이트 성공하였습니다.')
                 history.push('/');
             })
             .catch(err => {
-                alert('배너 업데이트 실패');
+                alert('배너 업데이트 실패하였습니다.');
                 console.log(err);
             })
     }

@@ -85,34 +85,18 @@ export default function ApprovalCompletion() {
             }, [])
 
             setRows(message);
-            setLoading(false);
-        } catch (e) {
-            console.log(e);
-        }
-    };
 
-    const updateDB = async (input: string) => {
-
-        if (selected.length === 0) alert('가게선택이 되지않았습니다');
-
-        const URL = '/master/requestOK';
-
-        const data =
-            {
-                checkStatus: input, // OK or NO
-                selectedRow: selected, // 선택한 가게
+        } catch (e:any) {
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            } else {
+                alert('데이터를 가져오는 중 에러가 발생했습니다.\n잠시후 다시 시도 바랍니다.');
             }
-
-        try {
-            const res = await client.patch(URL, data);
-            console.log(res);
-            ownerTableInit();
-            alert('데이터 갱신 완료');
-        } catch (e) {
             console.log(e);
-            alert('데이터 갱신 실패');
         }
+        setLoading(false);
     };
+
 
     const columns: GridColDef[] = [
         {field: 'o_approval', headerName: '상태', width: 130},
@@ -162,9 +146,6 @@ export default function ApprovalCompletion() {
                     />
                 }
             </div>
-            <Button variant="contained" color="error" onClick={() => updateDB('no')}>
-                반려
-            </Button>
         </>
     )
 }

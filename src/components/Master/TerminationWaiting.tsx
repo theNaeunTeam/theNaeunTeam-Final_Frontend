@@ -85,10 +85,16 @@ export default function TerminationWaiting() {
             }, [])
 
             setRows(message);
-            setLoading(false);
-        } catch (e) {
+
+        } catch (e:any) {
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            } else {
+                alert('데이터를 가져오는 중 에러가 발생했습니다.\n잠시후 다시 시도 바랍니다.');
+            }
             console.log(e);
         }
+        setLoading(false);
     };
 
     const updateDB = async (input: string) => {
@@ -107,11 +113,19 @@ export default function TerminationWaiting() {
             const res = await client.patch(URL, data);
             console.log(res);
             ownerTableInit();
-            alert('데이터 갱신 완료');
-        } catch (e) {
+            alert('선택된 가맹점 신청 승인 완료 되었습니다.');
+        } catch (e: any) {
             console.log(e);
-            alert('데이터 갱신 실패');
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            } else if (e.response.status === 400) {
+                alert(e.response.data.error);
+            } else {
+                alert('예상치 못한 에러로 인해 작업이 취소되었습니다.\n잠시후 다시 시도해주세요');
+            }
         }
+        setLoading(false);
+
     };
 
     const columns: GridColDef[] = [
@@ -131,6 +145,11 @@ export default function TerminationWaiting() {
     return (
         <>
             <h3 className='mainH3'>해지승인대기</h3>
+            <div className='MasterMainBtn'>
+                <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
+                    승인
+                </Button>
+            </div>
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
                 {loading ?
                     <Box sx={{width: 1500}}>
@@ -161,9 +180,7 @@ export default function TerminationWaiting() {
                     />
                 }
             </div>
-            <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
-                승인
-            </Button>
+
 
         </>
     );
