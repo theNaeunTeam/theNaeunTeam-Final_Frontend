@@ -24,19 +24,6 @@ export default function OwnerRegisterForm() {
         o_longitude: '',
     };
 
-    const errorInit = {
-        o_sNumber: false,
-        o_pw: false,
-        pwConfirm: false,
-        o_phone: false,
-        o_name: false,
-        o_cellPhone: false,
-        o_address: false,
-        o_time1: false,
-        o_time2: false,
-        o_image: false,
-    };
-
     const o_nameRef = useRef(null);
     const o_addressRef = useRef(null);
     const fileDiv = useRef(null);
@@ -44,6 +31,7 @@ export default function OwnerRegisterForm() {
     const [regForm, setRegForm] = useState<ownerRegisterFormType>(initValue);
 
     const fileInputTag = useRef<HTMLInputElement>(null);
+
     const [address, setAddress] = useState(''); // 주소
     const [addressDetail, setAddressDetail] = useState(''); // 상세주소
     const [isOpenPost, setIsOpenPost] = useState(false);
@@ -101,7 +89,7 @@ export default function OwnerRegisterForm() {
         formVal();
     }, [regForm]);
 
-    const formVal = () => {
+    const formVal = () : boolean => {
         if (regForm.o_sNumber.length < 10 || regForm.o_sNumber.length > 10) {
             seto_sNumber(true);
             return false;

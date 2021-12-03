@@ -225,3 +225,7 @@ export type conType = {
 export interface ownerFormErrorType {
     [index: string]: boolean;
 }
+
+export interface userFormType {
+    [key: string]: boolean
+}
