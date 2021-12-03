@@ -21,6 +21,7 @@ import {RootState} from "../../../index";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop"; // Autoplay module
 
+
 const DivContainer = styled.div`
   clear: both;
   margin: 20px;
@@ -166,6 +167,7 @@ export default function UserMain() {
         )
     }
 
+
     return (
         <DivContainer>
             <Backdrop
@@ -221,3 +223,4 @@ export default function UserMain() {
         </DivContainer>
     )
 }
+

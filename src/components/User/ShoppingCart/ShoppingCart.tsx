@@ -35,6 +35,7 @@ export default function ShoppingCart() {
     const dispatch = useDispatch();
 
     type cookieType = { g_count: string, g_code: string, id: string };
+
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) history.replace('/err');
     }, []);

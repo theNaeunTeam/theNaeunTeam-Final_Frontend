@@ -126,7 +126,10 @@ export default function MasterOwnerDash() {
             <div className='qqq'>
                 <h2 style={{background:'#E7ECFF',
                             borderRadius:'40px 10px',
-                            padding:'15px'
+                            padding:'15px',
+                            width:'50%',
+                            color:'black',
+                            fontSize:'30px',
                 }}>오너 가입/탈퇴 통계</h2>
             </div>
             <div className="flex-container0">
@@ -164,6 +167,16 @@ export default function MasterOwnerDash() {
                         }}
                              options={
                                  {
+                                     plugins: {
+                                         legend: {
+                                             labels: {
+                                                 // This more specific font property overrides the global property
+                                                 font: {
+                                                     size: 18
+                                                 }
+                                             }
+                                         }
+                                     },
                                      scales: {
                                          yAxes: {
                                              ticks: {
@@ -218,6 +231,16 @@ export default function MasterOwnerDash() {
                         }}
                              options={
                                  {
+                                     plugins: {
+                                         legend: {
+                                             labels: {
+                                                 // This more specific font property overrides the global property
+                                                 font: {
+                                                     size: 18
+                                                 }
+                                             }
+                                         }
+                                     },
                                      scales: {
                                          yAxes: {
                                              ticks: {
@@ -227,7 +250,7 @@ export default function MasterOwnerDash() {
 
                                              }
                                          }
-                                     }
+                                     },
                                  }
 
                              }/>

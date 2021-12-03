@@ -53,13 +53,14 @@ export default function ShopListBuilder({data, idx}: listType) {
                                 <span className='shopListItems'>
                 <Map
                     center={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}
-                    style={{width: '100%', height: '100%', borderRadius:'15px', border:'6px solid #d2e5bf'}}
+                    style={{width: '100%', height: '100%', borderRadius:'10px'}}
                 >
                     <MapMarker position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
                     </MapMarker>
                 </Map>
                 </span>
-                <span className='shopListItems'>
+
+                <span className='shopListItems2' >
 
                 <img style={{width: '100px', height: '100px'}} src={data.o_image} alt={'가게대표이미지'}/><br/>
                     <strong>{data.o_name}<br/></strong>
