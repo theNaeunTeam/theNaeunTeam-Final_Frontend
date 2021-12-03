@@ -19,6 +19,17 @@ export const formValidate = (form: { [key: string]: string },
                              error: { [key: string]: boolean },
                              setError: React.Dispatch<React.SetStateAction<userFormType>>): boolean => {
 
+    const initValue = {
+        u_id: '',
+        u_pw: '',
+        pwConfirm: '',
+        u_cellPhone: '',
+        u_email: '',
+        emailConfirm: '',
+        u_gender: '남성',
+        u_age: '20',
+    };
+
     if (form.u_id.length < 5) {
         setError({...error, u_id: true});
         return false;
