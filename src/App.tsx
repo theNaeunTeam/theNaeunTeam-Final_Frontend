@@ -17,7 +17,6 @@ import GoodsView from "./components/Owner/GoodsView";
 import ReservationView from "./components/Owner/ReservationView";
 import Unsubscribe from "./components/Owner/Unsubscribe";
 import {client} from "./lib/api/client";
-import UserNavbar from "./components/User/UserNavbar";
 import ShoppingCart from "./components/User/ShoppingCart/ShoppingCart";
 import PageNotFound from "./components/Common/PageNotFound";
 import UserMypage from "./components/User/UserMypage";
@@ -87,6 +86,16 @@ function App() {
             }).catch(() => {
                 localStorage.clear();
             })
+        }
+        if (localStorage.getItem('lat') && localStorage.getItem('lon')) {
+            dispatch(
+                {
+                    type: 'getLocaled',
+                    payload: {
+                        lat: localStorage.getItem('lat'),
+                        lon: localStorage.getItem('lon')
+                    }
+                })
         }
     };
 

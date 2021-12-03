@@ -110,7 +110,7 @@ export default function ShopView() {
         o_time1: "",
         o_time2: '',
         o_image: "",
-    }
+    };
 
     const favorInit = {
         f_o_sNumber: '',
@@ -568,7 +568,6 @@ export default function ShopView() {
     return (
         <>
             <DivTitle>
-
                 {
                     favorites
                         //    즐겨찾기 해제
