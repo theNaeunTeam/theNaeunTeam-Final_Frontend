@@ -50,11 +50,11 @@ const DivContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  width: 100%;
+  //width: 100%;
   //border: solid red;
   margin-top: 50px;
-  //margin-left: 200px;
-  //margin-right: 200px;
+  margin-left: 200px;
+  margin-right: 200px;
   margin-bottom: 10px;
 `;
 

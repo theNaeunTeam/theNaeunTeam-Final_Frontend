@@ -17,7 +17,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 300px;
+    height: 350px;
     width: 100%;
     margin: 10px;
     border:7px solid #D3D6CD;
@@ -29,7 +29,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 300px;
+    height: 350px;
     width: 65%;
     margin: 10px 100px;
     border:6px solid #D3D6CD;
@@ -49,8 +49,8 @@
 @media screen and (min-width: 768px) {
   .doughnut {
     display: block;
-    width: 80%;
-    height: 80%;
+    width: 50%;
+    height: 50%;
   }
   .noDoughnut {
     display: none;

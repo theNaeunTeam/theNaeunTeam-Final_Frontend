@@ -90,7 +90,7 @@ export default function LoginForm() {
                     alert(`아이디 및 비밀번호를 확인해주세요`);
                 }
             } catch (e:any) {
-                // const err = e.response;
+                const err = e.response;
                 console.log(e);
                 // console.log(err.data.error);
                 alert(err.data.error);
