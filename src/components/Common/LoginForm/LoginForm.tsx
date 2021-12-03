@@ -60,7 +60,6 @@ export default function LoginForm(props: any) {
                     localStorage.setItem('ownerToken', res.headers["x-auth-token"]);
                     localStorage.setItem('o_sNumber', loginForm.u_id);
                     dispatch({type: 'ownerMode', payload: loginForm.u_id});
-                    alert('가게 로그인 성공');
                     history.push('/owner');
                     props.setShowLoginForm(false);
                 } else {
@@ -195,12 +194,17 @@ export default function LoginForm(props: any) {
                                                        <VpnKeyIcon/>
                                                    </InputAdornment>
                                                ),
-                                           }}/>
+                                           }}
+                                           onKeyPress={e => {
+                                               if (e.key === 'Enter') login();
+                                           }
+                                           }/>
                             </Box>
                         </div>
                         <br/>
                         <button className={styles.fadeIn + " " + styles.fourth + " " + styles.loginBtn}
-                                onClick={login}>로그인
+                                onClick={login}
+                        >로그인
                         </button>
                     </form>
                     <br/><br/>

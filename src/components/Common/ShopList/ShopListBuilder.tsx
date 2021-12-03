@@ -7,8 +7,6 @@ import {useHistory} from "react-router-dom";
 import {Doughnut} from 'react-chartjs-2';
 import Skeleton from '@mui/material/Skeleton';
 import {Button, Paper} from "@mui/material";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-
 interface listType {
     data: shopList;
     idx: number;
