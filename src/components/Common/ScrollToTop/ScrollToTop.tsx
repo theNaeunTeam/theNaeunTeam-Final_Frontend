@@ -12,7 +12,7 @@ export default function ScrollToTop() {
             // 500 이상이면 버튼이 보이게
             setBtnStatus(true);
         } else {
-            // 100 이하면 버튼이 사라지게
+            // 500 이하면 버튼이 사라지게
             setBtnStatus(false);
         }
     }
