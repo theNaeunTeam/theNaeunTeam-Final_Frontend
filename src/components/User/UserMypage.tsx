@@ -1,6 +1,6 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import styled from 'styled-components'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
@@ -31,12 +31,15 @@ const DivMain = styled.div`
   padding: 20px;
 `;
 export default function UserMypage() {
-    const {authReducer} = useSelector((state: RootState) => state);
+
+    const {showLoginModal} = useSelector((state: RootState) => state);
     const history = useHistory();
+    const dispatch = useDispatch();
+
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')){
             alert('로그인 후 이용가능합니다.');
-            history.replace('/login');
+            dispatch({type: true});
         }
     }, []);
 
