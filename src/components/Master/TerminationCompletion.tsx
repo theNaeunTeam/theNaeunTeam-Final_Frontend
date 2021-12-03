@@ -97,7 +97,36 @@ export default function TerminationCompletion() {
         setLoading(false);
     };
 
+    const updateDB = async (input: string) => {
 
+        if (selected.length === 0) alert('가게선택이 되지않았습니다');
+
+        const URL = '/master/terminationcancle';
+
+        const data =
+            {
+                checkStatus: input,
+                selectedRow: selected,
+            }
+
+        try {
+            const res = await client.patch(URL, data);
+            console.log(res);
+            ownerTableInit();
+            alert('선택된 가맹점 해지 취소 완료 되었습니다.');
+        } catch (e: any) {
+            console.log(e);
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            } else if (e.response.status === 400) {
+                alert(e.response.data.error);
+            } else {
+                alert('예상치 못한 에러로 인해 작업이 취소되었습니다.\n잠시후 다시 시도해주세요');
+            }
+        }
+        setLoading(false);
+
+    };
     const columns: GridColDef[] = [
         {field: 'o_approval', headerName: '상태', width: 130},
         {field: 'o_sNumber', headerName: 'SN', width: 150},
@@ -116,7 +145,9 @@ export default function TerminationCompletion() {
     return (
         <>
             <h3 className='mainH3'>해지신청 완료 </h3>
-
+            <button  className='masterBtn' onClick={() => updateDB('ok')}>
+                승인 취소
+            </button>
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
                 {
                     <DataGrid
