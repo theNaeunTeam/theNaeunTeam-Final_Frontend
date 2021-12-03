@@ -66,10 +66,9 @@ export default function LoginForm(props: any) {
                 } else {
                     alert('사업자번호 및 비밀번호를 확인해 주세요');
                 }
-            } catch (e) {
-                // @ts-ignore
-                const err = e.response;
-                alert(err.data.error);
+            } catch (e:any) {
+                // const err = e.response;
+                // alert(err.data.error);
                 props.setShowLoginForm(false);
             }
         } else {
@@ -82,16 +81,18 @@ export default function LoginForm(props: any) {
                     localStorage.setItem('u_id', loginForm.u_id);
                     dispatch({type: 'userMode', payload: loginForm.u_id});
                     props.setShowLoginForm(false);
-                    history.push('/');
+                    history.goBack();
                 } else {
                     alert(`아이디 및 비밀번호를 확인해주세요`);
                 }
-            } catch (e) {
-                // @ts-ignore
-                const err = e.response;
+            } catch (e:any) {
+                // const err = e.response;
                 console.log(e);
                 // console.log(err.data.error);
-                alert(err.data.error);
+                // if(e.response.data.status === 400){
+                //     alert(e.response.data.error);
+                // }
+
                 props.setShowLoginForm(false);
             }
         }
@@ -113,10 +114,9 @@ export default function LoginForm(props: any) {
             if (res) {
                 alert("이메일로 비밀전호 재설정 메일을 보내드렸습니다.");
             }
-        } catch (e) {
-            //@ts-ignore
-            const err = e.response
-            alert(err.data.error);
+        } catch (e:any) {
+            // const err = e.response
+            // alert(err.data.error);
         } finally {
             setOpen(false);
             props.setShowLoginForm(false);

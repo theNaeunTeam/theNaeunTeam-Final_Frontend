@@ -17,7 +17,9 @@ import 'swiper/modules/pagination/pagination.scss'; // Pagination module
 import 'swiper/modules/scrollbar/scrollbar.scss'; // ScrollBar module
 import 'swiper/modules/autoplay/autoplay.scss';
 import {useSelector} from "react-redux";
-import {RootState} from "../../../index"; // Autoplay module
+import {RootState} from "../../../index";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop"; // Autoplay module
 
 const DivContainer = styled.div`
   clear: both;
@@ -80,6 +82,7 @@ export default function UserMain() {
             .then(res => {
                 console.log(res.data);
                 setRecommends(res.data);
+                setLoading(false);
             })
             .catch(err => {
                 console.log(err);
@@ -92,7 +95,7 @@ export default function UserMain() {
                     console.log(res.data);
                     setShopList(res.data);
                     console.log(shopList);
-
+                    setLoading(false);
                 })
                 .catch(err => {
                     console.log(err);
@@ -165,6 +168,12 @@ export default function UserMain() {
 
     return (
         <DivContainer>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             <DivCarouselContainer>
                 {loading || <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}

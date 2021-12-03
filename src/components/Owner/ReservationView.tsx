@@ -13,6 +13,7 @@ import {useHistory} from "react-router-dom";
 import {reservationViewType} from "../../modules/types";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import {AxiosError} from "axios";
 
 
 const DivContainer = styled.div`
@@ -65,6 +66,7 @@ export default function ReservationView() {
     // };
     const searchGoods = async () => {
         const URL = '/owner/searchReserve';
+        setLoading(true);
         if(g_category != '' || r_status != '' || searchInput != ''){
             setStartIndex(0);
         }
@@ -73,9 +75,14 @@ export default function ReservationView() {
             console.log(res);
             setList(res.data);
             setLoading(false);
-        } catch (e) {
-            alert('검색실패');
-            console.log(e);
+        } catch (e : any) {
+            if(e.response.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else{
+                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            }
+
         }
 
     }
@@ -93,13 +100,21 @@ export default function ReservationView() {
             const res = await client.patch(URL, data);
 
             console.log(res);
-
+            alert(list[idx].selectedStatus);
             // initialize();
             searchGoods();
 
-        } catch (e) {
-            console.log(e);
-            alert('상품상태변경 실패');
+        } catch (e:any) {
+            console.log(e.response.status)
+            console.log(e.response);
+
+            if(e.response.status === 500){
+                alert("서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.")
+            }else if(e.response.status === 400){
+                alert(e.response.data.error);
+            }else{
+                alert('예상치 못한 에러로 인해 상태 변경 실패하였습니다. 잠시 후 다시 시도 바랍니다.')
+            }
         }
 
     };

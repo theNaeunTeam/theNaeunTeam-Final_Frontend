@@ -72,6 +72,7 @@ export default function GoodsView() {
     // };
     const searchGoods = async () => {
         const URL = '/owner/search';
+        setLoading(true);
         console.log(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
         if(g_category != '' || g_status != '' || searchInput != ''){
             setStartIndex(0);
@@ -82,9 +83,14 @@ export default function GoodsView() {
 
             setList(res.data);
             setLoading(false);
-        } catch (e) {
-            alert('검색실패');
+        } catch (e:any) {
             console.log(e);
+            if(e.response.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+            }else{
+                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            }
+
         }
 
     };
@@ -109,7 +115,14 @@ export default function GoodsView() {
                 // @ts-ignore
                 const err = e.response;
                 console.log(e);
-                alert(err.data.error);
+                if(err.status === 500){
+                    alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                }else if(err.status === 400){
+                    alert(err.data.error);
+                }else{
+                    alert('예상치 못한 에러로 인해 상품 판매중지 실패하였습니다.');
+                }
+
             })
     };
 
