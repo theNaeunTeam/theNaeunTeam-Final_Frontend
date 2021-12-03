@@ -1,9 +1,11 @@
 import OwnerNavbar from "./OwnerNavbar";
 import styled from "styled-components";
-import {useEffect, useLayoutEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {conType} from "../../modules/types";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 const DivContainer = styled.div`
   //border: solid black;
@@ -46,12 +48,16 @@ export default function OwnerDashS() {
     const [noShow, setNoShow] = useState<conType>(value);
     const [cancel, setCancel] = useState<conType>(value);
     const [over, setOver] = useState<conType>(value);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        initialize();
+        if (localStorage.getItem('ownerToken')) {
+            initialize();
+        }
     }, []);
 
     const initialize = async () => {
+
         const URL = '/owner/getOwnerBoard';
 
         try {
@@ -62,20 +68,27 @@ export default function OwnerDashS() {
             setCancel(res.data.b);
             setOver(res.data.c);
 
-        } catch (e:any) {
+        } catch (e: any) {
             console.log(e);
-            if(e.response.data.status === 500){
-                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+            if (e.response.data.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
 
-            }else{
-                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            } else {
+                alert('데이터를 가져오는 중 문제가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
             }
 
         }
+        setLoading(false)
     }
 
     return (
         <DivContainer>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             <h1>기타</h1>
             <DivContent>
                 <LineDiv>

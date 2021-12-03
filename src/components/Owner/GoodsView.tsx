@@ -54,7 +54,9 @@ export default function GoodsView() {
     const [loading, setLoading] = useState(true);
     const [startIndex, setStartIndex] = useState(0);
     useEffect(() => {
-        searchGoods();
+        if (localStorage.getItem('ownerToken')) {
+            searchGoods();
+        }
     }, [startIndex]);
 
     // const initialize = async () => {
@@ -74,7 +76,7 @@ export default function GoodsView() {
         const URL = '/owner/search';
         setLoading(true);
         console.log(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
-        if(g_category != '' || g_status != '' || searchInput != ''){
+        if (g_category != '' || g_status != '' || searchInput != '') {
             setStartIndex(0);
         }
         try {
@@ -82,16 +84,17 @@ export default function GoodsView() {
             console.log(res);
 
             setList(res.data);
-            setLoading(false);
-        } catch (e:any) {
+
+        } catch (e: any) {
             console.log(e);
-            if(e.response.data.status === 500){
-                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
-            }else{
-                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            if (e.response.data.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
+            } else {
+                alert('데이터를 가져오는 중 문제가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
             }
 
         }
+        setLoading(false);
 
     };
     const modifyGoods = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -115,11 +118,11 @@ export default function GoodsView() {
                 // @ts-ignore
                 const err = e.response;
                 console.log(e);
-                if(err.status === 500){
-                    alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
-                }else if(err.status === 400){
+                if (err.status === 500) {
+                    alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도해주세요.');
+                } else if (err.status === 400) {
                     alert(err.data.error);
-                }else{
+                } else {
                     alert('예상치 못한 에러로 인해 상품 판매중지 실패하였습니다.');
                 }
 
@@ -138,7 +141,7 @@ export default function GoodsView() {
         console.log(startIndex);
         if (list.length === 10) {
             setStartIndex(startIndex + 10);
-        }else{
+        } else {
             alert('마지막 페이지입니다.');
         }
     }
@@ -197,7 +200,7 @@ export default function GoodsView() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
             <DivContainer>
-                <h1 style={{marginBottom:'50px'}}>상품조회</h1>
+                <h1 style={{marginBottom: '50px'}}>상품조회</h1>
                 <div>
                     <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
                         <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
@@ -258,7 +261,8 @@ export default function GoodsView() {
 
                     </thead>
                     <tbody>
-                    {list.length === 0 ? <div className='centerDiv'><span className='centerSpan'>등록된 상품이 없습니다.</span></div>
+                    {list.length === 0 ?
+                        <div className='centerDiv'><span className='centerSpan'>등록된 상품이 없습니다.</span></div>
                         : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                     </tbody>
                 </table>

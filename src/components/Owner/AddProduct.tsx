@@ -18,6 +18,8 @@ import {useHistory} from "react-router-dom";
 import {addProductType} from "../../modules/types";
 import styled from "styled-components";
 import OwnerNavbar from "./OwnerNavbar";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 
 // 등록알림창
@@ -29,7 +31,6 @@ const Transition = React.forwardRef(function Transition(
 ) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 
 const DivContainer = styled.div`
@@ -79,7 +80,7 @@ export default function AddProduct() {
 
     const [productForm, setProduct] = useState<addProductType>(initValue);
     const [formError, setFormError] = useState(formErrorinit);
-
+    const [loading, setLoading] = useState(false);
     const fileInputTag = useRef<HTMLInputElement>(null);
 
 
@@ -104,6 +105,7 @@ export default function AddProduct() {
 
 
     const submitForm = async () => {
+        setLoading(true)
         const URL = '/owner/addGoods'
         const formData = new FormData();
 
@@ -128,24 +130,27 @@ export default function AddProduct() {
             const res = await client.post(URL, formData);
 
             const result = '';
-            if(actionType ==='new'){
+            if (actionType === 'new') {
                 alert("상품 등록 되었습니다.");
-            }else{
+            } else {
                 alert("상품 수정 되었습니다.");
             }
             dispatch({type: 'modifyOK'});
             setProduct(initValue);
             console.log(res);
-        } catch (e:any) {
+        } catch (e: any) {
             const err = e.response;
-            if(err.data.status === 500){
-                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+            if (err.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
 
-            }else{
+            } else if (err.status === 400) {
                 alert(err.data.error);
+            } else {
+                alert('예상치 못한 에러로 인해 작업 실패하였습니다.\n잠시 후 다시 시도 바랍니다.');
             }
             console.log(e);
         }
+        setLoading(false);
     };
 
     // 아이디값을 가져와서 state 값을 업데이트 해준다
@@ -159,110 +164,115 @@ export default function AddProduct() {
 
     return (
         <DivContainer>
-                <h1 style={{marginBottom:'50px'}}>상품등록</h1>
+            <h1 style={{marginBottom: '50px'}}>상품등록</h1>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
+            <Stack
+                onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': {m: 3, width: '50ch'},
+                }}
+                noValidate
+                autoComplete="off"
+                alignItems="center"
+            >
 
-                <Stack
-                    onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}
-                    component="form"
-                    sx={{
-                        '& .MuiTextField-root': {m: 3, width: '50ch'},
+                <TextField
+                    error={formError.g_name}
+                    required
+                    id="outlined-required"
+                    label="상품 이름"
+                    name={'g_name'}
+                    value={productForm.g_name}
+                />
+                <TextField
+                    error={formError.g_count}
+                    type='number'
+                    required
+                    id="outlined-required"
+                    label="상품 수량"
+                    name={'g_count'}
+                    InputLabelProps={{
+                        shrink: true,
                     }}
-                    noValidate
-                    autoComplete="off"
-                    alignItems="center"
+                    value={productForm.g_count}
+                />
+
+                <label>상품 이미지파일</label><p/>
+                <input type={'file'} ref={fileInputTag}/>
+                <select name={'g_category'} value={productForm.g_category}>
+                    <option value={""}>상품분류 선택</option>
+                    <option value={"마실것"}>마실것</option>
+                    <option value={"신선식품"}>신선식품</option>
+                    <option value={"가공식품"}>가공식품</option>
+                    <option value={'냉동식품'}>냉동식품</option>
+                    <option value={'조리/반조리'}>조리/반조리</option>
+                    <option value={'식품외 기타'}>식품외 기타</option>
+                </select>
+                <TextField
+                    error={formError.g_price}
+                    required
+                    id="outlined-required"
+                    label="상품정가"
+                    name={'g_price'}
+                    value={productForm.g_price}
+                />
+                <TextField
+                    error={formError.g_discount}
+                    required
+                    id="outlined-required"
+                    label="할인가"
+                    name={'g_discount'}
+                    value={productForm.g_discount}
+                />
+                <TextField
+                    error={formError.g_expireDate}
+                    required
+                    id="outlined-required"
+                    label="유통기한"
+                    name={'g_expireDate'}
+                    value={productForm.g_expireDate}
+                />
+                <TextField
+                    error={formError.g_detail}
+                    required
+                    id="outlined-required"
+                    label="상세설명"
+                    name={'g_detail'}
+                    value={productForm.g_detail}
+                />
+                {goodsReducer.isModify ?
+                    <Button onClick={handleClickOpen} variant="outlined">
+                        상품 수정 하기
+                    </Button>
+                    :
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                        상품 등록하기
+                    </Button>}
+                <Dialog
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description"
                 >
-
-                    <TextField
-                        error={formError.g_name}
-                        required
-                        id="outlined-required"
-                        label="상품 이름"
-                        name={'g_name'}
-                        value={productForm.g_name}
-                    />
-                    <TextField
-                        error={formError.g_count}
-                        type='number'
-                        required
-                        id="outlined-required"
-                        label="상품 수량"
-                        name={'g_count'}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        value={productForm.g_count}
-                    />
-
-                    <label>상품 이미지파일</label><p/>
-                    <input type={'file'} ref={fileInputTag}/>
-                    <select name={'g_category'} value={productForm.g_category}>
-                        <option value={""}>상품분류 선택</option>
-                        <option value={"마실것"}>마실것</option>
-                        <option value={"신선식품"}>신선식품</option>
-                        <option value={"가공식품"}>가공식품</option>
-                        <option value={'냉동식품'}>냉동식품</option>
-                        <option value={'조리/반조리'}>조리/반조리</option>
-                        <option value={'식품외 기타'}>식품외 기타</option>
-                    </select>
-                    <TextField
-                        error={formError.g_price}
-                        required
-                        id="outlined-required"
-                        label="상품정가"
-                        name={'g_price'}
-                        value={productForm.g_price}
-                    />
-                    <TextField
-                        error={formError.g_discount}
-                        required
-                        id="outlined-required"
-                        label="할인가"
-                        name={'g_discount'}
-                        value={productForm.g_discount}
-                    />
-                    <TextField
-                        error={formError.g_expireDate}
-                        required
-                        id="outlined-required"
-                        label="유통기한"
-                        name={'g_expireDate'}
-                        value={productForm.g_expireDate}
-                    />
-                    <TextField
-                        error={formError.g_detail}
-                        required
-                        id="outlined-required"
-                        label="상세설명"
-                        name={'g_detail'}
-                        value={productForm.g_detail}
-                    />
-                    {goodsReducer.isModify ?
-                        <Button onClick={handleClickOpen} variant="outlined">
-                            상품 수정 하기
-                        </Button>
-                        :
-                        <Button variant="outlined" onClick={handleClickOpen}>
-                            상품 등록하기
-                        </Button>}
-                    <Dialog
-                        open={open}
-                        TransitionComponent={Transition}
-                        keepMounted
-                        onClose={handleClose}
-                        aria-describedby="alert-dialog-slide-description"
-                    >
-                        <DialogTitle>{"다시 한 번 확인해 주세요 "}</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-slide-description">
-                                상품을 등록 하시겠습니까?
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose}>아니요</Button>
-                            <Button onClick={handleClickOpen}>예</Button>
-                        </DialogActions>
-                    </Dialog>
-                </Stack>
+                    <DialogTitle>{"다시 한 번 확인해 주세요 "}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            상품을 등록 하시겠습니까?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>아니요</Button>
+                        <Button onClick={handleClickOpen}>예</Button>
+                    </DialogActions>
+                </Dialog>
+            </Stack>
 
         </DivContainer>
     )

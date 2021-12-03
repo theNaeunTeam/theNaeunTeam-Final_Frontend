@@ -78,7 +78,9 @@ export default function UserReserve() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        searchReserve();
+        if (localStorage.getItem('userToken')) {
+            searchReserve();
+        }
     }, [startIndex]);
 
     // const initialize = async () => {
@@ -93,6 +95,7 @@ export default function UserReserve() {
     // }
 
     const changeReserveStatus = async (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        setLoading(true);
         const data: { r_code: number } = {
             r_code: Number((input.target as HTMLButtonElement).name)
         };
@@ -103,11 +106,19 @@ export default function UserReserve() {
             const res = await client.patch(URL, data);
             console.log(res);
             searchReserve();
-            alert('예약 취소 완료');
-        } catch (e) {
+            alert('예약 취소 완료되었습니다.');
+        } catch (e: any) {
             console.log(e);
-            alert('예약 취소 실패');
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+
+            } else if (e.response.status === 400) {
+                alert(e.response.data.error)
+            } else {
+                alert('데이터를 변경하는데 실패하였습니다. 잠시 후 다시 시도 바랍니다.')
+            }
         }
+        setLoading(false);
     }
     const searchReserve = async () => {
         setLoading(true);
@@ -117,13 +128,15 @@ export default function UserReserve() {
         }
         try {
             const res = await client.get(`${URL}?g_category=${g_category}&r_status=${r_status}&searchInput=${searchInput}&startIndex=${startIndex}`);
-            console.log(res);
             setList(res.data);
-            setLoading(false);
-        } catch (e) {
-            alert('검색 실패');
-            console.log(e);
+        } catch (e: any) {
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
+            } else {
+                alert('데이터를 불러오는데 실패하였습니다. \n잠시 후 다시 시도 바랍니다.')
+            }
         }
+        setLoading(false);
 
     }
 

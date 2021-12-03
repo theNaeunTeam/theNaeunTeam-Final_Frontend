@@ -13,7 +13,9 @@ import {masterMainType2} from "../../modules/types";
 import Skeleton from '@mui/material/Skeleton';
 import '../../styles/masterOwnerDash.scss';
 import '../../styles/MasterLoginForm.scss';
-import { FaUserSecret } from "react-icons/fa";
+import {FaUserSecret} from "react-icons/fa";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 export default function MasterMain() {
 
@@ -36,7 +38,7 @@ export default function MasterMain() {
     const [rows, setRows] = useState<masterMainType2[]>(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''}); // 마스터 로그인 폼 핸들러
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
@@ -46,7 +48,7 @@ export default function MasterMain() {
     }, []);
 
     const login = async () => {
-
+        setLoading(true);
         const URL = '/common/masterlogin';
 
         try {
@@ -69,11 +71,11 @@ export default function MasterMain() {
             const err = e.response;
             alert(err.data.error);
         }
-
+        setLoading(false);
     }
 
     const ownerTableInit = async () => {
-
+        setLoading(true)
         const URL = '/master';
 
         try {
@@ -124,35 +126,50 @@ export default function MasterMain() {
             // // @ts-ignore
             // console.log(event.toLocaleDateString(undefined, options));
 
-            setLoading(false);
-        } catch (e) {
+
+        } catch (e: any) {
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            } else {
+                alert('데이터를 가져오는 중 에러가 발생했습니다.\n 잠시후 다시 시도 바랍니다.');
+            }
             console.log(e);
         }
+        setLoading(false);
     };
 
     const updateDB = async (input: string) => {
+        setLoading(true);
+        if (selected.length === 0) {
+            alert('선택된 줄이 없습니다');
+            setLoading(false);
+            return false;
+        }
 
-        if (selected.length === 0) alert('선택된 줄이 없습니다');
-        if (input === 'ok') if (!window.confirm('승인?')) return false;
-        if (input === 'no') if (!window.confirm('반려?')) return false;
-
+        if (input === 'ok') if (!window.confirm('승인하시겠습니까?')) return false;
+        if (input === 'no') if (!window.confirm('반려하시겠습니까?')) return false;
         const URL = '/master/requestOK';
 
-        const data =
-            {
-                checkStatus: input, // 'ok' 아니면 'no'
-                selectedRow: selected, // ['6564654', '54654654']
-            }
+        const data = {
+            checkStatus: input, // 'ok' 아니면 'no'
+            selectedRow: selected, // ['6564654', '54654654']
+        }
 
         try {
             const res = await client.patch(URL, data);
             console.log(res);
             ownerTableInit();
-            alert('데이터 갱신 완료');
-        } catch (e) {
-            console.log(e);
-            alert('데이터 갱신 실패')
+            alert('선택된 가맹점 신청 승인/반려 완료 되었습니다.');
+        } catch (e: any) {
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            } else if (e.response.status === 400) {
+                alert(e.response.data.error);
+            } else {
+                alert('예상치 못한 에러로 인해 작업이 취소되었습니다.\n잠시후 다시 시도해주세요');
+            }
         }
+        setLoading(false);
 
     };
 
@@ -175,18 +192,24 @@ export default function MasterMain() {
 
     return (
         <>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             {authReducer.isMaster ?
                 <>
                     <h3 className='mainH3'> 점주 리스트 </h3>
-                        <div className='MasterMainBtn'>
-                            <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
-                                승인
-                            </Button>
-                            {' '}
-                            <Button variant="contained" color="error" onClick={() => updateDB('no')}>
-                                반려
-                            </Button>
-                        </div>
+                    <div className='MasterMainBtn'>
+                        <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
+                            승인
+                        </Button>
+                        {' '}
+                        <Button variant="contained" color="error" onClick={() => updateDB('no')}>
+                            반려
+                        </Button>
+                    </div>
                     <div style={{height: 650, width: '100%', margin: 'auto'}}>
                         {
                             // loading ?
@@ -221,39 +244,39 @@ export default function MasterMain() {
                 </>
                 :
                 <>
-                <div className="aaa">
-                    <div className="wrapper fadeInDown MasterLoginForm">
-                        <div id="formContent">
-                            <h2 className="active inactive tiger "> Master 로그인 </h2>
-                            {/*<h2 className="inactive underlineHover tiger">Sign Up </h2>*/}
+                    <div className="aaa">
+                        <div className="wrapper fadeInDown MasterLoginForm">
+                            <div id="formContent">
+                                <h2 className="active inactive tiger "> Master 로그인 </h2>
+                                {/*<h2 className="inactive underlineHover tiger">Sign Up </h2>*/}
 
-                            <div className="fadeIn first">
-                               {/*<img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon"/>*/}
-                                <FaUserSecret style={{width:'50px', height:'50px', margin:'20px'}}/>
-                            </div>
+                                <div className="fadeIn first">
+                                    {/*<img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon"/>*/}
+                                    <FaUserSecret style={{width: '50px', height: '50px', margin: '20px'}}/>
+                                </div>
 
                                 <input type="text" id="login" className="fadeIn second input1" name={'u_id'}
-                                       placeholder="login"
+                                       placeholder="ID"
                                        onChange={e => setLoginForm({...loginForm, m_id: e.target.value})}
                                 />
-                                    <input type="password" id="password" className="fadeIn third input1" name={'u_pw'}
-                                           placeholder="password"
-                                           onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}
-                                           onKeyPress={e => {
-                                               if (e.key === 'Enter') login();
-                                           }
-                                           }
-                                    />
+                                <input type="password" id="password" className="fadeIn third input1" name={'u_pw'}
+                                       placeholder="PASSWORD"
+                                       onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}
+                                       onKeyPress={e => {
+                                           if (e.key === 'Enter') login();
+                                       }
+                                       }
+                                />
                                 <br/>
                                 <button className="fadeIn fourth loginBtn" onClick={login}>Log In</button>
 
-                            <div id="formFooter">
-                                <a style={{color:'#92badd'}} >Master Login</a>
-                            </div>
+                                <div id="formFooter">
+                                    <a style={{color: '#92badd'}}>Master Login</a>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 </>
             }

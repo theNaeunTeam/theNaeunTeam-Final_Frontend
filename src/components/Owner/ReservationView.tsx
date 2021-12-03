@@ -13,7 +13,6 @@ import {useHistory} from "react-router-dom";
 import {reservationViewType} from "../../modules/types";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import {AxiosError} from "axios";
 
 
 const DivContainer = styled.div`
@@ -46,7 +45,9 @@ export default function ReservationView() {
     const [startIndex, setStartIndex] = useState(0);
 
     useEffect(() => {
-        searchGoods();
+        if (localStorage.getItem('ownerToken')) {
+            searchGoods();
+        }
     }, [startIndex]);
 
     // const initialize = async () => {
@@ -67,7 +68,7 @@ export default function ReservationView() {
     const searchGoods = async () => {
         const URL = '/owner/searchReserve';
         setLoading(true);
-        if(g_category != '' || r_status != '' || searchInput != ''){
+        if (g_category != '' || r_status != '' || searchInput != '') {
             setStartIndex(0);
         }
         try {
@@ -75,18 +76,19 @@ export default function ReservationView() {
             console.log(res);
             setList(res.data);
             setLoading(false);
-        } catch (e : any) {
-            if(e.response.data.status === 500){
-                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+        } catch (e: any) {
+            if (e.response.data.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
 
-            }else{
-                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            } else {
+                alert('데이터를 가져오는 중 문제가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
             }
 
         }
 
     }
     const changeGoodsStatus = async (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>, idx: number) => {
+        setLoading(true);
         const data: { r_code: number, check: number } = {
             r_code: Number((input.target as HTMLButtonElement).name),
             check: list[idx].selectedStatus,
@@ -104,18 +106,19 @@ export default function ReservationView() {
             // initialize();
             searchGoods();
 
-        } catch (e:any) {
+        } catch (e: any) {
             console.log(e.response.status)
             console.log(e.response);
 
-            if(e.response.status === 500){
-                alert("서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.")
-            }else if(e.response.status === 400){
+            if (e.response.status === 500) {
+                alert("서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.")
+            } else if (e.response.status === 400) {
                 alert(e.response.data.error);
-            }else{
-                alert('예상치 못한 에러로 인해 상태 변경 실패하였습니다. 잠시 후 다시 시도 바랍니다.')
+            } else {
+                alert('예상치 못한 에러로 인해 상태 변경 실패하였습니다. \n잠시 후 다시 시도 바랍니다.')
             }
         }
+        setLoading(false);
 
     };
 
@@ -129,7 +132,7 @@ export default function ReservationView() {
     const indexPlus = () => {
         if (list.length === 10) {
             setStartIndex(startIndex + 10);
-        }else{
+        } else {
             alert('마지막 페이지입니다.');
         }
     }
@@ -217,7 +220,7 @@ export default function ReservationView() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
             <DivContainer>
-                <h1 style={{marginBottom:'50px'}}>예약현황</h1>
+                <h1 style={{marginBottom: '50px'}}>예약현황</h1>
                 <div>
                     <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
                         <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
@@ -276,7 +279,8 @@ export default function ReservationView() {
                     </tr>
                     </thead>
                     <tbody>
-                    {list.length === 0 ? <div className='centerDiv2'><span className='centerSpan'>예약 기록이 없습니다.</span></div>
+                    {list.length === 0 ?
+                        <div className='centerDiv2'><span className='centerSpan'>예약 기록이 없습니다.</span></div>
                         : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                     </tbody>
                 </table>
