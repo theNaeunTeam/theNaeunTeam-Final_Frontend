@@ -20,7 +20,7 @@ export default function RecommendList(props: recommendProps) {
                         />
                         <br/>
                         {props.data.g_name}
-                        <br/>
+                        <br/><br/>
                         원가 : {props.data.g_price}
                         <br/>
                         할인가 : {props.data.g_discount}

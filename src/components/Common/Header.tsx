@@ -63,10 +63,10 @@ export default function Header() {
                     로그인
                 </li>
                 <li>
-                    <Link to={'/user/register'}>회원가입</Link>
+                    <Link style={{fontWeight:'bold'}} to={'/user/register'}>회원가입</Link>
                 </li>
                 <li>
-                    <Link to={'/owner/register'}>가맹신청</Link>
+                    <Link style={{fontWeight:'bold'}} to={'/owner/register'}>가맹신청</Link>
                 </li>
             </>
         )

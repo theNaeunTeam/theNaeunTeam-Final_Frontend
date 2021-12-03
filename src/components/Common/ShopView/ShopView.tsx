@@ -448,21 +448,22 @@ export default function ShopView() {
                 <Paper className={'ShopViewDivContainer'}>
                     <DivHalfMenu>
                         <div className={'goodsDetail'}>
-                            <h2>{props.data.g_name}</h2>
-                            <h5>{props.data.g_expireDate}</h5>
+                            <h2 style={{fontSize:'xx-large', color:'black'}}>{props.data.g_name}</h2>
+                            <h5 style={{fontSize:'large'}}>유통기한 : {props.data.g_expireDate}</h5>
                             <br/>
-                            <h4 style={{textDecorationLine: 'line-through'}}>정상가 : {props.data.g_price}</h4>
+                            <h4 style={{textDecorationLine: 'line-through', color:'gray'}}>정상가 : {props.data.g_price}</h4>
                             <h4>할인가 : {props.data.g_discount}</h4>
                             <br/>
                             <h5>남은 수량 : {props.data.g_count}</h5>
 
                             <form onSubmit={event => saveGoods(event, props.data.g_count)} className={'goodsForm'}>
-                                <span>수량 선택 : </span>
-                                <select>
+                                <span style={{fontFamily:'', fontWeight:'bold'}}>수량 선택 : </span>
+                                <select className='cntSelect'>
                                     {optionTagBuilder(props.data.g_count).map(data => data)}
                                 </select> {' '}
                                 <input type={'hidden'} value={props.data.g_code}/>
-                                <button style={{background: 'none', border: 'none'}}><Button variant={"outlined"}>장바구니
+                                <button style={{background: 'none', border: 'none'}}>
+                                    <Button style={{fontSize:'larger', fontWeight:'bold'}}variant={"outlined"}>장바구니
                                     담기</Button></button>
                             </form>
                         </div>
@@ -481,28 +482,28 @@ export default function ShopView() {
     function AAA() {
         return (
             <>
-                <DivButton>
-                    <Button name='case1' style={color.case1 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                <DivButton className='gbtn1'>
+                    <Button   name='case1' style={color.case1 ? {background: 'orangered', color:'white', borderColor:'white'} : undefined}
                             variant="outlined"
                             onClick={(e) => categoryChange(e)}>전체 {' '}
                         {category.drink + category.fresh + category.gagong + category.freeze + category.cooked + category.other}
                     </Button>
-                    <Button name='case2' style={color.case2 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                    <Button name='case2' style={color.case2 ? {background: 'orangered', color:'white', borderColor:'white'} : undefined}
                             variant="outlined"
                             onClick={categoryChange}>마실것 {category.drink}</Button>
-                    <Button name='case3' style={color.case3 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                    <Button name='case3' style={color.case3 ? {background: 'orangered', color:'white', borderColor:'white'} : undefined}
                             variant="outlined"
                             onClick={categoryChange}>신선식품 {category.fresh}</Button>
-                    <Button name='case4' style={color.case4 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                    <Button name='case4' style={color.case4 ? {background: 'orangered', color:'white', borderColor:'white'} : undefined}
                             variant="outlined"
                             onClick={categoryChange}>가공식품 {category.gagong}</Button>
-                    <Button name='case5' style={color.case5 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                    <Button name='case5' style={color.case5 ? {background: 'orangered', color:'white', borderColor:'white'} : undefined}
                             variant="outlined"
                             onClick={categoryChange}>냉동식품 {category.freeze}</Button>
-                    <Button name='case6' style={color.case6 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                    <Button name='case6' style={color.case6 ? {background: 'orangered', color:'white', borderColor:'white'} : undefined}
                             variant="outlined"
                             onClick={categoryChange}>조리/반조리 {category.cooked}</Button>
-                    <Button name='case7' style={color.case7 ? {background: 'rgba(255, 99, 132, 0.2)'} : undefined}
+                    <Button name='case7' style={color.case7 ? {background: 'orangered', color:'white', borderColor:'white'} : undefined}
                             variant="outlined"
                             onClick={categoryChange}>식품외 기타 {category.other}</Button>
                 </DivButton>
@@ -513,9 +514,9 @@ export default function ShopView() {
                 </div>
 
                 <div style={{textAlign: 'center', marginBottom: '100px'}}>
-                    <Button variant="outlined" color={'error'} style={{width: '50%'}}
+                    <button className='cartBtn'  color={'error'} style={{width: '50%'}}
                             onClick={() => history.push('/user/shoppingcart')}>장바구니
-                        보기 </Button>
+                        보기 </button>
                 </div>
             </>
         )
