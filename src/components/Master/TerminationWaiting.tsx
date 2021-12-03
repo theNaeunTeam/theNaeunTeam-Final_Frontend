@@ -146,30 +146,13 @@ export default function TerminationWaiting() {
         <>
             <h3 className='mainH3'>해지승인대기</h3>
             <div className='MasterMainBtn'>
-                <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
-                    승인
-                </Button>
+            <button  className='masterBtn' onClick={() => updateDB('ok')}>
+                승인
+            </button>
+
             </div>
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
-                {loading ?
-                    <Box sx={{width: 1500}}>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                    </Box>
-                    :
+                {
                     <DataGrid
                         onStateChange={({selection}) => setSelected(selection)}
                         rows={rows}
@@ -177,6 +160,7 @@ export default function TerminationWaiting() {
                         pageSize={10}
                         rowsPerPageOptions={[10]}
                         checkboxSelection
+                        style={{fontSize:'large', fontFamily:'Chosunilbo_myungjo', fontWeight:'bold', color:'black'}}
                     />
                 }
             </div>

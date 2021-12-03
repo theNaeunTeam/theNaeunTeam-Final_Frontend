@@ -124,10 +124,10 @@ export default function MasterChart2() {
                 <div className="flex-items-1">
             {
                 loading ?
-                    <Skeleton variant="rectangular" width={210} height={118}/>
+                   null
                     :
                     <>
-                        <h3 style={{background:'#E7ECFF'}}>월별 오너/유저 탈퇴자수 통계</h3>
+                        <h3 className='MODH3'>월별 오너/유저 탈퇴자수 통계</h3>
                         <Line data={{
                             labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                             datasets: [
@@ -142,8 +142,8 @@ export default function MasterChart2() {
                                 {
                                     label: "유저 탈퇴수",
                                     fill: false,
-                                    borderColor: 'rgba(153, 102, 255, 1)', // 선색
-                                    backgroundColor: 'rgba(153, 102, 255, 0.2)', // 점색
+                                    backgroundColor: "rgba(255,99,132,0.4)",
+                                    borderColor: "rgba(255,99,132,1)",
                                     data: monArr[monIndex].map((a:any) => a.user),
                                     tension: 0.3
                                 }]
@@ -174,9 +174,9 @@ export default function MasterChart2() {
                               }
                         />
                         <div className='b'>
-                        <span onClick={DecMonYear}>◀</span>
-                        <label>{monYear}년도</label>
-                        <span onClick={IncMonYear}>▶</span>
+                        <span style={{fontSize:'larger'}} onClick={DecMonYear}>◀</span>
+                        <label style={{fontSize:'larger'}}>{monYear}년도</label>
+                        <span style={{fontSize:'larger'}} onClick={IncMonYear}>▶</span>
                         </div>
                     </>
             }
@@ -184,10 +184,10 @@ export default function MasterChart2() {
                 <div className="flex-items-1">
             {   ///////////////////////////년도별
                 loading ?
-                    <Skeleton variant="rectangular" width={210} height={118}/>
+                    null
                     :
                     <>
-                        <h3 style={{background:'#E7ECFF'}}>년도별 오너/유저 탈퇴자수 통계</h3>
+                        <h3 className='MODH3'>년도별 오너/유저 탈퇴자수 통계</h3>
                         <Line data={{
                             labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
                             datasets: [
@@ -202,8 +202,8 @@ export default function MasterChart2() {
                                 {
                                     label: "유저 탈퇴수",
                                     fill: false,
-                                    borderColor: 'rgba(153, 102, 255, 1)', // 선색
-                                    backgroundColor: 'rgba(153, 102, 255, 0.2)', // 점색
+                                    backgroundColor: "rgba(255,99,132,0.4)",
+                                    borderColor: "rgba(255,99,132,1)",
                                     data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.user)),
                                     tension: 0.3
                                 }]
@@ -234,8 +234,8 @@ export default function MasterChart2() {
                               }
                         />
                         <div className='b'>
-                        <span onClick={DecYear}>◀</span>
-                        <span onClick={IncYear}>▶</span>
+                        <span style={{fontSize:'larger'}} onClick={DecYear}>◀</span>
+                        <span style={{fontSize:'larger'}} onClick={IncYear}>▶</span>
                         </div>
                     </>
             }

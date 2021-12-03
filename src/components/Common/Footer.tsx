@@ -19,6 +19,7 @@ const DivFooter2 = styled.div`
   width: 100%;
   height: 100px;
   text-align: center;
+  margin-bottom: -50px;
 `;
 
 export default function Footer() {

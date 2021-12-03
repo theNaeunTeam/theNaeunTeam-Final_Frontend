@@ -3,7 +3,7 @@
     background-color: #f5f5f5;
 }
 
-.goodsSide{
+.goodsSide,.goodsSide1{
     height: 550px;
     width: 100%;
     padding: 7px;
@@ -22,6 +22,27 @@
     transition: all 0.3s ease-in-out;
     font-family: Chosunilbo_myungjo;
     font-size: large;
+}
+
+.goodsSide1 img{
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transition: all 0.3s ease-in-out;
+    font-family: Chosunilbo_myungjo;
+    font-size: large;
+}
+
+.goodsSide1 img:hover{
+    /*cursor: pointer;*/
+    /*background-color: #d2e5bf;*/
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
 }
 
 .goodsSide:hover{

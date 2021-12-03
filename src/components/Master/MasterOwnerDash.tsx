@@ -128,12 +128,14 @@ export default function MasterOwnerDash() {
     return (
         <>
             <div className='qqq'>
-                <h2 style={{background:'#E7ECFF',
-                            borderRadius:'40px 10px',
+                <h2 style={{
+                            borderRadius:'40px',
                             padding:'15px',
                             width:'50%',
                             color:'black',
                             fontSize:'30px',
+                            border:'3px solid  darkblue',
+                            fontFamily:'Chosunilbo_myungjo'
                 }}>오너 가입/탈퇴 통계</h2>
             </div>
             <div className="flex-container0">
@@ -141,7 +143,7 @@ export default function MasterOwnerDash() {
             <div className="flex-items">
             {
                 loading ?
-                    <Skeleton variant="rectangular" width={210} height={118}/>
+                        null
                     :
                     <>
                         <h3 className='MODH3'>Month</h3>
@@ -150,8 +152,8 @@ export default function MasterOwnerDash() {
                             datasets: [
                                 {
                                     label: "가입자수",
-                                    backgroundColor: "rgba(255,99,132,0.2)",
-                                    borderColor: "rgba(255,99,132,1)",
+                                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                    borderColor: 'rgba(75, 192, 192, 0.8)',
                                     borderWidth: 1,
                                     //stack: 1,
                                     hoverBackgroundColor: "rgba(255,99,132,0.4)",
@@ -160,8 +162,8 @@ export default function MasterOwnerDash() {
                                 },
                                 {
                                     label: "탈퇴자수",
-                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderColor: 'rgba(255, 99, 132, 1)',
                                     borderWidth: 1,
                                     //stack:tal
                                     hoverBackgroundColor: "rgba(255,99,132,0.4)",
@@ -195,9 +197,9 @@ export default function MasterOwnerDash() {
 
                              }/>
                         <div className='aa'>
-                            <span onClick={DecMonYear}>◀</span>
-                            <label className='b'>{monYear}년</label>
-                            <span onClick={IncMonYear}>▶</span>
+                            <span style={{fontSize:'larger'}} onClick={DecMonYear}>◀</span>
+                            <label style={{fontSize:'larger'}} className='b'>{monYear}년</label>
+                            <span style={{fontSize:'larger'}} onClick={IncMonYear}>▶</span>
                         </div>
                     </>
             }
@@ -205,7 +207,7 @@ export default function MasterOwnerDash() {
             <div className="flex-items">
             {   ///////////////////////////년도별
                 loading ?
-                    <Skeleton variant="rectangular" width={210} height={118}/>
+                    null
                     :
                     <>
                         <h3 className='MODH3'>Year</h3>
@@ -214,8 +216,8 @@ export default function MasterOwnerDash() {
                             datasets: [
                                 {
                                     label: "가입자수",
-                                    backgroundColor: "rgba(255,99,132,0.2)",
-                                    borderColor: "rgba(255,99,132,1)",
+                                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                    borderColor: 'rgba(75, 192, 192, 0.8)',
                                     borderWidth: 1,
                                     //stack: 1,
                                     hoverBackgroundColor: "rgba(255,99,132,0.4)",
@@ -224,8 +226,8 @@ export default function MasterOwnerDash() {
                                 },
                                 {
                                     label: "탈퇴자수",
-                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderColor: 'rgba(255, 99, 132, 1)',
                                     borderWidth: 1,
                                     //stack:tal
                                     hoverBackgroundColor: "rgba(255,99,132,0.4)",
@@ -259,8 +261,8 @@ export default function MasterOwnerDash() {
 
                              }/>
                         <div className='aa'>
-                            <span onClick={DecYear}>◀</span>
-                            <span onClick={IncYear}>▶</span>
+                            <span style={{fontSize:'larger'}} onClick={DecYear}>◀</span>
+                            <span style={{fontSize:'larger'}} onClick={IncYear}>▶</span>
                         </div>
                     </>
             }
