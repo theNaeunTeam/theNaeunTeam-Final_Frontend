@@ -8,6 +8,8 @@ import fullStar from "../../styles/images/star1.png";
 import Swal from 'sweetalert2';
 import UserNavbar from "./UserNavbar";
 import '../../styles/table.scss';
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 
 const DivContainer = styled.div`
@@ -84,6 +86,7 @@ export default function FavorStore() {
 
     const initialize = async () => {
         const URL = '/user/favorList';
+        setLoading(true);
         try {
             const res = await client.get(URL+`?startIndex=${startIndex}`);
             // setList(res.data);
@@ -92,8 +95,14 @@ export default function FavorStore() {
             console.log(res);
             setLoading(false);
 
-        } catch (e) {
+        } catch (e:any) {
             console.log(e);
+            if(e.response.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else{
+                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            }
         }
     };
     // 즐겨찾기 해제 api
@@ -115,8 +124,15 @@ export default function FavorStore() {
             favoroff();
             initialize();
 
-        } catch (e) {
+        } catch (e:any) {
             console.log(e);
+            if(e.response.status === 500){
+                alert("서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.")
+            }else if(e.response.status === 400){
+                alert(e.response.data.error);
+            }else{
+                alert('예상치 못한 에러로 인해 즐겨찾기 해제 실패하였습니다. 잠시 후 다시 시도 바랍니다.')
+            }
         }
     }
     const indexMinus = () => {
@@ -168,6 +184,12 @@ export default function FavorStore() {
     };
     return (
         <DivContainer>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             <DivNav>
                 <UserNavbar/>
             </DivNav>

@@ -136,10 +136,14 @@ export default function AddProduct() {
             dispatch({type: 'modifyOK'});
             setProduct(initValue);
             console.log(res);
-        } catch (e) {
-            // @ts-ignore
+        } catch (e:any) {
             const err = e.response;
-            alert(err.data.error);
+            if(err.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else{
+                alert(err.data.error);
+            }
             console.log(e);
         }
     };

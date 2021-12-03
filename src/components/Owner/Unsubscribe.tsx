@@ -54,13 +54,19 @@ export default function Unsubscribe() {
             if(res.data === 1){
                 alert("가맹 해지 신청이 완료 되었습니다.")
             }else{
-                alert("해지 신청에 실패하였습니다.")
+                alert("가맹 해지 신청에 실패하였습니다.")
             }
 
-        } catch (e) {
-            // @ts-ignore
+        } catch (e :any) {
             const err = e.response;
-            alert(err.data.error);
+            if(err.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else if(err.data.status === 400){
+               alert(err.data.error);
+            }else{
+                alert('예상치 못한 에러로 인해 가맹 해지 신청에 실패하였습니다.')
+            }
         }
     };
 

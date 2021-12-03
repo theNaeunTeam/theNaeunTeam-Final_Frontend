@@ -12,6 +12,8 @@ import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import UserNavbar from "./UserNavbar";
 import '../../styles/table.scss'
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 const DivContainer = styled.div`
   //text-align: center;
@@ -73,6 +75,8 @@ export default function UserReserve() {
     const [g_category, setG_category] = useState('');
     const [r_status, setR_status] = useState('');
     const [searchInput, setSearchInput] = useState('');
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         searchReserve();
     }, [startIndex]);
@@ -106,6 +110,7 @@ export default function UserReserve() {
         }
     }
     const searchReserve = async () => {
+        setLoading(true);
         const URL = '/user/searchReserve';
         if (g_category != '' || r_status != '' || searchInput != '') {
             setStartIndex(0);
@@ -114,10 +119,12 @@ export default function UserReserve() {
             const res = await client.get(`${URL}?g_category=${g_category}&r_status=${r_status}&searchInput=${searchInput}&startIndex=${startIndex}`);
             console.log(res);
             setList(res.data);
+            setLoading(false);
         } catch (e) {
             alert('검색 실패');
             console.log(e);
         }
+
     }
 
     const indexMinus = () => {
@@ -198,9 +205,16 @@ export default function UserReserve() {
 
     return (
         <DivContainer>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             <DivNav>
                 <UserNavbar/>
             </DivNav>
+
             <DivMain>
                 <h1 style={{marginBottom: '50px'}}>예약내역</h1>
                 <div>

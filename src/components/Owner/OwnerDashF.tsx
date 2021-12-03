@@ -114,8 +114,17 @@ export default function OwnerDashF() {
 
             console.log(reTime);
             console.log(reCate);
-        } catch (e) {
+
+        } catch (e : any) {
             console.log(e);
+            if(e.response.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else{
+                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            }
+
+
         }
     }
 
