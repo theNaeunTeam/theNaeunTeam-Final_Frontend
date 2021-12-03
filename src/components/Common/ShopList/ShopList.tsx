@@ -292,10 +292,7 @@ export default function ShopList() {
                                 onChange={e => setRange((e.target as HTMLInputElement).value)}
                         />
 
-                        <button className='shopMapBtn' style={{width: '75%', margin: '15px'}} color="error"
-                                onClick={getLoc}>{`주변 ${range}km 내 찾기`}</button>
-
-                        <div>
+                        <div style={{display:"flex", justifyContent:"center", alignItems:'center'}}>
                             <TextField
                                 label="상품명으로 검색"
                                 value={goodsName}
@@ -317,9 +314,13 @@ export default function ShopList() {
                                     <MenuItem value={'상품많은순'}>상품많은순</MenuItem>
                                     <MenuItem value={'상품적은순'}>상품적은순</MenuItem>
                                 </Select>
-                                <FormHelperText>거리,상품 갯수로 정렬할 수 있습니다</FormHelperText>
+                                {/*<FormHelperText>거리,상품 갯수로 정렬할 수 있습니다</FormHelperText>*/}
                             </FormControl>
                         </div>
+
+                        <button className='shopMapBtn' style={{width: '75%', margin: '15px'}} color="error"
+                                onClick={getLoc}>{`주변 ${range}km 내 찾기`}</button>
+
                     </Box>
                 </DivHalfMenu>
                 <h2>
