@@ -48,11 +48,15 @@ export default function MasterChart3() {
             console.log('7777777777777777777777');
             console.log(local);
 
-            setLoading(false);
-
-        } catch (e) {
+        } catch (e:any) {
+            if(e.response.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            }else{
+                alert('데이터를 가져오는데 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            }
             console.log(e);
         }
+        setLoading(false);
     };
 
     return (

@@ -4,7 +4,7 @@ import {Route, Switch} from 'react-router-dom';
 import LoginForm from "./components/Common/LoginForm/LoginForm";
 import Header from "./components/Common/Header";
 import MasterMain from "./components/Master/MasterMain";
-import UserRegisterForm from "./components/Common/UserRegisterForm";
+import UserRegisterForm from "./components/Common/UserReigisterForm/UserRegisterForm";
 import UserMain from "./components/User/UserMain/UserMain";
 import ShopView from "./components/Common/ShopView/ShopView";
 import Footer from "./components/Common/Footer";

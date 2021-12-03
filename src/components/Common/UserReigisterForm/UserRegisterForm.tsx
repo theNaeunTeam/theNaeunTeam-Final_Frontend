@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import TextField from '@mui/material/TextField'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -9,6 +9,10 @@ import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
+import {client} from "../../../lib/api/client";
+import {useHistory} from "react-router-dom";
+
+const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
 export default function UserRegisterForm() {
 
@@ -23,19 +27,22 @@ export default function UserRegisterForm() {
         u_age: '20',
     };
 
-    const formErrorinit = {
-        u_id: false,
-        u_pw: false,
-        pwConfirm: false,
-        u_cellPhone: false,
-        u_email: false,
-        emailConfirm: false,
-        u_gender: false,
-        u_age: false,
-    }
+    const history = useHistory();
 
-    const [regForm, setRegForm] = useState<{[key: string]: string}>(initValue);
-    const [formError, setFormError] = useState(formErrorinit);
+    const [regForm, setRegForm] = useState<{ [key: string]: string }>(initValue);
+
+    const [u_id, setU_id] = useState(false);
+    const [u_pw, setU_pw] = useState(false);
+    const [u_cellPhone, setU_cellPhone] = useState(false);
+    const [pwConfirm, setPwConfirm] = useState(false);
+    const [u_email, setU_email] = useState(false);
+    const [emailConfirm, setEmailConfirm] = useState(false);
+    const [pwCompare, setPwCompare] = useState(false);
+    const [emailCompare, setEmailCompare] = useState(false);
+
+    useEffect(() => {
+        formValidate();
+    }, [regForm]);
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
         const tagName = (e.target as HTMLFormElement).name;
@@ -44,31 +51,80 @@ export default function UserRegisterForm() {
             return false;
         }
         setRegForm({...regForm, [tagName]: (e.target as HTMLFormElement).value});
-        formValidate(tagName);
     }
 
-    const formValidate = (tagName: string) => {
-        if (regForm[tagName].length < 5) {
-            setFormError({...formError, [tagName]: true});
+    const formValidate = (): boolean => {
+        if (regForm.u_id.length < 5) {
+            setU_id(true);
             return false;
-        } else {
-            setFormError({...formError, [tagName]: false});
-            // 서버로 아이디를 보내는 코드
         }
+        setU_id(false);
+        if (regForm.u_cellPhone.length < 11) {
+            setU_cellPhone(true);
+            return false;
+        }
+        setU_cellPhone(false);
+        if (regForm.u_pw.length < 5) {
+            setU_pw(true);
+            return false;
+        }
+        setU_pw(false);
+        if (regForm.pwConfirm.length < 5) {
+            setPwConfirm(true);
+            return false;
+        }
+        setPwConfirm(false);
+        if (regForm.u_pw !== regForm.pwConfirm) {
+            setPwConfirm(true);
+            setU_pw(true);
+            setPwCompare(true);
+            return false;
+        }
+        setPwConfirm(false);
+        setU_pw(false);
+        setPwCompare(false);
+        if (!regEmail.test(regForm.u_email)) {
+            setU_email(true);
+            return false;
+        }
+        setU_email(false);
+        if (!regEmail.test(regForm.emailConfirm)) {
+            setEmailConfirm(true);
+            return false;
+        }
+        setEmailConfirm(false)
+        if (regForm.emailConfirm !== regForm.u_email) {
+            setEmailConfirm(true);
+            setU_email(true);
+            setEmailCompare(true);
+            return false;
+        }
+        setEmailConfirm(false);
+        setEmailCompare(false);
+        setU_email(false);
+
+        return true;
     };
 
 
     const submitForm = async () => {
 
-        console.log(regForm);
+        if (!formValidate()) {
+            alert('제출 양식을 확인해주세요');
+            return false;
+        }
 
-        // const URL = '/common/userjoin'
-        // try {
-        //     const res = await client.post(URL, regForm);
-        //     console.log(res);
-        // } catch (e) {
-        //     console.log(e);
-        // }
+        const URL = '/common/userjoin'
+        try {
+            const res = await client.post(URL, regForm);
+            if (res.data.result === 'success') {
+                alert('회원가입이 완료되었습니다.');
+                history.replace('/');
+            }
+        } catch (e) {
+            console.log(e);
+            alert('회원가입에 실패하였습니다.');
+        }
 
     };
 
@@ -87,7 +143,7 @@ export default function UserRegisterForm() {
             >
                 <div><h3>회원 가입</h3></div>
                 <TextField
-                    error={formError.u_id}
+                    error={u_id}
                     required
                     id="outlined-required"
                     label="아이디"
@@ -95,51 +151,50 @@ export default function UserRegisterForm() {
                     name={'u_id'}
                 />
                 <TextField
-                    error={formError.u_cellPhone}
+                    error={u_cellPhone}
                     required
                     id="outlined-required"
                     label="휴대전화"
                     helperText="하이픈 없이 입력해 주세요"
                     name={'u_cellPhone'}
-                    value={regForm.u_cellPhone}
                 />
                 <TextField
-                    error={formError.u_pw}
+                    error={u_pw}
                     required
                     id="outlined-required"
                     label="패스워드"
                     type={'password'}
                     name={'u_pw'}
-                    helperText="비밀번호를 입력해주세요"
+                    helperText={pwCompare ? '비밀번호가 일치하지 않습니다' : "비밀번호를 5자 이상 입력해주세요"}
                 />
                 <TextField
-                    error={formError.pwConfirm}
+                    error={pwConfirm}
                     required
                     id="outlined-required"
                     label="패스워드확인"
                     type={'password'}
                     name={'pwConfirm'}
-                    helperText="비밀번호를 다시 한 번 입력해주세요"
+                    helperText={pwCompare ? '비밀번호가 일치하지 않습니다' : "비밀번호를 한번 더 입력해주세요"}
                 />
                 <TextField
-                    error={formError.u_email}
+                    error={u_email}
                     required
                     id="outlined-required"
                     label="이메일"
                     name={'u_email'}
-                    helperText="이메일주소를 입력해주세요"
+                    helperText={emailCompare ? '이메일주소가 일치하지 않습니다' : "이메일주소를 입력해주세요"}
                 />
                 <TextField
-                    error={formError.emailConfirm}
+                    error={emailConfirm}
                     required
                     id="outlined-required"
                     label="이메일 확인"
                     name={'emailConfirm'}
-                    helperText="이메일주소를 다시 한 번 입력해주세요"
+                    helperText={emailCompare ? '이메일주소가 일치하지 않습니다' : "이메일주소를 한번 더 입력해주세요"}
                 />
 
                 <div style={{width: '100%', marginBottom: '10px', display: 'flex', justifyContent: 'center'}}>
-                    <span style={{marginLeft:'20px', marginRight:'20px'}}>
+                    <span style={{marginLeft: '20px', marginRight: '20px'}}>
                     <InputLabel id="demo-simple-select-label">나이</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -159,9 +214,9 @@ export default function UserRegisterForm() {
                         <MenuItem value={'60'}>60대</MenuItem>
                     </Select>
                         </span>
-                    <span style={{marginLeft:'20px', marginRight:'20px'}}>
+                    <span style={{marginLeft: '20px', marginRight: '20px'}}>
                     <FormLabel component="legend">성별</FormLabel>
-                    <RadioGroup row aria-label="gender" name={'u_gender'}>
+                    <RadioGroup row aria-label="gender" name={'u_gender'} defaultValue={'남성'}>
                         <FormControlLabel id={'u_gender'} value="남성" control={<Radio/>} defaultChecked={true}
                                           label="남성"/>
                         <FormControlLabel id={'u_gender'} value="여성" control={<Radio/>} label="여성"/>

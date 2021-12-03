@@ -39,13 +39,14 @@ export default function MasterUserList() {
 
     const [rows, setRows] = useState<initialType[]>(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         userALL();
     }, [])
 
     const userALL = async () => {
+        setLoading(true);
         // 리스트 불러오는 URL
         const URL = '/master/userList';
         try {
@@ -71,36 +72,18 @@ export default function MasterUserList() {
             }, [])
             console.log(message);
             setRows(message);
-            setLoading(false);
-        } catch (e) {
+
+        } catch (e: any) {
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            } else {
+                alert('데이터 가져오는 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            }
             console.log(e);
         }
+        setLoading(false);
     }
 
-
-    const updateDB = async (input: string) => {
-        if (selected.length === 0) return false;
-        console.log(selected); // 사업자 번호가 문자열 배열로 들어옴
-        let URL = '';
-
-        const data =
-            {
-                checkStatus: input, // OK or NO
-                selectedRow: selected, // 선택한 유저
-            }
-
-        try {
-            const res = await client.patch(URL, data);
-            console.log(res);
-            userALL();
-            alert('데이터 갱신 완료');
-        } catch (e) {
-            console.log(e);
-            alert('데이터 갱신 실패');
-        }
-
-        // selected를 백엔드로 전송하는 코드
-    };
 
     const columns: GridColDef[] = [
         {field: 'u_id', headerName: '유저아이디', width: 200},
@@ -116,15 +99,7 @@ export default function MasterUserList() {
     return (
         <>
             <h3 className='mainH3'> 회원 리스트 </h3>
-            <div className='MasterMainBtn'>
-                <button className='masterBtn' onClick={() => updateDB('yes')}>
-                    수정
-                </button>
-                {' '}
-                <button className='masterBtn' onClick={() => updateDB('no')}>
-                    삭제
-                </button>
-            </div>
+
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
                 {
                     <DataGrid
@@ -138,7 +113,6 @@ export default function MasterUserList() {
                     />
                 }
             </div>
-
 
 
         </>

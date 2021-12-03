@@ -51,7 +51,7 @@ const DivContainer = styled.div`
   align-items: center;
   padding: 10px;
   //width: 100%;
-  border: solid red;
+  //border: solid red;
   margin-top: 50px;
   margin-left: 200px;
   margin-right: 200px;
@@ -243,7 +243,7 @@ export default function ShopList() {
                     margin: '1px',
                     borderTopRightRadius: '15px',
                     borderTopLeftRadius: '15px',
-                    width:'80%'
+                    width:'80%',
                 }}>주변 검색 <GrMapLocation/></h3>
 
 

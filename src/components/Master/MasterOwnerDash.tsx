@@ -83,12 +83,16 @@ export default function MasterOwnerDash() {
             console.log(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
             console.log(yearArr.map((x:any)=>x.date));
-            
-            setLoading(false);
 
-        } catch (e) {
+        } catch (e:any) {
+            if(e.response.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            }else{
+                alert('데이터를 가져오는데 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            }
             console.log(e);
         }
+        setLoading(false);
     };
 
     // 12달 증감버튼

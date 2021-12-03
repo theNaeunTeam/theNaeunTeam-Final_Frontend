@@ -38,7 +38,7 @@ export default function MasterMain() {
     const [rows, setRows] = useState<masterMainType2[]>(initialValue);
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''}); // 마스터 로그인 폼 핸들러
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
@@ -131,7 +131,7 @@ export default function MasterMain() {
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
             } else {
-                alert('데이터를 가져오는 중 에러가 발생했습니다.\n 잠시후 다시 시도 바랍니다.');
+                alert('데이터를 가져오는 중 에러가 발생했습니다.\n잠시후 다시 시도 바랍니다.');
             }
             console.log(e);
         }
@@ -146,8 +146,14 @@ export default function MasterMain() {
             return false;
         }
 
-        if (input === 'ok') if (!window.confirm('승인하시겠습니까?')) return false;
-        if (input === 'no') if (!window.confirm('반려하시겠습니까?')) return false;
+        if (input === 'ok') if (!window.confirm('승인하시겠습니까?')) {
+            setLoading(false);
+            return false;
+        }
+        if (input === 'no') if (!window.confirm('반려하시겠습니까?')) {
+            setLoading(false);
+            return false;
+        }
         const URL = '/master/requestOK';
 
         const data = {
@@ -192,26 +198,40 @@ export default function MasterMain() {
 
     return (
         <>
-            <Backdrop
-                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
-                open={loading}
-            >
-                <CircularProgress color="inherit"/>
-            </Backdrop>
+
             {authReducer.isMaster ?
                 <>
                     <h3 className='mainH3'> 점주 리스트 </h3>
                     <div className='MasterMainBtn'>
                         <button className='masterBtn'  onClick={() => updateDB('ok')}>
-                            승인
+                           입점 신청 승인
                         </button>
                         {' '}
                         <button className='masterBtn' onClick={() => updateDB('no')}>
-                            반려
+                            입점 신청 반려
                         </button>
                     </div>
                     <div style={{height: 650, width: '100%', margin: 'auto'}}>
-                        {
+                        { loading ?
+                            <Box sx={{width: 1500}}>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                                <Skeleton/>
+                                <Skeleton animation="wave"/>
+                                <Skeleton animation='pulse'/>
+                            </Box>
+                            :
+
                             <DataGrid
                                 onStateChange={({selection}) => setSelected(selection)}
                                 rows={rows}
