@@ -236,7 +236,7 @@ export default function MasterMain() {
                                        placeholder="login"
                                        onChange={e => setLoginForm({...loginForm, m_id: e.target.value})}
                                 />
-                                    <input type="text" id="password" className="fadeIn third input1" name={'u_pw'}
+                                    <input type="password" id="password" className="fadeIn third input1" name={'u_pw'}
                                            placeholder="password"
                                            onChange={e => setLoginForm({...loginForm, m_pw: e.target.value})}
                                            onKeyPress={e => {
