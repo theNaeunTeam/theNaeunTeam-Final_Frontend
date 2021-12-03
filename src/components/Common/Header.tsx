@@ -6,7 +6,6 @@ import {RootState} from "../../index";
 import '../../styles/Header.scss'
 import LoginForm from "./LoginForm/LoginForm";
 import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from "@mui/material/CircularProgress";
 
 
 export default function Header() {
@@ -17,9 +16,9 @@ export default function Header() {
     const [showLoginForm, setShowLoginForm] = React.useState(false);
 
     const logout = () => {
-        localStorage.removeItem('userToken');
-        localStorage.removeItem('ownerToken');
-        localStorage.removeItem('masterToken');
+        // localStorage.removeItem('userToken');
+        // localStorage.removeItem('ownerToken');
+        // localStorage.removeItem('masterToken');
         dispatch({type: 'logoutAll'});
         history.push('/');
     };
