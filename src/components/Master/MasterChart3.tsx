@@ -64,7 +64,7 @@ export default function MasterChart3() {
                 {/*}}>지역별 점주 분포 통계</h3>*/}
             {
                 loading ?
-                    <Skeleton variant="rectangular" width={210} height={118}/>
+                    null
                     :
                     <>
                         <h3 className='MODH3-1'>지역별 오너 분포 통계</h3>

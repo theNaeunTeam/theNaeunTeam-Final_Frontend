@@ -103,10 +103,10 @@ export default function MasterUserList() {
     };
 
     const columns: GridColDef[] = [
-        {field: 'u_id', headerName: '유저아이디', width: 180},
-        {field: 'u_pw', headerName: '유저패스워드', width: 200},
+        {field: 'u_id', headerName: '유저아이디', width: 200},
+        {field: 'u_pw', headerName: '유저패스워드', width: 300},
         {field: 'u_cellPhone', headerName: '휴대폰번호', width: 180},
-        {field: 'u_email', headerName: '이메일', width: 180,},
+        {field: 'u_email', headerName: '이메일', width: 250,},
         {field: 'u_gender', headerName: '성별', width: 180},
         {field: 'u_age', headerName: '나이', width: 180},
         {field: 'u_status', headerName: '유저상태', width: 180},
@@ -117,34 +117,16 @@ export default function MasterUserList() {
         <>
             <h3 className='mainH3'> 회원 리스트 </h3>
             <div className='MasterMainBtn'>
-                <Button variant="contained" color="error" onClick={() => updateDB('yes')}>
+                <button className='masterBtn' onClick={() => updateDB('yes')}>
                     수정
-                </Button>
+                </button>
                 {' '}
-                <Button variant="contained" color="error" onClick={() => updateDB('no')}>
+                <button className='masterBtn' onClick={() => updateDB('no')}>
                     삭제
-                </Button>
+                </button>
             </div>
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
-                {loading ?
-                    <Box sx={{width: 1500}}>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                    </Box>
-                    :
+                {
                     <DataGrid
                         onStateChange={({selection}) => setSelected(selection)}
                         rows={rows}
@@ -152,6 +134,7 @@ export default function MasterUserList() {
                         pageSize={10}
                         rowsPerPageOptions={[10]}
                         checkboxSelection
+                        style={{fontSize:'large', fontFamily:'Chosunilbo_myungjo', fontWeight:'bold', color:'black'}}
                     />
                 }
             </div>

@@ -174,9 +174,9 @@ export default function MasterMain() {
     };
 
     const columns: GridColDef[] = [
-        {field: 'o_approval', headerName: '상태', width: 130},
+        {field: 'o_approval', headerName: '상태', width: 150},
         {field: 'o_sNumber', headerName: 'SN', width: 150},
-        {field: 'o_name', headerName: '가게명', width: 150},
+        {field: 'o_name', headerName: '가게명', width: 180},
         {field: 'o_phone', headerName: '전화번호', width: 150,},
         {field: 'o_cellPhone', headerName: '휴대전화', width: 150},
         {field: 'o_address', headerName: '가게주소', width: 150},
@@ -202,35 +202,16 @@ export default function MasterMain() {
                 <>
                     <h3 className='mainH3'> 점주 리스트 </h3>
                     <div className='MasterMainBtn'>
-                        <Button variant="contained" color="success" onClick={() => updateDB('ok')}>
+                        <button className='masterBtn'  onClick={() => updateDB('ok')}>
                             승인
-                        </Button>
+                        </button>
                         {' '}
-                        <Button variant="contained" color="error" onClick={() => updateDB('no')}>
+                        <button className='masterBtn' onClick={() => updateDB('no')}>
                             반려
-                        </Button>
+                        </button>
                     </div>
                     <div style={{height: 650, width: '100%', margin: 'auto'}}>
                         {
-                            // loading ?
-                            // <Box sx={{width: 1500}}>
-                            //     <Skeleton/>
-                            //     <Skeleton animation="wave"/>
-                            //     <Skeleton animation='pulse'/>
-                            //     <Skeleton/>
-                            //     <Skeleton animation="wave"/>
-                            //     <Skeleton animation='pulse'/>
-                            //     <Skeleton/>
-                            //     <Skeleton animation="wave"/>
-                            //     <Skeleton animation='pulse'/>
-                            //     <Skeleton/>
-                            //     <Skeleton animation="wave"/>
-                            //     <Skeleton animation='pulse'/>
-                            //     <Skeleton/>
-                            //     <Skeleton animation="wave"/>
-                            //     <Skeleton animation='pulse'/>
-                            // </Box>
-                            // :
                             <DataGrid
                                 onStateChange={({selection}) => setSelected(selection)}
                                 rows={rows}
@@ -238,6 +219,7 @@ export default function MasterMain() {
                                 pageSize={10}
                                 rowsPerPageOptions={[10]}
                                 checkboxSelection
+                                style={{fontSize:'large', fontFamily:'Chosunilbo_myungjo', fontWeight:'bold', color:'black'}}
                             />
                         }
                     </div>

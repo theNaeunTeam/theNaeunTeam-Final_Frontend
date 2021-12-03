@@ -124,9 +124,13 @@ export default function UserDash() {
     return (
         <>
             <div className='qqq'>
-                <h3 style={{background:'#E7ECFF',
-                            borderRadius:'40px 10px',
-                            padding:'15px'
+                <h3 style={{background:'white',
+                            borderRadius:'40px',
+                            padding:'15px',
+                            fontFamily:'Chosunilbo_myungjo',
+                            fontSize:'xx-large',
+                            border:'3px solid darkblue',
+                            margin:'0px 300px 50px'
                 }}>유저 가입/탈퇴 통계</h3>
             </div>
             
@@ -134,23 +138,17 @@ export default function UserDash() {
                 <div className="flex-items-1">
                 {
                     loading ?
-                        <Skeleton variant="rectangular" width={210} height={118}/>
+                            null
                         :
                         <>
-                            <h3 style={{margin:'10px',
-                                background:'#fce6d8',
-                                marginLeft:'310px',
-                                marginRight:'310px',
-                                border:'solid #fce6d8 3px',
-                                borderRadius:'40px',
-                            }}>Month</h3>
+                            <h3 className='MODH3'>Month</h3>
                             <Bar data={{
                                 labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                                 datasets: [
                                     {
                                         label: "가입자수",
-                                        backgroundColor: "rgba(255,99,132,0.2)",
-                                        borderColor: "rgba(255,99,132,1)",
+                                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                        borderColor: 'rgba(75, 192, 192, 0.8)',
                                         borderWidth: 1,
                                         //stack: 1,
                                         hoverBackgroundColor: "rgba(255,99,132,0.4)",
@@ -159,12 +157,12 @@ export default function UserDash() {
                                     },
                                     {
                                         label: "탈퇴자수",
-                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
                                         borderWidth: 1,
                                         //stack:tal
-                                        hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                                        hoverBorderColor: "rgba(255,99,132,1)",
+                                        hoverBackgroundColor:  'rgba(54, 162, 235, 0.4)',
+                                        hoverBorderColor:  'rgba(54, 162, 235, 1)',
                                         data: monArr[monIdex].map((a: any) => a.tal),
                                     }]
                             }}
@@ -194,33 +192,24 @@ export default function UserDash() {
 
                                  }/>
                             <div className='aa'>
-                                <span onClick={DecMonYear}>◀</span>
-                                <label className='b'>{monYear}년</label>
-                                <span onClick={IncMonYear}>▶</span>
+                                <span style={{fontSize:'larger'}} onClick={DecMonYear}>◀</span>
+                                <label style={{fontSize:'larger'}} className='b'>{monYear}년</label>
+                                <span style={{fontSize:'larger'}} onClick={IncMonYear}>▶</span>
                             </div>
                         </>
                 }
                 </div>
                 <div className="flex-items-1">
                 {
-                    loading ?
-                        <Skeleton variant="rectangular" width={210} height={118}/>
-                        :
                         <>
-                            <h3 style={{margin:'10px',
-                                background:'#fce6d8',
-                                marginLeft:'320px',
-                                marginRight:'320px',
-                                border:'solid #fce6d8 3px',
-                                borderRadius:'40px',
-                            }}>Year</h3>
+                            <h3 className='MODH3'>Year</h3>
                             <Bar data={{
                                 labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
                                 datasets: [
                                     {
                                         label: "가입자수",
-                                        backgroundColor: "rgba(255,99,132,0.2)",
-                                        borderColor: "rgba(255,99,132,1)",
+                                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                        borderColor: 'rgba(75, 192, 192, 1)',
                                         borderWidth: 1,
                                         //stack: 1,
                                         hoverBackgroundColor: "rgba(255,99,132,0.4)",
@@ -229,12 +218,12 @@ export default function UserDash() {
                                     },
                                     {
                                         label: "탈퇴자수",
-                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        backgroundColor: "rgba(255,99,132,0.4)",
+                                        borderColor: "rgba(255,99,132,1)",
                                         borderWidth: 1,
                                         //stack:tal
-                                        hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                                        hoverBorderColor: "rgba(255,99,132,1)",
+                                        hoverBackgroundColor:  'rgba(54, 162, 235, 0.4)',
+                                        hoverBorderColor:  'rgba(54, 162, 235, 1)',
                                         data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.tal)),
                                     }]
                             }}
@@ -264,8 +253,8 @@ export default function UserDash() {
 
                                  }/>
                             <div className='aa'>
-                                <span onClick={DecYear}>◀</span>
-                                <span onClick={IncYear}>▶</span>
+                                <span style={{fontSize:'larger'}} onClick={DecYear}>◀</span>
+                                <span style={{fontSize:'larger'}} onClick={IncYear}>▶</span>
                             </div>
                         </>
                 }

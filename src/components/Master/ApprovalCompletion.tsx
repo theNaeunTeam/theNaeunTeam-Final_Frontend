@@ -115,7 +115,7 @@ export default function ApprovalCompletion() {
     };
 
     const columns: GridColDef[] = [
-        {field: 'o_approval', headerName: '상태', width: 130},
+        {field: 'o_approval', headerName: '상태', width: 150},
         {field: 'o_sNumber', headerName: 'SN', width: 150},
         {field: 'o_name', headerName: '가게명', width: 150},
         {field: 'o_phone', headerName: '전화번호', width: 150,},
@@ -132,26 +132,13 @@ export default function ApprovalCompletion() {
     return (
         <>
             <h3 className='mainH3'>입점신청 승인완료 </h3>
+            <div className='MasterMainBtn'>
+                <button  className='masterBtn' onClick={() => updateDB('no')}>
+                    반려
+                </button>
+            </div>
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
-                {loading ?
-                    <Box sx={{width: 1500}}>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                        <Skeleton/>
-                        <Skeleton animation="wave"/>
-                        <Skeleton animation='pulse'/>
-                    </Box>
-                    :
+                {
                     <DataGrid
                         onStateChange={({selection}) => setSelected(selection)}
                         rows={rows}
@@ -159,12 +146,10 @@ export default function ApprovalCompletion() {
                         pageSize={10}
                         rowsPerPageOptions={[10]}
                         checkboxSelection
+                        style={{fontSize:'large', fontFamily:'Chosunilbo_myungjo', fontWeight:'bold', color:'black'}}
                     />
                 }
             </div>
-            <Button variant="contained" color="error" onClick={() => updateDB('no')}>
-                반려
-            </Button>
         </>
     )
 }
