@@ -8,11 +8,11 @@ export default function ScrollToTop() {
 
     const handleFollow = () => {
         setScrollY(window.pageYOffset);
-        if (ScrollY > 500) {
-            // 500 이상이면 버튼이 보이게
+        if (ScrollY > 1000) {
+            // 1000 이상이면 버튼이 보이게
             setBtnStatus(true);
         } else {
-            // 500 이하면 버튼이 사라지게
+            // 1000 이하면 버튼이 사라지게
             setBtnStatus(false);
         }
     }

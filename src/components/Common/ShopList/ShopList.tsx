@@ -146,6 +146,7 @@ export default function ShopList() {
                         }
                         setList(massage);
                         setDisplayName(goodsName);
+                        if (massage.length === 0) alert('검색결과가 없습니다.');
                     } else { // 검색창이 비어있으면 그대로 스테이트에 저장
                         setList(res.data);
                         setDisplayName('');
@@ -168,6 +169,7 @@ export default function ShopList() {
                         massage.forEach((data: shopList) => cp.push(data));
                         setList(cp);
                         setDisplayName(goodsName);
+                        if (massage.length === 0) alert('검색결과가 없습니다.');
                     } else {
                         // setList([...list, ...res.data]);
                         const cp = [...list];
@@ -227,7 +229,7 @@ export default function ShopList() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
 
-<ScrollToTop/>
+            <ScrollToTop/>
 
             <DivContainer>
                 <h3 style={{
@@ -292,7 +294,7 @@ export default function ShopList() {
                                 onChange={e => setRange((e.target as HTMLInputElement).value)}
                         />
 
-                        <div style={{display:"flex", justifyContent:"center", alignItems:'center'}}>
+                        <div style={{display: "flex", justifyContent: "center", alignItems: 'center'}}>
                             <TextField
                                 label="상품명으로 검색"
                                 value={goodsName}
@@ -323,9 +325,12 @@ export default function ShopList() {
 
                     </Box>
                 </DivHalfMenu>
-                <h2>
-                    {`주변 ${displayRange}km 내 ${displayName ? displayName : '모든상품'}에 대한 검색 결과`}
-                </h2>
+                {list.length !== 0 &&
+                    <h2>
+                        {`주변 ${displayRange}km 내 ${displayName ? displayName : '모든상품'}에 대한 검색 결과`}
+                    </h2>
+                }
+
                 {
                     showList && list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
