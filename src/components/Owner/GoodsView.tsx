@@ -110,7 +110,7 @@ export default function GoodsView() {
         client.patch(URL, {g_code: g_code})
             .then(res => {
                 console.log(res);
-                alert('상품 판매중지 되었습니다.');
+                alert('상품 판매완료 처리하였습니다.');
                 // initialize();
                 searchGoods();
             })
@@ -123,7 +123,7 @@ export default function GoodsView() {
                 } else if (err.status === 400) {
                     alert(err.data.error);
                 } else {
-                    alert('예상치 못한 에러로 인해 상품 판매중지 실패하였습니다.');
+                    alert('예상치 못한 에러로 인해 상품 판매완료 처리 실패하였습니다.');
                 }
 
             })
@@ -184,7 +184,7 @@ export default function GoodsView() {
                 </td>
                 <td>
                     <Button variant="outlined" name={`${props.data.g_code}`} onClick={e => deleteGoods(e)}
-                            className='editbtn'>판매중지</Button>
+                            className='editbtn'>판매완료</Button>
                 </td>
             </tr>
         )
@@ -256,7 +256,7 @@ export default function GoodsView() {
                         <th>판매수량</th>
                         <th>남은수량</th>
                         <th>수정</th>
-                        <th>판매중지</th>
+                        <th>판매완료</th>
                     </tr>
 
                     </thead>
