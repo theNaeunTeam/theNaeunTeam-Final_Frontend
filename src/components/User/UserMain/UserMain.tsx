@@ -58,7 +58,7 @@ export default function UserMain() {
         fetchBanner();
         fetchRecommendList();
         fetchLocalList();
-    }, []);
+    }, [userLocalMap]);
 
     const fetchBanner = () => {
         const URL = '/common/banner';

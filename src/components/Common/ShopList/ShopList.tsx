@@ -3,7 +3,6 @@ import {client} from "../../../lib/api/client";
 import {shopList} from "../../../modules/types";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import {Button} from "@mui/material";
 import {Map, MapMarker, MarkerClusterer} from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
@@ -15,6 +14,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
 import {useInView} from "react-intersection-observer"
 import {GrMapLocation} from "react-icons/gr";
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import ScrollToTop from "../ScrollToTop/ScrollToTop";
+
 
 const marks = [
     {
@@ -87,20 +93,28 @@ export default function ShopList() {
     const [lon, setLon] = useState(seoulLON);
     const [loading, setLoading] = useState(true);
     const [marker, setMarker] = useState<boolean[]>([]);
-    const [startIndex, setStartIndex] = useState(0);
-    const [noData, setNodata] = useState(false);
+    const [startIndex, setStartIndex] = useState(-1);
+    const [noMoreData, setNoMoreData] = useState(false);
+    let [goodsName, setGoodsName] = useState('');
+    let [sortOption, setSortOption] = useState('가까운순');
+    const [showList, setShowList] = useState(false);
+    const [displayName, setDisplayName] = useState('');
+    const [displayRange, setDisplayRange] = useState('');
 
     const {userLocalMap} = useSelector((state: RootState) => state);
+
+    useEffect(() => {
+        if (userLocalMap.lat) setStartIndex(0);
+    }, []);
 
     useEffect(() => {
         userLocalMap.lat != 0 && userLocalMap.lon != 0
             ? init(userLocalMap.lat, userLocalMap.lon)
             : init();
-
     }, [startIndex]);
 
     useEffect(() => {
-        if (inView && !loading && !noData) {
+        if (inView && !loading && !noMoreData) {
             setLoading(true);
             setStartIndex(startIndex + 10);
         }
@@ -108,35 +122,96 @@ export default function ShopList() {
 
     const init = (LAT = lat, LON = lon) => {
 
-        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}`)
+        if (goodsName !== '') {
+            sortOption = '상품많은순'
+        }
+        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`)
             .then(res => {
+                console.log(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`);
+                if (res.data.length < 10) {
+                    setNoMoreData(true);
+                } else {
+                    setNoMoreData(false);
+                }
+
                 console.log(res.data);
-                setList([...list, ...res.data]);
+
+                if (startIndex === 0) { // 페이지 로드되고 첫페이지다
+                    if (goodsName !== '') { // 검색창에 뭔가 있으면
+                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0); // 필터로 그것만 꺼냄
+                        console.log('massage', massage);
+                        console.log('massage.length', massage.length);
+                        if (massage.length < 10) {
+                            setNoMoreData(true);
+                        } else {
+                            setNoMoreData(false);
+                        }
+                        setList(massage);
+                        setDisplayName(goodsName);
+                        if (massage.length === 0) alert('검색결과가 없습니다.');
+                    } else { // 검색창이 비어있으면 그대로 스테이트에 저장
+                        setList(res.data);
+                        setDisplayName('');
+                    }
+
+                } else { // 다음페이지 넘어갈때
+                    if (goodsName !== '') { // 검색창에 뭔가 있으면
+
+                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0); // 필터로 그것만 꺼냄
+                        console.log('massage', massage);
+                        console.log('massage.length', massage.length);
+
+                        if (massage.length < 10) {
+                            setNoMoreData(true);
+                        } else {
+                            setNoMoreData(false);
+                        }
+                        // setList([...list, ...massage]);
+                        const cp = [...list];
+                        massage.forEach((data: shopList) => cp.push(data));
+                        setList(cp);
+                        setDisplayName(goodsName);
+                        if (massage.length === 0) alert('검색결과가 없습니다.');
+                    } else {
+                        // setList([...list, ...res.data]);
+                        const cp = [...list];
+                        res.data.forEach((data: shopList) => cp.push(data));
+                        setList(cp);
+                        setDisplayName('');
+                    }
+                }
                 setLat(Number(LAT));
                 setLon(Number(LON));
-                setLoading(false);
-                if (res.data.length === 0) {
-                    setNodata(true);
-                } else {
-                    setNodata(false);
-                }
+                setDisplayRange(range);
             })
             .catch(err => {
                 console.log(err);
-                setLoading(false);
             })
+            .finally(() => {
+                setLoading(false);
+                setShowList(true);
+            });
     }
 
     function getLoc() {
+        setShowList(!showList);
         setLoading(true);
-
+        setShowList(false);
         // 위치 허용 팝업
         navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
 
         function onGeoOK(position: any) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
-            init(lat, lon);
+            setLat(lat);
+            setLon(lon);
+
+            if (startIndex !== 0) {
+                setStartIndex(0);
+            } else {
+                init(lat, lon);
+            }
+
             dispatch({type: 'getLocaled', payload: {lat: lat, lon: lon}});
         }
 
@@ -144,6 +219,7 @@ export default function ShopList() {
             alert("위치를 찾을 수 없습니다");
             console.log(e);
         }
+
     }
 
     return (
@@ -154,6 +230,8 @@ export default function ShopList() {
             >
                 <CircularProgress color="inherit"/>
             </Backdrop>
+
+            <ScrollToTop/>
 
             <DivContainer>
                 <h3 style={{
@@ -167,6 +245,7 @@ export default function ShopList() {
                     borderTopLeftRadius: '15px',
                     width:'80%'
                 }}>주변 검색 <GrMapLocation/></h3>
+
 
                 <Map
                     center={{lat: lat, lng: lon}}
@@ -218,18 +297,51 @@ export default function ShopList() {
                                 onChange={e => setRange((e.target as HTMLInputElement).value)}
                         />
 
-                        <button className='shopMapBtn' style={{width: '50%', margin: '15px'}} color="error"
+                        <div style={{display: "flex", justifyContent: "center", alignItems: 'center'}}>
+                            <TextField
+                                label="상품명으로 검색"
+                                value={goodsName}
+                                onChange={e => setGoodsName(e.target.value)}
+                            />
+
+                            <FormControl sx={{m: 1, minWidth: 120}}>
+                                <InputLabel id="demo-simple-select-helper-label">정렬</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-helper-label"
+                                    value={sortOption}
+                                    label="정렬"
+                                    onChange={e => {
+                                        setSortOption(e.target.value);
+                                    }}
+                                >
+                                    <MenuItem value={'가까운순'}>가까운순</MenuItem>
+                                    <MenuItem value={'멀리있는순'}>멀리있는순</MenuItem>
+                                    <MenuItem value={'상품많은순'}>상품많은순</MenuItem>
+                                    <MenuItem value={'상품적은순'}>상품적은순</MenuItem>
+                                </Select>
+                                {/*<FormHelperText>거리,상품 갯수로 정렬할 수 있습니다</FormHelperText>*/}
+                            </FormControl>
+                        </div>
+
+                        <button className='shopMapBtn' style={{width: '75%', margin: '15px'}} color="error"
                                 onClick={getLoc}>{`주변 ${range}km 내 찾기`}</button>
                     </Box>
-
                 </DivHalfMenu>
+                {list.length !== 0 &&
+                    <h2>
+                        {`주변 ${displayRange}km 내 ${displayName ? displayName : '모든상품'}에 대한 검색 결과`}
+                    </h2>
+                }
+
                 {
-                    list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
+                    showList && list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
             </DivContainer>
+            <br/><br/>
             {list.length !== 0 &&
-                <div ref={ref} style={{textAlign: 'center'}}>
-                    {noData && <h1>리스트의 마지막입니다.</h1>}
+
+                <div ref={noMoreData ? undefined : ref}>
+                    {/*{noMoreData && <h1>리스트의 마지막입니다.</h1>}*/}
                 </div>
             }
         </>
