@@ -93,7 +93,7 @@ export default function LoginForm() {
                 const err = e.response;
                 console.log(e);
                 // console.log(err.data.error);
-                alert(err.data.error);
+                // alert(err.data.error);
             }
         }
 
