@@ -16,7 +16,6 @@ import {categoryType, shopViewType} from "../../../modules/types";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {fetch_Category_Per_sNumber} from "../../../lib/api/Fetch_Category_Per_sNumber";
 import './ShopView.scss';
-import {Doughnut} from 'react-chartjs-2';
 
 
 const DivMarker = styled.div`
