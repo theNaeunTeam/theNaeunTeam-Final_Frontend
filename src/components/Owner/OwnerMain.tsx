@@ -9,7 +9,7 @@ import OwnerNavbar from "./OwnerNavbar";
 import FCM from "../../lib/FCM";
 
 const DivContainer = styled.div`
-  border: solid black;
+  //border: solid black;
   //display: inline-flex;
   justify-content: center;
   margin: 20px;
@@ -27,36 +27,50 @@ const DivHalfMenu = styled.div`
   margin: 10px;
   //padding: 10px;
   //min-width: 97%;
-  border: solid green;
+  //border: solid green;
   //min-width: 500px;
   width: 90%;
   padding-left: 5%;
 
 `;
 
+const DivHalfMenu1 = styled.div`
+  display: inline-flex;
+  margin: 10px;
+  width: 90%;
+  padding-left: 5%;
+  height: 80px;
+  vertical-align: center;
+  text-align: center;
+`;
 const DivChart = styled.div`
   //flex: 1;
   display: block;
   margin: 10px;
   padding: 10px;
-  border: solid green;
+  //border: solid green;
 
 `;
 const DivChart1 = styled.div`
   display: block;
-  border: solid blue;
+  border: 1px solid #7EA0EA;
   width: 70%;
-  margin : 0 auto
+  margin: 15px auto;
+  border-radius: 40px;
+  padding: 25px;
+
 `;
 const DivChart2 = styled.div`
   display: block;
   width: 50%;
-  border: solid red;
-
+  border: 1px solid #7EA0EA;
+  border-radius: 40px;
+  padding: 15px;
+  margin: 10px;
 `;
 const DivChart3 = styled.div`
   display: flex;
-  border: solid grey;
+  //border: solid grey;
 `;
 
 const LineDiv = styled.div`
@@ -68,6 +82,7 @@ const LineDiv = styled.div`
   text-align: center;
   border: solid grey;
   margin-left: 10%;
+  border-radius: 20px;
 `;
 
 
@@ -104,7 +119,9 @@ export default function OwnerMain() {
     const [dayIdx, setDayIdx] = useState(0);
     const [yearIdx, setYearIdx] = useState(0);
     useEffect(() => {
-        initialize();
+        if(localStorage.getItem('ownerToken')){
+            initialize();
+        }
     }, []);
 
     useEffect(() => {
@@ -148,10 +165,14 @@ export default function OwnerMain() {
             // console.log(response.data['year'].map((x: any) => x.date));
             // console.log(response.data['year'].map((x: any) => x.sum));
             // console.log(response.data['year'].length);
-
-
-        } catch (e) {
+        } catch (e:any) {
             console.log(e);
+            if(e.response.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else{
+                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            }
         }
 
     };
@@ -230,14 +251,28 @@ export default function OwnerMain() {
 
                 }
             }
-        }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 18
+                    }
+                }
+            }
+        },
     }
     return (
         <DivContainer>
 
-            <h3>{ownerPage.o_name}</h3>
-            <DivHalfMenu>
+            <DivHalfMenu1>
+                <h1 style={{marginRight : '30px'}}>{ownerPage.o_name}</h1>
                 <FCM/>
+            </DivHalfMenu1>
+
+            <DivHalfMenu>
+
                 <LineDiv> 총 판매 금액 : {ownerPage.total} 원</LineDiv>
                 <LineDiv>이번달 수익 : {ownerPage.monTotal} 원</LineDiv>
                 <LineDiv>총 구매자 : {ownerPage.buyTotal} 명</LineDiv>
@@ -251,6 +286,9 @@ export default function OwnerMain() {
                                  label: '일일 매출액',
                                  data: daySumArr[dayIdx],
                                  backgroundColor: [
+                                     'rgba(153, 102, 255,0.2)',
+                                     'rgba(202, 051, 204,0.2)',
+                                     'rgba(201, 203, 207,0.2)',
                                      'rgba(255, 051, 102,0.2)',
                                      'rgba(255, 051, 000,0.2)',
                                      'rgba(255, 99, 132,0.2)',
@@ -260,11 +298,11 @@ export default function OwnerMain() {
                                      'rgba(75, 192, 192,0.2)',
                                      'rgba(000, 051, 255,0.2)',
                                      'rgba(54, 162, 235,0.2)',
-                                     'rgba(153, 102, 255,0.2)',
-                                     'rgba(102, 051, 204,0.2)',
-                                     'rgba(201, 203, 207,0.2)'
                                  ],
                                  borderColor: [
+                                     'rgb(153, 102, 255)',
+                                     'rgb(202, 051, 204)',
+                                     'rgb(201, 203, 207)',
                                      'rgb(255, 051, 102)',
                                      'rgb(255, 051, 000)',
                                      'rgb(255, 99, 132)',
@@ -274,9 +312,7 @@ export default function OwnerMain() {
                                      'rgb(75, 192, 192)',
                                      'rgb(000, 051, 255)',
                                      'rgb(54, 162, 235)',
-                                     'rgb(153, 102, 255)',
-                                     'rgb(102, 051, 204)',
-                                     'rgb(201, 203, 207)'
+
                                  ],
                                  borderWidth: 1
                              }]
@@ -299,33 +335,34 @@ export default function OwnerMain() {
                                     label: '월별 매출',
                                     data: monSumArr[monIdx],
                                     backgroundColor: [
-
+                                        'rgb(75, 192, 192,0.2)',
+                                        'rgba(000, 051, 255,0.2)',
+                                        'rgb(54, 162, 235,0.2)',
+                                        'rgb(153, 102, 255,0.2)',
+                                        'rgba(102, 051, 204,0.2)',
+                                        'rgb(201, 203, 207,0.2)',
                                         'rgba(255, 051, 102,0.2)',
                                         'rgba(255, 051, 000,0.2)',
                                         'rgb(255, 99, 132,0.2)',
                                         'rgba(255, 204, 000,0.2)',
                                         'rgb(255, 159, 64,0.2)',
                                         'rgb(255, 205, 86,0.2)',
-                                        'rgb(75, 192, 192,0.2)',
-                                        'rgba(000, 051, 255,0.2)',
-                                        'rgb(54, 162, 235,0.2)',
-                                        'rgb(153, 102, 255,0.2)',
-                                        'rgba(102, 051, 204,0.2)',
-                                        'rgb(201, 203, 207,0.2)'
+
                                     ],
                                     borderColor: [
+                                        'rgb(75, 192, 192)',
+                                        'rgba(000, 051, 255)',
+                                        'rgb(54, 162, 235)',
+                                        'rgb(153, 102, 255)',
+                                        'rgba(102, 051, 204)',
+                                        'rgb(201, 203, 207)',
                                         'rgba(255, 051, 102)',
                                         'rgba(255, 051, 000)',
                                         'rgb(255, 99, 132)',
                                         'rgba(255, 204, 000)',
                                         'rgb(255, 159, 64)',
                                         'rgb(255, 205, 86)',
-                                        'rgb(75, 192, 192)',
-                                        'rgba(000, 051, 255)',
-                                        'rgb(54, 162, 235)',
-                                        'rgb(153, 102, 255)',
-                                        'rgba(102, 051, 204)',
-                                        'rgb(201, 203, 207)'
+
                                     ],
                                     borderWidth: 1
                                 }]

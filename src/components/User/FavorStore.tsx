@@ -8,44 +8,44 @@ import fullStar from "../../styles/images/star1.png";
 import Swal from 'sweetalert2';
 import UserNavbar from "./UserNavbar";
 import '../../styles/table.scss';
-
-const TableStyled = styled.table`
-  border: solid aqua;
-  padding: 10px;
-  width: 100%;
-  
-`;
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 
 const DivContainer = styled.div`
-  border: solid black;
+  //border: solid black;
   display: inline-flex;
   justify-content: center;
   margin: 0 13px 0 0;
   padding: 10px;
   height: 100%;
-  width: 98%;
+  width: 100%;
   clear: both;
 `;
 
 const DivNav = styled.div`
-  border: solid blue;
+  //border: solid blue;
   width: 17%;
-  font-size: large;
-
+  font-size: 20px;
 `;
 const DivMain = styled.div`
-  border: solid red;
+  //border: solid red;
   width: 80%;
   height: 100%;
   text-align: center;
   padding: 20px;
+  min-height: 800px;
+  margin-right: 15%;
+
 
 `;
+
 export default function FavorStore() {
 
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
+    const [startIndex, setStartIndex] = useState(0);
+
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) history.replace('/err');
     }, []);
@@ -82,20 +82,27 @@ export default function FavorStore() {
 
     useEffect(() => {
         initialize();
-    }, []);
+    }, [startIndex]);
 
     const initialize = async () => {
         const URL = '/user/favorList';
+        setLoading(true);
         try {
-            const res = await client.get(URL);
+            const res = await client.get(URL+`?startIndex=${startIndex}`);
             // setList(res.data);
 
             setList(res.data);
             console.log(res);
             setLoading(false);
 
-        } catch (e) {
+        } catch (e:any) {
             console.log(e);
+            if(e.response.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else{
+                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            }
         }
     };
     // 즐겨찾기 해제 api
@@ -117,16 +124,37 @@ export default function FavorStore() {
             favoroff();
             initialize();
 
-        } catch (e) {
+        } catch (e:any) {
             console.log(e);
+            if(e.response.status === 500){
+                alert("서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.")
+            }else if(e.response.status === 400){
+                alert(e.response.data.error);
+            }else{
+                alert('예상치 못한 에러로 인해 즐겨찾기 해제 실패하였습니다. 잠시 후 다시 시도 바랍니다.')
+            }
+        }
+    }
+    const indexMinus = () => {
+        if (startIndex === 0) {
+            alert('첫 페이지입니다.');
+        } else {
+            setStartIndex(startIndex - 10);
+        }
+    }
+    const indexPlus = () => {
+        if (list.length === 10) {
+            setStartIndex(startIndex + 10);
+        }else{
+            alert('마지막 페이지입니다.');
         }
     }
     const TableBuilder = (props: { data: favorListType, idx: number }) => {
         return (
             <tr>
-                <td>
-                    {props.idx + 1}
-                </td>
+                {/*<td>*/}
+                {/*    {props.idx + 1}*/}
+                {/*</td>*/}
                 <td>
                     {props.data.o_name}
                 </td>
@@ -156,15 +184,22 @@ export default function FavorStore() {
     };
     return (
         <DivContainer>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             <DivNav>
                 <UserNavbar/>
             </DivNav>
 
             <DivMain>
-                <TableStyled className='favor'>
+                <h1 style={{marginBottom:'50px'}}>즐겨찾는가게</h1>
+                <table className='favor'>
                     <thead>
                     <tr>
-                        <th>순번</th>
+                        {/*<th>순번</th>*/}
                         <th>가게명</th>
                         <th>가게주소</th>
                         <th>가게번호</th>
@@ -175,10 +210,15 @@ export default function FavorStore() {
                     </tr>
                     </thead>
                     <tbody>
-                    {list.length === 0 ? '즐겨찾는 가게가 없습니다. '
+                    {list.length === 0 ? <div className='centerDiv1'><span className='centerSpan'>즐겨찾는 가게가 없습니다. </span></div>
                         : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                     </tbody>
-                </TableStyled>
+                </table>
+                <div className='aa' style={{height: '80px', display: 'inline-flex'}}>
+                    <span onClick={indexMinus}>◀ 이전</span>
+                    <div style={{fontSize: '20px', margin: '0 10px'}}>{startIndex / 10 + 1}</div>
+                    <span onClick={indexPlus}> 다음 ▶</span>
+                </div>
             </DivMain>
         </DivContainer>
     )

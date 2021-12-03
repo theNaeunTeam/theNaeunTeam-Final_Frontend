@@ -191,6 +191,7 @@ export type shopList = {
     o_time1: string,
     o_time2: string,
     radius?: string,
+    searchResult:number,
 }
 
 export type categoryType = {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
@@ -6,7 +6,6 @@ import {RootState} from "../../index";
 import '../../styles/Header.scss'
 import LoginForm from "./LoginForm/LoginForm";
 import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from "@mui/material/CircularProgress";
 
 
 export default function Header() {
@@ -14,12 +13,12 @@ export default function Header() {
     const history = useHistory();
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
-    const [showLoginForm, setShowLoginForm] = React.useState(false);
+    const {showLoginModal} = useSelector((state: RootState) => state);
 
     const logout = () => {
-        localStorage.removeItem('userToken');
-        localStorage.removeItem('ownerToken');
-        localStorage.removeItem('masterToken');
+        // localStorage.removeItem('userToken');
+        // localStorage.removeItem('ownerToken');
+        // localStorage.removeItem('masterToken');
         dispatch({type: 'logoutAll'});
         history.push('/');
     };
@@ -59,7 +58,7 @@ export default function Header() {
     const First = () => {
         return (
             <>
-                <li onClick={() => setShowLoginForm(true)} style={{cursor: 'pointer'}}>
+                <li onClick={() => dispatch({type: true})} style={{cursor: 'pointer'}}>
                     {/*<Link to={'/login'}>로그인</Link>*/}
                     로그인
                 </li>
@@ -111,9 +110,9 @@ export default function Header() {
         <>
             <Backdrop
                 sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
-                open={showLoginForm}
+                open={showLoginModal}
             >
-                {showLoginForm && <LoginForm setShowLoginForm={setShowLoginForm}/>}
+                {showLoginModal && <LoginForm/>}
             </Backdrop>
             <DivWrap className='header'>
                 {/*관리자 인증 들어간 왼쪽 div*/}

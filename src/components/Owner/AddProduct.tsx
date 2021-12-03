@@ -30,28 +30,18 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DivNav = styled.div`
-  border: solid blue;
-  width: 17%;
-  font-size: large;
-`;
-const DivMain = styled.div`
-  border: solid red;
-  width: 80%;
-  height: 100%;
-  padding: 20px;
 
-`;
 
 const DivContainer = styled.div`
-  border: solid black;
-  display: inline-flex;
+  //border: solid black;
+  //display: inline-flex;
   justify-content: center;
   margin: 20px;
   padding: 10px;
   height: 100%;
   width: 100%;
   clear: both;
+  text-align: center;
 `;
 export default function AddProduct() {
 
@@ -146,10 +136,14 @@ export default function AddProduct() {
             dispatch({type: 'modifyOK'});
             setProduct(initValue);
             console.log(res);
-        } catch (e) {
-            // @ts-ignore
+        } catch (e:any) {
             const err = e.response;
-            alert(err.data.error);
+            if(err.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else{
+                alert(err.data.error);
+            }
             console.log(e);
         }
     };
@@ -165,8 +159,7 @@ export default function AddProduct() {
 
     return (
         <DivContainer>
-
-                <h2>상품등록</h2>
+                <h1 style={{marginBottom:'50px'}}>상품등록</h1>
 
                 <Stack
                     onChange={(e: React.FormEvent<HTMLFormElement>) => handleForm(e)}

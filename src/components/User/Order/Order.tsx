@@ -56,6 +56,7 @@ export default function Order() {
     const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);
     const [cookies, setCookie, removeCookie] = useCookies(['cart']); // 건들지 말것
 
+
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) history.replace('/err');
         if (cartReducer[0] === undefined) history.replace('/err');

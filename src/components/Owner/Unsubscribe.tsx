@@ -9,7 +9,7 @@ import {client} from "../../lib/api/client";
 import {AxiosError} from "axios";
 
 const DivContainer = styled.div`
-  border: solid black;
+  //border: solid black;
   //display: inline-flex;
   justify-content: center;
   margin: 20px;
@@ -20,17 +20,6 @@ const DivContainer = styled.div`
   text-align: center;
 `;
 
-const DivNav = styled.div`
-  border: solid blue;
-  width: 17%;
-  font-size: large;
-`;
-const DivMain = styled.div`
-  border: solid red;
-  width: 80%;
-  height: 100%;
-  padding: 20px;
-`;
 
 export default function Unsubscribe() {
     const history = useHistory();
@@ -65,19 +54,25 @@ export default function Unsubscribe() {
             if(res.data === 1){
                 alert("가맹 해지 신청이 완료 되었습니다.")
             }else{
-                alert("해지 신청에 실패하였습니다.")
+                alert("가맹 해지 신청에 실패하였습니다.")
             }
 
-        } catch (e) {
-            // @ts-ignore
+        } catch (e :any) {
             const err = e.response;
-            alert(err.data.error);
+            if(err.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else if(err.data.status === 400){
+               alert(err.data.error);
+            }else{
+                alert('예상치 못한 에러로 인해 가맹 해지 신청에 실패하였습니다.')
+            }
         }
     };
 
     return (
         <DivContainer>
-                <h1>이용해지신청</h1>
+            <h1 style={{marginBottom:'50px'}}>이용해지신청</h1>
                 <h3>비밀번호 확인</h3>
 
                 <Stack
@@ -97,9 +92,10 @@ export default function Unsubscribe() {
                         label="패스워드를 입력하세요."
                         type={'password'}
                         name={'o_pw'}
+                        style={{width:'23%'}}
                     />
 
-                    <Button style={{width: '30%'}} variant="outlined" onClick={submitForm}>
+                    <Button style={{width: '10%'}} variant="outlined" onClick={submitForm}>
                         확인
                     </Button>
                 </Stack>

@@ -13,7 +13,7 @@ export default function UserNavbar() {
         <React.Fragment>
             {/* Sidebar */}
                 <div className="flex items-center justify-center mt-10 text-center py-6" style={{textAlign:'center', padding:'10px'}}>
-                      <span className="mx-2 text-2xl font-semibold text-black" >
+                      <span className="mx-2 text-2xl font-semibold text-black"  style={{fontSize:'27px'}}>
                        <b>MYPAGE</b>
                       </span>
                 </div>

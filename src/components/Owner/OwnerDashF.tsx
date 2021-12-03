@@ -9,7 +9,7 @@ import {Doughnut, Line} from 'react-chartjs-2';
 
 
 const DivContainer = styled.div`
-  border: solid black;
+  //border: solid black;
   //display: inline-flex;
   justify-content: center;
   margin: 20px;
@@ -17,6 +17,7 @@ const DivContainer = styled.div`
   height: 100%;
   //width: 100%;
   clear: both;
+  
 `;
 
 const DivChart = styled.div`
@@ -27,22 +28,32 @@ const DivChart = styled.div`
 
 const DivChart1 = styled.div`
   display: block;
+  border: 1px solid #7EA0EA;
+  border-radius: 40px;
+  padding: 30px;
+  width: 70%;
+  margin : 15px auto;
+
 `;
 const DivChart2 = styled.div`
   display: inline-flex;
-  border: solid;
-  margin : 20px;
+  border: 1px solid #7EA0EA;
+  border-radius: 40px;
+  padding: 30px;
+  margin: 20px;
   width: 30%;
 `;
 const LineDiv = styled.div`
   display: block;
-  padding: 10px;
+  padding-top: 15px;
   border: solid;
   width: 20%;
-  height: 50px;
+  height: 60px;
   text-align: center;
   border: solid grey;
+  border-radius: 10px;
   margin-left: 10%;
+  margin-top: 20px;
 `;
 
 
@@ -79,7 +90,7 @@ export default function OwnerDashF() {
         const URLC = '/owner/getCategorySale';
         try {
             const reTime = await client.get(URLT);
-            setTime(reTime.data.map((x: any) => x.tal+'시'));
+            setTime(reTime.data.map((x: any) => x.tal + '시'));
             console.log(time);
             setTimeCnt(reTime.data.map((x: any) => x.sum));
             console.log('-----------------------')
@@ -100,110 +111,143 @@ export default function OwnerDashF() {
 
 
             setTotal(reGender.data[0].sum + reGender.data[1].sum);
-            
+
             console.log(reTime);
             console.log(reCate);
-        } catch (e) {
+
+        } catch (e : any) {
             console.log(e);
+            if(e.response.data.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+
+            }else{
+                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            }
+
+
         }
+    }
+
+    const option = {
+        plugins: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 18
+                    }
+                }
+            }
+        },
     }
     return (
         <DivContainer>
-                <h3>판매</h3>
+            <div style={{display:'inline-flex' , width:'100%', justifyContent:'center', verticalAlign:'center', marginBottom:'20px'}}>
+                <h1>판매 현황</h1>
                 <LineDiv> 총 예약 판매 건수 : {total} </LineDiv>
-                <DivChart>
-                    <DivChart1>
-                        <Line data={{
-                            labels: time,
+            </div>
+            <DivChart>
+                <DivChart1>
+                    <Line data={{
+                        labels: time,
+                        datasets: [
+                            {
+                                label: '시간대별 예약 수',
+                                data: timeCnt,
+                                fill: false,
+                                borderColor: 'rgba(000, 051, 255,0.2)',
+                                backgroundColor : 'rgba(000, 051, 255,0.2)',
+                                tension: 0.3
+                            }
+                        ]
+                    }}
+                          options={option}
+                    />
+                </DivChart1>
+                <DivChart2>
+
+                    <Doughnut
+                        data={{
+                            labels: genderArr,
                             datasets: [
                                 {
-                                    label: '시간대별 예약 수',
-                                    data: timeCnt,
-                                    fill: false,
-                                    borderColor: 'rgba(000, 051, 255,0.2)',
-                                    tension: 0.3
+                                    label: '성별 구매 비율',
+                                    data: gender,
+                                    backgroundColor: [
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 99, 132, 0.2)',
+
+                                    ],
+                                    borderColor: [
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 99, 132, 1)',
+
+                                    ],
+                                    borderWidth: 1,
                                 }
                             ]
-                        }}/>
-                    </DivChart1>
-                    <DivChart2>
-
-                        <Doughnut
-                            data={{
-                                labels: genderArr,
-                                datasets: [
-                                    {
-                                        label: '성별 구매 비율',
-                                        data: gender,
-                                        backgroundColor: [
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 99, 132, 0.2)',
-
-                                        ],
-                                        borderColor: [
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 99, 132, 1)',
-
-                                        ],
-                                        borderWidth: 1,
-                                    }
-                                ]
-                            }}/>
-                    </DivChart2>
-                    <DivChart2>
-                        <Doughnut
-                            data={{
-                                labels: ageArr,
-                                datasets: [
-                                    {
-                                        label: '연령대 구매 비율',
-                                        data: ageCnt,
-                                        backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 206, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                        ],
-                                        borderColor: [
-                                            'rgba(255, 99, 132, 1)',
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                        ],
-                                        borderWidth: 1,
-                                    }
-                                ]
-                            }}/>
-                    </DivChart2>
-                    <DivChart2>
-                        <Doughnut data={{
-                            labels: cateArr,
-                            datasets: [{
-                                label: '카테고리별 구매',
-                                data: cateCnt,
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)',
-                                    'rgba(255, 159, 64, 0.2)',
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)',
-                                ],
-                                borderWidth: 1,
-                            }]
-                        }}/>
-                    </DivChart2>
-                </DivChart>
+                        }}
+                        options={option}
+                    />
+                </DivChart2>
+                <DivChart2>
+                    <Doughnut
+                        data={{
+                            labels: ageArr,
+                            datasets: [
+                                {
+                                    label: '연령대 구매 비율',
+                                    data: ageCnt,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                    ],
+                                    borderWidth: 1,
+                                }
+                            ]
+                        }}
+                        options={option}
+                    />
+                </DivChart2>
+                <DivChart2>
+                    <Doughnut data={{
+                        labels: cateArr,
+                        datasets: [{
+                            label: '카테고리별 구매',
+                            data: cateCnt,
+                            backgroundColor: [
+                                'rgba(153,255,255,0.3)',
+                                'rgba(153,255,155,0.3)',
+                                'rgba(222,222,239,0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(153,255,255,1.5)',
+                                'rgba(153,255,155,1.5)',
+                                'rgba(222,222,239,1)',
+                                'rgba(75, 192, 192, 0.5)',
+                                'rgba(153, 102, 255, 0.5)',
+                                'rgba(255, 159, 64, 0.5)',
+                            ],
+                            borderWidth: 1,
+                        }]
+                    }}
+                              options={option}
+                    />
+                </DivChart2>
+            </DivChart>
 
         </DivContainer>
     )

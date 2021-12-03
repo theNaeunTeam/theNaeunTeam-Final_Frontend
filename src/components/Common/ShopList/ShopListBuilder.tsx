@@ -7,8 +7,6 @@ import {useHistory} from "react-router-dom";
 import {Doughnut} from 'react-chartjs-2';
 import Skeleton from '@mui/material/Skeleton';
 import {Button, Paper} from "@mui/material";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-
 interface listType {
     data: shopList;
     idx: number;
@@ -38,6 +36,7 @@ export default function ShopListBuilder({data, idx}: listType) {
     });
 
     useEffect(() => {
+        setChildLoading(true);
         fetch_Category_Per_sNumber(data.o_sNumber)
             .then(res => {
                 setCategory(res);
@@ -74,9 +73,8 @@ export default function ShopListBuilder({data, idx}: listType) {
                         <div>{data.o_phone}</div></div>
                     <div className={'shopListContents'}>
                     <span>{data.o_time1}~{data.o_time2}</span>
-                        <span>...{Math.round(Number(data.distance) * 100)}m</span>
+                        <span>...{Math.round(Number(data.distance) * 1000)}m</span>
                     </div>
-
                                     <button className='shopListBtn' style={{width: '60%', padding:'10px'}}
                                             onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
                                         <strong>상세보기</strong></button>
@@ -84,7 +82,7 @@ export default function ShopListBuilder({data, idx}: listType) {
                 <span className='doughnut'>
                     {
                         childLoading ?
-                            <Skeleton variant="rectangular" width={210} height={118}/>
+                            <Skeleton variant="rectangular" width={'100%'} height={'100%'}/>
                             :
                             <Doughnut data={{
                                 labels: ['기타', '냉동식품', '조리/반조리', '신선식품', '가공식품', '드링크'],

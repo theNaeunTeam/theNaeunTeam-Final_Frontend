@@ -1,15 +1,15 @@
 .box {
-    white-space: pre-wrap;
+  white-space: pre-wrap;
 }
 
 
 .DivBordered {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    margin-bottom: 20px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .shopListItems {
@@ -37,57 +37,61 @@
 }
 
 @media screen and (max-width: 768px) {
-    .doughnut {
-        display: none;
-    }
-    .noDoughnut{
-        display: block;
-    }
+  .doughnut {
+    display: none;
+  }
+  .noDoughnut {
+    display: block;
+  }
 }
+
 /*!* 화면 크기가 768 이상일떄 *!*/
 @media screen and (min-width: 768px) {
-.doughnut {
-        display: block;
-    }
-    .noDoughnut{
-        display: none;
-    }
+  .doughnut {
+    display: block;
+    width: 80%;
+    height: 80%;
+  }
+  .noDoughnut {
+    display: none;
+  }
 }
+
 .shopListContents {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    height: 400px;
-    width: 90%;
-    margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  height: 400px;
+  width: 90%;
+  margin: 10px;
 }
 
-.shopMapBtn{
-    background-color: #7da184;
-    border: none;
-    color: white;
-    padding: 15px 80px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    text-transform: uppercase;
-    font-size: 17px;
-    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.1);
-    box-shadow: 0 10px 30px 0 rgba(11,156,49,0.4);
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-    margin: 25px 20px 40px 20px;
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+.shopMapBtn {
+  background-color: #7da184;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 17px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.1);
+  box-shadow: 0 10px 30px 0 rgba(11, 156, 49, 0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 25px 20px 40px 20px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
-.shopMapBtn:hover{
-    background-color: #d2e5bf;
-    cursor: pointer;
+.shopMapBtn:hover {
+  background-color: #d2e5bf;
+  cursor: pointer;
 }
 
 .shopListBtn{
@@ -110,12 +114,14 @@
     -ms-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
+
 }
 
-.shopListBtn:hover{
-    background-color: #C7CCC5;
-    cursor: pointer;
+.shopListBtn:hover {
+  background-color: #C7CCC5;
+  cursor: pointer;
 }
+
 //#D3D6CD
 //#FFFCFD
 //#d3d6cd

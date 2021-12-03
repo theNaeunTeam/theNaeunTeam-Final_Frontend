@@ -17,15 +17,16 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import {RouteComponentProps, useHistory} from 'react-router-dom';
 import {client} from "../../../lib/api/client";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import styles from './LoginForm.module.css';
 import AddBusinessTwoToneIcon from '@mui/icons-material/AddBusinessTwoTone';
 import {CgUserlane} from "react-icons/cg";
 import CancelIcon from '@mui/icons-material/Cancel';
+import {RootState} from "../../../index";
 
-export default function LoginForm(props: any) {
+export default function LoginForm() {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -35,6 +36,8 @@ export default function LoginForm(props: any) {
         u_id: '',
         u_pw: '',
     }
+
+    const {showLoginModal} = useSelector((state: RootState) => state)
 
     const [loginForm, setloginForm] = useState(initValue);
     const [findPw, setFindPw] = useState('');
@@ -60,17 +63,16 @@ export default function LoginForm(props: any) {
                     localStorage.setItem('ownerToken', res.headers["x-auth-token"]);
                     localStorage.setItem('o_sNumber', loginForm.u_id);
                     dispatch({type: 'ownerMode', payload: loginForm.u_id});
-                    alert('가게 로그인 성공');
                     history.push('/owner');
-                    props.setShowLoginForm(false);
+                    dispatch({type: false});
                 } else {
                     alert('사업자번호 및 비밀번호를 확인해 주세요');
                 }
+
             } catch (e) {
                 // @ts-ignore
                 const err = e.response;
                 alert(err.data.error);
-                props.setShowLoginForm(false);
             }
         } else {
             const URL = '/common/userlogin';
@@ -81,18 +83,17 @@ export default function LoginForm(props: any) {
                     localStorage.setItem('userToken', res.headers["x-auth-token"]);
                     localStorage.setItem('u_id', loginForm.u_id);
                     dispatch({type: 'userMode', payload: loginForm.u_id});
-                    props.setShowLoginForm(false);
+
+                    dispatch({type: false});
                     history.push('/');
                 } else {
                     alert(`아이디 및 비밀번호를 확인해주세요`);
                 }
-            } catch (e) {
-                // @ts-ignore
-                const err = e.response;
+            } catch (e:any) {
+                // const err = e.response;
                 console.log(e);
                 // console.log(err.data.error);
                 alert(err.data.error);
-                props.setShowLoginForm(false);
             }
         }
 
@@ -113,13 +114,12 @@ export default function LoginForm(props: any) {
             if (res) {
                 alert("이메일로 비밀전호 재설정 메일을 보내드렸습니다.");
             }
-        } catch (e) {
-            //@ts-ignore
-            const err = e.response
-            alert(err.data.error);
+        } catch (e:any) {
+            // const err = e.response
+            // alert(err.data.error);
         } finally {
             setOpen(false);
-            props.setShowLoginForm(false);
+            dispatch({type: false});
         }
     }
 
@@ -144,9 +144,9 @@ export default function LoginForm(props: any) {
                     <form onChange={e => handleForm(e)} onSubmit={e => e.preventDefault()}
                           style={{display: 'inline-block'}}>
                         <div className={styles.fadeIn + " " + styles.first}>
-                            {props.setShowLoginForm &&
+                            {showLoginModal &&
                                 <span className={styles.loginFormHeader}>
-                                <CancelIcon style={{cursor: 'pointer'}} onClick={() => props.setShowLoginForm(false)}/>
+                                <CancelIcon style={{cursor: 'pointer'}} onClick={() => dispatch({type: false})}/>
                                 </span>
                             }
                             <h1>탄다마켓 로그인</h1>
@@ -195,12 +195,17 @@ export default function LoginForm(props: any) {
                                                        <VpnKeyIcon/>
                                                    </InputAdornment>
                                                ),
-                                           }}/>
+                                           }}
+                                           onKeyPress={e => {
+                                               if (e.key === 'Enter') login();
+                                           }
+                                           }/>
                             </Box>
                         </div>
                         <br/>
                         <button className={styles.fadeIn + " " + styles.fourth + " " + styles.loginBtn}
-                                onClick={login}>로그인
+                                onClick={login}
+                        >로그인
                         </button>
                     </form>
                     <br/><br/>
@@ -210,7 +215,7 @@ export default function LoginForm(props: any) {
                             <div id={styles.formFooter}>
                                 <Button variant="outlined"
                                         onClick={() => {
-                                            props.setShowLoginForm(false);
+                                            dispatch({type: false});
                                             history.push('/user/register');
                                         }}>
                                     회원가입
@@ -221,7 +226,10 @@ export default function LoginForm(props: any) {
                             </div>
                             :
                             <div id={styles.formFooter}>
-                                <Button variant="outlined" onClick={() => history.push('/owner/register')}>
+                                <Button variant="outlined" onClick={() => {
+                                    dispatch({type:false});
+                                    history.push('/owner/register')
+                                }}>
                                     입점신청
                                 </Button>
                             </div>
