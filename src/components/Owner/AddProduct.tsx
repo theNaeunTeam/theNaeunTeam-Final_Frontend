@@ -213,7 +213,7 @@ export default function AddProduct() {
         console.log(productForm);
         const tagName = (e.target as HTMLFormElement).name;
         setProduct({...productForm, [tagName]: (e.target as HTMLFormElement).value});
-        // formValidate();
+        // ownerFormValidate();
     };
 
 

@@ -13,19 +13,6 @@ import { IoCaretForward } from "react-icons/io5";
 export default function MasterChart() {
 
 
-
-    const DivChart2 = styled.div`
-      display: block;
-      width: 50%;
-      text-align: center;
-    `;
-
-    const DivChart3 = styled.div`
-      display: flex;
-      margin-block: fill;
-    `;
-
-
     const history = useHistory();
 
     useLayoutEffect(() => {
@@ -93,11 +80,17 @@ export default function MasterChart() {
             console.log(res.data['year'].map((b: any) => ({date: b.date, owner: b.sum, user: b.tal})));
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, owner: b.sum, user: b.tal})));
 
-            setLoading(false);
 
-        } catch (e) {
+
+        } catch (e:any) {
             console.log(e);
+            if(e.response.status === 500){
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            }else{
+                alert('데이터를 가져오는데 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+            }
         }
+        setLoading(false);
     };
 
     // 12달 증감버튼

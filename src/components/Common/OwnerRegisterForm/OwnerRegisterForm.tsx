@@ -28,9 +28,10 @@ export default function OwnerRegisterForm() {
     const o_addressRef = useRef(null);
     const fileDiv = useRef(null);
 
+    const [regForm, setRegForm] = useState<ownerRegisterFormType>(initValue);
+
     const fileInputTag = useRef<HTMLInputElement>(null);
 
-    const [regForm, setRegForm] = useState<ownerRegisterFormType>(initValue);
     const [address, setAddress] = useState(''); // 주소
     const [addressDetail, setAddressDetail] = useState(''); // 상세주소
     const [isOpenPost, setIsOpenPost] = useState(false);
@@ -344,37 +345,3 @@ export default function OwnerRegisterForm() {
         </div>
     )
 }
-
-
-
-const initValue = {
-    isModify: false,
-    g_owner: '',
-    g_name: '',
-    g_count: '',
-    g_price: '',
-    g_discount: '',
-    g_detail: '',
-    g_expireDate: '',
-    g_category: '',
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

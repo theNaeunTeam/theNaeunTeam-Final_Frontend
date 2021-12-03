@@ -42,7 +42,7 @@ export default function UserMypage() {
     const {showLoginModal} = useSelector((state: RootState) => state);
     const history = useHistory();
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
 
     useLayoutEffect(() => {
