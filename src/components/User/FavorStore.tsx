@@ -81,29 +81,32 @@ export default function FavorStore() {
     }
 
     useEffect(() => {
-        initialize();
+        if (localStorage.getItem('userToken')) {
+            initialize();
+        }
     }, [startIndex]);
 
     const initialize = async () => {
         const URL = '/user/favorList';
         setLoading(true);
         try {
-            const res = await client.get(URL+`?startIndex=${startIndex}`);
+            const res = await client.get(URL + `?startIndex=${startIndex}`);
             // setList(res.data);
 
             setList(res.data);
             console.log(res);
-            setLoading(false);
 
-        } catch (e:any) {
+
+        } catch (e: any) {
             console.log(e);
-            if(e.response.data.status === 500){
-                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
+            } else {
+                alert('데이터를 가져오는 중 문제가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
 
-            }else{
-                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
             }
         }
+        setLoading(false);
     };
     // 즐겨찾기 해제 api
     const favorOff = async (input: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -124,16 +127,17 @@ export default function FavorStore() {
             favoroff();
             initialize();
 
-        } catch (e:any) {
+        } catch (e: any) {
             console.log(e);
-            if(e.response.status === 500){
-                alert("서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.")
-            }else if(e.response.status === 400){
+            if (e.response.status === 500) {
+                alert("서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.")
+            } else if (e.response.status === 400) {
                 alert(e.response.data.error);
-            }else{
-                alert('예상치 못한 에러로 인해 즐겨찾기 해제 실패하였습니다. 잠시 후 다시 시도 바랍니다.')
+            } else {
+                alert('예상치 못한 에러로 인해 즐겨찾기 해제 실패하였습니다. \n잠시 후 다시 시도 바랍니다.')
             }
         }
+
     }
     const indexMinus = () => {
         if (startIndex === 0) {
@@ -145,7 +149,7 @@ export default function FavorStore() {
     const indexPlus = () => {
         if (list.length === 10) {
             setStartIndex(startIndex + 10);
-        }else{
+        } else {
             alert('마지막 페이지입니다.');
         }
     }
@@ -195,7 +199,7 @@ export default function FavorStore() {
             </DivNav>
 
             <DivMain>
-                <h1 style={{marginBottom:'50px'}}>즐겨찾는가게</h1>
+                <h1 style={{marginBottom: '50px'}}>즐겨찾는가게</h1>
                 <table className='favor'>
                     <thead>
                     <tr>
@@ -210,7 +214,8 @@ export default function FavorStore() {
                     </tr>
                     </thead>
                     <tbody>
-                    {list.length === 0 ? <div className='centerDiv1'><span className='centerSpan'>즐겨찾는 가게가 없습니다. </span></div>
+                    {list.length === 0 ?
+                        <div className='centerDiv1'><span className='centerSpan'>즐겨찾는 가게가 없습니다. </span></div>
                         : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
                     </tbody>
                 </table>

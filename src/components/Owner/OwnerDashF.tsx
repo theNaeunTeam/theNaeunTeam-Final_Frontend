@@ -6,6 +6,8 @@ import {client} from "../../lib/api/client";
 import styled from "styled-components";
 import OwnerNavbar from "./OwnerNavbar";
 import {Doughnut, Line} from 'react-chartjs-2';
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 
 const DivContainer = styled.div`
@@ -62,7 +64,7 @@ export default function OwnerDashF() {
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
 
-    const [childLoading, setChildLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     useLayoutEffect(() => {
         if (!localStorage.getItem('ownerToken')) history.replace('/err');
     }, []);
@@ -80,10 +82,13 @@ export default function OwnerDashF() {
 
     const [total, setTotal] = useState(0);
     useEffect(() => {
-        initialize();
+        if(localStorage.getItem('ownerToken')){
+            initialize();
+        }
     }, []);
 
     const initialize = async () => {
+        setLoading(true)
         const URLT = '/owner/getTime';
         const URLG = '/owner/getGender';
         const URLA = '/owner/getAge';
@@ -123,9 +128,8 @@ export default function OwnerDashF() {
             }else{
                 alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
             }
-
-
         }
+        setLoading(false)
     }
 
     const option = {
@@ -142,6 +146,12 @@ export default function OwnerDashF() {
     }
     return (
         <DivContainer>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             <div style={{display:'inline-flex' , width:'100%', justifyContent:'center', verticalAlign:'center', marginBottom:'20px'}}>
                 <h1>판매 현황</h1>
                 <LineDiv> 총 예약 판매 건수 : {total} </LineDiv>

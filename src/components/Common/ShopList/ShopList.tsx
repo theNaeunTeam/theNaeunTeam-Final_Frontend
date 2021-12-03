@@ -51,7 +51,7 @@ const DivContainer = styled.div`
   align-items: center;
   padding: 10px;
   //width: 100%;
-  //border: solid red;
+  border: solid red;
   margin-top: 50px;
   margin-left: 200px;
   margin-right: 200px;

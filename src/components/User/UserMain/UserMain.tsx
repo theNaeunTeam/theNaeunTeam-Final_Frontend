@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './UserMain.css';
+import './UserMain.scss';
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
 import {carouselType, recommendType, shopList, shopViewType} from "../../../modules/types";
@@ -156,7 +156,7 @@ export default function UserMain() {
                              style={{height: '77%', width: '70%', cursor: 'pointer'}}
                         />
                         <br/>
-                        <b>{props.data.o_name}</b><br/>
+                        <b>{props.data.o_name}</b><br/><br/>
                         {props.data.o_address}<br/>
                         {props.data.o_time1}~{props.data.o_time2}
                         <br/>
@@ -202,10 +202,10 @@ export default function UserMain() {
             </DivCarouselContainer>
             <div>
                 {shopList.length != 0 ?
-                    <h1>근처 가게</h1>
+                    <h1 style={{fontFamily:'Cafe24Oneprettynight'}} >근처 가게</h1>
                     : null
                 }
-                <Paper className='divRecommend'>
+                <Paper className='divRecommend'  >
                     {shopList.length != 0 ?
                         shopList.map((data: shopList, idx) => <LocalList key={`l${idx}`} idx={idx} data={data}
                                                                          history={history}/>)
@@ -213,7 +213,7 @@ export default function UserMain() {
                 </Paper>
             </div>
             <div>
-                <h1>최근 등록된 상품</h1>
+                <h1 style={{fontFamily:'Cafe24Oneprettynight'}}>최근 등록된 상품</h1>
                 <br/>
                 <Paper className='divRecommend'>
                     {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data}

@@ -39,7 +39,7 @@ const DivMain = styled.div`
   min-height: 1000px;
   margin-right: 15%;
   //align-content: center;
-  
+
 
 `;
 export default function UserEdit() {
@@ -103,18 +103,16 @@ export default function UserEdit() {
             const res = await client.post(URL, userForm);
             console.log(res.data);
             res.data === 1
-                ? (alert('회원 정보 수정이 완료되었습니다.'), history.goBack())
+                ? (alert('회원 정보 수정이 완료되었습니다.'), history.replace('/user'))
                 : (alert('회원 정보 수정이 실패했습니다.'), history.goBack())
-        } catch (e:any) {
-            if(e.response.status === 500){
-                alert("서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.");
-                history.goBack();
-            }else if(e.response.status === 400){
+        } catch (e: any) {
+            console.log(e.response)
+            if (e.response.status === 500) {
+                alert("서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.");
+            } else if (e.response.status === 400) {
                 alert(e.response.data.error);
-                history.goBack();
-            }else{
-                alert('예상치 못한 에러로 인해 회원 정보 수정이 실패하였습니다. 잠시 후 다시 시도 바랍니다.');
-                history.goBack();
+            } else {
+                alert('예상치 못한 에러로 인해 회원 정보 수정이 실패하였습니다.\n잠시 후 다시 시도 바랍니다.');
             }
         }
     };
@@ -132,16 +130,15 @@ export default function UserEdit() {
             console.log(res);
             setUserForm(res.data);
             setUserEmail(res.data);
-        } catch (e:any) {
-            console.log(e);
-            if(e.response.data.status === 500){
-                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
+        } catch (e: any) {
+            console.log(e.response);
+            if (e.response.status === 500) {
+                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
 
-            }else if(e.response.data.status === 400){
+            } else if (e.response.status === 400) {
                 alert(e.response.data.error);
-            }
-            else{
-                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+            } else {
+                alert('데이터를 가져오는 중 문제가 발생했습니다.\n잠시 후 다시 시도 바랍니다.')
             }
         }
     };
@@ -165,61 +162,61 @@ export default function UserEdit() {
                     alignItems={"center"}
                     className='editForm'
                 >
-                            <TextField
-                                required
-                                id="outlined-required"
-                                label="아이디"
-                                name={'u_id'}
-                                value={userForm.u_id}
-                                // disabled={true}
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                            />
-                        <TextField
-                            error={formError.u_pw}
-                            required
-                            id="outlined-required"
-                            label="변경할 패스워드"
-                            type={'password'}
-                            name={'u_pw'}
-                        />
-                        <TextField
-                            error={formError.pwConfirm}
-                            required
-                            id="outlined-required"
-                            label="패스워드 확인"
-                            type={'password'}
-                            name={'pwConfirm'}
-                        />
-                        <TextField
-                            error={formError.u_cellPhone}
-                            required
-                            id="outlined-required"
-                            label="휴대전화"
-                            helperText="하이픈 없이 입력해 주세요"
-                            name={'u_cellPhone'}
-                            value={userForm.u_cellPhone}
-                            InputProps={{
-                                readOnly: false,
-                            }}
-                        />
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="이메일"
-                            value={userEmail.u_email}
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                        />
-                        <TextField
-                            error={formError.u_email}
-                            required
-                            id="outlined-required"
-                            label="변경할 이메일"
-                            name={'u_email'}
-                        />
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="아이디"
+                        name={'u_id'}
+                        value={userForm.u_id}
+                        // disabled={true}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    />
+                    <TextField
+                        error={formError.u_pw}
+                        required
+                        id="outlined-required"
+                        label="변경할 패스워드"
+                        type={'password'}
+                        name={'u_pw'}
+                    />
+                    <TextField
+                        error={formError.pwConfirm}
+                        required
+                        id="outlined-required"
+                        label="패스워드 확인"
+                        type={'password'}
+                        name={'pwConfirm'}
+                    />
+                    <TextField
+                        error={formError.u_cellPhone}
+                        required
+                        id="outlined-required"
+                        label="휴대전화"
+                        helperText="하이픈 없이 입력해 주세요"
+                        name={'u_cellPhone'}
+                        value={userForm.u_cellPhone}
+                        InputProps={{
+                            readOnly: false,
+                        }}
+                    />
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="이메일"
+                        value={userEmail.u_email}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    />
+                    <TextField
+                        error={formError.u_email}
+                        required
+                        id="outlined-required"
+                        label="변경할 이메일"
+                        name={'u_email'}
+                    />
                     <div style={{width: '30%', margin: 'auto'}}>
                         <FormLabel component="legend">성별</FormLabel>
                         <RadioGroup row aria-label="gender" name={'u_gender'} value={userForm.u_gender}
@@ -242,7 +239,8 @@ export default function UserEdit() {
                             <option value="90">90대</option>
                         </select>
 
-                        <Button style={{width: '60%', margin: '20px', border: 'solid'}} variant="outlined" onClick={submitForm}>
+                        <Button style={{width: '60%', margin: '20px', border: 'solid'}} variant="outlined"
+                                onClick={submitForm}>
                             정보 수정
                         </Button>
                     </div>

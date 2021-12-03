@@ -1,10 +1,31 @@
+    @font-face {
+        font-family: 'Cafe24Oneprettynight';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Chosunilbo_myungjo';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    //@font-face {
+    //    font-family: 'KOTRA_GOTHIC';
+    //    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
+    //    font-weight: normal;
+    //    font-style: normal;
+    //}
 #menu {
     //background: #a8bcfb;
-    //color: #FFF;
     height: 49px;
-    padding-left: 15px;
+    padding-top: 10px;
+    padding-left: 175px;
     padding-bottom:50px ;
-    border-bottom: 3px solid #7EA0EA;
+    border-bottom: 3px solid #808080;
+    font-family: Chosunilbo_myungjo;
 }
 #menu ul, #menu li {
     margin: 0 auto;
@@ -24,7 +45,7 @@
     line-height: 49px;
     padding: 0 30px;
     text-decoration: none;
-    color: #7EA0EA;
+    color: black;
     font-size: 23px;
     text-transform: uppercase;
     font-weight: bold;
@@ -34,7 +55,7 @@
     margin-left: 5px;
 }
 #menu li a:hover {
-    color: #7EA0EA;
+    //color: #7EA0EA;
     background: #FAFAFA;
 }
 #menu input {
@@ -80,7 +101,9 @@
 }
 #menu ul.sub-menus a:hover{
     background: #F7F7F7;
-    color: #7EA0EA;
+    color: blue;
+    text-decoration: underline blue;
+    text-decoration-thickness: 15%;
 }
 @media screen and (max-width: 800px){
     #menu {position:relative}
