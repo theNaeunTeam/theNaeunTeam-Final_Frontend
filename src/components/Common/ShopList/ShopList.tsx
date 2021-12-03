@@ -100,10 +100,13 @@ export default function ShopList() {
     const {userLocalMap} = useSelector((state: RootState) => state);
 
     useEffect(() => {
+        if (userLocalMap.lat) setStartIndex(0);
+    }, []);
+
+    useEffect(() => {
         userLocalMap.lat != 0 && userLocalMap.lon != 0
             ? init(userLocalMap.lat, userLocalMap.lon)
             : init();
-
     }, [startIndex]);
 
     useEffect(() => {
@@ -118,9 +121,9 @@ export default function ShopList() {
         if (goodsName !== '') {
             sortOption = '상품많은순'
         }
-        console.log(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`);
         client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`)
             .then(res => {
+                console.log(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`);
                 if (res.data.length < 10) {
                     setNoMoreData(true);
                 } else {
@@ -158,12 +161,12 @@ export default function ShopList() {
                         }
                         // setList([...list, ...massage]);
                         const cp = [...list];
-                        massage.forEach((data: shopList)=>cp.push(data));
+                        massage.forEach((data: shopList) => cp.push(data));
                         setList(cp);
                     } else {
                         // setList([...list, ...res.data]);
                         const cp = [...list];
-                        res.data.forEach((data:shopList)=>cp.push(data));
+                        res.data.forEach((data: shopList) => cp.push(data));
                         setList(cp);
                     }
                 }
@@ -180,6 +183,7 @@ export default function ShopList() {
     }
 
     function getLoc() {
+        setAaaa(!aaaa);
         setLoading(true);
         setAaaa(false);
         // 위치 허용 팝업
@@ -190,8 +194,13 @@ export default function ShopList() {
             const lon = position.coords.longitude;
             setLat(lat);
             setLon(lon);
-            setStartIndex(0);
-            // init(lat, lon);
+
+            if (startIndex !== 0) {
+                setStartIndex(0);
+            } else {
+                init(lat, lon);
+            }
+
 
             dispatch({type: 'getLocaled', payload: {lat: lat, lon: lon}});
         }

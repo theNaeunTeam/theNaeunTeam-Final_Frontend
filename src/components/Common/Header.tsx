@@ -6,7 +6,6 @@ import {RootState} from "../../index";
 import '../../styles/Header.scss'
 import LoginForm from "./LoginForm/LoginForm";
 import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from "@mui/material/CircularProgress";
 
 
 export default function Header() {

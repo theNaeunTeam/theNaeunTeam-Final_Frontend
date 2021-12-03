@@ -111,7 +111,7 @@ export default function ShopView() {
         o_time1: "",
         o_time2: '',
         o_image: "",
-    }
+    };
 
     const favorInit = {
         f_o_sNumber: '',
