@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import '../../styles/nav.scss'
 import {Link} from 'react-router-dom';
-import logo from '../../logo.svg';
+import logo from '../../styles/images/favicon.png'
 import {IconButton} from "material-ui";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { AiFillEdit } from "react-icons/ai";
@@ -30,7 +30,7 @@ export default function MainBar() {
                 <input type='checkbox' id='responsive-menu' onClick={updatemenu}/>
                 <label>&nbsp;&nbsp;&nbsp;&nbsp; 메뉴</label>
                 <ul>
-                    <li><Link to={'/'}><img src={logo} style={{height: '30px'}} alt="logo"/>HOME</Link></li>
+                    <li><Link to={'/'}><img src={logo} style={{height: '20px'}} alt="logo"/>HOME</Link></li>
                     <li>
                         <Link to={'/list'}>
                             <BiStore /> 근처 가게 찾기
