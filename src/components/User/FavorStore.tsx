@@ -28,17 +28,15 @@ const DivNav = styled.div`
   width: 17%;
   font-size: 20px;
 `;
-const DivMain = styled.div`
-  //border: solid red;
-  width: 80%;
-  height: 100%;
-  text-align: center;
-  padding: 20px;
-  min-height: 800px;
-  margin-right: 15%;
-
-
-`;
+// const DivMain = styled.div`
+//   //border: solid red;
+//   width: 80%;
+//   height: 100%;
+//   text-align: center;
+//   padding: 20px;
+//   min-height: 800px;
+//   margin-right: 15%;
+// `;
 
 export default function FavorStore() {
 
@@ -198,7 +196,7 @@ export default function FavorStore() {
                 <UserNavbar/>
             </DivNav>
 
-            <DivMain>
+            <div className={'DivMain'}>
                 <h1 style={{marginBottom: '50px'}}>즐겨찾는가게</h1>
                 <table className='favor'>
                     <thead>
@@ -224,7 +222,7 @@ export default function FavorStore() {
                     <div style={{fontSize: '20px', margin: '0 10px'}}>{startIndex / 10 + 1}</div>
                     <span onClick={indexPlus}> 다음 ▶</span>
                 </div>
-            </DivMain>
+            </div>
         </DivContainer>
     )
 }

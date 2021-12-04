@@ -14,7 +14,6 @@ import UserNavbar from "../UserNavbar";
 import '../../../styles/table.scss'
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
-import './userReserve.scss';
 
 const DivContainer = styled.div`
   //text-align: center;
