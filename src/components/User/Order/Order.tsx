@@ -14,22 +14,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-
-const DivContainer = styled.div`
-  border: solid 0.5px green;
-  border-radius: 10px;
-  //display: flex;
-  //flex-direction: column;
-  //justify-content: center;
-  text-align: center;
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-  vertical-align: center;
-  margin-top:40px;
-  margin-bottom: 100px;
-`;
-
 const DivBordered = styled.div`
   border-top: solid ghostwhite 10px;
   padding: 20px;
@@ -121,7 +105,7 @@ export default function Order() {
 
     return (
         <>
-            <DivContainer>
+            <div className={'OrderDivContainer'}>
                 <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e)}>
                     <h1>주문서</h1>
                     <br/>
@@ -156,7 +140,7 @@ export default function Order() {
                     </DivBordered>
                     <DivBordered>
                         <div className='orderLeftSide'>
-                            <h3>방문 예정 시간</h3>
+                            <h3>방문시간</h3>
                             <span>
                         <TextField
                             name={'o_time2'}
@@ -170,7 +154,7 @@ export default function Order() {
                             inputProps={{
                                 step: 3000, // 30 min
                             }}
-                            sx={{width: 200}}
+                            sx={{width: 150}}
                         />
                                 {' '}
                                 <TextField
@@ -179,7 +163,7 @@ export default function Order() {
                                     label="방문 예정 일자"
                                     type="date"
                                     defaultValue={orderForm.r_firstDate}
-                                    sx={{width: 200}}
+                                    sx={{width: 150}}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -256,7 +240,7 @@ export default function Order() {
                     <br/>
                     <Button variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h3>주문하기</h3></Button>
                 </form>
-            </DivContainer>
+            </div>
 
         </>
     )
