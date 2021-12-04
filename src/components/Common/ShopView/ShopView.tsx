@@ -16,6 +16,7 @@ import {categoryType, shopViewType} from "../../../modules/types";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {fetch_Category_Per_sNumber} from "../../../lib/api/Fetch_Category_Per_sNumber";
 import './ShopView.scss';
+import {GrMapLocation} from "react-icons/gr";
 
 
 const DivMarker = styled.div`
@@ -45,9 +46,20 @@ const DivButton = styled.div`
 
 const DivHalfMenu = styled.div`
   flex: 1;
-  margin: 10px;
-  padding: 10px;
+  padding: 50px;
+  margin-top: 30px;
+  margin-bottom: 90px;
   width: 500px;
+  //border: solid #0d0d0d;
+`;
+
+const DivHalfMenu2 = styled.div`
+  flex: 1;
+  margin: 10px;
+  padding: 0px 0px 30px;
+  width: 500px;
+  margin-right: 150px;
+  //border: solid #0d0d0d;
 `;
 
 export default function ShopView() {
@@ -535,17 +547,32 @@ export default function ShopView() {
         return (
             <>
                 <Paper className={'ShopViewDivContainer'}>
+
                     <DivHalfMenu>
-                        <img src={aboutStore.o_image} alt={'image'} style={{width: '100px', height: '100px'}}/>
-                        <h3>{aboutStore.o_name}</h3><br/>
-                        <h5>가게 전화번호 {aboutStore.o_phone}</h5><br/>
-                        <h5>영업시간 {aboutStore.o_time1} ~ {aboutStore.o_time2}</h5><br/>
-                        <h4>{aboutStore.o_address}</h4>
+                        <div className='shopDatadiv'>
+                            <img src={aboutStore.o_image} alt={'image'} style={{width: '100px', height: '100px'}}/>
+                            <h3>{aboutStore.o_name}</h3>
+                            <h5>가게 전화번호 {aboutStore.o_phone}</h5>
+                            <h5>영업시간 {aboutStore.o_time1} ~ {aboutStore.o_time2}</h5><br/>
+                            <h4>{aboutStore.o_address}</h4>
+                        </div>
                     </DivHalfMenu>
-                    <DivHalfMenu>
+
+                    <DivHalfMenu2>
+                        <h3 style={{
+                            background: '#f6f7f3',
+                            // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
+                            color: 'black',
+                            fontWeight: 'bold',
+                            padding: '10px',
+                            marginBottom: '-5px',
+                            borderTopRightRadius: '15px',
+                            borderTopLeftRadius: '15px',
+                            width:'100%',
+                        }}>매장 위치 <GrMapLocation/></h3>
                         <Map
                             center={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}
-                            style={{width: "450px", height: "250px"}}
+                            style={{width: "100%", height: "80%"}}
                         >
                             <MapMarker
                                 position={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}>
@@ -553,21 +580,33 @@ export default function ShopView() {
                             </MapMarker>
                         </Map>
 
-                        <button
-                            onClick={() => window.open(`https://map.kakao.com/link/to/${aboutStore.o_name},${aboutStore.o_latitude},${aboutStore.o_longitude}`, '_blank')}>길찾기
-                        </button>
-                        <CopyToClipboard text={aboutStore.o_address}>
-                            <button onClick={() => {
-                                alert('주소가 복사되었습니다.')
-                            }}>주소복사
+                        <CopyToClipboard
+                            text={aboutStore.o_address}>
+                            <button className='shopDataBtn'
+                                    style={{backgroundColor:'gray',
+                                            borderBottomLeftRadius:'10px'
+                                    }}
+                                    onClick={() => {
+                                        alert('주소가 복사되었습니다.')
+                                    }}>주소복사
                             </button>
                         </CopyToClipboard>
-                    </DivHalfMenu>
+
+                        <button className='shopDataBtn'
+                                style={{backgroundColor:'royalblue',
+                                        border:'solid royalblue',
+                                        borderBottomRightRadius:'10px'
+                                }}
+                            onClick={() => window.open(`https://map.kakao.com/link/to/${aboutStore.o_name},${aboutStore.o_latitude},${aboutStore.o_longitude}`, '_blank')}>길찾기
+                        </button>
+
+
+                    </DivHalfMenu2>
                 </Paper>
                 <div style={{textAlign: 'center', marginBottom: '100px'}}>
-                    <Button variant="outlined" color={'error'} style={{width: '50%'}}
-                            onClick={() => history.push('/user/shoppingcart')}>
-                        장바구니 보기 </Button>
+                    <button className='cartBtn'  style={{width: '50%'}}
+                            onClick={() => history.push('/user/shoppingcart')}>장바구니
+                        보기 </button>
                 </div>
             </>
         )
