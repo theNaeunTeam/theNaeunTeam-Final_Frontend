@@ -115,14 +115,14 @@ export default function ShoppingCart() {
                 <img style={{width: '200px', height: '200px'}} src={props.data.g_image}
                      alt={'상품이미지'}/>
                 <span className={'cartItem'}>
-                    <strong>
+                    <strong style={{fontSize:'x-large', fontWeight:'bolder'}}>
                     {props.data.g_status === 0 ? '구매 가능!' : '품절'}
                     </strong>
-                    <div>{props.data.g_name}</div>
-                    <div>
+                    <div style={{}}>{props.data.g_name}</div>
+                    <div style={{}}>
                         원래 가격 : {props.data.g_price}원
                     </div>
-                    <div>
+                    <div >
                         할인가 : {props.data.g_discount}원
                     </div>
 
@@ -130,11 +130,11 @@ export default function ShoppingCart() {
 
                 <span className='cartRight'>
                         <Button id={`${props.data.g_count}`} onClick={e => plus(e, props.idx)}><AddIcon/></Button>
-                    <span>수량 : <strong>{props.data.g_count}</strong></span>
+                    <span style={{fontWeight:'bold'}}>수량 : <strong>{props.data.g_count}</strong></span>
                 <Button id={`${props.data.g_count}`} onClick={e => minus(e, props.idx)}><RemoveIcon/>
                 </Button>
 
-                    <Button variant={'outlined'} name={`${props.idx}`} color="error"
+                    <Button style={{fontWeight:'bold', fontSize:'medium'}} variant={'outlined'} name={`${props.idx}`} color="error"
                             onClick={() => {
                                 if (!window.confirm('상품을 삭제하시겠습니까?')) return false;
                                 removeItem(props.data.g_code, props.idx)
@@ -148,23 +148,23 @@ export default function ShoppingCart() {
 
     return (
         <div className={'cartDivContainer'}>
-            <strong>{cartReducer.length === 0 || `${cartReducer[0].o_name}에서 담은 `}장바구니</strong>
+            <strong style={{fontSize:'x-large'}}>{cartReducer.length === 0 || `${cartReducer[0].o_name}에서 담은 `}장바구니</strong>
             {cartReducer.length ?
                 <>
                     <br/>
                     {cartReducer.map((data: ShoppingCartDTO, idx: number) => <ListBuilder data={data} idx={idx}
                                                                                           key={idx}/>)}
                     <br/>
-                    <div>
+                    <div style={{fontWeight:'bold', fontSize:'larger'}}>
                         총 주문 상품 수 : {cartReducer.length} 개, {' '}
                         {cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원
                     </div>
                     <br/>
-                    <div>
-                    <Button variant={'contained'} style={{width: '300px'}} onClick={() => {
+                    <div style={{textAlign: 'center', marginBottom: '100px'}}>
+                    <button className='cartBtn1'  onClick={() => {
                         dispatch({type: 'orderIn'});
                         history.push('/user/order');
-                    }}><h3>주문하기</h3></Button>
+                    }}><h3>주문하기</h3></button>
                         </div>
                 </>
                 :
