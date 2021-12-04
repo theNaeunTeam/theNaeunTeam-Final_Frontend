@@ -21,7 +21,7 @@ import ShoppingCart from "./components/User/ShoppingCart/ShoppingCart";
 import PageNotFound from "./components/Common/PageNotFound";
 import UserMypage from "./components/User/UserMypage";
 import Order from './components/User/Order/Order';
-import UserReserve from "./components/User/UserReserve";
+import UserReserve from "./components/User/UserReserve/UserReserve";
 import FavorStore from "./components/User/FavorStore";
 import UserEdit from "./components/User/UserEdit";
 import UserExit from "./components/User/UserExit";

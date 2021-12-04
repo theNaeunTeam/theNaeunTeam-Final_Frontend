@@ -25,6 +25,8 @@ html, body, root {
   min-height: 1120px;
 }
 
+/*!* 화면 크기가 768 이하*!*/
+
 @media screen and (max-width: 768px) {
   .header {
     font-family: 'Cafe24Oneprettynight';
