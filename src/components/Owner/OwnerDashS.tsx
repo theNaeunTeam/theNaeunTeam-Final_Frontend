@@ -21,7 +21,7 @@ const LineDiv = styled.div`
   display: block;
   padding-top: 25px;
   border: solid;
-  width: 20%;
+  width: 30%;
   height: 100px;
   text-align: center;
   border: solid grey;

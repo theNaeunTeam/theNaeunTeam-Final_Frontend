@@ -35,7 +35,7 @@ export default function MasterNavbar(props: RouteComponentProps) {
                             </ul>
                         </li>
 
-                        <li><Link className='dropdown-arrow' to={'/master/approvalwaiting'}>Services</Link>
+                        <li><Link className='dropdown-arrow' to={'/master/approvalwaiting'}> Services </Link>
                             <ul className='sub-menus'>
                                 <li><Link to={'/master/approvalwaiting'}>입점승인대기</Link></li>
                                 <li><Link to={'/master/approvalcompletion'}>입점승인완료</Link></li>
@@ -44,11 +44,11 @@ export default function MasterNavbar(props: RouteComponentProps) {
                             </ul>
                         </li>
 
-                        <li><Link className='dropdown-arrow' to={'/master/masterchart'}>통계자료</Link>
+                        <li><Link className='dropdown-arrow' to={'/master/masterchart'}> 통계 자료 </Link>
                             <ul className='sub-menus'>
-                                <li><Link to={'/master/masterownerdash'}>오너대시보드</Link></li>
-                                <li><Link to={'/master/userdash'}>유저대시보드</Link></li>
-                                <li><Link to={'/master/masterchart'}>유저+오너통합</Link></li>
+                                <li><Link to={'/master/masterownerdash'}>오너현황</Link></li>
+                                <li><Link to={'/master/userdash'}>유저현황</Link></li>
+                                <li><Link to={'/master/masterchart'}>종합현황</Link></li>
                                 <li></li>
                             </ul>
                         </li>

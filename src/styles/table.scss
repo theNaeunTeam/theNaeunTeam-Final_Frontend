@@ -1,18 +1,43 @@
-.goodstbl td {
-  //border: solid green;
-  margin: auto;
-  text-align: center;
-  padding: 15px;
-  font-weight: bold;
+/*!* 화면 크기가 1024 이하일떄 *!*/
+@media screen and (max-width: 1024px) {
+  .goodstbl td {
+    //border: solid green;
+    margin: auto;
+    text-align: center;
+    //padding: 10px;
+    font-weight: bold;
+    font-size: small;
+  }
+
+  .resertbl td {
+    //border: solid green;
+    margin: auto;
+    text-align: center;
+    //padding: 15px;
+    font-weight: bold;
+    font-size: small;
+  }
 }
 
-.resertbl td {
-  //border: solid green;
-  margin: auto;
-  text-align: center;
-  padding: 15px;
-  font-weight: bold;
+/*!* 화면 크기가 1024 이상일떄 *!*/
+@media screen and (min-width: 1024px) {
+  .goodstbl td {
+    //border: solid green;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+  }
+
+  .resertbl td {
+    //border: solid green;
+    margin: auto;
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+  }
 }
+
 
 .favor td {
   //border: solid greenyellow;
