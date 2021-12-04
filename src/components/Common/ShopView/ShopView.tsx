@@ -588,7 +588,7 @@ export default function ShopView() {
                         }}>매장 위치 <GrMapLocation/></h3>
                         <Map
                             center={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}
-                            style={{width: "100%", height: "80%"}}
+                            style={{width: "100%", height: "100%"}}
                         >
                             <MapMarker
                                 position={{lat: Number(aboutStore.o_latitude), lng: Number(aboutStore.o_longitude)}}>
