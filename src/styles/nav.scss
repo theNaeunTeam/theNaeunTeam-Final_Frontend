@@ -18,15 +18,7 @@
     //    font-weight: normal;
     //    font-style: normal;
     //}
-#menu {
-    //background: #a8bcfb;
-    height: 49px;
-    padding-top: 10px;
-    padding-left: 175px;
-    padding-bottom:50px ;
-    border-bottom: 3px solid #808080;
-    font-family: Chosunilbo_myungjo;
-}
+
 #menu ul, #menu li {
     margin: 0 auto;
     padding: 0;
@@ -40,16 +32,53 @@
     display: inline;
     position: relative;
 }
-#menu a {
-    display: block;
-    line-height: 49px;
-    padding: 0 30px;
-    text-decoration: none;
-    color: black;
-    font-size: 23px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
+
+    /*!* 화면 크기가 1500 이하일떄 *!*/
+    @media screen and (max-width: 1500px) {
+        #menu a {
+            display: block;
+            line-height: 49px;
+            padding: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-size: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        #menu {
+            //background: #a8bcfb;
+            height: 49px;
+            padding-top: 10px;
+            padding-left: 70px;
+            padding-bottom:50px ;
+            border-bottom: 3px solid #808080;
+            font-family: Chosunilbo_myungjo;
+        }
+    }
+
+    /*!* 화면 크기가 1500 이상일떄 *!*/
+    @media screen and (min-width: 1500px) {
+        #menu a {
+            display: block;
+            line-height: 49px;
+            padding: 0 30px;
+            text-decoration: none;
+            color: black;
+            font-size: 23px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        #menu {
+            //background: #a8bcfb;
+            height: 49px;
+            padding-top: 10px;
+            padding-left: 175px;
+            padding-bottom:50px ;
+            border-bottom: 3px solid #808080;
+            font-family: Chosunilbo_myungjo;
+        }
+    }
+
 #menu a.dropdown-arrow:after {
     content: "\2B9F";
     margin-left: 5px;

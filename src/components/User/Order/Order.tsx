@@ -26,7 +26,7 @@ const DivContainer = styled.div`
   width: 50%;
   padding: 10px;
   vertical-align: center;
-  margin-top: 20px;
+  margin-top:40px;
   margin-bottom: 100px;
 `;
 

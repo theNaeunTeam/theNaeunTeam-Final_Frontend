@@ -6,12 +6,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {Button} from "@mui/material";
 import styled from "styled-components";
-import {client} from "../../lib/api/client";
+import {client} from "../../../lib/api/client";
 import {useSelector} from "react-redux";
-import {RootState} from "../../index";
+import {RootState} from "../../../index";
 import {useHistory} from "react-router-dom";
-import UserNavbar from "./UserNavbar";
-import '../../styles/table.scss'
+import UserNavbar from "../UserNavbar";
+import '../../../styles/table.scss'
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 
@@ -31,16 +31,6 @@ const DivNav = styled.div`
   //border: solid blue;
   width: 17%;
   font-size: 20px;
-`;
-const DivMain = styled.div`
-  //border: solid red;
-  width: 80%;
-  height: 100%;
-  text-align: center;
-  padding: 20px;
-  min-height: 800px;
-  margin-right: 15%;
-
 `;
 
 
@@ -195,8 +185,8 @@ export default function UserReserve() {
                     {props.data.r_pay}
                 </td>
                 <td>
-                    {props.data.r_status === 0 ? '예약 승인 대기중'
-                        : props.data.r_status === 1 ? '승인 완료'
+                    {props.data.r_status === 0 ? '승인대기'
+                        : props.data.r_status === 1 ? '승인완료'
                             : props.data.r_status === 2 ? '거절됨'
                                 : props.data.r_status === 3 ? '구매완료'
                                     : props.data.r_status === 4 ? '노쇼'
@@ -228,7 +218,7 @@ export default function UserReserve() {
                 <UserNavbar/>
             </DivNav>
 
-            <DivMain>
+            <div className={'DivMain'}>
                 <h1 style={{marginBottom: '50px'}}>예약내역</h1>
                 <div>
                     <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
@@ -280,7 +270,7 @@ export default function UserReserve() {
                         <th>상품 상태</th>
                         <th>주문 수량</th>
                         <th>요청사항</th>
-                        <th>방문 예정 시간</th>
+                        <th>방문일</th>
                         <th>결제금액</th>
                         <th>상태</th>
                         <th>취소</th>
@@ -297,7 +287,7 @@ export default function UserReserve() {
                     <div style={{fontSize: '20px', margin: '0 10px'}}>{startIndex / 10 + 1}</div>
                     <span onClick={indexPlus}> 다음 ▶</span>
                 </div>
-            </DivMain>
+            </div>
         </DivContainer>
     )
 }

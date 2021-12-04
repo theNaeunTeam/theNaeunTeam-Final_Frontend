@@ -7,7 +7,7 @@ import {useRouteMatch} from 'react-router';
 import '../../../styles/ShopStyle.scss';
 import {Map, MapMarker} from "react-kakao-maps-sdk";
 import {useCookies} from 'react-cookie';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
 import fullStar from "../../../styles/images/star1.png";
 import emptyStar from "../../../styles/images/star2.png";
@@ -54,7 +54,7 @@ export default function ShopView() {
 
     const {authReducer} = useSelector((state: RootState) => state);
     const initialSelect = useRef(null);
-
+    const dispatch = useDispatch();
     const initColor = {
         case1: true,
         case2: false,
@@ -317,6 +317,7 @@ export default function ShopView() {
     const favorOff = async () => {
         if (!authReducer.isUser) {
             alert('로그인이 필요한 기능입니다.');
+            dispatch({type:true})
             return false;
         }
         const URL = '/user/FavorOff';
@@ -357,6 +358,7 @@ export default function ShopView() {
 
         if (!authReducer.isUser) {
             alert('로그인이 필요한 기능입니다.');
+            dispatch({type:true});
             return false;
         }
 

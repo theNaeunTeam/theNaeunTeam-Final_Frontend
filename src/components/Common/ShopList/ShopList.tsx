@@ -24,8 +24,8 @@ import ScrollToTop from "../ScrollToTop/ScrollToTop";
 
 const marks = [
     {
-        value: 0.1,
-        label: '100m',
+        value: 0.2,
+        label: '200m',
     },
     {
         value: 0.5,
@@ -40,34 +40,10 @@ const marks = [
         label: '1500m',
     },
     {
-        value: 2,
-        label: '2000m',
+        value: 1.9,
+        label: '1900m',
     },
 ];
-
-const DivContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  //width: 100%;
-  //border: solid red;
-  margin-top: 50px;
-  margin-left: 200px;
-  margin-right: 200px;
-  margin-bottom: 10px;
-`;
-
-const DivHalfMenu = styled.div`
-  margin: -1px -5px 50px;
-  padding: 20px 200px;
-  text-align: center;
-  width: 80.1%;
-  border: solid #d2e5bf;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-
-`;
 
 const DivMarker = styled.div`
   margin-left: 10px;
@@ -233,23 +209,11 @@ export default function ShopList() {
 
             <ScrollToTop/>
 
-            <DivContainer>
-                <h3 style={{
-                    background: '#f6f7f3',
-                    // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
-                    color: 'black',
-                    fontWeight: 'bold',
-                    padding: '20px 36.8% ',
-                    margin: '1px',
-                    borderTopRightRadius: '15px',
-                    borderTopLeftRadius: '15px',
-                    width:'80%',
-                }}>주변 검색 <GrMapLocation/></h3>
-
-
+            <div className={'DivContainer'}>
+                <h3>주변 검색 <GrMapLocation/></h3>
                 <Map
                     center={{lat: lat, lng: lon}}
-                    style={{width: "80%", height: "500px"}}
+                    style={{width: "80%", height: "400px"}}
                     level={5}
                 >
                     <MarkerClusterer
@@ -285,7 +249,7 @@ export default function ShopList() {
                     </MarkerClusterer>
                 </Map>
 
-                <DivHalfMenu>
+                <div className={'DivHalfMenu'}>
                     <Box className='box'>
                         <Slider style={{margin: '30px 0px 50px'}}
                                 min={0.1}
@@ -326,7 +290,7 @@ export default function ShopList() {
                         <button className='shopMapBtn' style={{width: '75%', margin: '15px'}} color="error"
                                 onClick={getLoc}>{`주변 ${range}km 내 찾기`}</button>
                     </Box>
-                </DivHalfMenu>
+                </div>
                 {list.length !== 0 &&
                     <h2>
                         {`주변 ${displayRange}km 내 ${displayName ? displayName : '모든상품'}에 대한 검색 결과`}
@@ -336,7 +300,7 @@ export default function ShopList() {
                 {
                     showList && list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
                 }
-            </DivContainer>
+            </div>
             <br/><br/>
             {list.length !== 0 &&
 
