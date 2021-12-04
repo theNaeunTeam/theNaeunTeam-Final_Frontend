@@ -50,7 +50,7 @@ export default function ShopListBuilder({data, idx}: listType) {
     return (
         <>
             <Paper className='DivBordered' key={idx} elevation={3}>
-                                <span className='shopListItems'>
+                <span className='shopListItems'>
                 <Map
                     center={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}
                     style={{width: '100%', height: '100%', borderRadius:'10px'}}

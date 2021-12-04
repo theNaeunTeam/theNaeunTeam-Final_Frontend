@@ -10,32 +10,11 @@
   justify-content: space-between;
   padding: 10px;
   margin-bottom: 20px;
+  align-items: center;
 }
 
-.shopListItems {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 350px;
-    width: 100%;
-    margin: 10px;
-    border:7px solid #D3D6CD;
-    border-radius: 15px;
-}
 
-.shopListItems2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 350px;
-    width: 65%;
-    margin: 10px 100px;
-    border:6px solid #D3D6CD;
-    border-radius: 15px;
-}
-
+/*!* 화면 크기가 768 이하일떄 *!*/
 @media screen and (max-width: 768px) {
   .doughnut {
     display: none;
@@ -43,19 +22,126 @@
   .noDoughnut {
     display: block;
   }
+  .DivContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+  }
+  .DivContainer h3 {
+    background: #f6f7f3;
+    // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    margin: 1px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    width: 80%;
+    text-align: center;
+  }
+  .DivHalfMenu {
+    text-align: center;
+    width: 80.1%;
+    border: solid #d2e5bf;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  .shopListItems {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 350px;
+    width: 100%;
+    margin: 10px;
+    border: 7px solid #D3D6CD;
+    border-radius: 15px;
+  }
+
+  .shopListItems2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 350px;
+    width: 100%;
+    margin: auto;
+    border: 6px solid #D3D6CD;
+    border-radius: 15px;
+  }
 }
 
 /*!* 화면 크기가 768 이상일떄 *!*/
 @media screen and (min-width: 768px) {
   .doughnut {
+    margin-top: 10px;
     display: block;
-    width: 50%;
-    height: 50%;
+    min-width: 35%;
+    height: 100%;
   }
   .noDoughnut {
     display: none;
   }
+  .DivContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    //width: 100%;
+    //border: solid red;
+    margin-top: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: 10px;
+  }
+  .DivContainer h3 {
+    background: #f6f7f3;
+    // backgroundColor: 'rgba( 47, 138, 241, 0.1 )',
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    margin: 1px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    width: 80%;
+    text-align: center;
+  }
+  .DivHalfMenu {
+    text-align: center;
+    width: 80.1%;
+    border: solid #d2e5bf;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  .shopListItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 350px;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border: 7px solid #D3D6CD;
+    border-radius: 15px;
+  }
+
+  .shopListItems2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 350px;
+    width: 65%;
+    margin: 10px;
+    border: 6px solid #D3D6CD;
+    border-radius: 15px;
+  }
 }
+
 
 .shopListContents {
   display: flex;
@@ -94,26 +180,26 @@
   cursor: pointer;
 }
 
-.shopListBtn{
-    background-color: #D3D6CD;
-    border: none;
-    color: white;
-    padding: 15px 80px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    text-transform: uppercase;
-    font-size: 17px;
-    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.1);
-    //box-shadow: 0 10px 30px 0 rgba(11,156,49,0.4);
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-    margin: 3px 20px 40px 20px;
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+.shopListBtn {
+  background-color: #D3D6CD;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 17px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.1);
+  //box-shadow: 0 10px 30px 0 rgba(11,156,49,0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 3px 20px 40px 20px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
 }
 
