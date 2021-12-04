@@ -76,15 +76,17 @@ const DivChart3 = styled.div`
 `;
 
 const LineDiv = styled.div`
-  display: block;
+  display: inline-flex;
   padding: 10px;
-  border: solid;
   width: 20%;
-  height: 50px;
+  height: 60px;
   text-align: center;
   border: solid grey;
   margin-left: 10%;
   border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 `;
 
 
