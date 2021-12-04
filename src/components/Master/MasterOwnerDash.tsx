@@ -127,17 +127,9 @@ export default function MasterOwnerDash() {
 
     return (
         <>
-            <div className='qqq'>
-                <h2 style={{
-                            borderRadius:'40px',
-                            padding:'15px',
-                            width:'50%',
-                            color:'black',
-                            fontSize:'30px',
-                            border:'3px solid  darkblue',
-                            fontFamily:'Chosunilbo_myungjo'
-                }}>오너 가입/탈퇴 통계</h2>
-            </div>
+            {/*<div className='qqq'>*/}
+                <h3 className={'mainH3'}>오너 가입/탈퇴 통계</h3>
+            {/*</div>*/}
             <div className="flex-container0">
             <div className="flex-container">
             <div className="flex-items">

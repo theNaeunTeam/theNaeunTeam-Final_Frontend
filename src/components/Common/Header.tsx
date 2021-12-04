@@ -6,6 +6,7 @@ import {RootState} from "../../index";
 import '../../styles/Header.scss'
 import LoginForm from "./LoginForm/LoginForm";
 import Backdrop from '@mui/material/Backdrop';
+import ScrollToTop from "./ScrollToTop/ScrollToTop";
 
 
 export default function Header() {
@@ -114,6 +115,7 @@ export default function Header() {
             >
                 {showLoginModal && <LoginForm/>}
             </Backdrop>
+            <ScrollToTop/>
             <DivWrap className='header'>
                 {/*관리자 인증 들어간 왼쪽 div*/}
                 <DivMaster>

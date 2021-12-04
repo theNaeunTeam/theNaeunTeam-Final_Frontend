@@ -207,8 +207,6 @@ export default function ShopList() {
                 <CircularProgress color="inherit"/>
             </Backdrop>
 
-            <ScrollToTop/>
-
             <div className={'DivContainer'}>
                 <h3>주변 검색 <GrMapLocation/></h3>
                 <Map

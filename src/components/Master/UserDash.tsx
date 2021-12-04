@@ -123,16 +123,9 @@ export default function UserDash() {
 
     return (
         <>
-            <div className='qqq'>
-                <h3 style={{background:'white',
-                            borderRadius:'40px',
-                            padding:'15px',
-                            fontFamily:'Chosunilbo_myungjo',
-                            fontSize:'xx-large',
-                            border:'3px solid darkblue',
-                            margin:'0px 300px 50px'
-                }}>유저 가입/탈퇴 통계</h3>
-            </div>
+            {/*<div className='qqq'>*/}
+                <h3 className={'mainH3'}>유저 가입/탈퇴 통계</h3>
+            {/*</div>*/}
             
             <div className="flex-container-1">
                 <div className="flex-items-1">

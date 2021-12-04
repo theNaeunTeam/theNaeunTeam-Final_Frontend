@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './ScrollToTop.scss';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 export default function ScrollToTop() {
 
@@ -41,7 +42,7 @@ export default function ScrollToTop() {
             <button
                 className={BtnStatus ? "topBtn active" : "topBtn"} // 버튼 노출 여부
                 onClick={handleTop}  // 버튼 클릭시 함수 호출
-            >TOP
+            ><ArrowUpwardIcon/>
             </button>
         </>
     )

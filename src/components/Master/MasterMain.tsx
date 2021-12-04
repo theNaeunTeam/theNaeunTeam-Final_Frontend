@@ -1,11 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {DataGrid, GridColDef, GridRowId} from '@mui/x-data-grid';
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
@@ -14,8 +9,6 @@ import Skeleton from '@mui/material/Skeleton';
 import '../../styles/masterOwnerDash.scss';
 import '../../styles/MasterLoginForm.scss';
 import {FaUserSecret} from "react-icons/fa";
-import CircularProgress from "@mui/material/CircularProgress";
-import Backdrop from "@mui/material/Backdrop";
 
 export default function MasterMain() {
 
@@ -203,16 +196,16 @@ export default function MasterMain() {
                 <>
                     <h3 className='mainH3'> 점주 리스트 </h3>
                     <div className='MasterMainBtn'>
-                        <button className='masterBtn'  onClick={() => updateDB('ok')}>
-                           입점 신청 승인
+                        <button className='masterBtn' onClick={() => updateDB('ok')}>
+                            승인
                         </button>
                         {' '}
                         <button className='masterBtn' onClick={() => updateDB('no')}>
-                            입점 신청 반려
+                            반려
                         </button>
                     </div>
                     <div style={{height: 650, width: '100%', margin: 'auto'}}>
-                        { loading ?
+                        {loading ?
                             <Box sx={{width: 1500}}>
                                 <Skeleton/>
                                 <Skeleton animation="wave"/>
@@ -239,7 +232,12 @@ export default function MasterMain() {
                                 pageSize={10}
                                 rowsPerPageOptions={[10]}
                                 checkboxSelection
-                                style={{fontSize:'large', fontFamily:'Chosunilbo_myungjo', fontWeight:'bold', color:'black'}}
+                                style={{
+                                    fontSize: 'large',
+                                    fontFamily: 'Chosunilbo_myungjo',
+                                    fontWeight: 'bold',
+                                    color: 'black'
+                                }}
                             />
                         }
                     </div>
