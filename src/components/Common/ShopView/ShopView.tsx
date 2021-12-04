@@ -627,8 +627,8 @@ export default function ShopView() {
                         : <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={emptyStar}
                                                                   onClick={favorInsert}/></span>
                 }
-                <h2>{aboutStore.o_name}</h2>
-                <h3 style={{color: 'gray'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h3>
+                <h2 style={{fontSize:'xxx-large', color:'black'}} >{aboutStore.o_name}</h2>
+                <h3 style={{color: 'gray', fontSize:'x-large'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h3>
             </DivTitle>
             <hr/>
             <div className={"nav"}>
