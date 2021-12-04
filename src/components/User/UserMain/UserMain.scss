@@ -1,9 +1,117 @@
 .mainBanner {
-    padding: 10px;
-    background-color: #f5f5f5;
+  padding: 10px;
+  background-color: #f5f5f5;
 }
 
-.goodsSide,.goodsSide1{
+
+.goodsSide1 img {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;
+  font-family: Chosunilbo_myungjo;
+  font-size: large;
+}
+
+.goodsSide1 img:hover {
+  /*cursor: pointer;*/
+  /*background-color: #d2e5bf;*/
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+
+.goodsSide:hover {
+  /*cursor: pointer;*/
+  /*background-color: #d2e5bf;*/
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+
+/*!* 화면 크기가 768 이하일떄 *!*/
+@media screen and (max-width: 768px) {
+  .divBanner {
+    width: 100%;
+    height: 200px;
+    background-size: 100% 200px;
+    color: black;
+  }
+  .DivCarouselContainer {
+    height: 200px;
+    width: 100%;
+  }
+  .divRecommend {
+    /*text-align: center;*/
+    //display: flex;
+    overflow: hidden;
+    justify-content: space-between;
+    height: 300px;
+    width: 100%;
+    margin-bottom: 50px;
+
+    /*border: solid red;*/
+  }
+  .goodsSide, .goodsSide1 {
+    height: 300px;
+    width: 100%;
+    /*border : solid 1px #7EA0EA;*/
+    /*border-radius: 40px;*/
+    white-space: pre-wrap;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transition: all 0.3s ease-in-out;
+    font-family: Chosunilbo_myungjo;
+    font-size: large;
+  }
+  //.localListDetail {
+  //  display: none;
+  //}
+  .localListImg {
+    height: 200px;
+    width: 200px;
+    cursor: pointer;
+  }
+}
+
+
+/*!* 화면 크기가 768 이상일떄 *!*/
+@media screen and (min-width: 768px) {
+  .divBanner {
+    width: 100%;
+    height: 500px;
+    background-size: 100% 500px;
+    color: black;
+  }
+  .DivCarouselContainer {
+    height: 600px;
+    width: 100%;
+  }
+  .divRecommend {
+    /*text-align: center;*/
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 50px;
+    padding: 10px;
+
+    /*border: solid red;*/
+  }
+  .goodsSide, .goodsSide1 {
     height: 550px;
     width: 100%;
     padding: 7px;
@@ -22,47 +130,11 @@
     transition: all 0.3s ease-in-out;
     font-family: Chosunilbo_myungjo;
     font-size: large;
+  }
+  .localListImg {
+    height: 77%;
+    width: 70%;
+    cursor: pointer;
+  }
 }
 
-.goodsSide1 img{
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transition: all 0.3s ease-in-out;
-    font-family: Chosunilbo_myungjo;
-    font-size: large;
-}
-
-.goodsSide1 img:hover{
-    /*cursor: pointer;*/
-    /*background-color: #d2e5bf;*/
-    transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    -o-transform: scale(1.1);
-}
-
-.goodsSide:hover{
-    /*cursor: pointer;*/
-    /*background-color: #d2e5bf;*/
-    transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    -o-transform: scale(1.2);
-}
-
-.divRecommend{
-    /*text-align: center;*/
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-    width: 100%;
-    margin-bottom: 50px;
-    padding: 10px;
-
-    /*border: solid red;*/
-}

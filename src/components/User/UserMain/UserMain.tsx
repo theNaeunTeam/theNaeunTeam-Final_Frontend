@@ -31,12 +31,6 @@ const DivContainer = styled.div`
   padding-bottom: 19px;
 `;
 
-const DivCarouselContainer = styled.div`
-  height: 600px;
-  width: 100%;
-  //margin-bottom: 100px;
-`;
-
 const DivRecommend = styled.div`
   text-align: center;
   display: flex;
@@ -121,11 +115,8 @@ export default function UserMain() {
                 <Link to={data.link} style={{width: '100%'}}>
                     <div style={{
                         backgroundImage: `url(${data.src})`,
-                        width: "100%",
-                        height: "500px",
-                        backgroundSize: '100% 500px',
-                        color: 'black',
-                    }}>
+                    }}
+                    className={'divBanner'}>
                         <h2>{data.header}</h2>
                         <p>{data.description}</p>
                         {/*<img src={data.src} alt={data.altText} height={'500px'} width={'100%'}/>*/}
@@ -153,12 +144,13 @@ export default function UserMain() {
 
                         <img src={props.data.o_image}
                              onClick={() => props.history.push(`/shopView/${props.data.o_sNumber}`)}
-                             style={{height: '77%', width: '70%', cursor: 'pointer'}}
+                             className={'localListImg'}
                         />
                         <br/>
                         <b>{props.data.o_name}</b><br/><br/>
-                        {props.data.o_address}<br/>
-                        {props.data.o_time1}~{props.data.o_time2}
+
+                        <span className={'localListDetail'}>{props.data.o_address}</span><br/>
+                        <span className={'localListDetail'}>{props.data.o_time1}~{props.data.o_time2}</span>
                         <br/>
                     </div>
                 </span>
@@ -176,7 +168,7 @@ export default function UserMain() {
             >
                 <CircularProgress color="inherit"/>
             </Backdrop>
-            <DivCarouselContainer>
+            <div className={'DivCarouselContainer'}>
                 {loading || <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                     spaceBetween={50}
@@ -199,7 +191,7 @@ export default function UserMain() {
                     }
                 </Swiper>
                 }
-            </DivCarouselContainer>
+            </div>
             <div>
                 {shopList.length != 0 ?
                     <h1 style={{fontFamily:'Cafe24Oneprettynight'}} >근처 가게</h1>
