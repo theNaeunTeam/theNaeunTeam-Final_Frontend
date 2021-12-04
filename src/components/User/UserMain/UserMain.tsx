@@ -138,10 +138,7 @@ export default function UserMain() {
     function LocalList(props: localProps) {
         return (
             <>
-
-                <span>
-                    <div className='goodsSide'>
-
+             <div className='goodsSide'>
                         <img src={props.data.o_image}
                              onClick={() => props.history.push(`/shopView/${props.data.o_sNumber}`)}
                              className={'localListImg'}
@@ -153,8 +150,6 @@ export default function UserMain() {
                         <span className={'localListDetail'}>{props.data.o_time1}~{props.data.o_time2}</span>
                         <br/>
                     </div>
-                </span>
-
             </>
         )
     }
@@ -192,26 +187,22 @@ export default function UserMain() {
                 </Swiper>
                 }
             </div>
-            <div>
                 {shopList.length != 0 ?
                     <h1 style={{fontFamily:'Cafe24Oneprettynight'}} >근처 가게</h1>
                     : null
                 }
-                <Paper className='divRecommend'  >
+                <Paper className='divRecommend'>
                     {shopList.length != 0 ?
                         shopList.map((data: shopList, idx) => <LocalList key={`l${idx}`} idx={idx} data={data}
                                                                          history={history}/>)
                         : null}
                 </Paper>
-            </div>
-            <div>
                 <h1 style={{fontFamily:'Cafe24Oneprettynight'}}>최근 등록된 상품</h1>
                 <br/>
                 <Paper className='divRecommend'>
                     {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data}
                                                                                  history={history}/>)}
                 </Paper>
-            </div>
         </DivContainer>
     )
 }

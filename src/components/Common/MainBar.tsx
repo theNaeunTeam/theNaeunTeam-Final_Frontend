@@ -27,8 +27,8 @@ export default function MainBar() {
     return (
         <>
             <nav id='menu'>
-                <input type='checkbox' id='responsive-menu' onClick={updatemenu}/><label></label>
-
+                <input type='checkbox' id='responsive-menu' onClick={updatemenu}/>
+                <label>&nbsp;&nbsp;&nbsp;&nbsp; 메뉴</label>
                 <ul>
                     <li><Link to={'/'}><img src={logo} style={{height: '30px'}} alt="logo"/>HOME</Link></li>
                     <li>
