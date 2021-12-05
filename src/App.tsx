@@ -12,9 +12,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./index";
 import OwnerRegisterFormContainer from "./components/Common/OwnerRegisterForm/OwnerRegisterFormContainer";
 import OwnerMain from "./components/Owner/OwnerMain";
-import AddProduct from "./components/Owner/AddProduct";
-import GoodsView from "./components/Owner/GoodsView";
-import ReservationView from "./components/Owner/ReservationView";
+import AddProductContainer from "./components/Owner/AddProduct/AddProductContainer";
+import GoodsViewContainer from "./components/Owner/GoodsView/GoodsViewContainer";
+import ReservationViewContainer from "./components/Owner/ReservationView/ReservationViewContainer";
 import Unsubscribe from "./components/Owner/Unsubscribe";
 import {client} from "./lib/api/client";
 import ShoppingCart from "./components/User/ShoppingCart/ShoppingCart";
@@ -148,9 +148,9 @@ function App() {
 
                 {/*<Route path='/owner' component={OwnerNavbar}/>*/}
                 <Route path='/owner' exact component={OwnerMain}/>
-                <Route path='/owner/addproduct' component={AddProduct}/>
-                <Route path='/owner/goodsview' component={GoodsView}/>
-                <Route path='/owner/reservationview' component={ReservationView}/>
+                <Route path='/owner/addproduct' component={AddProductContainer}/>
+                <Route path='/owner/goodsview' component={GoodsViewContainer}/>
+                <Route path='/owner/reservationview' component={ReservationViewContainer}/>
                 <Route path='/owner/unsubscribe' component={Unsubscribe}/>
                 <Route path='/owner/ownerdashf' component={OwnerDashF}/>
                 <Route path='/owner/ownerdashs' component={OwnerDashS}/>

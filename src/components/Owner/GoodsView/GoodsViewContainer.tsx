@@ -6,15 +6,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {Button} from "@mui/material";
 import styled from "styled-components";
-import {client} from "../../lib/api/client";
+import {client} from "../../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../index";
+import {RootState} from "../../../index";
 import {useHistory} from "react-router-dom";
-import {goodsViewType} from '../../lib/types';
+import {goodsViewType} from '../../../lib/types';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import '../../styles/table.scss'
-
+import '../../../styles/table.scss'
+import {GoodsViewTableBuilder} from "./GoodsViewTableBuilder";
 
 
 const DivContainer = styled.div`
@@ -29,7 +29,7 @@ const DivContainer = styled.div`
   justify-content: center;
 `;
 
-export default function GoodsView() {
+export default function GoodsViewContainer() {
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -125,47 +125,6 @@ export default function GoodsView() {
         }
     }
 
-    const TableBuilder = (props: { data: goodsViewType, idx: number }) => {
-
-        return (
-            <tr>
-                <td>
-                    {props.data.g_name}
-                </td>
-                <td>
-                    {props.data.g_category}
-                </td>
-                <td>
-                    {props.data.g_price}
-                </td>
-                <td>
-                    {props.data.g_discount}
-                </td>
-                <td>
-                    {props.data.g_expireDate}
-                </td>
-                <td> {props.data.g_status === 0 ? '판매중'
-                    : props.data.g_status === 1 ? '판매완료'
-                        : props.data.g_status === 2 ? '판매중지' : null}
-                </td>
-                <td>
-                    {props.data.cnt}
-                </td>
-                <td>
-                    {props.data.g_count}
-                </td>
-                <td>
-                    <Button variant="outlined" name={`${props.data.g_code}`} onClick={e => modifyGoods(e)}
-                            className='editbtn'>수정</Button>
-                </td>
-                <td>
-                    <Button variant="outlined" name={`${props.data.g_code}`} onClick={e => deleteGoods(e)}
-                            className='editbtn'>판매완료</Button>
-                </td>
-            </tr>
-        )
-    };
-
 
     return (
         <>
@@ -238,7 +197,9 @@ export default function GoodsView() {
                     <tbody>
                     {list.length === 0 ?
                         <div className='centerDiv'><span className='centerSpan'>등록된 상품이 없습니다.</span></div>
-                        : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                        : list.map((data, idx) => <GoodsViewTableBuilder data={data} idx={idx} key={idx}
+                                                                         deleteGoods={deleteGoods}
+                                                                         modifyGoods={modifyGoods}/>)}
                     </tbody>
                 </table>
                 <div className='aa' style={{height: '80px', display: 'inline-flex'}}>

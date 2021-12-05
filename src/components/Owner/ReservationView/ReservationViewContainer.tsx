@@ -6,18 +6,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {Button} from "@mui/material";
 import styled from "styled-components";
-import {client} from "../../lib/api/client";
-import {useSelector} from "react-redux";
-import {RootState} from "../../index";
+import {client} from "../../../lib/api/client";
 import {useHistory} from "react-router-dom";
-import {reservationViewType} from "../../lib/types";
+import {reservationViewType} from "../../../lib/types";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import {ReservationTableBuilder} from "./ReservationTableBuilder";
 
 
 const DivContainer = styled.div`
-  //border: solid black;
-  //display: inline-flex;
   justify-content: center;
   margin: 20px;
   padding: 10px;
@@ -28,9 +25,8 @@ const DivContainer = styled.div`
 `;
 
 
-export default function ReservationView() {
+export default function ReservationViewContainer() {
 
-    const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
     useLayoutEffect(() => {
         if (!localStorage.getItem('ownerToken')) history.replace('/err');
@@ -50,21 +46,6 @@ export default function ReservationView() {
         }
     }, [startIndex]);
 
-    // const initialize = async () => {
-    //     const URL = '/owner/reserveList';
-    //     try {
-    //         const res = await client.get(`${URL}?g_owner=${localStorage.getItem('o_sNumber')}`);
-    //         // setList(res.data);
-    //
-    //         setList(res.data);
-    //         console.log(res.data);
-    //         // console.log(res.data[0].goodsDTO);
-    //         setLoading(false);
-    //
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
     const searchGoods = async () => {
         const URL = '/owner/searchReserve';
         setLoading(true);
@@ -137,80 +118,6 @@ export default function ReservationView() {
         }
     }
 
-
-    const TableBuilder = (props: { data: reservationViewType, idx: number }) => {
-
-        return (
-            <tr>
-                {/*<td>*/}
-                {/*    {props.idx + 1}*/}
-                {/*</td>*/}
-                <td>
-                    {props.data.g_name}
-                </td>
-                <td>
-                    {props.data.g_category}
-                </td>
-                <td>
-                    {props.data.g_expireDate}
-                </td>
-                <td>
-                    {props.data.g_status === 0 ? '판매중'
-                        : props.data.g_status === 1 ? '판매 완료'
-                            : props.data.g_status === 2 ? '판매 중지' : null}
-                </td>
-                <td>
-                    {props.data.r_u_id}
-                </td>
-                <td>
-                    {props.data.r_count}
-                </td>
-                <td>
-                    {props.data.r_customOrder}kjllllllllllllllllll
-                </td>
-                <td>
-                    {props.data.r_firstDate} / {props.data.r_firstTime}
-                </td>
-                <td>
-                    {props.data.r_status === 0 ? '예약 승인 대기중'
-                        : props.data.r_status === 1 ? '승인 완료'
-                            : props.data.r_status === 2 ? '거절됨'
-                                : props.data.r_status === 3 ? '판매완료'
-                                    : props.data.r_status === 4 ? '노쇼'
-                                        : props.data.r_status === 5 ? '취소됨'
-                                            : null
-                    }
-                </td>
-                <td>
-                    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
-                        <InputLabel id="demo-simple-select-standard-label">분류</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            defaultValue={props.data.r_status}
-                            value={props.data.selectedStatus}
-                            onChange={e => {
-                                const cp = [...list];
-                                cp[props.idx].selectedStatus = Number(e.target.value);
-                                setList(cp);
-                            }}
-                        >
-                            <MenuItem value={1}>승인</MenuItem>
-                            <MenuItem value={2}>거절</MenuItem>
-                            <MenuItem value={4}>노쇼</MenuItem>
-                            <MenuItem value={3}>판매완료</MenuItem>
-                        </Select>
-                    </FormControl>
-                    {/*@ts-ignore*/}
-                    <Button sx={{mr: 1, mt: 2}} data-testid='my-test-id' name={props.data.r_code} variant="outlined"
-                            onClick={e => changeGoodsStatus(e, props.idx)}>확인</Button>
-                </td>
-
-            </tr>
-        )
-    };
-
-
     return (
         <>
             <Backdrop
@@ -281,7 +188,9 @@ export default function ReservationView() {
                     <tbody>
                     {list.length === 0 ?
                         <div className='centerDiv2'><span className='centerSpan'>예약 기록이 없습니다.</span></div>
-                        : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                        : list.map((data, idx) => (<ReservationTableBuilder data={data} idx={idx} list={list}
+                                                                            setList={setList}
+                                                                            changeGoodsStatus={changeGoodsStatus}/>))}
                     </tbody>
                 </table>
                 <div className='aa' style={{height: '80px', display: 'inline-flex'}}>
