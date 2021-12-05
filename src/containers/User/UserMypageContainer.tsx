@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {userMyPageType} from "../../lib/types";
-import UserMyPage from "../../components/User/UserMyPage/UserMyPage";
+import UserMyPage from "../../components/User/UserMyPage";
 
 
 export default function UserMypageContainer() {

@@ -1,4 +1,4 @@
-import {goodsViewType} from "../../../lib/types";
+import {goodsViewType} from "../../lib/types";
 import {Button} from "@mui/material";
 import React from "react";
 

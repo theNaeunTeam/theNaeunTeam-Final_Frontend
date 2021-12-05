@@ -5,8 +5,8 @@ import LoginFormContainer from "./containers/Common/LoginFormContainer";
 import Header from "./components/Common/Header";
 import MasterMain from "./components/Master/MasterMain";
 import UserRegisterFormContainer from "./containers/Common/UserRegisterFormContainer";
-import UserMain from "./components/User/UserMain/UserMain";
-import ShopView from "./components/Common/ShopView/ShopView";
+import UserMainContainer from "./containers/User/UserMainContainer";
+import ShopViewContainer from "./containers/User/ShopViewContainer";
 import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./index";
@@ -17,15 +17,15 @@ import GoodsViewContainer from "./containers/Owner/GoodsViewContainer";
 import ReservationViewContainer from "./containers/Owner/ReservationViewContainer";
 import UnsubscribeContainer from "./containers/Owner/UnsubscribeContainer";
 import {client} from "./lib/api/client";
-import ShoppingCart from "./components/User/ShoppingCart/ShoppingCart";
+import ShoppingCartContainer from "./containers/User/ShoppingCartContainer";
 import PageNotFound from "./components/Common/PageNotFound";
 import UserMypageContainer from "./containers/User/UserMypageContainer";
 import OrderContainer from './containers/User/OrderContainer';
-import UserReserve from "./components/User/UserReserve/UserReserve";
+import UserReserveContainer from "./containers/User/UserReserveContainer";
 import FavorStoreContainer from "./containers/User/FavorStoreContainer";
 import UserEditContainer from "./containers/User/UserEditContainer";
 import UserExitContainer from "./containers/User/UserExitContainer";
-import ShopListContainer from "./components/Common/ShopList/ShopListContainer";
+import ShopListContainer from "./containers/Common/ShopListContainer";
 import MasterNavbar from "./components/Master/MasterNavbar";
 import MasterUserList from "./components/Master/MasterUserList";
 import ApprovalWaiting from "./components/Master/ApprovalWaiting";
@@ -106,7 +106,7 @@ function App() {
                         : <Route path='/' component={MainBar}/>}
 
 
-                <Route path='/' exact component={UserMain}/>
+                <Route path='/' exact component={UserMainContainer}/>
 
                 <Route exact path='/login' component={LoginFormContainer}/>
 
@@ -119,7 +119,7 @@ function App() {
 
                 <Route path={'/master/changeBanner'} component={ChangeBannerContainer}/>
 
-                <Route path='/shopView/:o_sNumber' component={ShopView}/>
+                <Route path='/shopView/:o_sNumber' component={ShopViewContainer}/>
 
                 <Route path='/list' component={ShopListContainer}/>
 
@@ -137,9 +137,9 @@ function App() {
 
                 {/*<Route path='/user' component={UserNavbar}/>*/}
                 <Route path='/user' exact component={UserMypageContainer}/>
-                <Route path='/user/shoppingcart' component={ShoppingCart}/>
+                <Route path='/user/shoppingcart' component={ShoppingCartContainer}/>
                 <Route path='/user/order' component={OrderContainer}/>
-                <Route path='/user/userreserve' component={UserReserve}/>
+                <Route path='/user/userreserve' component={UserReserveContainer}/>
                 <Route path='/user/favorstore' component={FavorStoreContainer}/>
                 <Route path='/user/useredit' component={UserEditContainer}/>
                 <Route path='/user/userexit' component={UserExitContainer}/>

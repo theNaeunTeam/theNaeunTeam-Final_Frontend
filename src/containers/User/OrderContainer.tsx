@@ -6,7 +6,7 @@ import {useCookies} from "react-cookie";
 import {orderForm, orderSubmitType} from "../../lib/types";
 import {client} from "../../lib/api/client";
 import '../../lib/styles/order.scss';
-import Order from "../../components/User/Order/Order";
+import Order from "../../components/User/Order";
 
 export default function OrderContainer() {
     const today = new Date();

@@ -1,4 +1,4 @@
-import {reservationViewType} from "../../../lib/types";
+import {reservationViewType} from "../../lib/types";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";

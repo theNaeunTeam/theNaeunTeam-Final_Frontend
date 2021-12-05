@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {ownerRegisterFormType} from "../../lib/types";
 import {client} from "../../lib/api/client";
-import OwnerRegisterForm from "../../components/Common/OwnerRegisterForm/OwnerRegisterForm";
+import OwnerRegisterForm from "../../components/Common/OwnerRegisterForm";
 
 export default function OwnerRegisterFormContainer() {
 

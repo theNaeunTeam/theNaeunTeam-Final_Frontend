@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {client} from "../../lib/api/client";
 import {useRouteMatch} from "react-router";
 import axios from "axios";
-import Findpw from "../../components/Common/Findpw/Findpw";
+import Findpw from "../../components/Common/Findpw";
 
 
 export default function FindpwContainer() {

@@ -32,14 +32,14 @@ const DivContent = styled.div`
 
 `;
 
-export default function OwnerDashS(props: { loading: any; noShow: any; over: any; cancel:any}) {
+export default function OwnerDashS(props: { loading: any; noShow: any; over: any; cancel: any }) {
     const {
         loading,
         noShow,
         over,
         cancel,
     } = props;
-    return(
+    return (
         <DivContainer>
             <Backdrop
                 sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {client} from "../../../lib/api/client";
-import {shopList} from "../../../lib/types";
+import {client} from "../../lib/api/client";
+import {shopList} from "../../lib/types";
 import {useHistory} from "react-router-dom";
-import '../../../lib/styles/shopList.scss';
+import '../../lib/styles/shopList.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../index";
+import {RootState} from "../../index";
 import {useInView} from "react-intersection-observer"
-import ShopList from "./ShopList";
+import ShopList from "../../components/Common/ShopList/ShopList";
 
 
 const marks = [

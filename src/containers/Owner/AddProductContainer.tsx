@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {addProductType} from "../../lib/types";
-import AddProduct from "../../components/Owner/AddProduct/AddProduct";
+import AddProduct from "../../components/Owner/AddProduct";
 
 
 // 등록알림창

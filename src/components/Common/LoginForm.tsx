@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "../../../lib/styles/LoginForm.module.css";
+import styles from "../../lib/styles/LoginForm.module.css";
 import CancelIcon from "@mui/icons-material/Cancel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";

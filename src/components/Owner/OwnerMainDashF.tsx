@@ -65,7 +65,7 @@ export default function OwnerMainDashF(props: { loading: any; total: any; time: 
 
     } = props;
 
-    return(
+    return (
         <DivContainer>
             <Backdrop
                 sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}

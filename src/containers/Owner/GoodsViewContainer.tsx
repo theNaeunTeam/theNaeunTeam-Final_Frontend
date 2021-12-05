@@ -14,7 +14,7 @@ import {goodsViewType} from '../../lib/types';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../../lib/styles/table.scss'
-import {GoodsViewTableBuilder} from "../../components/Owner/GoodsView/GoodsViewTableBuilder";
+import {GoodsViewTableBuilder} from "../../components/Owner/GoodsViewTableBuilder";
 
 
 const DivContainer = styled.div`

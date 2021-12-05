@@ -1,7 +1,7 @@
 import React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import UserNavbar from "../UserNavbar";
+import UserNavbar from "./UserNavbar";
 import styled from "styled-components";
 
 const DivContainer = styled.div`

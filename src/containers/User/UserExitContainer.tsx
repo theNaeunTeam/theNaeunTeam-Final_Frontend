@@ -3,7 +3,7 @@ import React, {useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import UserExit from "../../components/User/UserExit/UserExit";
+import UserExit from "../../components/User/UserExit";
 
 export default function UserExitContainer() {
 

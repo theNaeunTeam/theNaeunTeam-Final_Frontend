@@ -11,7 +11,7 @@ import {useHistory} from "react-router-dom";
 import {reservationViewType} from "../../lib/types";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import {ReservationTableBuilder} from "../../components/Owner/ReservationView/ReservationTableBuilder";
+import {ReservationTableBuilder} from "../../components/Owner/ReservationTableBuilder";
 
 
 const DivContainer = styled.div`

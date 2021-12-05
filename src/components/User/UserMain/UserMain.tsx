@@ -1,26 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import '../../../lib/styles/UserMain.scss';
-import styled from "styled-components";
-import {useHistory} from "react-router-dom";
-import {carouselType, recommendType, shopList} from "../../../lib/types";
-import axios from "axios";
-import RecommendList from "./RecommendList";
-import {A11y, Autoplay, Navigation, Pagination, Scrollbar} from 'swiper';
-import {Swiper, SwiperSlide} from 'swiper/react/swiper-react.js';
-import {Paper} from "@mui/material";
-
-import 'swiper/swiper.scss'; // core Swiper
-import 'swiper/modules/navigation/navigation.scss'; // Navigation module
-import 'swiper/modules/pagination/pagination.scss'; // Pagination module
-import 'swiper/modules/scrollbar/scrollbar.scss'; // ScrollBar module
-import 'swiper/modules/autoplay/autoplay.scss';
-import {useSelector} from "react-redux";
-import {RootState} from "../../../index";
-import CircularProgress from "@mui/material/CircularProgress";
+import React from "react";
 import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import {Swiper, SwiperSlide} from "swiper/react/swiper-react";
+import {A11y, Autoplay, Navigation, Pagination, Scrollbar} from "swiper";
+import Item from "./Item";
+import {Paper} from "@mui/material";
 import LocalList from "./LocalList";
-import Item from "./Item"; // Autoplay module
-
+import {carouselType, recommendType, shopList} from "../../../lib/types";
+import RecommendList from "./RecommendList";
+import styled from "styled-components";
 
 const DivContainer = styled.div`
   clear: both;
@@ -31,58 +19,16 @@ const DivContainer = styled.div`
   padding-bottom: 19px;
 `;
 
+export default function UserMain(props: { loading: any; items: any; shopList: any; recommends: any; history: any; }) {
 
-export default function UserMain() {
+    const {
+        loading,
+        items,
+        shopList,
+        recommends,
+        history,
 
-    const [loading, setLoading] = useState(true);
-    const [items, setItems] = useState<carouselType[]>([]);
-    const [recommends, setRecommends] = useState<recommendType[]>([]);
-    const history = useHistory();
-    const {userLocalMap} = useSelector((state: RootState) => state);
-    const [shopList, setShopList] = useState<shopList[]>([]);
-
-    useEffect(() => {
-        fetchBanner();
-        fetchRecommendList();
-        fetchLocalList();
-    }, [userLocalMap]);
-
-    const fetchBanner = () => {
-        const URL = '/common/banner';
-        axios.get(URL)
-            .then(res => {
-                setItems(res.data)
-                setLoading(false);
-            })
-            .catch(err => {
-                alert('페이지 초기화 실패');
-            })
-    }
-
-    const fetchRecommendList = () => {
-        const URL = '/common/recommendList';
-        axios.get(URL)
-            .then(res => {
-                setRecommends(res.data);
-                setLoading(false);
-            })
-            .catch(err => {
-            })
-    }
-    const fetchLocalList = () => {
-        if (userLocalMap.lat != 0 && userLocalMap.lon != 0) {
-            axios.get('/common/localList?LAT=' + userLocalMap.lat + '&LON=' + userLocalMap.lon)
-                .then(res => {
-                    setShopList(res.data);
-                    setLoading(false);
-                })
-                .catch(err => {
-
-                })
-        } else {
-
-        }
-    }
+    } = props;
 
     return (
         <DivContainer>
@@ -103,7 +49,7 @@ export default function UserMain() {
                     autoplay={{delay: 5000}}
                 >
                     {
-                        items.map((data, idx) => {
+                        items.map((data: carouselType, idx: number) => {
                             return (
                                 <SwiperSlide>
                                     <Item key={idx} data={data} idx={idx}/>
@@ -120,17 +66,17 @@ export default function UserMain() {
             }
             <Paper className='divRecommend'>
                 {shopList.length != 0 ?
-                    shopList.map((data: shopList, idx) => <LocalList key={`l${idx}`} idx={idx} data={data}
-                                                                     history={history}/>)
+                    shopList.map((data: shopList, idx: number) => <LocalList key={`l${idx}`} idx={idx} data={data}
+                                                                             history={history}/>)
                     : null}
             </Paper>
             <h1 style={{fontFamily: 'Cafe24Oneprettynight'}}>최근 등록된 상품</h1>
             <br/>
             <Paper className='divRecommend'>
-                {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data}
-                                                                             history={history}/>)}
+                {recommends.map((data: recommendType, idx: number) => <RecommendList key={`r${idx}`} idx={idx}
+                                                                                     data={data}
+                                                                                     history={history}/>)}
             </Paper>
         </DivContainer>
     )
 }
-

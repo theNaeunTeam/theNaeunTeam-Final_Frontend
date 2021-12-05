@@ -70,7 +70,8 @@ export default function FCM() {
             setShow(true);
             setNotification({title: payload.data.title, body: payload.data.body})
         })
-        .catch(err => {});
+        .catch(err => {
+        });
 
     useEffect(() => {
         getToken();

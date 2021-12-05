@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import '../../../lib/styles/ScrollToTop.scss';
+import './styles/ScrollToTop.scss';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 export default function ScrollToTop() {

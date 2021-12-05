@@ -5,7 +5,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
-import {cartReducerType} from "../../../lib/types";
+import {cartReducerType} from "../../lib/types";
 import styled from "styled-components";
 
 const DivBordered = styled.div`

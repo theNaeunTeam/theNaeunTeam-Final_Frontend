@@ -1,5 +1,5 @@
 import React from "react";
-import UserNavbar from "../UserNavbar";
+import UserNavbar from "./UserNavbar";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
