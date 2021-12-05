@@ -1,7 +1,7 @@
 import React from "react";
-import err from '../../styles/images/403error.png';
+import err from '../../lib/styles/images/403error.png';
 import styled from "styled-components";
-import '../../styles/button.scss';
+import '../../lib/styles/button.scss';
 import {useHistory} from "react-router-dom";
 
 

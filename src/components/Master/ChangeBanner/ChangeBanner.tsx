@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import {carouselType} from "../../../lib/types";
-import './ChangeBanner.scss';
+import '../../../lib/styles/ChangeBanner.scss';
 import {Button} from "@mui/material";
 import SaveIcon from '@mui/icons-material/Save';
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {client} from "../../../lib/api/client";
+import {client} from "../../lib/api/client";
 import {useHistory} from "react-router-dom";
-import UserEdit from "./UserEdit";
+import UserEdit from "../../components/User/UserEdit/UserEdit";
 
 
 export default function UserEditContainer() {

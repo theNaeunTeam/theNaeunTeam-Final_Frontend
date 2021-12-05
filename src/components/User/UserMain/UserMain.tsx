@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './UserMain.scss';
+import '../../../lib/styles/UserMain.scss';
 import styled from "styled-components";
 import {Link, useHistory} from "react-router-dom";
 import {carouselType, recommendType, shopList} from "../../../lib/types";

@@ -1,7 +1,7 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
-import '../../styles/masterOwnerDash.scss'
+import '../../lib/styles/masterOwnerDash.scss'
 import {useHistory} from "react-router-dom";
 
 export default function MasterUserList() {

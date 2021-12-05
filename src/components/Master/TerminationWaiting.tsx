@@ -3,7 +3,7 @@ import {masterMainType2} from "../../lib/types";
 import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
 import {useHistory} from "react-router-dom";
-import '../../styles/masterOwnerDash.scss'
+import '../../lib/styles/masterOwnerDash.scss'
 
 export default function TerminationWaiting() {
     const history = useHistory();

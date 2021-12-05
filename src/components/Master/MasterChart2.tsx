@@ -3,8 +3,8 @@ import {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
 import {Line} from "react-chartjs-2";
 import {useHistory} from "react-router-dom";
-import '../../styles/button.scss';
-import '../../styles/masterOwnerDash.scss';
+import '../../lib/styles/button.scss';
+import '../../lib/styles/masterOwnerDash.scss';
 
 export default function MasterChart2() {
 

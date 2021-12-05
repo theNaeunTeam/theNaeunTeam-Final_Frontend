@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {ownerPageType} from "../../lib/types";
-import '../../styles/button.scss'
+import '../../lib/styles/button.scss'
 import {Bar} from 'react-chartjs-2';
 import FCM from "../../lib/FCM";
 import CircularProgress from "@mui/material/CircularProgress";

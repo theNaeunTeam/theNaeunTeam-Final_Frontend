@@ -5,12 +5,12 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from 'react-redux';
 import {combineReducers, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
-import {authReducer} from "./reducers/auth";
-import {goodsReducer} from "./reducers/goods";
-import {cartReducer} from "./reducers/cart";
+import {authReducer} from "./modules/auth";
+import {goodsReducer} from "./modules/goods";
+import {cartReducer} from "./modules/cart";
 import {CookiesProvider} from 'react-cookie';
-import {userLocalMap} from "./reducers/userLocalMap";
-import {showLoginModal} from "./reducers/showLoginModal";
+import {userLocalMap} from "./modules/userLocalMap";
+import {showLoginModal} from "./modules/showLoginModal";
 
 
 const rootReducer = combineReducers({

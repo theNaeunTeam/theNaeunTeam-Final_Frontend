@@ -1,12 +1,12 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {client} from "../../../lib/api/client";
+import {client} from "../../lib/api/client";
 import {useSelector} from "react-redux";
-import {RootState} from "../../../index";
+import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import Swal from 'sweetalert2';
-import '../../../styles/table.scss';
-import FavorStore from "./FavorStore";
-import {favorListType} from "../../../lib/types";
+import '../../lib/styles/table.scss';
+import FavorStore from "../../components/User/FavorStore/FavorStore";
+import {favorListType} from "../../lib/types";
 
 
 export default function FavorStoreContainer() {

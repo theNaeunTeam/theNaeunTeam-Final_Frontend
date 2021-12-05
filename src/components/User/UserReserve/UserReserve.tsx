@@ -11,7 +11,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../index";
 import {useHistory} from "react-router-dom";
 import UserNavbar from "../UserNavbar";
-import '../../../styles/table.scss'
+import '../../../lib/styles/table.scss'
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 import {dummyType} from "../../../lib/types";

@@ -1,9 +1,9 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {client} from "../../../lib/api/client";
-import {carouselType} from "../../../lib/types";
+import {client} from "../../lib/api/client";
+import {carouselType} from "../../lib/types";
 import {useHistory} from "react-router-dom";
-import './ChangeBanner.scss';
-import ChangeBanner from "./ChangeBanner";
+import '../../lib/styles/ChangeBanner.scss';
+import ChangeBanner from "../../components/Master/ChangeBanner/ChangeBanner";
 
 const emptyValue = {
     src: '',

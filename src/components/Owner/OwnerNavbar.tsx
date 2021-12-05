@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 
 import {Link} from 'react-router-dom';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import '../../styles/nav.scss'
+import '../../lib/styles/nav.scss'
 
 
 export default function OwnerNavbar() {

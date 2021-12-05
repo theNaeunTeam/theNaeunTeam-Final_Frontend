@@ -3,8 +3,8 @@ import {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
 import {Bar} from "react-chartjs-2";
 import {useHistory} from "react-router-dom";
-import '../../styles/masterOwnerDash.scss'
-import '../../styles/button.scss'
+import '../../lib/styles/masterOwnerDash.scss'
+import '../../lib/styles/button.scss'
 import MasterChart3 from "./MasterChart3";
 
 // 대시 보드

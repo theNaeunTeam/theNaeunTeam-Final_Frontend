@@ -1,4 +1,4 @@
-import fullStar from "../../../styles/images/star1.png";
+import fullStar from "../../../lib/styles/images/star1.png";
 import React from "react";
 import {favorListType} from "../../../lib/types";
 

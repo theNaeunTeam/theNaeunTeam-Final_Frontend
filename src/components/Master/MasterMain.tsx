@@ -6,8 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {masterMainType2} from "../../lib/types";
 import Skeleton from '@mui/material/Skeleton';
-import '../../styles/masterOwnerDash.scss';
-import '../../styles/MasterLoginForm.scss';
+import '../../lib/styles/masterOwnerDash.scss';
+import '../../lib/styles/MasterLoginForm.scss';
 import {FaUserSecret} from "react-icons/fa";
 
 export default function MasterMain() {

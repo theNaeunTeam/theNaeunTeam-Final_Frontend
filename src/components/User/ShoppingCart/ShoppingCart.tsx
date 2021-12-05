@@ -7,7 +7,7 @@ import {Button} from "@mui/material";
 import {useHistory} from "react-router-dom";
 import {ShoppingCartDTO} from "../../../lib/types";
 import CircularProgress from '@mui/material/CircularProgress';
-import './shoppingCart.scss';
+import '../../../lib/styles/shoppingCart.scss';
 import {ShoppingCartListBuilder} from "./ShoppingCartListBuilder";
 
 export default function ShoppingCart() {

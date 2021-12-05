@@ -1,12 +1,12 @@
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../index";
+import {RootState} from "../../index";
 import {useCookies} from "react-cookie";
-import {orderForm, orderSubmitType} from "../../../lib/types";
-import {client} from "../../../lib/api/client";
-import './order.scss';
-import Order from "./Order";
+import {orderForm, orderSubmitType} from "../../lib/types";
+import {client} from "../../lib/api/client";
+import '../../lib/styles/order.scss';
+import Order from "../../components/User/Order/Order";
 
 export default function OrderContainer() {
     const today = new Date();

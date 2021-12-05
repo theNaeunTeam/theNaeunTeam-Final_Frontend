@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {useHistory} from 'react-router-dom';
-import {client} from "../../../lib/api/client";
+import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../index";
-import LoginForm from "./LoginForm";
+import {RootState} from "../../index";
+import LoginForm from "../../components/Common/LoginForm/LoginForm";
 
 export default function LoginFormContainer() {
 

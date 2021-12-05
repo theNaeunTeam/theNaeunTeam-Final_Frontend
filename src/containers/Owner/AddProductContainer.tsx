@@ -1,12 +1,12 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {client} from "../../../lib/api/client";
+import {client} from "../../lib/api/client";
 import {Slide,} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../index";
+import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
-import {addProductType} from "../../../lib/types";
-import AddProduct from "./AddProduct";
+import {addProductType} from "../../lib/types";
+import AddProduct from "../../components/Owner/AddProduct/AddProduct";
 
 
 // 등록알림창

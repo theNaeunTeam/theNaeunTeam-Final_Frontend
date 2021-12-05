@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {client} from "../../../lib/api/client";
 import {shopList} from "../../../lib/types";
 import {useHistory} from "react-router-dom";
-import './shopList.scss';
+import '../../../lib/styles/shopList.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
 import {useInView} from "react-intersection-observer"

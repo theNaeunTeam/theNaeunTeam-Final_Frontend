@@ -3,7 +3,7 @@ import {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
 import {Bar} from "react-chartjs-2";
 import {useHistory} from "react-router-dom";
-import '../../styles/masterOwnerDash.scss';
+import '../../lib/styles/masterOwnerDash.scss';
 
 
 export default function UserDash() {

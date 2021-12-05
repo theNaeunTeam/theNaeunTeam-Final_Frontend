@@ -3,8 +3,8 @@ import styled from "styled-components";
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
-import '../../styles/Header.scss'
-import LoginFormContainer from "./LoginForm/LoginFormContainer";
+import '../../lib/styles/Header.scss'
+import LoginFormContainer from "../../containers/Common/LoginFormContainer";
 import Backdrop from '@mui/material/Backdrop';
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
 

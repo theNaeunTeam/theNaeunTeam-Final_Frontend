@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {client} from "../../../lib/api/client";
+import {client} from "../../lib/api/client";
 import {useHistory} from "react-router-dom";
-import UserRegisterForm from "./UserRegisterForm";
+import UserRegisterForm from "../../components/Common/UserReigisterForm/UserRegisterForm";
 
 const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
