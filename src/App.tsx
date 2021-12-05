@@ -28,8 +28,8 @@ import UserExitContainer from "./containers/User/UserExitContainer";
 import ShopListContainer from "./containers/Common/ShopListContainer";
 import MasterNavbar from "./components/Master/MasterNavbar";
 import MasterUserList from "./components/Master/MasterUserList";
-import ApprovalWaiting from "./components/Master/ApprovalWaiting";
-import ApprovalCompletion from "./components/Master/ApprovalCompletion";
+import ApprovalWaitingContainer from "./containers/Master/ApprovalWaitingContainer";
+import ApprovalCompletionContainer from "./containers/Master/ApprovalCompletionContainer";
 import MasterOwnerDash from "./components/Master/MasterOwnerDash";
 import TerminationWaiting from "./components/Master/TerminationWaiting";
 import TerminationCompletion from "./components/Master/TerminationCompletion";
@@ -126,8 +126,8 @@ function App() {
 
                 <Route path='/master' exact component={MasterMain}/>
                 <Route path='/master/masteruserlist' component={MasterUserList}/>
-                <Route path='/master/approvalwaiting' component={ApprovalWaiting}/>
-                <Route path='/master/approvalcompletion' component={ApprovalCompletion}/>
+                <Route path='/master/approvalwaiting' component={ApprovalWaitingContainer}/>
+                <Route path='/master/approvalcompletion' component={ApprovalCompletionContainer}/>
                 <Route path='/master/terminationwaiting' component={TerminationWaiting}/>
                 <Route path='/master/terminationcompletion' component={TerminationCompletion}/>
                 <Route path='/master/masterownerdash' component={MasterOwnerDash}/>
