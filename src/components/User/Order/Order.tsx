@@ -111,34 +111,9 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
                         <FormControlLabel control={<Checkbox value={' 텀블러 가져가요 '} id={'tumbler'}/>} label="텀블러 가져가요"/>
                         </span>
                     </DivBordered>
-                    {/*<DivBordered>*/}
-                    {/*    <strong>주문서 쿠폰 / 포인트 사용</strong>*/}
-                    {/*    <br/><br/>*/}
-                    {/*    할인쿠폰*/}
-                    {/*    <br/>*/}
-                    {/*    <input disabled={true}/>*/}
-                    {/*    <button disabled={true}>쿠폰 선택</button>*/}
-                    {/*    <br/>*/}
-                    {/*    <input disabled={true}/>*/}
-                    {/*    <button disabled={true}>모두 사용</button>*/}
-                    {/*    <br/>*/}
-                    {/*    보유 0p*/}
-                    {/*</DivBordered>*/}
+
                     <DivBordered>
-                        {/*<strong>총 결제 금액</strong>*/}
-                        {/*<div style={{display: "flex", justifyContent: 'space-between'}}>*/}
-                        {/*    <span>총 주문금액</span>*/}
-                        {/*    <span>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원</span>*/}
-                        {/*</div>*/}
-                        {/*<div style={{display: "flex", justifyContent: 'space-between'}}>*/}
-                        {/*    <span>주문서 쿠폰</span>*/}
-                        {/*    <span>0원</span>*/}
-                        {/*</div>*/}
-                        {/*<div style={{display: "flex", justifyContent: 'space-between'}}>*/}
-                        {/*    <span>더나은포인트</span>*/}
-                        {/*    <span>0원</span>*/}
-                        {/*</div>*/}
-                        {/*<hr/>*/}
+
                         <h3>총 결제 금액</h3>
                         <br/><br/>
                         <div style={{background: "ghostwhite", display: "flex", justifyContent: 'space-between'}}>
@@ -150,15 +125,7 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
                             <strong>{cartReducer.reduce((acc: number, cur: cartReducerType) => acc + cur.g_discount * cur.g_count, 0)}원</strong>
                         </div>
                     </DivBordered>
-                    {/*<DivBordered>*/}
-                    {/*    <strong>방문하시는분</strong>*/}
-                    {/*    <br/>*/}
-                    {/*    <input type={'radio'} name={'payment'} value={'self'} defaultChecked={true}*/}
-                    {/*           id={'payment'}/> 직접 결제 {' '}*/}
-                    {/*    <input type={'radio'} name={'payment'} value={'card'} disabled={true}*/}
-                    {/*           id={'payment'}/> 카드결제 {' '}*/}
-                    {/*    <input type={'radio'} name={'payment'} value={'mobile'} id={'payment'} disabled={true}/> 휴대폰 결제*/}
-                    {/*</DivBordered>*/}
+
                     <br/>
                     <Button variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h3>주문하기</h3></Button>
                 </form>

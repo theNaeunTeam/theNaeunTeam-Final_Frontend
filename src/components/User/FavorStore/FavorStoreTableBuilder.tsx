@@ -5,9 +5,6 @@ import {favorListType} from "../../../lib/types";
 export const FavorStoreTableBuilder = (props: { data: favorListType, idx: number, favorOff: any }) => {
     return (
         <tr>
-            {/*<td>*/}
-            {/*    {props.idx + 1}*/}
-            {/*</td>*/}
             <td>
                 {props.data.o_name}
             </td>

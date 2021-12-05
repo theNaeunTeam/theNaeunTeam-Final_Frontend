@@ -6,7 +6,6 @@ import {Button} from "@mui/material";
 import styled from "styled-components";
 
 const DivContainer = styled.div`
-  //border: solid black;
   display: inline-flex;
   justify-content: center;
   margin: 0 13px 0 0;
@@ -17,13 +16,11 @@ const DivContainer = styled.div`
 `;
 
 const DivNav = styled.div`
-  //border: solid blue;
   width: 17%;
   min-height: 1000px;
   font-size: 20px;
 `;
 const DivMain = styled.div`
-  //border: solid red;
   width: 80%;
   height: 100%;
   text-align: center;
