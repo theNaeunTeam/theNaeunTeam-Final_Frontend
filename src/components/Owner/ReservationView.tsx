@@ -10,7 +10,7 @@ import {client} from "../../lib/api/client";
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
-import {reservationViewType} from "../../modules/types";
+import {reservationViewType} from "../../lib/types";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 

@@ -1,11 +1,8 @@
 import * as React from 'react';
 import {useEffect, useLayoutEffect, useState} from 'react';
-import {masterMainType2} from "../../modules/types";
+import {masterMainType2} from "../../lib/types";
 import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
-import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
-import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
 import '../../styles/masterOwnerDash.scss'
 
@@ -86,7 +83,7 @@ export default function ApprovalCompletion() {
 
             setRows(message);
 
-        } catch (e:any) {
+        } catch (e: any) {
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
             } else {
@@ -125,7 +122,12 @@ export default function ApprovalCompletion() {
                         pageSize={10}
                         rowsPerPageOptions={[10]}
                         checkboxSelection
-                        style={{fontSize:'large', fontFamily:'Chosunilbo_myungjo', fontWeight:'bold', color:'black'}}
+                        style={{
+                            fontSize: 'large',
+                            fontFamily: 'Chosunilbo_myungjo',
+                            fontWeight: 'bold',
+                            color: 'black'
+                        }}
                     />
                 }
             </div>

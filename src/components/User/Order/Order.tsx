@@ -1,18 +1,12 @@
-import React, {useEffect, useLayoutEffect, useState} from "react";
-import {useHistory, Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../index";
-import styled from "styled-components";
-import TextField from "@mui/material/TextField";
+import React from "react";
 import {Button} from "@mui/material";
-import {useCookies} from "react-cookie";
-import {orderForm, orderSubmitType} from "../../../modules/types";
-import {client} from "../../../lib/api/client";
-import './order.scss';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import TextField from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
+import {cartReducerType} from "../../../lib/types";
+import styled from "styled-components";
 
 const DivBordered = styled.div`
   border-top: solid ghostwhite 10px;
@@ -20,88 +14,16 @@ const DivBordered = styled.div`
   text-align: left;
 `;
 
-export default function Order() {
-    const today = new Date();
+export default function Order(props: { handleFormChange: any; cartReducer: any; history: any; orderForm: any; today: any; submitForm: any; }) {
 
-    const defaultValue = {
-        who: ' 제가 직접 받아요 ',
-        time: '18:00',
-        r_customOrder: '',
-        payment: 'self',
-        tumbler: '',
-        kudasai: '',
-        r_firstDate: `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`
-    }
-
-    const history = useHistory();
-
-    const dispatch = useDispatch();
-    const {cartReducer, authReducer} = useSelector((state: RootState) => state);
-    const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);
-    const [cookies, setCookie, removeCookie] = useCookies(['cart']); // 건들지 말것
-
-
-    useLayoutEffect(() => {
-        if (!localStorage.getItem('userToken')) history.replace('/err');
-        if (cartReducer[0] === undefined) history.replace('/err');
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            dispatch({type: 'orderOut'});
-        }
-    }, []);
-
-    const submitForm = () => {
-        const URL = '/user/orderConfirm';
-
-        const arr: orderSubmitType[] = [];
-
-        for (let i = 0; i < cartReducer.length; i++) {
-            const data: orderSubmitType = {
-                r_firstDate: orderForm.r_firstDate,
-                r_u_id: authReducer.u_id,
-                r_g_code: cartReducer[i].g_code,
-                r_firstTime: orderForm.time,
-                r_count: cartReducer[i].g_count,
-                r_customOrder: orderForm.who + orderForm.tumbler + orderForm.r_customOrder,
-                r_owner: cookies.cart[0].o_sNumber,
-                r_pay: cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0),
-            }
-            arr.push(data);
-        }
-        console.log('서버로 보내는 배열 : ', arr);
-
-        client.post(URL, arr)
-            .then(res => {
-                console.log(res);
-                dispatch({type: 'orderOut'});
-                removeCookie('cart', {path: '/'});
-                if (res.data === false) {
-                    alert('노쇼 카운트 5 이상이므로 주문 불가능 합니다. ')
-                } else {
-                    alert('성공');
-                }
-
-                history.push('/');
-            })
-            .catch(err => {
-                console.log(err);
-                alert('실패');
-            })
-    };
-
-    const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
-
-        const tagName = (e.target as HTMLFormElement).id;
-
-        if (tagName === 'kudasai' || tagName === 'tumbler') {
-            if (!(e.target as HTMLFormElement).checked) (e.target as HTMLInputElement).value = '';
-        }
-
-        setOrderForm({...orderForm, [tagName]: (e.target as HTMLFormElement).value});
-        console.log(orderForm);
-    }
+    const {
+        handleFormChange,
+        cartReducer,
+        history,
+        orderForm,
+        today,
+        submitForm
+    } = props;
 
     return (
         <>
@@ -110,7 +32,7 @@ export default function Order() {
                     <h1>주문서</h1>
                     <br/>
                     <hr/>
-                    {cartReducer.map((data, idx) =>
+                    {cartReducer.map((data: cartReducerType, idx: number) =>
                         <div className={'cartListItem'}>
                             <img src={data.g_image} style={{width: '100px', height: '100px'}} alt={'상품이미지'}/>
                             <span>{data.g_name}</span>
@@ -221,11 +143,11 @@ export default function Order() {
                         <br/><br/>
                         <div style={{background: "ghostwhite", display: "flex", justifyContent: 'space-between'}}>
                             <span>적립 예정 금액</span>
-                            <span>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0) / 10}원</span>
+                            <span>{cartReducer.reduce((acc: number, cur: cartReducerType) => acc + cur.g_discount * cur.g_count, 0) / 10}원</span>
                         </div>
                         <div style={{background: "ghostwhite", display: "flex", justifyContent: 'space-between'}}>
                             <strong>최종혜택가</strong>
-                            <strong>{cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0)}원</strong>
+                            <strong>{cartReducer.reduce((acc: number, cur: cartReducerType) => acc + cur.g_discount * cur.g_count, 0)}원</strong>
                         </div>
                     </DivBordered>
                     {/*<DivBordered>*/}
@@ -241,7 +163,6 @@ export default function Order() {
                     <Button variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h3>주문하기</h3></Button>
                 </form>
             </div>
-
         </>
     )
 }

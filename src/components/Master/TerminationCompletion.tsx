@@ -1,10 +1,7 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {masterMainType2} from "../../modules/types";
+import {masterMainType2} from "../../lib/types";
 import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
-import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
-import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
 import '../../styles/masterOwnerDash.scss'
 
@@ -146,7 +143,7 @@ export default function TerminationCompletion() {
         <>
             <h3 className='mainH3'>해지신청 완료 </h3>
             <div className='MasterMainBtn1'>
-                <button  className='masterBtn' onClick={() => updateDB('ok')}>
+                <button className='masterBtn' onClick={() => updateDB('ok')}>
                     승인 취소
                 </button>
             </div>
@@ -159,7 +156,12 @@ export default function TerminationCompletion() {
                         pageSize={10}
                         rowsPerPageOptions={[10]}
                         checkboxSelection
-                        style={{fontSize:'large', fontFamily:'Chosunilbo_myungjo', fontWeight:'bold', color:'black'}}
+                        style={{
+                            fontSize: 'large',
+                            fontFamily: 'Chosunilbo_myungjo',
+                            fontWeight: 'bold',
+                            color: 'black'
+                        }}
                     />
                 }
             </div>

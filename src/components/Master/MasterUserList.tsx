@@ -2,11 +2,7 @@ import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {DataGrid, GridColDef, GridRowId} from "@mui/x-data-grid";
 import {client} from "../../lib/api/client";
 import '../../styles/masterOwnerDash.scss'
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
-import '../../styles/masterOwnerDash.scss'
 
 export default function MasterUserList() {
     const history = useHistory();
@@ -109,7 +105,12 @@ export default function MasterUserList() {
                         pageSize={10}
                         rowsPerPageOptions={[10]}
                         checkboxSelection
-                        style={{fontSize:'large', fontFamily:'Chosunilbo_myungjo', fontWeight:'bold', color:'black'}}
+                        style={{
+                            fontSize: 'large',
+                            fontFamily: 'Chosunilbo_myungjo',
+                            fontWeight: 'bold',
+                            color: 'black'
+                        }}
                     />
                 }
             </div>

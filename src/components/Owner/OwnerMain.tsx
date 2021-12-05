@@ -2,10 +2,9 @@ import React, {useEffect, useLayoutEffect, useState} from 'react';
 import styled from 'styled-components'
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
-import {ownerPageType} from "../../modules/types";
+import {ownerPageType} from "../../lib/types";
 import '../../styles/button.scss'
 import {Bar} from 'react-chartjs-2';
-import OwnerNavbar from "./OwnerNavbar";
 import FCM from "../../lib/FCM";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";

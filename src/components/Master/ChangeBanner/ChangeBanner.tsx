@@ -1,9 +1,7 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
-import {client} from "../../../lib/api/client";
-import {carouselType} from "../../../modules/types";
-import {useHistory} from "react-router-dom";
-import './ChangeBanner.css';
+import {carouselType} from "../../../lib/types";
+import './ChangeBanner.scss';
 import {Button} from "@mui/material";
 import SaveIcon from '@mui/icons-material/Save';
 
@@ -28,96 +26,37 @@ const SpanRow = styled.span`
   width: 70%;
 `
 
-const emptyValue = {
-    src: '',
-    altText: '',
-    header: '',
-    description: '',
-    link: '',
-}
+export default function ChangeBanner(props: { arr: any; handleFormChange: any; handleFileChange: any; setArr: any; emptyValue: any; submitForm: any; }) {
 
-export default function ChangeBanner() {
+    const {
+        arr,
+        handleFormChange,
+        handleFileChange,
+        setArr,
+        emptyValue,
+        submitForm
+    } = props;
 
-    const [arr, setArr] = useState<carouselType[]>([]);
-    const history = useHistory();
-    useLayoutEffect(() => {
-        if (!localStorage.getItem('masterToken')) history.replace('/err');
-    }, []);
-    useEffect(() => {
-        const URL = '/common/banner';
-        client.get(URL)
-            .then(res => {
-                setArr(res.data)
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-                alert('페이지 초기화 실패');
-            })
-    }, []);
-
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
-        const formData = new FormData()
-        // @ts-ignore
-        formData.append('file', e.target.files[0]);
-
-        client.post('/master/bannerImage', formData)
-            .then(res => {
-                console.log(res.data);
-                const cp = [...arr];
-                cp[idx].src = res.data.res;
-                setArr(cp);
-            })
-            .catch(err => {
-                console.log(err);
-                alert('이미지 등록 실패하는데 실패하였습니다.');
-            })
-    }
-
-    const handleFormChange = (e: React.FormEvent<HTMLFormElement>, idx: number) => {
-        const tagId = (e.target as HTMLInputElement).id;
-        const tagName = (e.target as HTMLInputElement).name;
-        const cp = [...arr];
-        // @ts-ignore
-        cp[idx][tagName] = (e.target as HTMLInputElement).value;
-        setArr(cp);
-        console.log(arr);
-    }
-
-    const submitForm = () => {
-        console.log('서버로 보내는 배열 : ', arr);
-
-        client.put('/master/bannerContents', arr)
-            .then(res => {
-                alert('배너 업데이트 성공하였습니다.')
-                history.push('/');
-            })
-            .catch(err => {
-                alert('배너 업데이트 실패하였습니다.');
-                console.log(err);
-            })
-    }
 
     return (
         <>
             <DivContainer>
-                {arr.map((data, idx) =>
+                {arr.map((data: carouselType, idx: number) =>
                     <>
                         <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e, idx)}>
                             <SpanRow className={'SpanRow'}>
                                 <strong> {idx + 1}번 배너 </strong>
                                 <br/>
                                 Header text<input type={"text"} defaultValue={data.header} id={`header${idx}`}
-                                                name={'header'}/>
+                                                  name={'header'}/>
                                 Image ALT text 설정<input type={'text'} defaultValue={data.altText} id={`altText${idx}`}
-                                                    name={'altText'}/>
+                                                        name={'altText'}/>
                                 Description text 설정<input type={'text'} defaultValue={data.description}
-                                               id={`description${idx}`}
-                                               name={'description'}/>
+                                                          id={`description${idx}`}
+                                                          name={'description'}/>
                                 Link href 설정<input type={"text"} defaultValue={data.link} id={`link${idx}`}
-                                                 name={'link'}/>
-                               이미지 파일 업로드 <input type={'file'} onChange={(e) => handleFileChange(e, idx)}/>
+                                                   name={'link'}/>
+                                이미지 파일 업로드 <input type={'file'} onChange={(e) => handleFileChange(e, idx)}/>
                                 <input type={'hidden'} defaultValue={data.src} id={`src${idx}`} name={'src'}/>
                                 <hr/>
                             </SpanRow>

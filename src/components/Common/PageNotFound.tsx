@@ -16,7 +16,7 @@ export default function PageNotFound() {
     `;
 
     const Diverr2 = styled.div`
-        margin-top: 90px;
+      margin-top: 90px;
     `;
 
     return (
@@ -26,9 +26,10 @@ export default function PageNotFound() {
                     <img src={err}/>
                 </Diverr>
                 <Diverr>
-                <button className='MainBtn' style={{margin:'30px'}} onClick={()=>{
-                    history.push('/')
-                }}>메인으로 이동</button>
+                    <button className='MainBtn' style={{margin: '30px'}} onClick={() => {
+                        history.push('/')
+                    }}>메인으로 이동
+                    </button>
                 </Diverr>
             </Diverr2>
         </>

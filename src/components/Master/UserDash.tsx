@@ -2,7 +2,6 @@ import * as React from 'react';
 import {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
 import {Bar} from "react-chartjs-2";
-import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
 import '../../styles/masterOwnerDash.scss';
 
@@ -72,7 +71,7 @@ export default function UserDash() {
             console.log('------------');
             console.log(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
-            console.log(yearArr.map((x:any)=>x.date));
+            console.log(yearArr.map((x: any) => x.date));
 
             setLoading(false);
 
@@ -92,9 +91,9 @@ export default function UserDash() {
         }
     }
     const DecMonYear = () => {
-        if (monIdex != 0 ) {
+        if (monIdex != 0) {
             setMonIndex(monIdex - 1);
-            setMonYear(monYear -1);
+            setMonYear(monYear - 1);
         }
     }
 
@@ -107,7 +106,7 @@ export default function UserDash() {
 
         if (0 <= yearIndex && yearIndex <= (yearArr.length - 1)) {
             setYearIndex(yearIndex + 1);
-            setYear(year +1)
+            setYear(year + 1)
         }
     }
 
@@ -115,7 +114,7 @@ export default function UserDash() {
         console.log('년도-1');
         console.log(yearIndex);
         console.log(yearArr.length);
-        if (yearIndex >= yearArr.length && yearIndex-3 > 0) {
+        if (yearIndex >= yearArr.length && yearIndex - 3 > 0) {
             setYearIndex(yearIndex - 1);
             setYear(year - 1);
         }
@@ -124,80 +123,80 @@ export default function UserDash() {
     return (
         <>
             {/*<div className='qqq'>*/}
-                <h3 className={'mainH3'}>유저 가입/탈퇴 통계</h3>
+            <h3 className={'mainH3'}>유저 가입/탈퇴 통계</h3>
             {/*</div>*/}
-            
+
             <div className="flex-container-1">
                 <div className="flex-items-1">
-                {
-                    loading ?
+                    {
+                        loading ?
                             null
-                        :
-                        <>
-                            <h3 className='MODH3'>Month</h3>
-                            <Bar data={{
-                                labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-                                datasets: [
-                                    {
-                                        label: "가입자수",
-                                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                                        borderColor: 'rgba(75, 192, 192, 0.8)',
-                                        borderWidth: 1,
-                                        //stack: 1,
-                                        hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                                        hoverBorderColor: "rgba(255,99,132,1)",
-                                        data: monArr[monIdex].map((a: any) => a.sum),
-                                    },
-                                    {
-                                        label: "탈퇴자수",
-                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                        borderColor: 'rgba(255, 99, 132, 1)',
-                                        borderWidth: 1,
-                                        //stack:tal
-                                        hoverBackgroundColor:  'rgba(54, 162, 235, 0.4)',
-                                        hoverBorderColor:  'rgba(54, 162, 235, 1)',
-                                        data: monArr[monIdex].map((a: any) => a.tal),
-                                    }]
-                            }}
-                                 options={
-                                     {
-                                         plugins: {
-                                             legend: {
-                                                 labels: {
-                                                     // This more specific font property overrides the global property
-                                                     font: {
-                                                         size: 18
+                            :
+                            <>
+                                <h3 className='MODH3'>Month</h3>
+                                <Bar data={{
+                                    labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+                                    datasets: [
+                                        {
+                                            label: "가입자수",
+                                            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                            borderColor: 'rgba(75, 192, 192, 0.8)',
+                                            borderWidth: 1,
+                                            //stack: 1,
+                                            hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                                            hoverBorderColor: "rgba(255,99,132,1)",
+                                            data: monArr[monIdex].map((a: any) => a.sum),
+                                        },
+                                        {
+                                            label: "탈퇴자수",
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            borderColor: 'rgba(255, 99, 132, 1)',
+                                            borderWidth: 1,
+                                            //stack:tal
+                                            hoverBackgroundColor: 'rgba(54, 162, 235, 0.4)',
+                                            hoverBorderColor: 'rgba(54, 162, 235, 1)',
+                                            data: monArr[monIdex].map((a: any) => a.tal),
+                                        }]
+                                }}
+                                     options={
+                                         {
+                                             plugins: {
+                                                 legend: {
+                                                     labels: {
+                                                         // This more specific font property overrides the global property
+                                                         font: {
+                                                             size: 18
+                                                         }
                                                      }
                                                  }
-                                             }
-                                         },
-                                         scales: {
-                                             yAxes: {
-                                                 ticks: {
-                                                     callback: function (value: string | number) {
-                                                         return value + '명';
-                                                     }
+                                             },
+                                             scales: {
+                                                 yAxes: {
+                                                     ticks: {
+                                                         callback: function (value: string | number) {
+                                                             return value + '명';
+                                                         }
 
+                                                     }
                                                  }
                                              }
                                          }
-                                     }
 
-                                 }/>
-                            <div className='aa'>
-                                <span style={{fontSize:'larger'}} onClick={DecMonYear}>◀</span>
-                                <label style={{fontSize:'larger'}} className='b'>{monYear}년</label>
-                                <span style={{fontSize:'larger'}} onClick={IncMonYear}>▶</span>
-                            </div>
-                        </>
-                }
+                                     }/>
+                                <div className='aa'>
+                                    <span style={{fontSize: 'larger'}} onClick={DecMonYear}>◀</span>
+                                    <label style={{fontSize: 'larger'}} className='b'>{monYear}년</label>
+                                    <span style={{fontSize: 'larger'}} onClick={IncMonYear}>▶</span>
+                                </div>
+                            </>
+                    }
                 </div>
                 <div className="flex-items-1">
-                {
+                    {
                         <>
                             <h3 className='MODH3'>Year</h3>
                             <Bar data={{
-                                labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
+                                labels: yearArr.slice(yearIndex - 3, yearIndex).map((x: any) => x.date),
                                 datasets: [
                                     {
                                         label: "가입자수",
@@ -215,8 +214,8 @@ export default function UserDash() {
                                         borderColor: "rgba(255,99,132,1)",
                                         borderWidth: 1,
                                         //stack:tal
-                                        hoverBackgroundColor:  'rgba(54, 162, 235, 0.4)',
-                                        hoverBorderColor:  'rgba(54, 162, 235, 1)',
+                                        hoverBackgroundColor: 'rgba(54, 162, 235, 0.4)',
+                                        hoverBorderColor: 'rgba(54, 162, 235, 1)',
                                         data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.tal)),
                                     }]
                             }}
@@ -246,11 +245,11 @@ export default function UserDash() {
 
                                  }/>
                             <div className='aa'>
-                                <span style={{fontSize:'larger'}} onClick={DecYear}>◀</span>
-                                <span style={{fontSize:'larger'}} onClick={IncYear}>▶</span>
+                                <span style={{fontSize: 'larger'}} onClick={DecYear}>◀</span>
+                                <span style={{fontSize: 'larger'}} onClick={IncYear}>▶</span>
                             </div>
                         </>
-                }
+                    }
                 </div>
             </div>
         </>

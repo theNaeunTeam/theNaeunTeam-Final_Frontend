@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
-import {masterMainType2} from "../../modules/types";
+import {masterMainType2} from "../../lib/types";
 import Skeleton from '@mui/material/Skeleton';
 import '../../styles/masterOwnerDash.scss';
 import '../../styles/MasterLoginForm.scss';

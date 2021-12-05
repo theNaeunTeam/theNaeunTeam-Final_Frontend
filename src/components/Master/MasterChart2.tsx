@@ -2,9 +2,7 @@ import * as React from 'react';
 import {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
 import {Line} from "react-chartjs-2";
-import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
-import styled from "styled-components";
 import '../../styles/button.scss';
 import '../../styles/masterOwnerDash.scss';
 
@@ -58,7 +56,7 @@ export default function MasterChart2() {
 
     const yearInit = () => {
         setYearIndex(yearArr.length);
-        setMonYear(2019 + yearArr.length -1 );
+        setMonYear(2019 + yearArr.length - 1);
     }
 
     // 차트 데이터 가져오기
@@ -68,8 +66,8 @@ export default function MasterChart2() {
             const res = await client.get(URL);
 
             console.log(res.data);
-            console.log(res.data['totalMon'].map((x:any) => x.map((b:any) => ({ owner:b.sum, user:b.tal}) )));
-            setMonArr(res.data['totalMon'].map((x:any) => x.map((b:any) => ({ owner:b.sum, user:b.tal}) )));
+            console.log(res.data['totalMon'].map((x: any) => x.map((b: any) => ({owner: b.sum, user: b.tal}))));
+            setMonArr(res.data['totalMon'].map((x: any) => x.map((b: any) => ({owner: b.sum, user: b.tal}))));
             console.log(monArr);
 
             console.log('0000000000000');
@@ -77,10 +75,10 @@ export default function MasterChart2() {
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, owner: b.sum, user: b.tal})));
 
 
-        } catch (e:any) {
-            if(e.response.status === 500){
+        } catch (e: any) {
+            if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
-            }else{
+            } else {
                 alert('데이터를 가져오는데 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
             }
             console.log(e);
@@ -98,9 +96,9 @@ export default function MasterChart2() {
         }
     }
     const DecMonYear = () => {
-        if (monIndex != 0 ) {
+        if (monIndex != 0) {
             setMonIndex(monIndex - 1);
-            setMonYear(monYear -1);
+            setMonYear(monYear - 1);
         }
     }
 
@@ -112,7 +110,7 @@ export default function MasterChart2() {
     }
 
     const DecYear = () => {
-        if (yearIndex >= yearArr.length && yearIndex -3 > 0) {
+        if (yearIndex >= yearArr.length && yearIndex - 3 > 0) {
             setYearIndex(yearIndex - 1);
         }
     }
@@ -122,123 +120,123 @@ export default function MasterChart2() {
         <>
             <div className="flex-container-1">
                 <div className="flex-items-1">
-            {
-                loading ?
-                   null
-                    :
-                    <>
-                        <h3 className='MODH3'>월별 오너/유저 탈퇴자수 통계</h3>
-                        <Line data={{
-                            labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-                            datasets: [
-                                {
-                                    label: "오너 탈퇴수",
-                                    data:monArr[monIndex].map((a:any) => a.owner),
-                                    fill: false,
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    tension: 0.3
-                                },
-                                {
-                                    label: "유저 탈퇴수",
-                                    fill: false,
-                                    backgroundColor: "rgba(255,99,132,0.4)",
-                                    borderColor: "rgba(255,99,132,1)",
-                                    data: monArr[monIndex].map((a:any) => a.user),
-                                    tension: 0.3
-                                }]
-                        }}
-                              options={
-                                  {
-                                      plugins: {
-                                          legend: {
-                                              labels: {
-                                                  // This more specific font property overrides the global property
-                                                  font: {
-                                                      size: 18
+                    {
+                        loading ?
+                            null
+                            :
+                            <>
+                                <h3 className='MODH3'>월별 오너/유저 탈퇴자수 통계</h3>
+                                <Line data={{
+                                    labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+                                    datasets: [
+                                        {
+                                            label: "오너 탈퇴수",
+                                            data: monArr[monIndex].map((a: any) => a.owner),
+                                            fill: false,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                            tension: 0.3
+                                        },
+                                        {
+                                            label: "유저 탈퇴수",
+                                            fill: false,
+                                            backgroundColor: "rgba(255,99,132,0.4)",
+                                            borderColor: "rgba(255,99,132,1)",
+                                            data: monArr[monIndex].map((a: any) => a.user),
+                                            tension: 0.3
+                                        }]
+                                }}
+                                      options={
+                                          {
+                                              plugins: {
+                                                  legend: {
+                                                      labels: {
+                                                          // This more specific font property overrides the global property
+                                                          font: {
+                                                              size: 18
+                                                          }
+                                                      }
                                                   }
-                                              }
-                                          }
-                                      },
-                                      scales: {
-                                          yAxes: {
-                                              ticks: {
-                                                  callback: function (value: string | number) {
-                                                      return value + '명';
-                                                  }
+                                              },
+                                              scales: {
+                                                  yAxes: {
+                                                      ticks: {
+                                                          callback: function (value: string | number) {
+                                                              return value + '명';
+                                                          }
 
+                                                      }
+                                                  }
                                               }
                                           }
                                       }
-                                  }
-                              }
-                        />
-                        <div className='b'>
-                        <span style={{fontSize:'larger'}} onClick={DecMonYear}>◀</span>
-                        <label style={{fontSize:'larger'}}>{monYear}년도</label>
-                        <span style={{fontSize:'larger'}} onClick={IncMonYear}>▶</span>
-                        </div>
-                    </>
-            }
+                                />
+                                <div className='b'>
+                                    <span style={{fontSize: 'larger'}} onClick={DecMonYear}>◀</span>
+                                    <label style={{fontSize: 'larger'}}>{monYear}년도</label>
+                                    <span style={{fontSize: 'larger'}} onClick={IncMonYear}>▶</span>
+                                </div>
+                            </>
+                    }
                 </div>
                 <div className="flex-items-1">
-            {   ///////////////////////////년도별
-                loading ?
-                    null
-                    :
-                    <>
-                        <h3 className='MODH3'>년도별 오너/유저 탈퇴자수 통계</h3>
-                        <Line data={{
-                            labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
-                            datasets: [
-                                {
-                                    label: "오너 탈퇴수",
-                                    fill: false,
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.owner)),
-                                    tension: 0.3
-                                },
-                                {
-                                    label: "유저 탈퇴수",
-                                    fill: false,
-                                    backgroundColor: "rgba(255,99,132,0.4)",
-                                    borderColor: "rgba(255,99,132,1)",
-                                    data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.user)),
-                                    tension: 0.3
-                                }]
-                        }}
-                              options={
-                                  {
-                                      plugins: {
-                                          legend: {
-                                              labels: {
-                                                  // This more specific font property overrides the global property
-                                                  font: {
-                                                      size: 18
+                    {   ///////////////////////////년도별
+                        loading ?
+                            null
+                            :
+                            <>
+                                <h3 className='MODH3'>년도별 오너/유저 탈퇴자수 통계</h3>
+                                <Line data={{
+                                    labels: yearArr.slice(yearIndex - 3, yearIndex).map((x: any) => x.date),
+                                    datasets: [
+                                        {
+                                            label: "오너 탈퇴수",
+                                            fill: false,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                            data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.owner)),
+                                            tension: 0.3
+                                        },
+                                        {
+                                            label: "유저 탈퇴수",
+                                            fill: false,
+                                            backgroundColor: "rgba(255,99,132,0.4)",
+                                            borderColor: "rgba(255,99,132,1)",
+                                            data: (yearArr.slice(yearIndex - 3, yearIndex)).map((x: any) => (x.user)),
+                                            tension: 0.3
+                                        }]
+                                }}
+                                      options={
+                                          {
+                                              plugins: {
+                                                  legend: {
+                                                      labels: {
+                                                          // This more specific font property overrides the global property
+                                                          font: {
+                                                              size: 18
+                                                          }
+                                                      }
                                                   }
-                                              }
-                                          }
-                                      },
-                                      scales: {
-                                          yAxes: {
-                                              ticks: {
-                                                  callback: function (value: string | number) {
-                                                      return value + '명';
-                                                  }
+                                              },
+                                              scales: {
+                                                  yAxes: {
+                                                      ticks: {
+                                                          callback: function (value: string | number) {
+                                                              return value + '명';
+                                                          }
 
+                                                      }
+                                                  }
                                               }
                                           }
                                       }
-                                  }
-                              }
-                        />
-                        <div className='b'>
-                        <span style={{fontSize:'larger'}} onClick={DecYear}>◀</span>
-                        <span style={{fontSize:'larger'}} onClick={IncYear}>▶</span>
-                        </div>
-                    </>
-            }
+                                />
+                                <div className='b'>
+                                    <span style={{fontSize: 'larger'}} onClick={DecYear}>◀</span>
+                                    <span style={{fontSize: 'larger'}} onClick={IncYear}>▶</span>
+                                </div>
+                            </>
+                    }
                 </div>
             </div>
         </>

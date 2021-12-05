@@ -85,7 +85,7 @@ export type goodsViewType = {
     g_expireDate: string,
     g_category: string,
     g_status: number,
-    cnt:number,
+    cnt: number,
 };
 
 export type ownerPageType = {
@@ -126,13 +126,13 @@ export type reservationViewType = {
     r_firstTime: string,
     r_status: number,
     r_customOrder: string,
-    r_firstDate : string,
+    r_firstDate: string,
     g_name: string,
     g_category: string,
     g_expireDate: string,
     g_count: number,
     g_status: number,
-    selectedStatus:number,
+    selectedStatus: number,
 };
 
 
@@ -191,7 +191,7 @@ export type shopList = {
     o_time1: string,
     o_time2: string,
     radius?: string,
-    searchResult:number,
+    searchResult: number,
 }
 
 export type categoryType = {
@@ -218,8 +218,8 @@ export interface recommendType {
 }
 
 export type conType = {
-    sum : number,
-    tal : number,
+    sum: number,
+    tal: number,
 }
 
 export interface ownerFormErrorType {
@@ -228,4 +228,31 @@ export interface ownerFormErrorType {
 
 export interface userFormType {
     [key: string]: boolean
+}
+
+export type dummyType = {
+    r_g_code: number,
+    r_code: number,
+    r_u_id: string,
+    r_count: number,
+    r_firstTime: string,
+    r_firstDate: string,
+    r_status: number,
+    r_customOrder: string,
+    r_pay: number,
+    g_name: string,
+    g_category: string,
+    g_expireDate: string,
+    g_count: number,
+    g_status: number,
+};
+
+export     type favorListType = {
+    o_name: string,
+    o_address: string,
+    o_time1: string,
+    o_time2: string,
+    o_phone: string,
+    o_approval: number
+    f_o_sNumber: string
 }

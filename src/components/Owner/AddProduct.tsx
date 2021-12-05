@@ -7,7 +7,8 @@ import {
     DialogActions,
     DialogContent,
     DialogContentText,
-    DialogTitle, FormControl,
+    DialogTitle,
+    FormControl,
     Slide,
     Stack,
 } from "@mui/material";
@@ -15,7 +16,7 @@ import {TransitionProps} from "@mui/material/transitions";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
-import {addProductType} from "../../modules/types";
+import {addProductType} from "../../lib/types";
 import styled from "styled-components";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";

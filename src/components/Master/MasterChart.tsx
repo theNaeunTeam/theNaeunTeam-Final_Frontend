@@ -2,13 +2,10 @@ import * as React from 'react';
 import {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
 import {Line} from "react-chartjs-2";
-import Skeleton from "@mui/material/Skeleton";
 import {useHistory} from "react-router-dom";
-import styled from "styled-components";
 import MasterChart2 from "./MasterChart2";
 import '../../styles/button.scss';
 import '../../styles/masterOwnerDash.scss'
-import { IoCaretForward } from "react-icons/io5";
 
 export default function MasterChart() {
 
@@ -61,7 +58,7 @@ export default function MasterChart() {
 
     const yearInit = () => {
         setYearIndex(yearArr.length);
-        setMonYear(2019 + yearArr.length -1 );
+        setMonYear(2019 + yearArr.length - 1);
     }
 
 
@@ -72,8 +69,8 @@ export default function MasterChart() {
             const res = await client.get(URL);
 
             console.log(res.data);
-            console.log(res.data['totalMon'].map((x:any) => x.map((b:any) => ({ owner:b.sum, user:b.tal}) )));
-            setMonArr(res.data['totalMon'].map((x:any) => x.map((b:any) => ({ owner:b.sum, user:b.tal}) )));
+            console.log(res.data['totalMon'].map((x: any) => x.map((b: any) => ({owner: b.sum, user: b.tal}))));
+            setMonArr(res.data['totalMon'].map((x: any) => x.map((b: any) => ({owner: b.sum, user: b.tal}))));
             console.log(monArr);
 
             console.log('0000000000000');
@@ -81,12 +78,11 @@ export default function MasterChart() {
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, owner: b.sum, user: b.tal})));
 
 
-
-        } catch (e:any) {
+        } catch (e: any) {
             console.log(e);
-            if(e.response.status === 500){
+            if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
-            }else{
+            } else {
                 alert('데이터를 가져오는데 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
             }
         }
@@ -103,9 +99,9 @@ export default function MasterChart() {
         }
     }
     const DecMonYear = () => {
-        if (monIndex != 0 ) {
+        if (monIndex != 0) {
             setMonIndex(monIndex - 1);
-            setMonYear(monYear -1);
+            setMonYear(monYear - 1);
         }
     }
 
@@ -117,7 +113,7 @@ export default function MasterChart() {
     }
 
     const DecYear = () => {
-        if (yearIndex >= yearArr.length && yearIndex -3 > 0) {
+        if (yearIndex >= yearArr.length && yearIndex - 3 > 0) {
             setYearIndex(yearIndex - 1);
         }
     }
@@ -133,14 +129,14 @@ export default function MasterChart() {
                             null
                             :
                             <>
-                                <h3  className='MODH3'>월별 오너/유저 가입자수 통계 </h3>
-                         
+                                <h3 className='MODH3'>월별 오너/유저 가입자수 통계 </h3>
+
                                 <Line data={{
                                     labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                                     datasets: [
                                         {
                                             label: "오너 가입자수",
-                                            data:monArr[monIndex].map((a:any) => a.owner),
+                                            data: monArr[monIndex].map((a: any) => a.owner),
                                             fill: false,
                                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                             borderColor: 'rgba(75, 192, 192, 1)',
@@ -151,10 +147,10 @@ export default function MasterChart() {
                                             fill: false,
                                             backgroundColor: "rgba(255,99,132,0.4)",
                                             borderColor: "rgba(255,99,132,1)",
-                                            data: monArr[monIndex].map((a:any) => a.user),
+                                            data: monArr[monIndex].map((a: any) => a.user),
                                             tension: 0.3
                                         }]
-                                  }}
+                                }}
                                       options={
                                           {
                                               plugins: {
@@ -180,9 +176,9 @@ export default function MasterChart() {
                                           }
                                       }/>
                                 <div className='aa'>
-                                <span style={{fontSize:'larger'}} onClick={DecMonYear}>◀</span>
-                                <label style={{fontSize:'larger'}} className='b'>{monYear}년</label>
-                                <span style={{fontSize:'larger'}} onClick={IncMonYear}>▶</span>
+                                    <span style={{fontSize: 'larger'}} onClick={DecMonYear}>◀</span>
+                                    <label style={{fontSize: 'larger'}} className='b'>{monYear}년</label>
+                                    <span style={{fontSize: 'larger'}} onClick={IncMonYear}>▶</span>
                                 </div>
                             </>
                     }
@@ -190,12 +186,12 @@ export default function MasterChart() {
                 <div className="flex-items-1">
                     {   ///////////////////////////년도별
                         loading ?
-                           null
+                            null
                             :
                             <>
                                 <h3 className='MODH3'>년도별 오너/유저 가입자수 통계 </h3>
                                 <Line data={{
-                                    labels: yearArr.slice(yearIndex -3, yearIndex).map((x:any)=>x.date),
+                                    labels: yearArr.slice(yearIndex - 3, yearIndex).map((x: any) => x.date),
                                     datasets: [
                                         {
                                             label: "오너 탈퇴자수",
@@ -238,15 +234,15 @@ export default function MasterChart() {
                                               }
                                           }
                                       }
-                                     />
+                                />
 
                                 <div className='aa'>
-                                <span style={{fontSize:'larger'}} onClick={DecYear}>◀</span>
-                                <span style={{fontSize:'larger'}} onClick={IncYear}>▶</span>
+                                    <span style={{fontSize: 'larger'}} onClick={DecYear}>◀</span>
+                                    <span style={{fontSize: 'larger'}} onClick={IncYear}>▶</span>
                                 </div>
                             </>
                     }
-                    </div>
+                </div>
             </div>
             <br/>
 

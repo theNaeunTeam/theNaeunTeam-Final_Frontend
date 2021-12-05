@@ -4,7 +4,6 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {client} from "../../lib/api/client";
 import styled from "styled-components";
-import OwnerNavbar from "./OwnerNavbar";
 import {Doughnut, Line} from 'react-chartjs-2';
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
@@ -82,7 +81,7 @@ export default function OwnerDashF() {
 
     const [total, setTotal] = useState(0);
     useEffect(() => {
-        if(localStorage.getItem('ownerToken')){
+        if (localStorage.getItem('ownerToken')) {
             initialize();
         }
     }, []);
@@ -120,12 +119,12 @@ export default function OwnerDashF() {
             console.log(reTime);
             console.log(reCate);
 
-        } catch (e : any) {
+        } catch (e: any) {
             console.log(e);
-            if(e.response.data.status === 500){
+            if (e.response.data.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
 
-            }else{
+            } else {
                 alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
             }
         }
@@ -152,7 +151,13 @@ export default function OwnerDashF() {
             >
                 <CircularProgress color="inherit"/>
             </Backdrop>
-            <div style={{display:'inline-flex' , width:'100%', justifyContent:'center', verticalAlign:'center', marginBottom:'20px'}}>
+            <div style={{
+                display: 'inline-flex',
+                width: '100%',
+                justifyContent: 'center',
+                verticalAlign: 'center',
+                marginBottom: '20px'
+            }}>
                 <h1>판매 현황</h1>
                 <LineDiv> 총 예약 판매 건수 : {total} </LineDiv>
             </div>
@@ -166,7 +171,7 @@ export default function OwnerDashF() {
                                 data: timeCnt,
                                 fill: false,
                                 borderColor: 'rgba(000, 051, 255,0.2)',
-                                backgroundColor : 'rgba(000, 051, 255,0.2)',
+                                backgroundColor: 'rgba(000, 051, 255,0.2)',
                                 tension: 0.3
                             }
                         ]

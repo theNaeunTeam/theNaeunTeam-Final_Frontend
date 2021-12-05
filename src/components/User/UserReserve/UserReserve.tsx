@@ -14,6 +14,8 @@ import UserNavbar from "../UserNavbar";
 import '../../../styles/table.scss'
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
+import {dummyType} from "../../../lib/types";
+import {UserReserveTableBuilder} from "./UserReserveTableBuilder";
 
 const DivContainer = styled.div`
   //text-align: center;
@@ -44,23 +46,6 @@ export default function UserReserve() {
     }, []);
 
 
-    type dummyType = {
-        r_g_code: number,
-        r_code: number,
-        r_u_id: string,
-        r_count: number,
-        r_firstTime: string,
-        r_firstDate: string,
-        r_status: number,
-        r_customOrder: string,
-        r_pay: number,
-        g_name: string,
-        g_category: string,
-        g_expireDate: string,
-        g_count: number,
-        g_status: number,
-    };
-
     const [list, setList] = useState<dummyType[]>([]);
     const [g_category, setG_category] = useState('');
     const [r_status, setR_status] = useState('');
@@ -72,17 +57,6 @@ export default function UserReserve() {
             searchReserve();
         }
     }, [startIndex]);
-
-    // const initialize = async () => {
-    //     const URL = '/user/reserveList';
-    //     try {
-    //         const res = await client.get(URL+`?startIndex=${startIndex}`);
-    //         setList(res.data);
-    //         console.log(res);
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
 
     const changeReserveStatus = async (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         setLoading(true);
@@ -146,65 +120,6 @@ export default function UserReserve() {
 
 
     }
-
-    const TableBuilder = (props: { data: dummyType, idx: number }) => {
-
-        return (
-            <tr className={'tbl'}>
-                {/*<td>*/}
-                {/*    {props.idx + 1}*/}
-                {/*</td>*/}
-                <td>
-                    {props.data.g_name}
-                </td>
-                <td>
-                    {props.data.g_category}
-                </td>
-                <td>
-                    {props.data.g_expireDate}
-                </td>
-                <td>
-                    {props.data.g_count}
-                </td>
-                <td>
-                    {props.data.g_status === 0 ? '판매중'
-                        : props.data.g_status === 1 ? '판매 완료'
-                            : props.data.g_status === 2 ? '판매 중지' : null}
-                </td>
-
-                <td>
-                    {props.data.r_count}
-                </td>
-                <td>
-                    {props.data.r_customOrder}
-                </td>
-                <td>
-                    {props.data.r_firstDate} / {props.data.r_firstTime}
-                </td>
-                <td>
-                    {props.data.r_pay}
-                </td>
-                <td>
-                    {props.data.r_status === 0 ? '승인대기'
-                        : props.data.r_status === 1 ? '승인완료'
-                            : props.data.r_status === 2 ? '거절됨'
-                                : props.data.r_status === 3 ? '구매완료'
-                                    : props.data.r_status === 4 ? '노쇼'
-                                        : props.data.r_status === 5 ? '취소됨'
-                                            : null
-                    }
-                </td>
-                <td>
-
-                    {/*@ts-ignore*/}
-                    <Button data-testid='my-test-id' name={props.data.r_code} variant="outlined"
-                            sx={{m: 1}} onClick={e => changeReserveStatus(e)}
-                    >취소</Button>
-                </td>
-
-            </tr>
-        )
-    };
 
     return (
         <DivContainer>
@@ -279,7 +194,7 @@ export default function UserReserve() {
                     <tbody>
                     {list.length === 0 ?
                         <div className='centerDiv2'><span className='centerSpan'>예약 기록이 없습니다.</span></div>
-                        : list.map((data, idx) => <TableBuilder data={data} idx={idx} key={idx}/>)}
+                        : list.map((data, idx) => <UserReserveTableBuilder data={data} idx={idx} key={idx} changeReserveStatus={changeReserveStatus}/>)}
                     </tbody>
                 </table>
                 <div className='aa' style={{height: '80px', display: 'inline-flex'}}>

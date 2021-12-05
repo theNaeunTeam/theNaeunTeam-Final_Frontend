@@ -1,9 +1,8 @@
 import React, {useRef} from "react";
 
-import {useHistory, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import '../../styles/nav.scss'
-import {Link} from 'react-router-dom';
 
 
 export default function OwnerNavbar() {
@@ -48,7 +47,7 @@ export default function OwnerNavbar() {
                     <li>
                         <Link to={'/owner/unsubscribe'}>이용해지신청</Link>
                     </li>
-                {/* 상품조회 예약현황 이용해지신청*/}
+                    {/* 상품조회 예약현황 이용해지신청*/}
                 </ul>
             </nav>
             {/*<React.Fragment>*/}
@@ -105,15 +104,8 @@ export default function OwnerNavbar() {
             {/*    />*/}
 
 
-
             {/*</React.Fragment>*/}
         </>
-
-
-
-
-
-
 
 
     )

@@ -10,23 +10,15 @@ import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
-import {goodsViewType} from '../../modules/types';
+import {goodsViewType} from '../../lib/types';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../../styles/table.scss'
-//
-// const TableStyled = styled.table`
-//   padding: 30px;
-//   margin: auto;
-//   width: 100%;
-//   //border: solid red;
-//   table-layout: fixed;
-// `;
+
 
 
 const DivContainer = styled.div`
-  //border: solid black;
-  //display: inline-flex;
+
   justify-content: center;
   margin: 20px;
   padding: 10px;
@@ -59,19 +51,6 @@ export default function GoodsView() {
         }
     }, [startIndex]);
 
-    // const initialize = async () => {
-    //     const URL = '/owner/goodsView';
-    //     try {
-    //         // const res = await client.get(`${URL}?o_sNumber=${localStorage.getItem('o_sNumber')}`);
-    //         const res = await client.get(URL);
-    //         setList(res.data);
-    //         setLoading(false);
-    //         console.log(res.data);
-    //     } catch (e) {
-    //         alert("데이터를 가져오는데 실패하였습니다.");
-    //         console.log(e);
-    //     }
-    // };
     const searchGoods = async () => {
         const URL = '/owner/search';
         setLoading(true);
@@ -150,9 +129,6 @@ export default function GoodsView() {
 
         return (
             <tr>
-                {/*<td>*/}
-                {/*    {props.idx + 1}*/}
-                {/*</td>*/}
                 <td>
                     {props.data.g_name}
                 </td>
@@ -246,7 +222,6 @@ export default function GoodsView() {
                     <thead>
 
                     <tr>
-                        {/*<th>순번</th>*/}
                         <th>상품명</th>
                         <th>분류</th>
                         <th>정가</th>

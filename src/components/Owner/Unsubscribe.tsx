@@ -1,12 +1,10 @@
 import React, {useLayoutEffect, useState} from 'react';
 import styled from "styled-components";
-import OwnerNavbar from "./OwnerNavbar";
 import {useHistory} from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
 import Stack from "@mui/material/Stack";
 import {client} from "../../lib/api/client";
-import {AxiosError} from "axios";
 
 const DivContainer = styled.div`
   //border: solid black;

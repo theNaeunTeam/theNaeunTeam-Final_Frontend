@@ -1,23 +1,17 @@
-import {categoryType, shopList} from "../../../modules/types";
+import {categoryType, shopList} from "../../../lib/types";
 import React, {useEffect, useState} from "react";
 import {fetch_Category_Per_sNumber} from "../../../lib/api/Fetch_Category_Per_sNumber";
 import {Map, MapMarker} from "react-kakao-maps-sdk";
-import styled from "styled-components";
 import {useHistory} from "react-router-dom";
 import {Doughnut} from 'react-chartjs-2';
 import Skeleton from '@mui/material/Skeleton';
-import {Button, Paper} from "@mui/material";
+import {Paper} from "@mui/material";
+
 interface listType {
     data: shopList;
     idx: number;
 }
 
-const DivMarker = styled.div`
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-`
 
 export default function ShopListBuilder({data, idx}: listType) {
 
@@ -53,14 +47,14 @@ export default function ShopListBuilder({data, idx}: listType) {
                 <span className='shopListItems'>
                 <Map
                     center={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}
-                    style={{width: '100%', height: '100%', borderRadius:'10px'}}
+                    style={{width: '100%', height: '100%', borderRadius: '10px'}}
                 >
                     <MapMarker position={{lat: Number(data.o_latitude), lng: Number(data.o_longitude)}}>
                     </MapMarker>
                 </Map>
                 </span>
 
-                <span className='shopListItems2' >
+                <span className='shopListItems2'>
 
                 <img style={{height: '100px'}} src={data.o_image} alt={'가게대표이미지'}/><br/>
                     <strong>{data.o_name}<br/></strong>
@@ -75,7 +69,7 @@ export default function ShopListBuilder({data, idx}: listType) {
                     <span>{data.o_time1}~{data.o_time2}</span>
                         <span>...{Math.round(Number(data.distance) * 1000)}m</span>
                     </div>
-                                    <button className='shopListBtn' style={{width: '60%', padding:'10px'}}
+                                    <button className='shopListBtn' style={{width: '60%', padding: '10px'}}
                                             onClick={() => history.push(`/shopView/${data.o_sNumber}`)}>
                                         <strong>상세보기</strong></button>
                     </span>

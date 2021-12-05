@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import './UserMain.scss';
 import styled from "styled-components";
-import {useHistory} from "react-router-dom";
-import {carouselType, recommendType, shopList, shopViewType} from "../../../modules/types";
+import {Link, useHistory} from "react-router-dom";
+import {carouselType, recommendType, shopList} from "../../../lib/types";
 import axios from "axios";
 import RecommendList from "./RecommendList";
 import {A11y, Autoplay, Navigation, Pagination, Scrollbar} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react/swiper-react.js';
-import {Link} from 'react-router-dom';
 import {Paper} from "@mui/material";
-
 
 import 'swiper/swiper.scss'; // core Swiper
 import 'swiper/modules/navigation/navigation.scss'; // Navigation module
@@ -19,7 +17,9 @@ import 'swiper/modules/autoplay/autoplay.scss';
 import {useSelector} from "react-redux";
 import {RootState} from "../../../index";
 import CircularProgress from "@mui/material/CircularProgress";
-import Backdrop from "@mui/material/Backdrop"; // Autoplay module
+import Backdrop from "@mui/material/Backdrop";
+import LocalList from "./LocalList";
+import Item from "./Item"; // Autoplay module
 
 
 const DivContainer = styled.div`
@@ -29,16 +29,6 @@ const DivContainer = styled.div`
   min-height: 100%;
   position: relative;
   padding-bottom: 19px;
-`;
-
-const DivRecommend = styled.div`
-  text-align: center;
-  display: flex;
-  justify-content: space-evenly;
-  height: 100%;
-  width: 100%;
-  margin-bottom: 50px;
-  border: solid red;
 `;
 
 
@@ -103,58 +93,6 @@ export default function UserMain() {
         }
     }
 
-    interface itemType {
-        data: carouselType;
-        idx: number;
-    }
-
-
-    function Item({data, idx}: itemType) {
-        return (
-            <div>
-                <Link to={data.link} style={{width: '100%'}}>
-                    <div style={{
-                        backgroundImage: `url(${data.src})`,
-                    }}
-                    className={'divBanner'}>
-                        <h2>{data.header}</h2>
-                        <p>{data.description}</p>
-                        {/*<img src={data.src} alt={data.altText} height={'500px'} width={'100%'}/>*/}
-                        {/*<Button variant="outlined" onClick={() => history.push(data.link)}>*/}
-                        {/*    Check it out!*/}
-                        {/*</Button>*/}
-                    </div>
-                </Link>
-            </div>
-        )
-    }
-
-    interface localProps {
-        history: any,
-        data: shopList,
-        idx: number
-    }
-
-    function LocalList(props: localProps) {
-        return (
-            <>
-             <div className='goodsSide'>
-                        <img src={props.data.o_image}
-                             onClick={() => props.history.push(`/shopView/${props.data.o_sNumber}`)}
-                             className={'localListImg'}
-                        />
-                        <br/>
-                        <b>{props.data.o_name}</b><br/><br/>
-
-                        <span className={'localListDetail'}>{props.data.o_address}</span><br/>
-                        <span className={'localListDetail'}>{props.data.o_time1}~{props.data.o_time2}</span>
-                        <br/>
-                    </div>
-            </>
-        )
-    }
-
-
     return (
         <DivContainer>
             <Backdrop
@@ -187,22 +125,22 @@ export default function UserMain() {
                 </Swiper>
                 }
             </div>
+            {shopList.length != 0 ?
+                <h1 style={{fontFamily: 'Cafe24Oneprettynight'}}>근처 가게</h1>
+                : null
+            }
+            <Paper className='divRecommend'>
                 {shopList.length != 0 ?
-                    <h1 style={{fontFamily:'Cafe24Oneprettynight'}} >근처 가게</h1>
-                    : null
-                }
-                <Paper className='divRecommend'>
-                    {shopList.length != 0 ?
-                        shopList.map((data: shopList, idx) => <LocalList key={`l${idx}`} idx={idx} data={data}
-                                                                         history={history}/>)
-                        : null}
-                </Paper>
-                <h1 style={{fontFamily:'Cafe24Oneprettynight'}}>최근 등록된 상품</h1>
-                <br/>
-                <Paper className='divRecommend'>
-                    {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data}
-                                                                                 history={history}/>)}
-                </Paper>
+                    shopList.map((data: shopList, idx) => <LocalList key={`l${idx}`} idx={idx} data={data}
+                                                                     history={history}/>)
+                    : null}
+            </Paper>
+            <h1 style={{fontFamily: 'Cafe24Oneprettynight'}}>최근 등록된 상품</h1>
+            <br/>
+            <Paper className='divRecommend'>
+                {recommends.map((data: recommendType, idx) => <RecommendList key={`r${idx}`} idx={idx} data={data}
+                                                                             history={history}/>)}
+            </Paper>
         </DivContainer>
     )
 }

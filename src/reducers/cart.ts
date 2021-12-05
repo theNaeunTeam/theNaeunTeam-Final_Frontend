@@ -1,4 +1,4 @@
-import {cartReducerType} from "../modules/types";
+import {cartReducerType} from "../lib/types";
 
 const defaultValue = [{
     g_code: 0,

@@ -1,9 +1,8 @@
-import OwnerNavbar from "./OwnerNavbar";
 import styled from "styled-components";
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
-import {conType} from "../../modules/types";
+import {conType} from "../../lib/types";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 

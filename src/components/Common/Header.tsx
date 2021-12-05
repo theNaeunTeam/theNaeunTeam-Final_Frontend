@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import '../../styles/Header.scss'
-import LoginForm from "./LoginForm/LoginForm";
+import LoginFormContainer from "./LoginForm/LoginFormContainer";
 import Backdrop from '@mui/material/Backdrop';
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
 
@@ -64,10 +64,10 @@ export default function Header() {
                     로그인
                 </li>
                 <li>
-                    <Link style={{fontWeight:'bold'}} to={'/user/register'}>회원가입</Link>
+                    <Link style={{fontWeight: 'bold'}} to={'/user/register'}>회원가입</Link>
                 </li>
                 <li>
-                    <Link style={{fontWeight:'bold'}} to={'/owner/register'}>가맹신청</Link>
+                    <Link style={{fontWeight: 'bold'}} to={'/owner/register'}>가맹신청</Link>
                 </li>
             </>
         )
@@ -85,7 +85,7 @@ export default function Header() {
                 </li>
                 <li>
                     {authReducer.isOwner === true || authReducer.isMaster === true ?
-                        <button  onClick={logout} className={'button'}>로그아웃</button>
+                        <button onClick={logout} className={'button'}>로그아웃</button>
                         : null}
                     {authReducer.isUser === true ?
                         <User/>
@@ -113,7 +113,7 @@ export default function Header() {
                 sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
                 open={showLoginModal}
             >
-                {showLoginModal && <LoginForm/>}
+                {showLoginModal && <LoginFormContainer/>}
             </Backdrop>
             <ScrollToTop/>
             <DivWrap className='header'>
