@@ -71,7 +71,6 @@ export default function ShoppingCart() {
             setTemp(JSON.parse(JSON.stringify(res.data)));
             setLoading(false);
         } catch (e) {
-            console.log(e);
         }
     };
 

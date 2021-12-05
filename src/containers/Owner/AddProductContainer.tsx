@@ -166,7 +166,6 @@ export default function AddProductContainer() {
             }
             dispatch({type: 'modifyOK'});
             setProduct(initValue);
-            console.log(res);
         } catch (e: any) {
             const err = e.response;
             if (err.status === 500) {
@@ -177,14 +176,12 @@ export default function AddProductContainer() {
             } else {
                 alert('예상치 못한 에러로 인해 작업 실패하였습니다.\n잠시 후 다시 시도 바랍니다.');
             }
-            console.log(e);
         }
         setLoading(false);
     };
 
     // 아이디값을 가져와서 state 값을 업데이트 해준다
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
-        console.log(productForm);
         const tagName = (e.target as HTMLFormElement).name;
         setProduct({...productForm, [tagName]: (e.target as HTMLFormElement).value});
         // ownerFormValidate();

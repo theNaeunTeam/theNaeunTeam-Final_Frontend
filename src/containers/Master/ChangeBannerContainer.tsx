@@ -25,10 +25,8 @@ export default function ChangeBannerContainer() {
         client.get(URL)
             .then(res => {
                 setArr(res.data)
-                console.log(res.data);
             })
             .catch(err => {
-                console.log(err);
                 alert('페이지 초기화 실패');
             })
     }, []);
@@ -41,13 +39,11 @@ export default function ChangeBannerContainer() {
 
         client.post('/master/bannerImage', formData)
             .then(res => {
-                console.log(res.data);
                 const cp = [...arr];
                 cp[idx].src = res.data.res;
                 setArr(cp);
             })
             .catch(err => {
-                console.log(err);
                 alert('이미지 등록 실패하는데 실패하였습니다.');
             })
     }
@@ -59,12 +55,9 @@ export default function ChangeBannerContainer() {
         // @ts-ignore
         cp[idx][tagName] = (e.target as HTMLInputElement).value;
         setArr(cp);
-        console.log(arr);
     }
 
     const submitForm = () => {
-        console.log('서버로 보내는 배열 : ', arr);
-
         client.put('/master/bannerContents', arr)
             .then(res => {
                 alert('배너 업데이트 성공하였습니다.')
@@ -72,7 +65,6 @@ export default function ChangeBannerContainer() {
             })
             .catch(err => {
                 alert('배너 업데이트 실패하였습니다.');
-                console.log(err);
             })
     }
 

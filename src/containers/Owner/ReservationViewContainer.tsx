@@ -54,7 +54,6 @@ export default function ReservationViewContainer() {
         }
         try {
             const res = await client.get(`${URL}?g_category=${g_category}&r_status=${r_status}&searchInput=${searchInput}&startIndex=${startIndex}`);
-            console.log(res);
             setList(res.data);
             setLoading(false);
         } catch (e: any) {
@@ -75,22 +74,15 @@ export default function ReservationViewContainer() {
             check: list[idx].selectedStatus,
         };
 
-        console.log('서버로 보내는 배열 : ', data);
-
         const URL = '/owner/statusChange';
 
         try {
             const res = await client.patch(URL, data);
-
-            console.log(res);
             alert(list[idx].selectedStatus);
             // initialize();
             searchGoods();
 
         } catch (e: any) {
-            console.log(e.response.status)
-            console.log(e.response);
-
             if (e.response.status === 500) {
                 alert("서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.")
             } else if (e.response.status === 400) {

@@ -53,7 +53,6 @@ function App() {
     }, []);
 
     const autoLogin = () => {
-        console.log('자동로그인시도');
         let URL = '';
         if (localStorage.getItem('userToken')) {
             URL = '/user/tokencheck';

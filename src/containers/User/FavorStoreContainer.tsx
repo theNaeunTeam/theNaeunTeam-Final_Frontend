@@ -50,14 +50,9 @@ export default function FavorStoreContainer() {
         setLoading(true);
         try {
             const res = await client.get(URL + `?startIndex=${startIndex}`);
-            // setList(res.data);
-
             setList(res.data);
-            console.log(res);
-
 
         } catch (e: any) {
-            console.log(e);
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
             } else {
@@ -77,17 +72,12 @@ export default function FavorStoreContainer() {
         const data: { f_o_sNumber: number } = {
             f_o_sNumber: Number((input.target as HTMLImageElement).title)
         }
-        console.log(data);
         try {
             const res = await client.post(URL, data);
-            console.log(res.data);
-            // alert('즐겨찾기가 해제되었습니다.')
-            // setFavorites(false);
             favoroff();
             initialize();
 
         } catch (e: any) {
-            console.log(e);
             if (e.response.status === 500) {
                 alert("서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.")
             } else if (e.response.status === 400) {

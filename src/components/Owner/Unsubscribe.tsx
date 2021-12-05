@@ -39,16 +39,12 @@ export default function Unsubscribe() {
     // DB 비밀번호 유효성 검사 + 탈퇴결과
     const submitForm = async () => {
         const URL = '/owner/ownerExit'
-        console.log('입력한 탈퇴 비밀번호 ');
-        console.log(ownerForm);
         const data = {
             o_pw: ownerForm.o_pw,
         }
 
         try {
             const res = await client.post(URL, data);
-
-            console.log(res.data);
             if (res.data === 1) {
                 alert("가맹 해지 신청이 완료 되었습니다.")
             } else {

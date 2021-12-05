@@ -1,5 +1,5 @@
 import React from "react";
-import err from '../../lib/styles/images/403error.png';
+import err from '../../lib/images/403error.png';
 import styled from "styled-components";
 import '../../lib/styles/button.scss';
 import {useHistory} from "react-router-dom";

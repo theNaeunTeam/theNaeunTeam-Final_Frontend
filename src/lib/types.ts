@@ -247,7 +247,7 @@ export type dummyType = {
     g_status: number,
 };
 
-export     type favorListType = {
+export type favorListType = {
     o_name: string,
     o_address: string,
     o_time1: string,

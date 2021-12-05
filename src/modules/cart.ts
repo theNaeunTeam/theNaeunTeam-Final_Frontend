@@ -21,26 +21,16 @@ interface actionTypes {
 export function cartReducer(state: cartReducerType[] = [], action: actionTypes) {
     switch (action.type) {
         case 'cartIn':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return [...action.payload];
         case 'modifyItem':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return [...action.payload];
         case 'removeItem':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             const cp = [...state];
             cp.splice(action.payload, 1);
             return cp;
         case 'orderIn':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return [...state,];
         case 'orderOut':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return [];
         default:
             return state;

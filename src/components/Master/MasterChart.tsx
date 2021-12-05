@@ -52,7 +52,6 @@ export default function MasterChart() {
     const monInit = () => {
         // 제일 최근년도의 인덱스값 초기화
         setMonIndex(monArr.length - 1);
-        console.log(monIndex);
         // 제일 최근년도 초기화
     }
 
@@ -68,18 +67,11 @@ export default function MasterChart() {
         try {
             const res = await client.get(URL);
 
-            console.log(res.data);
-            console.log(res.data['totalMon'].map((x: any) => x.map((b: any) => ({owner: b.sum, user: b.tal}))));
             setMonArr(res.data['totalMon'].map((x: any) => x.map((b: any) => ({owner: b.sum, user: b.tal}))));
-            console.log(monArr);
 
-            console.log('0000000000000');
-            console.log(res.data['year'].map((b: any) => ({date: b.date, owner: b.sum, user: b.tal})));
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, owner: b.sum, user: b.tal})));
 
-
         } catch (e: any) {
-            console.log(e);
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
             } else {
@@ -91,7 +83,6 @@ export default function MasterChart() {
 
     // 12달 증감버튼
     const IncMonYear = () => {
-        console.log(monArr.length);
         if (monIndex != monArr.length - 1) {
             setMonIndex(monIndex + 1);
             setMonYear(monYear + 1);

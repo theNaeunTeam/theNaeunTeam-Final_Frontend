@@ -16,27 +16,17 @@ interface actionTypes {
 export function authReducer(state = defaultValue, action: actionTypes) {
     switch (action.type) {
         case 'userMode':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return {...state, isUser: true, u_id: action.payload};
 
         case 'ownerMode':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return {...state, isOwner: true, o_sNumber: action.payload};
 
         case 'masterMode':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return {...state, isMaster: true};
 
         case 'noPermission':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return {...state, authError: true};
         case 'logoutAll':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             localStorage.clear();
             return defaultValue;
         default:

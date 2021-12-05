@@ -27,14 +27,8 @@ export default function UserExitContainer() {
     // DB 비밀번호 유효성 검사 + 탈퇴결과
     const submitForm = async () => {
         const URL = '/user/userDelete'
-        console.log('입력한 회원탈퇴 비밀번호 ');
-        console.log(userForm.u_pw);
-        const data = {
-            u_pw: userForm.u_pw,
-        }
         try {
             const res = await client.post(URL, userForm);
-            console.log(res.data);
             res.data === 1
                 ? (alert('회원 탈퇴 되었습니다.'), dispatch({type: 'logoutAll'}), history.push('/'))
                 : alert('회원 탈퇴 실패하였습니다.')

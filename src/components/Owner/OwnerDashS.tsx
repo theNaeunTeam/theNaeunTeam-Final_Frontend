@@ -61,14 +61,12 @@ export default function OwnerDashS() {
 
         try {
             const res = await client.get(URL);
-            console.log(res);
-            console.log(res.data.a);
+
             setNoShow(res.data.a);
             setCancel(res.data.b);
             setOver(res.data.c);
 
         } catch (e: any) {
-            console.log(e);
             if (e.response.data.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
 

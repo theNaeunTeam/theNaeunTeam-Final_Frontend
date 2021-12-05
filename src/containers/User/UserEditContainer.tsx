@@ -109,10 +109,8 @@ export default function UserEditContainer() {
         }
 
         const URL = '/user/userUpdate'
-        console.log(userForm);
         try {
             const res = await client.post(URL, userForm);
-            console.log(res.data);
             if (res.data === 1) {
                 alert('회원 정보 수정이 완료되었습니다.');
                 history.replace('/user')
@@ -121,7 +119,6 @@ export default function UserEditContainer() {
                 history.goBack();
             }
         } catch (e: any) {
-            console.log(e.response)
             if (e.response.status === 500) {
                 alert("서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.");
             } else if (e.response.status === 400) {
@@ -144,11 +141,9 @@ export default function UserEditContainer() {
 
         try {
             const res = await client.get(URL);
-            console.log(res);
             setUserForm({...userForm, ...res.data});
             // setUserEmail(res.data);
         } catch (e: any) {
-            console.log(e.response);
             if (e.response) {
                 if (e.response.status === 500) {
                     alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');

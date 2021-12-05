@@ -41,7 +41,6 @@ export default function TerminationCompletion() {
 
         try {
             const res = await client.get(URL);
-            console.log(URL);
             // 받은 결과에 id값 추가
             const message = res.data.reduce((acc: masterMainType2[], val: masterMainType2) => {
                 let temp: string = '';
@@ -89,7 +88,6 @@ export default function TerminationCompletion() {
             } else {
                 alert('데이터를 가져오는 중 에러가 발생했습니다.\n잠시후 다시 시도 바랍니다.');
             }
-            console.log(e);
         }
         setLoading(false);
     };
@@ -108,11 +106,9 @@ export default function TerminationCompletion() {
 
         try {
             const res = await client.patch(URL, data);
-            console.log(res);
             ownerTableInit();
             alert('선택된 가맹점 해지 취소 완료 되었습니다.');
         } catch (e: any) {
-            console.log(e);
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
             } else if (e.response.status === 400) {

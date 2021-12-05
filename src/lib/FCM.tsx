@@ -41,24 +41,19 @@ export default function FCM() {
         return messaging.getToken({vapidKey: WEB_PUSH_CERT})
             .then((currentToken) => {
                 if (currentToken) {
-                    console.log('current token for client: ', currentToken);
                     setTokenFound(true);
                     client.post(URL, {token: currentToken})
                         .then(res => {
-                            console.log(res);
                         })
                         .catch(err => {
-                            console.log(err);
                         });
                     // Track the token -> client mapping, by sending to backend server
                     // show on the UI that permission is secured
                 } else {
-                    console.log('알림 권한 거부됨');
                     setTokenFound(false);
                     // shows on the UI that permission is required
                 }
             }).catch((err) => {
-                console.log('푸시 토큰 발급 에러', err);
                 // catch error while creating client token
             });
     }
@@ -73,12 +68,9 @@ export default function FCM() {
     onMessageListener()
         .then((payload: any) => {
             setShow(true);
-            console.log(payload);
-            console.log(payload.data.title);
-            console.log(payload.data.body);
             setNotification({title: payload.data.title, body: payload.data.body})
         })
-        .catch(err => console.log('failed: ', err));
+        .catch(err => {});
 
     useEffect(() => {
         getToken();

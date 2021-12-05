@@ -45,7 +45,6 @@ export default function UserMypageContainer() {
             const res = await client.get(URL);
             setUserData(res.data);
         } catch (e: any) {
-            console.log(e.response);
             if (e.response.status === 500) {
                 alert("서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.");
                 history.push('/');
@@ -59,7 +58,6 @@ export default function UserMypageContainer() {
                 history.goBack();
 
             }
-            console.log(e);
         }
         setLoading(false);
     }

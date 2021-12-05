@@ -54,18 +54,14 @@ export default function GoodsViewContainer() {
     const searchGoods = async () => {
         const URL = '/owner/search';
         setLoading(true);
-        console.log(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}`);
         if (g_category != '' || g_status != '' || searchInput != '') {
             setStartIndex(0);
         }
         try {
             const res = await client.get(`${URL}?g_category=${g_category}&g_status=${g_status}&searchInput=${searchInput}&startIndex=${startIndex}`);
-            console.log(res);
-
             setList(res.data);
 
         } catch (e: any) {
-            console.log(e);
             if (e.response.data.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
             } else {
@@ -88,7 +84,6 @@ export default function GoodsViewContainer() {
         const URL = '/owner/deleteGoods';
         client.patch(URL, {g_code: g_code})
             .then(res => {
-                console.log(res);
                 alert('상품 판매완료 처리하였습니다.');
                 // initialize();
                 searchGoods();
@@ -96,7 +91,6 @@ export default function GoodsViewContainer() {
             .catch(e => {
                 // @ts-ignore
                 const err = e.response;
-                console.log(e);
                 if (err.status === 500) {
                     alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도해주세요.');
                 } else if (err.status === 400) {
@@ -117,7 +111,6 @@ export default function GoodsViewContainer() {
 
     }
     const indexPlus = () => {
-        console.log(startIndex);
         if (list.length === 10) {
             setStartIndex(startIndex + 10);
         } else {

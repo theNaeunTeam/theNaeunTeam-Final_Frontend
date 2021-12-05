@@ -53,7 +53,6 @@ export default function MasterOwnerDash() {
     const monInit = () => {
         // 제일 최근년도의 인덱스값 초기화
         setMonIndex(monArr.length - 1);
-        console.log(monIndex);
         // 제일 최근년도 초기화
         setMonYear(2019 + monArr.length - 1);
     }
@@ -69,34 +68,20 @@ export default function MasterOwnerDash() {
         const URL = '/master/masterMonth';
         try {
             const res = await client.get(URL);
-
-            console.log(res.data);
-
             setMonArr(res.data['totalMon'].map((x: any) => x.map((b: any) => ({sum: b.sum, tal: b.tal}))));
-            console.log('monarr');
-            console.log(monArr);
-            // console.log(monArr[2].map((a:any)=> ({sum:a.sum})) );
-            // console.log(monArr.map((x:any)) => x.sum );
-            console.log(monArr.length);
-            console.log('------------');
-            console.log(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
-            console.log(yearArr.map((x: any) => x.date));
-
         } catch (e: any) {
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
             } else {
                 alert('데이터를 가져오는데 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
             }
-            console.log(e);
         }
         setLoading(false);
     };
 
     // 12달 증감버튼
     const IncMonYear = () => {
-        console.log(monArr.length);
         if (monIndex != monArr.length - 1) {
             setMonIndex(monIndex + 1);
             setMonYear(monYear + 1);

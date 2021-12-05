@@ -26,8 +26,6 @@ export default function FindpwContainer() {
                 u_pw: pw,
             })
                 .then(response => {
-                    console.log(response.data)
-                    console.log(response.data == "")
                     // 해당 정보가 없을 경우
                     if (response.data == "") {
                         alert("유효한 접속이 아닙니다.")
@@ -43,7 +41,6 @@ export default function FindpwContainer() {
                     }, 1000);
                 })
         } catch (e) {
-            console.log(e);
         }
 
     }, [])
@@ -84,7 +81,6 @@ export default function FindpwContainer() {
             const res = await client.patch(URL, data);
             alert("비밀번호 변경 성공하였습니다.");
         } catch (e) {
-            console.log(e);
             alert("비밀번호 변경 실패하였습니다.");
         }
     };

@@ -20,12 +20,8 @@ interface actionTypes {
 export function goodsReducer(state = defaultValue, action: actionTypes) {
     switch (action.type) {
         case 'passToModifyPage':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return {...state, ...action.payload, isModify: true};
         case 'modifyOK':
-            console.log(action.type, '리듀서 콜');
-            console.log('화물 => ', action.payload);
             return {...defaultValue}
         default:
             return state;

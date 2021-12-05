@@ -47,7 +47,6 @@ export default function MasterUserList() {
         const URL = '/master/userList';
         try {
             const res = await client.get(URL);
-            // console.log(res.data);
             const message = res.data.reduce((acc: initialType[], val: initialType) => {
                 let temp: string = '';
                 switch (`${val.u_status}`) {
@@ -66,7 +65,6 @@ export default function MasterUserList() {
                 acc.push({...val, id: val.u_id, u_status: temp})
                 return acc;
             }, [])
-            console.log(message);
             setRows(message);
 
         } catch (e: any) {
@@ -75,7 +73,6 @@ export default function MasterUserList() {
             } else {
                 alert('데이터 가져오는 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
             }
-            console.log(e);
         }
         setLoading(false);
     }

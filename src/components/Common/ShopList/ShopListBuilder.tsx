@@ -37,7 +37,6 @@ export default function ShopListBuilder({data, idx}: listType) {
                 setChildLoading(false);
             })
             .catch(err => {
-                console.log(idx, '번 통계 ', err);
             })
     }, []);
 

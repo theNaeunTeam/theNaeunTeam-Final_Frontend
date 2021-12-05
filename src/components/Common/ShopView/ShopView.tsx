@@ -7,8 +7,8 @@ import '../../../lib/styles/ShopStyle.scss';
 import {useCookies} from 'react-cookie';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../index";
-import fullStar from "../../../lib/styles/images/star1.png";
-import emptyStar from "../../../lib/styles/images/star2.png";
+import fullStar from "../../../lib/images/star1.png";
+import emptyStar from "../../../lib/images/star2.png";
 import Swal from 'sweetalert2';
 import {categoryType, shopViewType} from "../../../lib/types";
 import {fetch_Category_Per_sNumber} from "../../../lib/api/Fetch_Category_Per_sNumber";
@@ -161,7 +161,6 @@ export default function ShopView() {
             })
             .catch(err => {
                 alert('카테고리 갯수 가져오기 실패');
-                console.log(err);
             })
 
         const URL = '/common/storeGoodsView';
@@ -170,9 +169,7 @@ export default function ShopView() {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setRows(res.data);
             setTemp(JSON.parse(JSON.stringify(res.data)));
-            console.log(res);
         } catch (e) {
-            console.log(e);
         }
     };
 
@@ -183,15 +180,12 @@ export default function ShopView() {
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setAboutStore(res.data);
-            console.log(res);
         } catch (e) {
-            console.log(e);
         }
     }
 
     useEffect(() => {
         favorCheck();
-        console.log(authReducer.isUser);
     }, [authReducer.isUser])
 
     // 즐겨찾기 유무 api
@@ -204,13 +198,11 @@ export default function ShopView() {
             f_o_sNumber: match.params.o_sNumber,
             f_p_user_id: authReducer.u_id
         }
-        console.log(data);
         try {
             const res = await client.post(URL, data);
 
             setFavorites(res.data);
         } catch (e) {
-            console.log(e);
         }
     }
 
@@ -278,14 +270,11 @@ export default function ShopView() {
             f_p_user_id: authReducer.u_id
 
         }
-        console.log('즐겨찾기 추가' + data);
         try {
             const res = await client.post(URL, data);
-            console.log(res.data);
             setFavorites(true);
             favoron();
         } catch (e) {
-            console.log(e);
         }
     }
     // 즐겨찾기 해제 api
@@ -299,15 +288,11 @@ export default function ShopView() {
         const data = {
             f_o_sNumber: match.params.o_sNumber,
         }
-        console.log('즐겨찾기 해제' + data);
         try {
             const res = await client.post(URL, data);
-            console.log(res.data);
-            // alert('즐겨찾기가 해제되었습니다.')
             setFavorites(false);
             favoroff();
         } catch (e) {
-            console.log(e);
         }
     }
 
@@ -341,25 +326,6 @@ export default function ShopView() {
 
         if (cookies.cart) { // 쿠키에 뭔가 있다
             cookieCart = [...cookies.cart];
-            // if (Array.isArray(cookies.cart)) { // 배열인가?
-            //     if (cookies.cart.length === 0) { // 빈 배열인가?
-            //         console.log('쿠키가 빈 배열이다');
-            //         cookieCart.push({
-            //             g_count: g_count,
-            //             g_code: g_code,
-            //             id: authReducer.u_id,
-            //             o_sNumber: match.params.o_sNumber
-            //         });
-            //         setCookie('cart', cookieCart, {path: '/'});
-            //         if (window.confirm('장바구니로 이동하시겠습니까?')) {
-            //             history.push('/user/shoppingcart');
-            //         }
-            //         return false;
-            //     }
-            // }
-
-            console.log(cookieCart);
-
             const findDiffOwner = cookieCart.filter((x: any) => x.o_sNumber != match.params.o_sNumber);
 
             if (findDiffOwner.length !== 0) { // 파라메타의 사업자번호와 다른 사업자번호를 가진 쿠기가 있을 경우
@@ -403,7 +369,6 @@ export default function ShopView() {
                 }
             }
         } else {
-            console.log('저장된 쿠키 없어서 새로 만듦');
             cookieCart.push({
                 g_count: g_count,
                 g_code: g_code,
@@ -411,7 +376,6 @@ export default function ShopView() {
                 o_sNumber: match.params.o_sNumber
             });
         }
-        console.log(cookieCart);
         setCookie('cart', cookieCart, {path: '/'});
         if (window.confirm('장바구니로 이동하시겠습니까?')) {
             history.push('/user/shoppingcart');

@@ -73,7 +73,6 @@ export default function MasterMain() {
 
         try {
             const res = await client.get(URL);
-            console.log(URL);
             // 받아온 결과에 id값 추가
             const massage = res.data.reduce((acc: masterMainType2[], val: masterMainType2, idx: number) => {
                 let temp: string = '';
@@ -111,13 +110,7 @@ export default function MasterMain() {
                 })
                 return acc;
             }, []);
-            console.log(massage);
             setRows(massage);
-
-            // const event = new Date(`${rows[0].o_date}`);
-            // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            // // @ts-ignore
-            // console.log(event.toLocaleDateString(undefined, options));
 
 
         } catch (e: any) {
@@ -126,7 +119,6 @@ export default function MasterMain() {
             } else {
                 alert('데이터를 가져오는 중 에러가 발생했습니다.\n잠시후 다시 시도 바랍니다.');
             }
-            console.log(e);
         }
         setLoading(false);
     };
@@ -156,7 +148,6 @@ export default function MasterMain() {
 
         try {
             const res = await client.patch(URL, data);
-            console.log(res);
             ownerTableInit();
             alert('선택된 가맹점 신청 승인/반려 완료 되었습니다.');
         } catch (e: any) {

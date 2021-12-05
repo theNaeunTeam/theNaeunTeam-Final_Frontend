@@ -146,7 +146,6 @@ export default function OwnerMain() {
         const URL_D = 'owner/getDay';
         try {
             const res = await client.get(URL);
-            console.log(res);
             setOwnerPage(res.data);
 
             const response = await client.get(URL_D);
@@ -155,23 +154,11 @@ export default function OwnerMain() {
 
 
             setMonSumArr(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
-            console.log(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
-            console.log('aaaaaaaaaaaaaaaa');
 
 
             setYearArr(response.data['year'].map((x: any) => x.date + '년'));
             setYearSumArr(response.data['year'].map((x: any) => x.sum));
-
-            console.log('---------------------');
-            console.log(response.data);
-            // console.log(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
-            // console.log('---------------------');
-            // console.log(response.data['m'].length);
-            // console.log(response.data['year'].map((x: any) => x.date));
-            // console.log(response.data['year'].map((x: any) => x.sum));
-            // console.log(response.data['year'].length);
         } catch (e: any) {
-            console.log(e);
             if (e.response.data.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
 
@@ -207,30 +194,20 @@ export default function OwnerMain() {
     // 연도별 매출
     const yearInit = () => {
         setYearIdx(yearArr.length);
-        console.log('------')
-        console.log(yearArr.length);
     }
     const subYIdx = () => {
-        console.log(yearIdx);
-        console.log(yearArr.length - 1);
-
         if (yearIdx >= yearArr.length && yearIdx - 3 > 0) {
             setYearIdx(yearIdx - 1);
-            console.log(yearIdx + "!!!!");
         }
     }
     const desYIdx = () => {
-        console.log(yearSumArr.slice(yearIdx - 3, yearIdx));
         if (yearArr.length - 3 <= yearIdx && yearIdx < yearArr.length) {
             setYearIdx(yearIdx + 1);
-            console.log(yearIdx + "$$");
         }
     }
 
     const dayInit = () => {
         setDayIdx(dayArr.length - 1);
-        console.log(dayArr);
-        console.log('@#@#@')
     }
 
     const subDIdx = () => {

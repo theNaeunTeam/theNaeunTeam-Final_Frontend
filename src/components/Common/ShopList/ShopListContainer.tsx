@@ -83,20 +83,15 @@ export default function ShopListContainer() {
         }
         client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`)
             .then(res => {
-                console.log(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`);
                 if (res.data.length < 10) {
                     setNoMoreData(true);
                 } else {
                     setNoMoreData(false);
                 }
 
-                console.log(res.data);
-
                 if (startIndex === 0) { // 페이지 로드되고 첫페이지다
                     if (goodsName !== '') { // 검색창에 뭔가 있으면
                         const massage = res.data.filter((data: shopList) => data.searchResult !== 0); // 필터로 그것만 꺼냄
-                        console.log('massage', massage);
-                        console.log('massage.length', massage.length);
                         if (massage.length < 10) {
                             setNoMoreData(true);
                         } else {
@@ -114,8 +109,6 @@ export default function ShopListContainer() {
                     if (goodsName !== '') { // 검색창에 뭔가 있으면
 
                         const massage = res.data.filter((data: shopList) => data.searchResult !== 0); // 필터로 그것만 꺼냄
-                        console.log('massage', massage);
-                        console.log('massage.length', massage.length);
 
                         if (massage.length < 10) {
                             setNoMoreData(true);
@@ -141,7 +134,6 @@ export default function ShopListContainer() {
                 setDisplayRange(range);
             })
             .catch(err => {
-                console.log(err);
             })
             .finally(() => {
                 setLoading(false);
@@ -173,7 +165,6 @@ export default function ShopListContainer() {
 
         function onGeoError(e: any) {
             alert("위치를 찾을 수 없습니다");
-            console.log(e);
         }
 
     }

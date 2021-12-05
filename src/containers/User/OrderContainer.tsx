@@ -58,11 +58,9 @@ export default function OrderContainer() {
             }
             arr.push(data);
         }
-        console.log('서버로 보내는 배열 : ', arr);
 
         client.post(URL, arr)
             .then(res => {
-                console.log(res);
                 dispatch({type: 'orderOut'});
                 removeCookie('cart', {path: '/'});
                 if (res.data === false) {
@@ -74,7 +72,6 @@ export default function OrderContainer() {
                 history.push('/');
             })
             .catch(err => {
-                console.log(err);
                 alert('실패');
             })
     };
@@ -88,7 +85,6 @@ export default function OrderContainer() {
         }
 
         setOrderForm({...orderForm, [tagName]: (e.target as HTMLFormElement).value});
-        console.log(orderForm);
     }
 
     return (

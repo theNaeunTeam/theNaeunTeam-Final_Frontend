@@ -68,11 +68,9 @@ export default function UserReserve() {
 
         try {
             const res = await client.patch(URL, data);
-            console.log(res);
             searchReserve();
             alert('예약 취소 완료되었습니다.');
         } catch (e: any) {
-            console.log(e);
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
 

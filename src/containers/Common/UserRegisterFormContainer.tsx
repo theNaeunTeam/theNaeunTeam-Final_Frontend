@@ -113,7 +113,6 @@ export default function UserRegisterFormContainer() {
                 history.replace('/');
             }
         } catch (e) {
-            console.log(e);
             alert('회원가입에 실패하였습니다.');
         }
 

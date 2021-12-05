@@ -52,11 +52,9 @@ export default function UserMain() {
         axios.get(URL)
             .then(res => {
                 setItems(res.data)
-                console.log(res.data);
                 setLoading(false);
             })
             .catch(err => {
-                console.log(err);
                 alert('페이지 초기화 실패');
             })
     }
@@ -65,31 +63,24 @@ export default function UserMain() {
         const URL = '/common/recommendList';
         axios.get(URL)
             .then(res => {
-                console.log(res.data);
                 setRecommends(res.data);
                 setLoading(false);
             })
             .catch(err => {
-                console.log(err);
             })
     }
     const fetchLocalList = () => {
         if (userLocalMap.lat != 0 && userLocalMap.lon != 0) {
             axios.get('/common/localList?LAT=' + userLocalMap.lat + '&LON=' + userLocalMap.lon)
                 .then(res => {
-                    console.log(res.data);
                     setShopList(res.data);
-                    console.log(shopList);
                     setLoading(false);
                 })
                 .catch(err => {
-                    console.log(err);
-                    console.log(shopList);
+
                 })
         } else {
-            console.log('위치 지정 안되어있음');
-            console.log(shopList.length === 0);
-            console.log(shopList);
+
         }
     }
 
@@ -109,8 +100,6 @@ export default function UserMain() {
                     navigation
                     pagination={{clickable: true}}
                     scrollbar={{draggable: true}}
-                    onSwiper={(swiper) => console.log(swiper)}
-                    onSlideChange={() => console.log('slide change')}
                     autoplay={{delay: 5000}}
                 >
                     {

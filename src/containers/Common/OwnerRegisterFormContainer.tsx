@@ -78,7 +78,6 @@ export default function OwnerRegisterFormContainer() {
             })
             .catch(e => {
                 alert('좌표 검색 실패');
-                console.log(e);
             })
     };
 
@@ -145,7 +144,6 @@ export default function OwnerRegisterFormContainer() {
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
 
-        console.log(regForm);
         const tagName = (e.target as HTMLFormElement).name;
 
         if (tagName === 'o_sNumber' || tagName === 'o_phone' || tagName === 'o_cellPhone') { // 숫자만 입력할수있게
@@ -191,13 +189,11 @@ export default function OwnerRegisterFormContainer() {
             if (res.data === 1) {
 
                 alert('등록성공');
-                console.log(res);
             }
         } catch (e) {
             // @ts-ignore
             const err = e.response;
             alert(err.data.error);
-            console.log(e);
         }
     }
 

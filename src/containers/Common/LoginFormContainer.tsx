@@ -64,7 +64,6 @@ export default function LoginFormContainer() {
                     history.push('/');
                 }
             } catch (e: any) {
-                console.log(e.response.data.error);
                 alert(e.response.data.error);
             }
         }

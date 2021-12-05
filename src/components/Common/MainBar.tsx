@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import '../../lib/styles/nav.scss'
 import {Link} from 'react-router-dom';
-import logo from '../../lib/styles/images/favicon.png'
+import logo from '../../lib/images/favicon.png'
 import {IconButton} from "material-ui";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {AiFillEdit} from "react-icons/ai";

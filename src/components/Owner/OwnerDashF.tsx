@@ -95,13 +95,9 @@ export default function OwnerDashF() {
         try {
             const reTime = await client.get(URLT);
             setTime(reTime.data.map((x: any) => x.tal + '시'));
-            console.log(time);
             setTimeCnt(reTime.data.map((x: any) => x.sum));
-            console.log('-----------------------')
-            console.log(timeCnt);
 
             const reGender = await client.get(URLG);
-            console.log(reGender);
             setGenderArr(reGender.data.map((x: any) => x.date));
             setGender(reGender.data.map((x: any) => x.sum));
 
@@ -116,11 +112,8 @@ export default function OwnerDashF() {
 
             setTotal(reGender.data[0].sum + reGender.data[1].sum);
 
-            console.log(reTime);
-            console.log(reCate);
 
         } catch (e: any) {
-            console.log(e);
             if (e.response.data.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
 

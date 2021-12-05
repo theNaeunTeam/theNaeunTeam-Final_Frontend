@@ -47,7 +47,6 @@ export default function UserDash() {
     const monInit = () => {
         // 제일 최근년도의 인덱스값 초기화
         setMonIndex(monArr.length - 1);
-        console.log(monIdex);
         // 제일 최근년도 초기화
         setMonYear(2019 + monArr.length - 1);
     }
@@ -62,28 +61,16 @@ export default function UserDash() {
         const URL = '/master/userMonth';
         try {
             const res = await client.get(URL);
-
-            console.log(res.data);
-
             setMonArr(res.data['totalMon'].map((x: any) => x.map((b: any) => ({sum: b.sum, tal: b.tal}))));
-            console.log(monArr);
-            console.log(monArr.length);
-            console.log('------------');
-            console.log(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, sum: b.sum, tal: b.tal})));
-            console.log(yearArr.map((x: any) => x.date));
-
             setLoading(false);
-
         } catch (e) {
-            console.log(e);
         }
     };
 
 
     // 12달 증감버튼
     const IncMonYear = () => {
-        console.log(monArr.length);
         if (monIdex != monArr.length - 1) {
             setMonIndex(monIdex + 1);
             setMonYear(monYear + 1);
@@ -99,11 +86,6 @@ export default function UserDash() {
 
     // 년도별 증감버튼
     const IncYear = () => {
-        console.log('년도+1');
-        console.log(yearArr);
-        console.log(yearIndex);
-        console.log(yearArr.slice(yearIndex - 3, yearIndex));
-
         if (0 <= yearIndex && yearIndex <= (yearArr.length - 1)) {
             setYearIndex(yearIndex + 1);
             setYear(year + 1)
@@ -111,9 +93,6 @@ export default function UserDash() {
     }
 
     const DecYear = () => {
-        console.log('년도-1');
-        console.log(yearIndex);
-        console.log(yearArr.length);
         if (yearIndex >= yearArr.length && yearIndex - 3 > 0) {
             setYearIndex(yearIndex - 1);
             setYear(year - 1);
@@ -122,9 +101,7 @@ export default function UserDash() {
 
     return (
         <>
-            {/*<div className='qqq'>*/}
             <h3 className={'mainH3'}>유저 가입/탈퇴 통계</h3>
-            {/*</div>*/}
 
             <div className="flex-container-1">
                 <div className="flex-items-1">
