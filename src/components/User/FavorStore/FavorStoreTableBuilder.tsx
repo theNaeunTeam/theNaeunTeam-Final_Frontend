@@ -2,7 +2,7 @@ import fullStar from "../../../lib/styles/images/star1.png";
 import React from "react";
 import {favorListType} from "../../../lib/types";
 
-export const FavorStoreTableBuilder = (props: { data: favorListType, idx: number, favorOff:any }) => {
+export const FavorStoreTableBuilder = (props: { data: favorListType, idx: number, favorOff: any }) => {
     return (
         <tr>
             {/*<td>*/}
@@ -29,7 +29,8 @@ export const FavorStoreTableBuilder = (props: { data: favorListType, idx: number
             <td>
                 {/*@ts-ignore*/}
                 <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={fullStar}
-                                                        title={props.data.f_o_sNumber} onClick={e => props.favorOff(e)}/></span>
+                                                        title={props.data.f_o_sNumber}
+                                                        onClick={e => props.favorOff(e)}/></span>
             </td>
 
         </tr>

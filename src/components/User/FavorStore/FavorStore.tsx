@@ -20,7 +20,7 @@ const DivNav = styled.div`
   font-size: 20px;
 `;
 
-export default function FavorStore(props: { loading: any; list: any; indexMinus: any; indexPlus: any; startIndex: any; favorOff:any;}) {
+export default function FavorStore(props: { loading: any; list: any; indexMinus: any; indexPlus: any; startIndex: any; favorOff: any; }) {
 
     const {
         loading,
@@ -31,7 +31,7 @@ export default function FavorStore(props: { loading: any; list: any; indexMinus:
         favorOff
     } = props;
 
-    return(
+    return (
         <DivContainer>
             <Backdrop
                 sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
@@ -60,7 +60,9 @@ export default function FavorStore(props: { loading: any; list: any; indexMinus:
                     <tbody>
                     {list.length === 0 ?
                         <div className='centerDiv1'><span className='centerSpan'>즐겨찾는 가게가 없습니다. </span></div>
-                        : list.map((data:favorListType, idx:number) => <FavorStoreTableBuilder data={data} idx={idx} key={idx} favorOff={favorOff}/>)}
+                        : list.map((data: favorListType, idx: number) => <FavorStoreTableBuilder data={data} idx={idx}
+                                                                                                 key={idx}
+                                                                                                 favorOff={favorOff}/>)}
                     </tbody>
                 </table>
                 <div className='aa' style={{height: '80px', display: 'inline-flex'}}>

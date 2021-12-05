@@ -2,7 +2,7 @@ import {goodsViewType} from "../../../lib/types";
 import {Button} from "@mui/material";
 import React from "react";
 
-export const GoodsViewTableBuilder = (props: { data: goodsViewType, idx: number, modifyGoods:any, deleteGoods:any }) => {
+export const GoodsViewTableBuilder = (props: { data: goodsViewType, idx: number, modifyGoods: any, deleteGoods: any }) => {
 
     return (
         <tr>

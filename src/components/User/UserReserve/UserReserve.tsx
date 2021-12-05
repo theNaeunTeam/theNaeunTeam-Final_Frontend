@@ -194,7 +194,8 @@ export default function UserReserve() {
                     <tbody>
                     {list.length === 0 ?
                         <div className='centerDiv2'><span className='centerSpan'>예약 기록이 없습니다.</span></div>
-                        : list.map((data, idx) => <UserReserveTableBuilder data={data} idx={idx} key={idx} changeReserveStatus={changeReserveStatus}/>)}
+                        : list.map((data, idx) => <UserReserveTableBuilder data={data} idx={idx} key={idx}
+                                                                           changeReserveStatus={changeReserveStatus}/>)}
                     </tbody>
                 </table>
                 <div className='aa' style={{height: '80px', display: 'inline-flex'}}>
