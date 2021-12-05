@@ -1,10 +1,7 @@
-import styled from "styled-components";
-import React, {useEffect, useLayoutEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
-import {client} from "../../lib/api/client";
-import {conType} from "../../lib/types";
-import CircularProgress from "@mui/material/CircularProgress";
+import React from "react";
 import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import styled from "styled-components";
 
 const DivContainer = styled.div`
   //border: solid black;
@@ -34,51 +31,15 @@ const DivContent = styled.div`
   margin-top: 25px;
 
 `;
-export default function OwnerDashS() {
-    const history = useHistory();
-    useLayoutEffect(() => {
-        if (!localStorage.getItem('ownerToken')) history.replace('/err');
-    }, []);
 
-    const value = {
-        sum: 0,
-        tal: 0,
-    }
-    const [noShow, setNoShow] = useState<conType>(value);
-    const [cancel, setCancel] = useState<conType>(value);
-    const [over, setOver] = useState<conType>(value);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        if (localStorage.getItem('ownerToken')) {
-            initialize();
-        }
-    }, []);
-
-    const initialize = async () => {
-
-        const URL = '/owner/getOwnerBoard';
-
-        try {
-            const res = await client.get(URL);
-
-            setNoShow(res.data.a);
-            setCancel(res.data.b);
-            setOver(res.data.c);
-
-        } catch (e: any) {
-            if (e.response.data.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
-
-            } else {
-                alert('데이터를 가져오는 중 문제가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
-            }
-
-        }
-        setLoading(false)
-    }
-
-    return (
+export default function OwnerDashS(props: { loading: any; noShow: any; over: any; cancel:any}) {
+    const {
+        loading,
+        noShow,
+        over,
+        cancel,
+    } = props;
+    return(
         <DivContainer>
             <Backdrop
                 sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}

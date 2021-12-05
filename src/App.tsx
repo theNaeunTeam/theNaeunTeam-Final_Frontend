@@ -11,11 +11,11 @@ import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./index";
 import OwnerRegisterFormContainer from "./containers/Common/OwnerRegisterFormContainer";
-import OwnerMain from "./components/Owner/OwnerMain";
+import OwnerMainContainer from "./containers/Owner/OwnerMainContainer";
 import AddProductContainer from "./containers/Owner/AddProductContainer";
 import GoodsViewContainer from "./containers/Owner/GoodsViewContainer";
 import ReservationViewContainer from "./containers/Owner/ReservationViewContainer";
-import Unsubscribe from "./components/Owner/Unsubscribe";
+import UnsubscribeContainer from "./containers/Owner/UnsubscribeContainer";
 import {client} from "./lib/api/client";
 import ShoppingCart from "./components/User/ShoppingCart/ShoppingCart";
 import PageNotFound from "./components/Common/PageNotFound";
@@ -34,8 +34,8 @@ import MasterOwnerDash from "./components/Master/MasterOwnerDash";
 import TerminationWaiting from "./components/Master/TerminationWaiting";
 import TerminationCompletion from "./components/Master/TerminationCompletion";
 import ChangeBannerContainer from "./containers/Master/ChangeBannerContainer";
-import OwnerDashS from "./components/Owner/OwnerDashS";
-import OwnerDashF from "./components/Owner/OwnerDashF";
+import OwnerDashSContainer from "./containers/Owner/OwnerDashSContainer";
+import OwnerDashFContainer from "./containers/Owner/OwnerDashFContainer";
 import UserDash from "./components/Master/UserDash";
 import MasterChart from "./components/Master/MasterChart";
 import PrivacyPolicy from "./components/Common/PrivacyPolicy";
@@ -146,13 +146,13 @@ function App() {
 
 
                 {/*<Route path='/owner' component={OwnerNavbar}/>*/}
-                <Route path='/owner' exact component={OwnerMain}/>
+                <Route path='/owner' exact component={OwnerMainContainer}/>
                 <Route path='/owner/addproduct' component={AddProductContainer}/>
                 <Route path='/owner/goodsview' component={GoodsViewContainer}/>
                 <Route path='/owner/reservationview' component={ReservationViewContainer}/>
-                <Route path='/owner/unsubscribe' component={Unsubscribe}/>
-                <Route path='/owner/ownerdashf' component={OwnerDashF}/>
-                <Route path='/owner/ownerdashs' component={OwnerDashS}/>
+                <Route path='/owner/unsubscribe' component={UnsubscribeContainer}/>
+                <Route path='/owner/ownerdashf' component={OwnerDashFContainer}/>
+                <Route path='/owner/ownerdashs' component={OwnerDashSContainer}/>
 
 
                 <Route path={'/err'} component={PageNotFound}/>
