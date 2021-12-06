@@ -1,9 +1,12 @@
 import React from 'react';
 import {DataGrid} from "@mui/x-data-grid";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
-export default function MasterUserList(props: { setSelected: any; rows: any; columns: any; }) {
+export default function MasterUserList(props: { loading:any; setSelected: any; rows: any; columns: any; }) {
 
     const {
+        loading,
         setSelected,
         rows,
         columns,
@@ -14,7 +17,15 @@ export default function MasterUserList(props: { setSelected: any; rows: any; col
             <h3 className='mainH3'> 회원 리스트 </h3>
 
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
-                {
+                {loading
+                    ?
+                    <Backdrop
+                        sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                        open={loading}
+                    >
+                        <CircularProgress color="inherit"/>
+                    </Backdrop>
+                    :
                     <DataGrid
                         onStateChange={({selection}) => setSelected(selection)}
                         rows={rows}

@@ -1,5 +1,7 @@
 import React from 'react';
 import {Pie} from "react-chartjs-2";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function MasterChart3(props: { loading: any; local: any; }) {
     const {
@@ -10,7 +12,12 @@ export default function MasterChart3(props: { loading: any; local: any; }) {
         <>
             {
                 loading ?
-                    null
+                    <Backdrop
+                        sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                        open={loading}
+                    >
+                        <CircularProgress color="inherit"/>
+                    </Backdrop>
                     :
                     <>
                         <h3 className='MODH3-1'>지역별 오너 분포 통계</h3>

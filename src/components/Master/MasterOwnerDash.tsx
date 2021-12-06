@@ -1,6 +1,7 @@
 import React from 'react';
 import {Bar} from "react-chartjs-2";
 import MasterChart3Container from "../../containers/Master/MasterChart3Container";
+import {Backdrop, CircularProgress} from "@mui/material";
 
 export default function MasterOwnerDash(props: { loading: any; monArr: any; monIndex: any; DecMonYear: any; monYear: any; IncMonYear: any; yearArr: any; yearIndex: any; DecYear: any; IncYear: any; }) {
     const {
@@ -25,7 +26,12 @@ export default function MasterOwnerDash(props: { loading: any; monArr: any; monI
                     <div className="flex-items">
                         {
                             loading ?
-                                null
+                                <Backdrop
+                                    sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                                    open={loading}
+                                >
+                                    <CircularProgress color="inherit"/>
+                                </Backdrop>
                                 :
                                 <>
                                     <h3 className='MODH3'>Month</h3>
@@ -89,7 +95,12 @@ export default function MasterOwnerDash(props: { loading: any; monArr: any; monI
                     <div className="flex-items">
                         {   ///////////////////////////년도별
                             loading ?
-                                null
+                                <Backdrop
+                                    sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                                    open={loading}
+                                >
+                                    <CircularProgress color="inherit"/>
+                                </Backdrop>
                                 :
                                 <>
                                     <h3 className='MODH3'>Year</h3>

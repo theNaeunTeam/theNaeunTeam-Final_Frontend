@@ -1,9 +1,10 @@
 import React from 'react';
 import {DataGrid} from "@mui/x-data-grid";
 
-export default function TerminationCompletion(props: { updateDB: any; setSelected: any; rows: any; columns: any; }) {
+export default function TerminationCompletion(props: { loading:any; updateDB: any; setSelected: any; rows: any; columns: any; }) {
 
     const {
+        loading,
         updateDB,
         setSelected,
         rows,

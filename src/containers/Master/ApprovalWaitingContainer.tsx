@@ -151,6 +151,6 @@ export default function ApprovalWaitingContainer() {
 
 
     return (
-        <ApprovalWaiting updateDB={updateDB} setSelected={setSelected} rows={rows} columns={columns}/>
+        <ApprovalWaiting updateDB={updateDB} setSelected={setSelected} rows={rows} columns={columns} loading={loading} />
     )
 }

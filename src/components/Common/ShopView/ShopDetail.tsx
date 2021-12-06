@@ -7,10 +7,9 @@ import styled from "styled-components";
 
 const DivHalfMenu2 = styled.div`
   flex: 1;
-  margin: 20px;
+  margin: 20px 20px 60px;
   padding: 0px 0px 100px;
   width: 500px;
-  //border: solid #0d0d0d;
 `;
 
 const DivMarker = styled.div`
