@@ -1,45 +1,45 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect} from 'react';
 
-import {Route, Switch} from 'react-router-dom';
-import LoginForm from "./components/Common/LoginForm/LoginForm";
+import {Route} from 'react-router-dom';
+import LoginFormContainer from "./containers/Common/LoginFormContainer";
 import Header from "./components/Common/Header";
-import MasterMain from "./components/Master/MasterMain";
-import UserRegisterForm from "./components/Common/UserReigisterForm/UserRegisterForm";
-import UserMain from "./components/User/UserMain/UserMain";
-import ShopView from "./components/Common/ShopView/ShopView";
+import MasterMainContainer from "./containers/Master/MasterMainContainer";
+import UserRegisterFormContainer from "./containers/Common/UserRegisterFormContainer";
+import UserMainContainer from "./containers/User/UserMainContainer";
+import ShopViewContainer from "./containers/User/ShopViewContainer";
 import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./index";
-import OwnerRegisterForm from "./components/Common/OwnerRegisterForm/OwnerRegisterForm";
-import OwnerMain from "./components/Owner/OwnerMain";
-import AddProduct from "./components/Owner/AddProduct";
-import GoodsView from "./components/Owner/GoodsView";
-import ReservationView from "./components/Owner/ReservationView";
-import Unsubscribe from "./components/Owner/Unsubscribe";
+import OwnerRegisterFormContainer from "./containers/Common/OwnerRegisterFormContainer";
+import OwnerMainContainer from "./containers/Owner/OwnerMainContainer";
+import AddProductContainer from "./containers/Owner/AddProductContainer";
+import GoodsViewContainer from "./containers/Owner/GoodsViewContainer";
+import ReservationViewContainer from "./containers/Owner/ReservationViewContainer";
+import UnsubscribeContainer from "./containers/Owner/UnsubscribeContainer";
 import {client} from "./lib/api/client";
-import ShoppingCart from "./components/User/ShoppingCart/ShoppingCart";
+import ShoppingCartContainer from "./containers/User/ShoppingCartContainer";
 import PageNotFound from "./components/Common/PageNotFound";
-import UserMypage from "./components/User/UserMypage";
-import Order from './components/User/Order/Order';
-import UserReserve from "./components/User/UserReserve/UserReserve";
-import FavorStore from "./components/User/FavorStore";
-import UserEdit from "./components/User/UserEdit";
-import UserExit from "./components/User/UserExit";
-import ShopList from "./components/Common/ShopList/ShopList";
+import UserMypageContainer from "./containers/User/UserMypageContainer";
+import OrderContainer from './containers/User/OrderContainer';
+import UserReserveContainer from "./containers/User/UserReserveContainer";
+import FavorStoreContainer from "./containers/User/FavorStoreContainer";
+import UserEditContainer from "./containers/User/UserEditContainer";
+import UserExitContainer from "./containers/User/UserExitContainer";
+import ShopListContainer from "./containers/Common/ShopListContainer";
 import MasterNavbar from "./components/Master/MasterNavbar";
-import MasterUserList from "./components/Master/MasterUserList";
-import ApprovalWaiting from "./components/Master/ApprovalWaiting";
-import ApprovalCompletion from "./components/Master/ApprovalCompletion";
-import MasterOwnerDash from "./components/Master/MasterOwnerDash";
-import TerminationWaiting from "./components/Master/TerminationWaiting";
-import TerminationCompletion from "./components/Master/TerminationCompletion";
-import ChangeBanner from "./components/Master/ChangeBanner/ChangeBanner";
-import OwnerDashS from "./components/Owner/OwnerDashS";
-import OwnerDashF from "./components/Owner/OwnerDashF";
-import UserDash from "./components/Master/UserDash";
-import MasterChart from "./components/Master/MasterChart";
+import MasterUserListContainer from "./containers/Master/MasterUserListContainer";
+import ApprovalWaitingContainer from "./containers/Master/ApprovalWaitingContainer";
+import ApprovalCompletionContainer from "./containers/Master/ApprovalCompletionContainer";
+import MasterOwnerDashContainer from "./containers/Master/MasterOwnerDashContainer";
+import TerminationWaitingContainer from "./containers/Master/TerminationWaitingContainer";
+import TerminationCompletionContainer from "./containers/Master/TerminationCompletionContainer";
+import ChangeBannerContainer from "./containers/Master/ChangeBannerContainer";
+import OwnerDashSContainer from "./containers/Owner/OwnerDashSContainer";
+import OwnerDashFContainer from "./containers/Owner/OwnerDashFContainer";
+import UserDashContainer from "./containers/Master/UserDashContainer";
+import MasterChartContainer from "./containers/Master/MasterChartContainer";
 import PrivacyPolicy from "./components/Common/PrivacyPolicy";
-import FindPw from "./components/Common/findpw";
+import FindpwContainer from "./containers/Common/FindpwContainer";
 import MainBar from "./components/Common/MainBar";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
 
@@ -53,7 +53,6 @@ function App() {
     }, []);
 
     const autoLogin = () => {
-        console.log('자동로그인시도');
         let URL = '';
         if (localStorage.getItem('userToken')) {
             URL = '/user/tokencheck';
@@ -107,53 +106,53 @@ function App() {
                         : <Route path='/' component={MainBar}/>}
 
 
-                <Route path='/' exact component={UserMain}  />
+                <Route path='/' exact component={UserMainContainer}/>
 
-                <Route exact path='/login' component={LoginForm}/>
+                <Route exact path='/login' component={LoginFormContainer}/>
 
-                <Route exact path='/user/register' component={UserRegisterForm}/>
+                <Route exact path='/user/register' component={UserRegisterFormContainer}/>
 
-                <Route exact path='/owner/register' component={OwnerRegisterForm}/>
+                <Route exact path='/owner/register' component={OwnerRegisterFormContainer}/>
 
-                <Route exact path='/findpw/:id/:token' component={FindPw}/>
-
-
-                <Route path={'/master/changeBanner'} component={ChangeBanner}/>
-
-                <Route path='/shopView/:o_sNumber' component={ShopView}/>
-
-                <Route path='/list' component={ShopList}/>
+                <Route exact path='/findpw/:id/:token' component={FindpwContainer}/>
 
 
-                <Route path='/master' exact component={MasterMain}/>
-                <Route path='/master/masteruserlist' component={MasterUserList}/>
-                <Route path='/master/approvalwaiting' component={ApprovalWaiting}/>
-                <Route path='/master/approvalcompletion' component={ApprovalCompletion}/>
-                <Route path='/master/terminationwaiting' component={TerminationWaiting}/>
-                <Route path='/master/terminationcompletion' component={TerminationCompletion}/>
-                <Route path='/master/masterownerdash' component={MasterOwnerDash}/>
-                <Route path='/master/userdash' component={UserDash}/>
-                <Route path='/master/masterchart' component={MasterChart}/>
+                <Route path={'/master/changeBanner'} component={ChangeBannerContainer}/>
+
+                <Route path='/shopView/:o_sNumber' component={ShopViewContainer}/>
+
+                <Route path='/list' component={ShopListContainer}/>
+
+
+                <Route path='/master' exact component={MasterMainContainer}/>
+                <Route path='/master/masteruserlist' component={MasterUserListContainer}/>
+                <Route path='/master/approvalwaiting' component={ApprovalWaitingContainer}/>
+                <Route path='/master/approvalcompletion' component={ApprovalCompletionContainer}/>
+                <Route path='/master/terminationwaiting' component={TerminationWaitingContainer}/>
+                <Route path='/master/terminationcompletion' component={TerminationCompletionContainer}/>
+                <Route path='/master/masterownerdash' component={MasterOwnerDashContainer}/>
+                <Route path='/master/userdash' component={UserDashContainer}/>
+                <Route path='/master/masterchart' component={MasterChartContainer}/>
 
 
                 {/*<Route path='/user' component={UserNavbar}/>*/}
-                <Route path='/user' exact component={UserMypage}/>
-                <Route path='/user/shoppingcart' component={ShoppingCart}/>
-                <Route path='/user/order' component={Order}/>
-                <Route path='/user/userreserve' component={UserReserve}/>
-                <Route path='/user/favorstore' component={FavorStore}/>
-                <Route path='/user/useredit' component={UserEdit}/>
-                <Route path='/user/userexit' component={UserExit}/>
+                <Route path='/user' exact component={UserMypageContainer}/>
+                <Route path='/user/shoppingcart' component={ShoppingCartContainer}/>
+                <Route path='/user/order' component={OrderContainer}/>
+                <Route path='/user/userreserve' component={UserReserveContainer}/>
+                <Route path='/user/favorstore' component={FavorStoreContainer}/>
+                <Route path='/user/useredit' component={UserEditContainer}/>
+                <Route path='/user/userexit' component={UserExitContainer}/>
 
 
                 {/*<Route path='/owner' component={OwnerNavbar}/>*/}
-                <Route path='/owner' exact component={OwnerMain}/>
-                <Route path='/owner/addproduct' component={AddProduct}/>
-                <Route path='/owner/goodsview' component={GoodsView}/>
-                <Route path='/owner/reservationview' component={ReservationView}/>
-                <Route path='/owner/unsubscribe' component={Unsubscribe}/>
-                <Route path='/owner/ownerdashf' component={OwnerDashF}/>
-                <Route path='/owner/ownerdashs' component={OwnerDashS}/>
+                <Route path='/owner' exact component={OwnerMainContainer}/>
+                <Route path='/owner/addproduct' component={AddProductContainer}/>
+                <Route path='/owner/goodsview' component={GoodsViewContainer}/>
+                <Route path='/owner/reservationview' component={ReservationViewContainer}/>
+                <Route path='/owner/unsubscribe' component={UnsubscribeContainer}/>
+                <Route path='/owner/ownerdashf' component={OwnerDashFContainer}/>
+                <Route path='/owner/ownerdashs' component={OwnerDashSContainer}/>
 
 
                 <Route path={'/err'} component={PageNotFound}/>

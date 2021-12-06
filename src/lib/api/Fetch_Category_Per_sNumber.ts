@@ -1,4 +1,4 @@
-import {categoryType} from "../../modules/types";
+import {categoryType} from "../types";
 import axios from "axios";
 
 export const fetch_Category_Per_sNumber = (input: string): Promise<categoryType> => {

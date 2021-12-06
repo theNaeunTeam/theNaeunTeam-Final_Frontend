@@ -1,39 +1,24 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import styled from 'styled-components'
-import {useHistory} from "react-router-dom";
-import {client} from "../../lib/api/client";
-import {ownerPageType} from "../../modules/types";
-import '../../styles/button.scss'
-import {Bar} from 'react-chartjs-2';
-import OwnerNavbar from "./OwnerNavbar";
-import FCM from "../../lib/FCM";
-import CircularProgress from "@mui/material/CircularProgress";
+import React from "react";
 import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import FCM from "../../lib/FCM";
+import {Bar} from "react-chartjs-2";
+import styled from "styled-components";
 
 const DivContainer = styled.div`
-  //border: solid black;
-  //display: inline-flex;
   justify-content: center;
   margin: 20px;
   padding: 10px;
   height: 100%;
-  //width: 97%;
-  //min-width: 800px;
   clear: both;
   align-items: center;
 
 `;
 const DivHalfMenu = styled.div`
-  //flex: 1;
   display: inline-flex;
   margin: 10px;
-  //padding: 10px;
-  //min-width: 97%;
-  //border: solid green;
-  //min-width: 500px;
   width: 90%;
   padding-left: 5%;
-
 `;
 
 const DivHalfMenu1 = styled.div`
@@ -46,13 +31,11 @@ const DivHalfMenu1 = styled.div`
   text-align: center;
 `;
 const DivChart = styled.div`
-  //flex: 1;
   display: block;
   margin: 10px;
   padding: 10px;
-  //border: solid green;
-
 `;
+
 const DivChart1 = styled.div`
   display: block;
   border: 1px solid #7EA0EA;
@@ -72,7 +55,6 @@ const DivChart2 = styled.div`
 `;
 const DivChart3 = styled.div`
   display: flex;
-  //border: solid grey;
 `;
 
 const LineDiv = styled.div`
@@ -89,187 +71,27 @@ const LineDiv = styled.div`
   align-content: center;
 `;
 
-
-export default function OwnerMain() {
-
-    const history = useHistory();
-    useLayoutEffect(() => {
-        if (!localStorage.getItem('ownerToken')) {
-            alert('가맹점 로그인 후 이용가능합니다.');
-            history.replace('/login');
-        }
-    }, []);
-
-    const initialValue = {
-        o_name: '',
-        total: 0,
-        monTotal: 0,
-        buyTotal: 0,
-    };
-
-
-    const [ownerPage, setOwnerPage] = useState<ownerPageType>(initialValue);
-    const [loading, setLoading] = useState(true);
-
-    const [dayArr, setDayArr] = useState([]);
-    const [daySumArr, setDaySumArr] = useState([]);
-
-    const [monSumArr, setMonSumArr] = useState([]);
-
-    const [yearArr, setYearArr] = useState([]);
-    const [yearSumArr, setYearSumArr] = useState([]);
-
-    const [monIdx, setMonIdx] = useState(0);
-    const [monYear, setMonYear] = useState(0);
-    const [dayIdx, setDayIdx] = useState(0);
-    const [yearIdx, setYearIdx] = useState(0);
-    useEffect(() => {
-        if (localStorage.getItem('ownerToken')) {
-            initialize();
-        }
-    }, []);
-
-    useEffect(() => {
-        monInit();
-    }, [monSumArr]);
-
-    useEffect(() => {
-        yearInit()
-    }, [yearArr]);
-
-    useEffect(() => {
-        dayInit();
-    }, [dayArr]);
-
-    const initialize = async () => {
-        setLoading(true);
-        const URL = '';
-        const URL_D = 'owner/getDay';
-        try {
-            const res = await client.get(URL);
-            console.log(res);
-            setOwnerPage(res.data);
-
-            const response = await client.get(URL_D);
-            setDayArr(response.data['d'].map((x: any) => x.map((b: any) => b.date)));
-            setDaySumArr(response.data['d'].map((x: any) => x.map((b: any) => b.sum)));
-
-
-            setMonSumArr(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
-            console.log(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
-            console.log('aaaaaaaaaaaaaaaa');
-
-
-            setYearArr(response.data['year'].map((x: any) => x.date + '년'));
-            setYearSumArr(response.data['year'].map((x: any) => x.sum));
-
-            console.log('---------------------');
-            console.log(response.data);
-            // console.log(response.data['m'].map((x: any) => x.map((b: any) => b.sum)));
-            // console.log('---------------------');
-            // console.log(response.data['m'].length);
-            // console.log(response.data['year'].map((x: any) => x.date));
-            // console.log(response.data['year'].map((x: any) => x.sum));
-            // console.log(response.data['year'].length);
-        } catch (e: any) {
-            console.log(e);
-            if (e.response.data.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
-
-            } else {
-                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
-            }
-        }
-        setLoading(false)
-
-    };
-
-    // 월별 매출
-    const monInit = () => {
-
-        setMonIdx((monSumArr.length - 1));
-        setMonYear(2019 + (monSumArr.length - 1));
-
-    }
-    const subIdx = () => {
-
-        if (monIdx != 0) {
-            setMonIdx(monIdx - 1);
-            setMonYear(monYear - 1);
-        }
-    }
-    const desIdx = () => {
-        if (monIdx != monSumArr.length - 1) {
-            setMonIdx(monIdx + 1);
-            setMonYear(monYear + 1);
-        }
-    }
-
-    // 연도별 매출
-    const yearInit = () => {
-        setYearIdx(yearArr.length);
-        console.log('------')
-        console.log(yearArr.length);
-    }
-    const subYIdx = () => {
-        console.log(yearIdx);
-        console.log(yearArr.length - 1);
-
-        if (yearIdx >= yearArr.length && yearIdx - 3 > 0) {
-            setYearIdx(yearIdx - 1);
-            console.log(yearIdx + "!!!!");
-        }
-    }
-    const desYIdx = () => {
-        console.log(yearSumArr.slice(yearIdx - 3, yearIdx));
-        if (yearArr.length - 3 <= yearIdx && yearIdx < yearArr.length) {
-            setYearIdx(yearIdx + 1);
-            console.log(yearIdx + "$$");
-        }
-    }
-
-    const dayInit = () => {
-        setDayIdx(dayArr.length - 1);
-        console.log(dayArr);
-        console.log('@#@#@')
-    }
-
-    const subDIdx = () => {
-        if (dayIdx != 0) {
-            setDayIdx(dayIdx - 1);
-        }
-    }
-    const desDIdx = () => {
-        if (dayIdx < dayArr.length - 1) {
-            setDayIdx(dayIdx + 1);
-        }
-    }
-    const option = {
-        scales: {
-            y: {
-                beginAtZero: true,
-
-                ticks: {
-                    callback: function (value: any) {
-                        if (value.toString().length > 8) return (Math.floor(value / 100000000)).toLocaleString("ko-KR") + "억원";
-                        else if (value.toString().length > 4) return (Math.floor(value / 10000)).toLocaleString("ko-KR") + "만원";
-                        else return value + '원';
-                    }
-
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    // This more specific font property overrides the global property
-                    font: {
-                        size: 18
-                    }
-                }
-            }
-        },
-    }
+export default function OwnerMain(props: { loading: any; ownerPage: any; dayArr: any; dayIdx: any; daySumArr: any; option: any; subDIdx: any; desDIdx: any; monSumArr: any; monIdx: any; subIdx: any; monYear: any; desIdx: any; yearArr: any; yearIdx: any; yearSumArr: any; subYIdx: any; desYIdx: any; }) {
+    const {
+        loading,
+        ownerPage,
+        dayArr,
+        dayIdx,
+        daySumArr,
+        option,
+        subDIdx,
+        desDIdx,
+        monSumArr,
+        monIdx,
+        subIdx,
+        monYear,
+        desIdx,
+        yearArr,
+        yearIdx,
+        yearSumArr,
+        subYIdx,
+        desYIdx
+    } = props;
     return (
         <DivContainer>
             <Backdrop

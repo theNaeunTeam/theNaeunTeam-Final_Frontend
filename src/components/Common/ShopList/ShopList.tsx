@@ -1,49 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {client} from "../../../lib/api/client";
-import {shopList} from "../../../modules/types";
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-import {Map, MapMarker, MarkerClusterer} from "react-kakao-maps-sdk";
-import styled from "styled-components";
-import {useHistory} from "react-router-dom";
-import ShopListBuilder from "./ShopListBuilder";
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
-import './shopList.scss';
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../index";
-import {useInView} from "react-intersection-observer"
+import React from 'react';
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import {GrMapLocation} from "react-icons/gr";
+import {Map, MapMarker, MarkerClusterer} from "react-kakao-maps-sdk";
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import ScrollToTop from "../ScrollToTop/ScrollToTop";
-
-
-const marks = [
-    {
-        value: 0.2,
-        label: '200m',
-    },
-    {
-        value: 0.5,
-        label: '500m'
-    },
-    {
-        value: 1,
-        label: '1000m',
-    },
-    {
-        value: 1.5,
-        label: '1500m',
-    },
-    {
-        value: 1.9,
-        label: '1900m',
-    },
-];
+import ShopListBuilder from "./ShopListBuilder";
+import styled from "styled-components";
+import {shopList} from "../../../lib/types";
 
 const DivMarker = styled.div`
   margin-left: 10px;
@@ -52,151 +21,29 @@ const DivMarker = styled.div`
   padding-right: 10px;
 `
 
-const seoulLAT = 37.5540501787837;
-const seoulLON = 126.972330875495;
-
-const centumLAT = 35.1730461532695;
-const centumLON = 129.127655001351;
-
-export default function ShopList() {
-    const [ref, inView] = useInView();
-    const history = useHistory();
-    const dispatch = useDispatch();
-
-    const [list, setList] = useState<shopList[]>([]);
-    const [range, setRange] = useState('1');
-    const [lat, setLat] = useState(seoulLAT);
-    const [lon, setLon] = useState(seoulLON);
-    const [loading, setLoading] = useState(true);
-    const [marker, setMarker] = useState<boolean[]>([]);
-    const [startIndex, setStartIndex] = useState(-1);
-    const [noMoreData, setNoMoreData] = useState(false);
-    let [goodsName, setGoodsName] = useState('');
-    let [sortOption, setSortOption] = useState('가까운순');
-    const [showList, setShowList] = useState(false);
-    const [displayName, setDisplayName] = useState('');
-    const [displayRange, setDisplayRange] = useState('');
-
-    const {userLocalMap} = useSelector((state: RootState) => state);
-
-    useEffect(() => {
-        if (userLocalMap.lat) setStartIndex(0);
-    }, []);
-
-    useEffect(() => {
-        userLocalMap.lat != 0 && userLocalMap.lon != 0
-            ? init(userLocalMap.lat, userLocalMap.lon)
-            : init();
-    }, [startIndex]);
-
-    useEffect(() => {
-        if (inView && !loading && !noMoreData) {
-            setLoading(true);
-            setStartIndex(startIndex + 10);
-        }
-    }, [inView]);
-
-    const init = (LAT = lat, LON = lon) => {
-
-        if (goodsName !== '') {
-            sortOption = '상품많은순'
-        }
-        client.get(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`)
-            .then(res => {
-                console.log(`/common/list?LAT=${LAT}&LON=${LON}&RAD=${range}&startIndex=${startIndex}&goodsName=${goodsName}&sortOption=${sortOption}`);
-                if (res.data.length < 10) {
-                    setNoMoreData(true);
-                } else {
-                    setNoMoreData(false);
-                }
-
-                console.log(res.data);
-
-                if (startIndex === 0) { // 페이지 로드되고 첫페이지다
-                    if (goodsName !== '') { // 검색창에 뭔가 있으면
-                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0); // 필터로 그것만 꺼냄
-                        console.log('massage', massage);
-                        console.log('massage.length', massage.length);
-                        if (massage.length < 10) {
-                            setNoMoreData(true);
-                        } else {
-                            setNoMoreData(false);
-                        }
-                        setList(massage);
-                        setDisplayName(goodsName);
-                        if (massage.length === 0) alert('검색결과가 없습니다.');
-                    } else { // 검색창이 비어있으면 그대로 스테이트에 저장
-                        setList(res.data);
-                        setDisplayName('');
-                    }
-
-                } else { // 다음페이지 넘어갈때
-                    if (goodsName !== '') { // 검색창에 뭔가 있으면
-
-                        const massage = res.data.filter((data: shopList) => data.searchResult !== 0); // 필터로 그것만 꺼냄
-                        console.log('massage', massage);
-                        console.log('massage.length', massage.length);
-
-                        if (massage.length < 10) {
-                            setNoMoreData(true);
-                        } else {
-                            setNoMoreData(false);
-                        }
-                        // setList([...list, ...massage]);
-                        const cp = [...list];
-                        massage.forEach((data: shopList) => cp.push(data));
-                        setList(cp);
-                        setDisplayName(goodsName);
-                        if (massage.length === 0) alert('검색결과가 없습니다.');
-                    } else {
-                        // setList([...list, ...res.data]);
-                        const cp = [...list];
-                        res.data.forEach((data: shopList) => cp.push(data));
-                        setList(cp);
-                        setDisplayName('');
-                    }
-                }
-                setLat(Number(LAT));
-                setLon(Number(LON));
-                setDisplayRange(range);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-            .finally(() => {
-                setLoading(false);
-                setShowList(true);
-            });
-    }
-
-    function getLoc() {
-        setShowList(!showList);
-        setLoading(true);
-        setShowList(false);
-        // 위치 허용 팝업
-        navigator.geolocation.getCurrentPosition(onGeoOK, onGeoError);
-
-        function onGeoOK(position: any) {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            setLat(lat);
-            setLon(lon);
-
-            if (startIndex !== 0) {
-                setStartIndex(0);
-            } else {
-                init(lat, lon);
-            }
-
-            dispatch({type: 'getLocaled', payload: {lat: lat, lon: lon}});
-        }
-
-        function onGeoError(e: any) {
-            alert("위치를 찾을 수 없습니다");
-            console.log(e);
-        }
-
-    }
+export default function ShopList(props: { loading: any; lat: any; lon: any; list: any; marker: any; setMarker: any; history: any; marks: any; setRange: any; goodsName: any; setGoodsName: any; sortOption: any; setSortOption: any; getLoc: any; range: any; displayRange: any; displayName: any; showList: any; noMoreData: any; inViewRef: any; }) {
+    const {
+        loading,
+        lat,
+        lon,
+        list,
+        marker,
+        setMarker,
+        history,
+        marks,
+        setRange,
+        goodsName,
+        setGoodsName,
+        sortOption,
+        setSortOption,
+        getLoc,
+        range,
+        displayRange,
+        displayName,
+        showList,
+        noMoreData,
+        inViewRef,
+    } = props;
 
     return (
         <>
@@ -218,7 +65,7 @@ export default function ShopList() {
                         averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
                         minLevel={4} // 클러스터 할 최소 지도 레벨
                     >
-                        {list.map((data, idx) => {
+                        {list.map((data: any, idx: number) => {
                                 marker.push(false);
                                 return (
                                     <MapMarker key={`MapMarker${idx}`}
@@ -296,16 +143,12 @@ export default function ShopList() {
                 }
 
                 {
-                    showList && list.map((data, idx) => <ShopListBuilder data={data} idx={idx} key={`slb${idx}`}/>)
+                    showList && list.map((data: shopList, idx: number) => <ShopListBuilder data={data} idx={idx}
+                                                                                           key={`slb${idx}`}/>)
                 }
             </div>
             <br/><br/>
-            {list.length !== 0 &&
-
-                <div ref={noMoreData ? undefined : ref}>
-                    {/*{noMoreData && <h1>리스트의 마지막입니다.</h1>}*/}
-                </div>
-            }
+            {list.length !== 0 && <div ref={noMoreData ? undefined : inViewRef}/>}
         </>
     )
 }
