@@ -163,6 +163,8 @@ export default function ShopViewContainer() {
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setAboutStore(res.data);
+            console.log('가게정보: ');
+            console.log(res.data);
         } catch (e) {
         }
     }
