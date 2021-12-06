@@ -137,7 +137,7 @@ export default function TerminationCompletionContainer() {
     ]; // 그리드 설정
 
     return (
-        <TerminationCompletion updateDB={updateDB} setSelected={setSelected} rows={rows} columns={columns}/>
+        <TerminationCompletion loading={loading} updateDB={updateDB} setSelected={setSelected} rows={rows} columns={columns}/>
     );
 }
 

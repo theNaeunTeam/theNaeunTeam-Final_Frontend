@@ -91,6 +91,6 @@ export default function MasterUserListContainer() {
     ]; // 그리드 설정
 
     return (
-        <MasterUserList setSelected={setSelected} rows={rows} columns={columns}/>
+        <MasterUserList loading={loading} setSelected={setSelected} rows={rows} columns={columns}/>
     )
 }

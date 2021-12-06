@@ -110,6 +110,6 @@ export default function ApprovalCompletionContainer() {
     ]; // 그리드 설정
 
     return (
-        <ApprovalCompletion setSelected={setSelected} rows={rows} columns={columns}/>
+        <ApprovalCompletion setSelected={setSelected} rows={rows} columns={columns} loading={loading}/>
     )
 }

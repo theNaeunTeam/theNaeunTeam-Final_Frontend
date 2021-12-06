@@ -137,7 +137,7 @@ export default function TerminationWaitingContainer() {
         {field: 'o_image', headerName: '이미지주소', width: 150},
     ]; // 그리드 설정
     return (
-        <TerminationWaiting updateDB={updateDB} setSelected={setSelected} rows={rows} columns={columns}/>
+        <TerminationWaiting loading={loading} updateDB={updateDB} setSelected={setSelected} rows={rows} columns={columns}/>
     );
 }
 
