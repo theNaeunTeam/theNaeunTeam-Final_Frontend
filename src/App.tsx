@@ -43,6 +43,7 @@ import FindpwContainer from "./containers/Common/FindpwContainer";
 import MainBar from "./components/Common/MainBar";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
 import MyCompany from "./components/Common/MyCompany";
+import Event from "./components/Common/Event/Event";
 
 function App() {
 
@@ -156,6 +157,7 @@ function App() {
                 <Route path='/owner/ownerdashs' component={OwnerDashSContainer}/>
 
 
+                <Route path={'/event'} component={Event}/>
                 <Route path={'/err'} component={PageNotFound}/>
                 <Route path={'/PrivacyPolicy'} component={PrivacyPolicy}/>
             </div>

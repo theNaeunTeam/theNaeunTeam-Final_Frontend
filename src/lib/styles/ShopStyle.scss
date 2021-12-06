@@ -98,14 +98,10 @@
   }
   .ShopViewDivHalfMenu {
     flex: 1;
-    //padding: 50px;
-    //margin-top: 30px;
-    //margin-bottom: 90px;
     width: 100%;
     //border: solid #0d0d0d;
   }
   .ShopViewDivContainer {
-
     width: 100%;
     display: flex;
     text-align: center;
@@ -113,7 +109,7 @@
     margin: 20px;
     padding: 10px;
     font-size: larger;
-    //border: solid #0d0d0d;
+    //border:solid #0d0d0d;
   }
   .nav {
     height: 30vh;
@@ -162,14 +158,12 @@
   }
   .ShopViewDivHalfMenu {
     flex: 1;
-    //padding: 50px;
-    //margin-top: 30px;
-    //margin-bottom: 90px;
     width: 100%;
-    //border: solid #0d0d0d;
+    padding-top: 80px;
   }
   .ShopViewDivContainer {
     width: 70%;
+    height: 600px;
     display: flex;
     text-align: center;
     justify-content: space-evenly;

@@ -1,8 +1,8 @@
 import React from 'react';
-import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
 import {DataGrid} from "@mui/x-data-grid";
 import {FaUserSecret} from "react-icons/fa";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 export default function MasterMain(props: { authReducer: any; updateDB: any; loading: any; setSelected: any; rows: any; columns: any; setLoginForm: any; loginForm: any; login: any; }) {
 
@@ -35,23 +35,12 @@ export default function MasterMain(props: { authReducer: any; updateDB: any; loa
                     </div>
                     <div style={{height: 650, width: '100%', margin: 'auto'}}>
                         {loading ?
-                            <Box sx={{width: 1500}}>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                                <Skeleton/>
-                                <Skeleton animation="wave"/>
-                                <Skeleton animation='pulse'/>
-                            </Box>
+                            <Backdrop
+                                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                                open={loading}
+                            >
+                                <CircularProgress color="inherit"/>
+                            </Backdrop>
                             :
 
                             <DataGrid

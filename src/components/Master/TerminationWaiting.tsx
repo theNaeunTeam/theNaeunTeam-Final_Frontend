@@ -1,8 +1,11 @@
 import React from 'react';
 import {DataGrid} from "@mui/x-data-grid";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
-export default function TerminationWaiting(props: { updateDB: any; setSelected: any; rows: any; columns: any; }) {
+export default function TerminationWaiting(props: { loading:any; updateDB: any; setSelected: any; rows: any; columns: any; }) {
     const {
+        loading,
         updateDB,
         setSelected,
         rows,
@@ -18,7 +21,15 @@ export default function TerminationWaiting(props: { updateDB: any; setSelected: 
 
             </div>
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
-                {
+                {loading
+                    ?
+                    <Backdrop
+                        sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                        open={loading}
+                    >
+                        <CircularProgress color="inherit"/>
+                    </Backdrop>
+                    :
                     <DataGrid
                         onStateChange={({selection}) => setSelected(selection)}
                         rows={rows}

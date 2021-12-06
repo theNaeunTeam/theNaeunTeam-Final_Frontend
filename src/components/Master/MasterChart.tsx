@@ -1,6 +1,7 @@
 import React from 'react';
 import {Line} from "react-chartjs-2";
 import MasterChart2Container from "../../containers/Master/MasterChart2Container";
+import {Backdrop, CircularProgress} from "@mui/material";
 
 export default function MasterChart(props: { loading: any; monArr: any; monIndex: any; DecMonYear: any; monYear: any; IncMonYear: any; yearArr: any; yearIndex: any; DecYear: any; IncYear: any; }) {
 
@@ -84,7 +85,12 @@ export default function MasterChart(props: { loading: any; monArr: any; monIndex
                 <div className="flex-items-1">
                     {   ///////////////////////////년도별
                         loading ?
-                            null
+                            <Backdrop
+                                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                                open={loading}
+                            >
+                                <CircularProgress color="inherit"/>
+                            </Backdrop>
                             :
                             <>
                                 <h3 className='MODH3'>년도별 오너/유저 가입자수 통계 </h3>
