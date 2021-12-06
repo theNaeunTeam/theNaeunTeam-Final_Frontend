@@ -1,46 +1,187 @@
-# Getting Started with Create React App
+# [탄다마켓](https://thenaeunteam.link/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Android](https://play.google.com/store/apps/details?id=com.thenaeunteam.tandaowner
+       )
+- [iOS](https://apps.apple.com/kr/app/%ED%83%84%EB%8B%A4%EC%98%A4%EB%84%88/id1597607300)
 
-## Available Scripts
 
-In the project directory, you can run:
+### 팀명
 
-### `yarn start`
+더나은팀
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 팀원
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+김나은 최영진 이재현
 
-### `yarn test`
+## 주제
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+편의점, 음식점 등 유통기한 임박 상품 할인 판매 또는 마감 할인 판매
 
-### `yarn build`
+### 사용기술
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Front-end
+    1. React
+    2. React-Native CLI
+    3. TypeScript
+    4. Firebase Cloud Messaging
+    5. Redux
+    6. styled-components
+    7. SCSS
+    8. sweetalert2
+    9. chart.js
+    10. kakao maps, postcode, geocoding api
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Back-end
+    1. AWS EC2
+    2. AWS S3
+    3. AWS Route53
+    4. AWS Load Balancer
+    5. AWS RDS MySQL
+    6. Lombok
+    7. JWT
+    8. spring-security
+    9. spring-boot-starter-mail
+    10. Firebase Cloud Messaging
+    11. Maven
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**설치**
 
-### `yarn eject`
+```  
+$ git clone https://github.com/theNaeunTeam/theNaeunTeam-Final_Frontend.git  
+$ cd theNaeunTeam-Final_Frontend  
+$ yarn install  
+$ yarn start  
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**기능**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 공통
+    1. 인증성공시 JWT토큰을 로컬스토리지에 저장하고, 다음 번 접속  
+       했을때 토큰의 유효성을 확인하고 유효하다면 자동으로 로그인 처리를 한다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    2. 권한이 필요한 페이지 접속시, API 요청시 백엔드와 프론트엔드에서  
+       2중으로 인가 처리를 해서 URL 직접 접속 등에 의한 보안이슈를  
+       차단한다.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**유저**
 
-## Learn More
+- 로그인, 회원가입 관련
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    1. 유저, 가게 회원가입 로그인 가능
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    2. 회원가입시 패스워드는 Hash암호화
+
+    3. 인증과 인가는 JWT토큰방식을 사용
+
+    4. 유저 비밀번호 분실시 비밀번호 재설정 메일 발송 기능
+
+    5. 가게 입점 등록 시 지오코딩API를 이용해 해당 주소의 좌표 값 자동  
+       등록
+    6. 가게 입점등록 시 가게 대표 이미지는 아마존 S3로 관리
+
+    7. 가게 입점등록 시 마스터의 승인이 있어야 로그인 가능
+
+
+- 가게 찾기 관련 기능
+
+    1. 현재 위치 기반으로 \*km내 가게 리스트 보기, 지도에 마커 표시  
+       기능
+    2. 가게 리스트에서 그 가게의 위치와 판매중인 상품 종류를 지도와  
+       차트로 한눈에 볼 수 있다.
+
+    3. \*km내 찾는 상품이 있는 가게 검색 기능
+
+    4. 거리 순, 상품종류 많은 순으로 정렬 기능
+
+    5. 현 위치 검색 성공 시 쿠키에 저장되어 GPS를 다시 검색하지 않고  
+       바로 리스트 접근 가능, 메인 페이지에 근처 가게 표시
+
+- 가게 상세페이지
+
+    1. 한 페이지에서 상품정보, 매장정보 탭 전환이 가능하다.
+
+    2. 상품 카테고리별 정렬 기능
+
+    3. 즐겨찾는 가게 등록, 해제 가능.
+
+    4. 장바구니 담기 기능. 단, 한 번에 한 가게의 상품만 담을 수 있다.
+
+    5. 남은 재고 수량 이상으로 담을 수 없다.
+
+    6. 매장 정보 페이지에서 가게의 전화번호, 영업시간 등 상세정보와  
+       지도를 볼 수 있다.
+
+    7. 매장 정보 패이지에서 주소 복사, 길찾기가 바로 가능하다.
+
+- 장바구니, 주문하기 페이지
+
+    1. 쿠키에 저장되어 재 접속 시에도 데이터가 유지된다.
+
+    2. 장바구니 접속시마다 담긴 상품의 재고를 체크한다.
+
+    3. 남은 재고 이상으로 담을 수 없다.
+
+    4. 주문하기 페이지에서 방문하는사람, 방문시간, 방문일자, 요청사항  
+       등을 입력할 수있다.
+
+- 유저 마이페이지
+
+    1. 적립된 포인트, 주문횟수 확인가능
+
+    2. 예약한 상품의 카테고리, 예약 상태, 상품명으로 검색/정렬 해서  
+       확인이나 취소가 가능하다.
+
+    3. 즐겨 찾는 가게 목록의 확인, 취소를 할 수 있다.
+
+    4. 내 정보를 수정할 수 있다.
+
+    5. 회원탈퇴가 가능하다.
+
+**가게**
+
+- 가게 마이페이지
+    1. 일일 매출액, 월별 매출액, 연도별 매출액을 통계를 그래프로  
+       정리해서 볼 수 있다.
+
+    2. 시간대, 성별, 나이, 상품 카테고리 별 판매 현황 통계를 차트로  
+       시각화 해서 볼 수 있다.
+
+    3. 예약이 들어오면 FCM을 통해 브라우저 / 가게용 어플에 푸시 알림이  
+       표시된다.
+    
+    4. 노쇼 발생 건수&비율, 예약 취소 발생 건수&비율, 유통기한 경과  
+       폐기 상품 개수&비율을 볼 수 있다.
+
+    5. 웹에서 상품 등록이 가능하다. 상품 등록 시 업로드한 이미지는  
+       아마존S3로 관리된다.
+
+    6. 어플로 상품 등록이 가능하다. 상품 등록 시 사진을 바로 편집해서  
+       올릴 수 있다.
+
+    7. 내가 올린 상품의 조회가 가능하다. 상품 분류와 판매상태로 정렬할  
+       수 있으며 상품명으로 검색해서 상품의 내용을 수정하거나 판매완료 처리가 가능하다.
+
+    8. 내가 올린 상품의 예약 현황 조회가 가능하다. 상품 분류와  
+       예약상태로 정렬이 가능하며 상품명으로 검색해서 예약상태를 변경할 수 있다.
+
+    9. 어플로 예약 현황 조회가 가능하다. 예약이 들어온 상품에 대해  
+       승인, 거절, 노쇼, 판매완료 처리를 할 수 있다.
+
+    10. 이용해지신청을 할 수 있다.
+
+**마스터**
+
+- 마스터 관리/통계 페이지
+    1. 월별/연도별 유저 가입/탈퇴 현황을 그래프로 확인할 수 있다.
+    2. 월별/연도별 가게 가입/탈퇴 현황을 그래프로 확인할 수 있다.
+    3. 지역별 가게 분포를 확인할 수 있다.
+    4. 입점 신청 대기 중인 가게들을 입점 승인/반려할 수 있다.
+    5. 입점 해지 신청 후 대기 중인 가게들을 해지 승인/거절할 수 있다.
+    6. 메인페이지의 배너를 추가/삭제 할 수 있다.
+
+**스프링 시큐리티 Role에 따라 4개의 사용자로 구분**
+
+- 퍼블릭
+- 유저
+- 오너
+- 마스터
