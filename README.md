@@ -1,15 +1,15 @@
-# [탄다마켓](https://thenaeunteam.link/)
+# [탄다마켓 프로젝트](https://thenaeunteam.link/)
 
 - [Android](https://play.google.com/store/apps/details?id=com.thenaeunteam.tandaowner
   )
 - [iOS](https://apps.apple.com/kr/app/%ED%83%84%EB%8B%A4%EC%98%A4%EB%84%88/id1597607300)
 
-## 팀명
-
+팀명
+=========
 더나은팀
 
-## 팀원
-
+팀원
+---------
 김나은 최영진 이재현
 
 ## 주제
@@ -32,7 +32,7 @@
 
 크게 보았을 때 소형 음식점에서의 음식물 쓰레기 발생량을 줄일 수 있을 것으로 예상된다.(공익성)
 
-## 설치
+## ✔설치
 
 ```  
 $ git clone https://github.com/theNaeunTeam/theNaeunTeam-Final_Frontend.git  
@@ -42,35 +42,52 @@ $ yarn start
 ```
 
 ## 개발환경
-React, React Native, Spring Boot, MySQL
+
+- IntelliJ
+- WebStorm
+- VSCode
+- Android Studio
+- Xcode
+- GitHub
+- Postman
 
 ## 사용기술
 
 - Front-end
-    1. React
-    2. React-Native CLI
-    3. TypeScript
-    4. Firebase Cloud Messaging
-    5. Redux
-    6. styled-components
-    7. SCSS
-    8. sweetalert2
-    9. chart.js
-    10. Kakao maps, postcode, geocoding api
+    - Node.js 16.13.1 LTS
+    - TypeScript
+    - React
+    - React-Native CLI
+    - Redux
+    - styled-components
+    - SCSS
+    - chart.js
+
 
 - Back-end
-    1. AWS EC2
-    2. AWS S3
-    3. AWS Route53
-    4. AWS Load Balancer
-    5. AWS RDS MySQL
-    6. Lombok
-    7. JWT
-    8. spring-security
-    9. spring-boot-starter-mail
-    10. Firebase Cloud Messaging
-    11. Maven
+    - JAVA 17 LTS
+    - Maven
+    - Spring Boot Security
+    - Spring Boot Batch
+    - JWT Web Token
+    - Spring Boot Mail Server
+    - FCM Push Server 
 
+
+- Data Base
+  - Mysql
+
+
+- AWS
+    - EC2
+    - S3
+    - Route53
+    - Load Balancer
+    - RDS MySQL
+
+
+- Firebase 
+  - Firebase Cloud Messaging
 
 ## 기능
 
@@ -81,14 +98,14 @@ React, React Native, Spring Boot, MySQL
 - 오너
 - 마스터
 
-
 ## 공통
-   1. 인증성공시 JWT토큰을 로컬스토리지에 저장하고, 다음 번 접속  
-       했을때 토큰의 유효성을 확인하고 유효하다면 자동으로 로그인 처리를 한다.
 
-   2. 권한이 필요한 페이지 접속시, API 요청시 백엔드와 프론트엔드에서  
-       2중으로 인가 처리를 해서 URL 직접 접속 등에 의한 보안이슈를  
-       차단한다.
+1. 인증성공시 JWT토큰을 로컬스토리지에 저장하고, 다음 번 접속  
+   했을때 토큰의 유효성을 확인하고 유효하다면 자동으로 로그인 처리를 한다.
+
+2. 권한이 필요한 페이지 접속시, API 요청시 백엔드와 프론트엔드에서  
+   2중으로 인가 처리를 해서 URL 직접 접속 등에 의한 보안이슈를  
+   차단한다.
 
 ## 유저
 
@@ -195,11 +212,10 @@ React, React Native, Spring Boot, MySQL
        승인, 거절, 노쇼, 판매완료 처리를 할 수 있다.
 
     10. 이용해지신청을 할 수 있다.
-  
+
 
 - 배치 기능
- 1. 매일 밤 00시에 현재날짜와 상품의 유통기한을 비교해 자동 상품 상태 변경
-
+  1. 매일 밤 00시에 현재날짜와 상품의 유통기한을 비교해 자동 상품 상태 변경
 
 ## 마스터
 
