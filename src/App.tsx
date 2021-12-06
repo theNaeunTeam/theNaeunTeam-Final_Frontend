@@ -42,6 +42,7 @@ import PrivacyPolicy from "./components/Common/PrivacyPolicy";
 import FindpwContainer from "./containers/Common/FindpwContainer";
 import MainBar from "./components/Common/MainBar";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
+import MyCompany from "./components/Common/MyCompany";
 
 function App() {
 
@@ -116,7 +117,7 @@ function App() {
 
                 <Route exact path='/findpw/:id/:token' component={FindpwContainer}/>
 
-
+                <Route exact path='/mycompany' component={MyCompany}/>
                 <Route path={'/master/changeBanner'} component={ChangeBannerContainer}/>
 
                 <Route path='/shopView/:o_sNumber' component={ShopViewContainer}/>

@@ -38,7 +38,7 @@ export default function MainBar() {
                     </li>
                     <li><Link to={'/event'}>진행중인 이벤트</Link></li>
                     <li>
-                        <Link to={'/tandaorder'}>탄다오더 소개 </Link>
+                        <Link to={'/mycompany'}>탄다오더 소개 </Link>
                     </li>
                     <li><Link to={'/user'} className='dropdown-arrow'><AiFillEdit/> &nbsp; 마이페이지 </Link>
                         <ul className='sub-menus'>
