@@ -3,7 +3,7 @@ import React, {useLayoutEffect} from 'react';
 import {Route} from 'react-router-dom';
 import LoginFormContainer from "./containers/Common/LoginFormContainer";
 import Header from "./components/Common/Header";
-import MasterMain from "./components/Master/MasterMain";
+import MasterMainContainer from "./containers/Master/MasterMainContainer";
 import UserRegisterFormContainer from "./containers/Common/UserRegisterFormContainer";
 import UserMainContainer from "./containers/User/UserMainContainer";
 import ShopViewContainer from "./containers/User/ShopViewContainer";
@@ -27,17 +27,17 @@ import UserEditContainer from "./containers/User/UserEditContainer";
 import UserExitContainer from "./containers/User/UserExitContainer";
 import ShopListContainer from "./containers/Common/ShopListContainer";
 import MasterNavbar from "./components/Master/MasterNavbar";
-import MasterUserList from "./components/Master/MasterUserList";
+import MasterUserListContainer from "./containers/Master/MasterUserListContainer";
 import ApprovalWaitingContainer from "./containers/Master/ApprovalWaitingContainer";
 import ApprovalCompletionContainer from "./containers/Master/ApprovalCompletionContainer";
-import MasterOwnerDash from "./components/Master/MasterOwnerDash";
-import TerminationWaiting from "./components/Master/TerminationWaiting";
-import TerminationCompletion from "./components/Master/TerminationCompletion";
+import MasterOwnerDashContainer from "./containers/Master/MasterOwnerDashContainer";
+import TerminationWaitingContainer from "./containers/Master/TerminationWaitingContainer";
+import TerminationCompletionContainer from "./containers/Master/TerminationCompletionContainer";
 import ChangeBannerContainer from "./containers/Master/ChangeBannerContainer";
 import OwnerDashSContainer from "./containers/Owner/OwnerDashSContainer";
 import OwnerDashFContainer from "./containers/Owner/OwnerDashFContainer";
-import UserDash from "./components/Master/UserDash";
-import MasterChart from "./components/Master/MasterChart";
+import UserDashContainer from "./containers/Master/UserDashContainer";
+import MasterChartContainer from "./containers/Master/MasterChartContainer";
 import PrivacyPolicy from "./components/Common/PrivacyPolicy";
 import FindpwContainer from "./containers/Common/FindpwContainer";
 import MainBar from "./components/Common/MainBar";
@@ -124,15 +124,15 @@ function App() {
                 <Route path='/list' component={ShopListContainer}/>
 
 
-                <Route path='/master' exact component={MasterMain}/>
-                <Route path='/master/masteruserlist' component={MasterUserList}/>
+                <Route path='/master' exact component={MasterMainContainer}/>
+                <Route path='/master/masteruserlist' component={MasterUserListContainer}/>
                 <Route path='/master/approvalwaiting' component={ApprovalWaitingContainer}/>
                 <Route path='/master/approvalcompletion' component={ApprovalCompletionContainer}/>
-                <Route path='/master/terminationwaiting' component={TerminationWaiting}/>
-                <Route path='/master/terminationcompletion' component={TerminationCompletion}/>
-                <Route path='/master/masterownerdash' component={MasterOwnerDash}/>
-                <Route path='/master/userdash' component={UserDash}/>
-                <Route path='/master/masterchart' component={MasterChart}/>
+                <Route path='/master/terminationwaiting' component={TerminationWaitingContainer}/>
+                <Route path='/master/terminationcompletion' component={TerminationCompletionContainer}/>
+                <Route path='/master/masterownerdash' component={MasterOwnerDashContainer}/>
+                <Route path='/master/userdash' component={UserDashContainer}/>
+                <Route path='/master/masterchart' component={MasterChartContainer}/>
 
 
                 {/*<Route path='/user' component={UserNavbar}/>*/}

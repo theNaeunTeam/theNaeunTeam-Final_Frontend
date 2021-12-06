@@ -1,64 +1,13 @@
-import * as React from 'react';
-import {useEffect, useLayoutEffect, useState} from 'react';
-import {client} from "../../lib/api/client";
-import {useHistory} from "react-router-dom";
+import React from 'react';
 import {Pie} from "react-chartjs-2";
-import '../../lib/styles/masterOwnerDash.scss'
 
-export default function MasterChart3() {
-
-    const history = useHistory();
-
-    useLayoutEffect(() => {
-        if (!localStorage.getItem('masterToken')) history.replace('/err');
-    }, []);
-
-    // 지역
-    const [local, setLocal] = useState({
-        busan: 0,
-        chungcheong: 0,
-        daegu: 0,
-        daejeon: 0,
-        gangwon: 0,
-        gwangju: 0,
-        gyeonggi: 0,
-        gyeongsang: 0,
-        incheon: 0,
-        jeju: 0,
-        jeonla: 0,
-        seoul: 0,
-        ulsan: 0,
-    });
-    const [loading, setLoading] = useState(true);
-
-
-    useEffect(() => {
-        chart();
-    }, []);
-
-    // 차트 데이터 가져오기
-    const chart = async () => {
-        const URL = '/master/OwnerUserChart3';
-        try {
-            const res = await client.get(URL);
-            setLocal(res.data);
-        } catch (e: any) {
-            if (e.response.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
-            } else {
-                alert('데이터를 가져오는데 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
-            }
-        }
-        setLoading(false);
-    };
-
+export default function MasterChart3(props: { loading: any; local: any; }) {
+    const {
+        loading,
+        local
+    } = props;
     return (
         <>
-            {/*<h3 style={{background:'#E7ECFF',*/}
-            {/*            margin:'30px',*/}
-            {/*            border: 'solid #E7ECFF 7px',*/}
-            {/*            borderRadius: '40px 10px'*/}
-            {/*}}>지역별 점주 분포 통계</h3>*/}
             {
                 loading ?
                     null
@@ -73,7 +22,7 @@ export default function MasterChart3() {
                                     {
                                         label: "number of aircraft",
                                         data: [local.seoul, local.daejeon, local.daegu, local.busan, local.ulsan, local.gwangju,
-                                            local.jeju, local.gyeongsang, local.gangwon, local.chungcheong, local.jeonla, local.gyeonggi, local.incheon], //fake data
+                                            local.jeju, local.gyeongsang, local.gangwon, local.chungcheong, local.jeonla, local.gyeonggi, local.incheon],
                                         backgroundColor: [
 
                                             'rgba(255, 051, 102,0.2)',
@@ -136,4 +85,3 @@ export default function MasterChart3() {
         </>
     )
 }
-

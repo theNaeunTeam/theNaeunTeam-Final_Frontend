@@ -3,7 +3,7 @@ import {client} from "../../lib/api/client";
 import {carouselType} from "../../lib/types";
 import {useHistory} from "react-router-dom";
 import '../../lib/styles/ChangeBanner.scss';
-import ChangeBanner from "../../components/Master/ChangeBanner/ChangeBanner";
+import ChangeBanner from "../../components/Master/ChangeBanner";
 
 const emptyValue = {
     src: '',

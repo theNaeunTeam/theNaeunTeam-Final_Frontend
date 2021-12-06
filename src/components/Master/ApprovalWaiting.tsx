@@ -10,7 +10,7 @@ export default function ApprovalWaiting(props: { updateDB: any; setSelected: any
 
     } = props;
 
-    return(
+    return (
         <>
             <h3 className='mainH3'>입점신청 승인대기 </h3>
             <div className='MasterMainBtn'>

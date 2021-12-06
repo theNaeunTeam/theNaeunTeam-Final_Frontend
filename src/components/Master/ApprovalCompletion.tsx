@@ -9,7 +9,7 @@ export default function ApprovalCompletion(props: { setSelected: any; rows: any;
 
     } = props;
 
-    return(
+    return (
         <>
             <h3 className='mainH3'>입점신청 승인완료 </h3>
             <div style={{height: 650, width: '100%', margin: 'auto'}}>
