@@ -10,9 +10,9 @@ import UserReserve from "../../components/User/UserReserve/UserReserve";
 
 export default function UserReserveContainer() {
 
-    const {authReducer} = useSelector((state: RootState) => state);
     const [startIndex, setStartIndex] = useState(0);
     const history = useHistory();
+
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) history.replace('/err');
     }, []);

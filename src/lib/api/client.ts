@@ -8,18 +8,18 @@ client.interceptors.request.use(
         const ownerToken = localStorage.getItem('ownerToken');
         const masterToken = localStorage.getItem('masterToken');
 
-        if (userToken !== null) { // @ts-ignore
-            config.headers.Authorization = userToken;
+        if (userToken !== null) {
+            if (config.headers) config.headers.Authorization = userToken;
             return config;
         }
 
-        if (ownerToken !== null) { // @ts-ignore
-            config.headers.Authorization = ownerToken;
+        if (ownerToken !== null) {
+            if (config.headers) config.headers.Authorization = ownerToken;
             return config;
         }
 
-        if (masterToken !== null) {// @ts-ignore
-            config.headers.Authorization = masterToken;
+        if (masterToken !== null) {
+            if (config.headers) config.headers.Authorization = masterToken;
             return config;
         }
 

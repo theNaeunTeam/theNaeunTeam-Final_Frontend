@@ -165,6 +165,7 @@ export default function ShopListContainer() {
 
         function onGeoError(e: any) {
             alert("위치를 찾을 수 없습니다");
+            setLoading(false);
         }
 
     }
