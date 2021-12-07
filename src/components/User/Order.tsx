@@ -7,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import {cartReducerType} from "../../lib/types";
 import styled from "styled-components";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const DivBordered = styled.div`
   border-top: solid ghostwhite 10px;
@@ -16,7 +18,7 @@ const DivBordered = styled.div`
 
 export default function Order(props: {
     handleFormChange: any; cartReducer: any; history: any; orderForm: any; today: any; submitForm: any;
-    o_sNumber: string;
+    o_sNumber: string; loading: boolean;
 }) {
 
     const {
@@ -27,10 +29,17 @@ export default function Order(props: {
         today,
         submitForm,
         o_sNumber,
+        loading,
     } = props;
 
     return (
         <>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             <div className={'OrderDivContainer'}>
                 <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e)}>
                     <h1>주문서</h1>
@@ -131,7 +140,7 @@ export default function Order(props: {
                     </DivBordered>
 
                     <br/>
-                    <Button variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h3>주문하기</h3></Button>
+                    <Button disabled={loading} variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h3>주문하기</h3></Button>
                 </form>
             </div>
         </>

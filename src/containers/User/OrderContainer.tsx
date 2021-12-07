@@ -28,6 +28,7 @@ export default function OrderContainer() {
     const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);
     const [cookies, setCookie, removeCookie] = useCookies(['cart']); // 건들지 말것
     const [o_sNumber, setO_sNumber] = useState<string>('');
+    const [loading, setLoading] = useState(false);
 
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) history.replace('/err');
@@ -42,6 +43,8 @@ export default function OrderContainer() {
     }, []);
 
     const submitForm = () => {
+        setLoading(true);
+
         const URL = '/user/orderConfirm';
 
         const arr: orderSubmitType[] = [];
@@ -74,6 +77,9 @@ export default function OrderContainer() {
             .catch(err => {
                 alert('에러가 발생하였습니다. 잠시 후 다시 시도해주세요.');
             })
+            .finally(()=>{
+                setLoading(false);
+            });
     };
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
@@ -90,7 +96,7 @@ export default function OrderContainer() {
     return (
         <>
             <Order handleFormChange={handleFormChange} cartReducer={cartReducer} history={history} orderForm={orderForm}
-                   today={today} submitForm={submitForm} o_sNumber={o_sNumber}/>
+                   today={today} submitForm={submitForm} o_sNumber={o_sNumber} loading={loading}/>
         </>
     )
 }

@@ -38,7 +38,7 @@ export const ReservationTableBuilder = (props: {
                 {props.data.r_count}
             </td>
             <td>
-                {props.data.r_customOrder}kjllllllllllllllllll
+                {props.data.r_customOrder}
             </td>
             <td>
                 {props.data.r_firstDate} / {props.data.r_firstTime}
