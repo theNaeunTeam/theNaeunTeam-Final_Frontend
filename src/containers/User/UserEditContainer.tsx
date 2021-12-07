@@ -159,6 +159,6 @@ export default function UserEditContainer() {
     return (
         <UserEdit handleFormChange={handleFormChange} u_id={u_id} userForm={userForm} u_cellPhone={u_cellPhone}
                   u_pw={u_pw} pwCompare={pwCompare} pwConfirm={pwConfirm} u_email={u_email} emailCompare={emailCompare}
-                  emailConfirm={emailConfirm} setUserForm={setUserForm} submitForm={setUserForm}/>
+                  emailConfirm={emailConfirm} setUserForm={setUserForm} submitForm={submitForm}/>
     )
 }
