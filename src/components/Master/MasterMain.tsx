@@ -26,11 +26,11 @@ export default function MasterMain(props: { authReducer: any; updateDB: any; loa
                     <h3 className='mainH3'> 점주 리스트 </h3>
                     <div className='MasterMainBtn'>
                         <button className='masterBtn' onClick={() => updateDB('ok')}>
-                            승인
+                            입점승인
                         </button>
                         {' '}
                         <button className='masterBtn' onClick={() => updateDB('no')}>
-                            반려
+                            입점반려
                         </button>
                     </div>
                     <div style={{height: 650, width: '100%', margin: 'auto'}}>
