@@ -7,9 +7,6 @@ export const UserReserveTableBuilder = (props: { data: dummyType, idx: number, c
 
     return (
         <tr className={'tbl'}>
-            {/*<td>*/}
-            {/*    {props.idx + 1}*/}
-            {/*</td>*/}
             <td>
                 {props.data.g_name}
             </td>
