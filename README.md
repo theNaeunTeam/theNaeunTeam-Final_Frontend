@@ -47,7 +47,7 @@ $ yarn start
 - WebStorm
 - VSCode
 - Android Studio
-- Xcode
+- Xcode 13.1
 - GitHub
 - Postman
 
@@ -56,26 +56,35 @@ $ yarn start
 - Front-end
     - Node.js 16.13.1 LTS
     - TypeScript
-    - React
-    - React Native CLI
+    - React 17.0.2
+    - React Native CLI 0.65.1
     - Redux
+    - Material-UI
     - styled-components
     - SCSS
     - chart.js
     - FCM
+    - Build Tools
+      - NPM
+      - yarn
+      - gradle
+      - CocoaPods
+
 
 - Back-end
     - JAVA 17 LTS
-    - Maven
+    - Spring Boot 2.5.6
     - Spring Boot Security
     - Spring Boot Batch
     - JWT Web Token
     - MyBatis
     - Spring Boot Mail Server
-    - FCM Push Server 
+    - FCM Push Server
+    - Build Tools
+      - Maven
 
 
-- Data Base
+- Database
   - Mysql
 
 
@@ -140,6 +149,7 @@ $ yarn start
     2. 장바구니 접속시마다 담긴 상품의 재고를 체크한다.
     3. 남은 재고 이상으로 담을 수 없다.
     4. 주문하기 페이지에서 방문하는사람, 방문시간, 방문일자, 요청사항 등을 입력할 수있다.
+    5. 노쇼 카운트가 5 이상이면 주문이 불가하다.
 
 - 유저 마이페이지
     1. 적립된 포인트, 주문횟수 확인가능
@@ -153,7 +163,6 @@ $ yarn start
 - 가게 마이페이지
     1. 일일 매출액, 월별 매출액, 연도별 매출액을 통계를 그래프로 정리해서 볼 수 있다.
     2. 시간대, 성별, 나이, 상품 카테고리 별 판매 현황 통계를 차트로 시각화 해서 볼 수 있다.
-
     3. 예약이 들어오면 FCM을 통해 브라우저 / 가게용 어플에 푸시 알림이 표시된다.
     4. (예약 처리 로직, 실패시 트랜젝셔널 처리로 인해 롤백됨)
     5. 노쇼 발생 건수&비율, 예약 취소 발생 건수&비율, 유통기한 경과 폐기 상품 개수&비율을 볼 수 있다.
