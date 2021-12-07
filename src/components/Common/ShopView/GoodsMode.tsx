@@ -2,7 +2,7 @@ import {Button} from "@mui/material";
 import ShopViewTableBuilder from "./ShopViewTableBuilder";
 import React from "react";
 import styled from "styled-components";
-import {shopViewType} from "../../../lib/types";
+import {categoryType, shopViewType} from "../../../lib/types";
 
 const DivButton = styled.div`
   margin-left: 100px;
@@ -13,7 +13,13 @@ const DivButton = styled.div`
   justify-content: space-around;
 `;
 
-export default function GoodsMode(props: { color: any; categoryChange: any; category: any; rows: any; saveGoods: any; }) {
+export default function GoodsMode(props: {
+    color: { case1: boolean, case2: boolean, case3: boolean, case4: boolean, case5: boolean, case6: boolean, case7: boolean };
+    categoryChange: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    category: categoryType;
+    rows: shopViewType[];
+    saveGoods: (e: React.FormEvent<HTMLFormElement>, max: number) => void;
+}) {
     const {
         color,
         categoryChange,

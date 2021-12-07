@@ -6,7 +6,7 @@ import Header from "./components/Common/Header";
 import MasterMainContainer from "./containers/Master/MasterMainContainer";
 import UserRegisterFormContainer from "./containers/Common/UserRegisterFormContainer";
 import UserMainContainer from "./containers/User/UserMainContainer";
-import ShopViewContainer from "./containers/User/ShopViewContainer";
+import ShopViewContainer from "./containers/Common/ShopViewContainer";
 import Footer from "./components/Common/Footer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./index";

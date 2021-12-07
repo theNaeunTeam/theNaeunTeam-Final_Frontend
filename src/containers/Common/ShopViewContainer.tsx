@@ -7,7 +7,7 @@ import {useCookies} from 'react-cookie';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import Swal from 'sweetalert2';
-import {categoryType, shopViewType} from "../../lib/types";
+import {aboutStoreType, categoryType, shopViewType} from "../../lib/types";
 import {fetch_Category_Per_sNumber} from "../../lib/api/Fetch_Category_Per_sNumber";
 import GoodsMode from "../../components/Common/ShopView/GoodsMode";
 import ShopDetail from "../../components/Common/ShopView/ShopDetail";
@@ -77,7 +77,7 @@ export default function ShopViewContainer() {
     };
 
     const history = useHistory();
-    const [aboutStore, setAboutStore] = useState(initStore);
+    const [aboutStore, setAboutStore] = useState<aboutStoreType>(initStore);
     const [modal, setModal] = useState(true);
     const [color, setColor] = useState(initColor);
     const [rows, setRows] = useState<shopViewType[]>(initGoods2);
