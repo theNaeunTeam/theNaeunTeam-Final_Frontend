@@ -14,7 +14,10 @@ const DivBordered = styled.div`
   text-align: left;
 `;
 
-export default function Order(props: { handleFormChange: any; cartReducer: any; history: any; orderForm: any; today: any; submitForm: any; }) {
+export default function Order(props: {
+    handleFormChange: any; cartReducer: any; history: any; orderForm: any; today: any; submitForm: any;
+    o_sNumber: string;
+}) {
 
     const {
         handleFormChange,
@@ -22,7 +25,8 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
         history,
         orderForm,
         today,
-        submitForm
+        submitForm,
+        o_sNumber,
     } = props;
 
     return (
@@ -41,7 +45,7 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
                         </div>
                     )}
                     <br/>
-                    <Button onClick={() => history.replace('/')}><h3>+ 상품 더 담기 </h3></Button>
+                    <Button onClick={() => history.replace('/shopView/' + o_sNumber)}><h3>+ 상품 더 담기 </h3></Button>
                     <br/><br/>
                     <DivBordered>
                         <div className='orderLeftSide'>

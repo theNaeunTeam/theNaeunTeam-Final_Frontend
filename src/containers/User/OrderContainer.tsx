@@ -66,13 +66,12 @@ export default function OrderContainer() {
                 if (res.data === false) {
                     alert('노쇼 카운트 5 이상이므로 주문 불가능 합니다. ')
                 } else {
-                    alert('성공');
+                    alert('주문이 완료되었습니다');
                 }
-
                 history.push('/');
             })
             .catch(err => {
-                alert('실패');
+                alert('에러가 발생하였습니다. 잠시 후 다시 시도해주세요.');
             })
     };
 
@@ -90,7 +89,7 @@ export default function OrderContainer() {
     return (
         <>
             <Order handleFormChange={handleFormChange} cartReducer={cartReducer} history={history} orderForm={orderForm}
-                   today={today} submitForm={submitForm}/>
+                   today={today} submitForm={submitForm} o_sNumber={cookies.cart[0].o_sNumber}/>
         </>
     )
 }
