@@ -43,7 +43,7 @@ export default function LoginFormContainer() {
                     history.push('/owner');
                     dispatch({type: false});
                 } else {
-                    alert('사업자번호 및 비밀번호를 확인해 주세요');
+                    // alert('사업자번호 및 비밀번호를 확인해 주세요');
                 }
 
             } catch (e) {

@@ -147,7 +147,6 @@ export default function LoginForm(props: { handleForm: any; showLoginModal: any;
                             margin="dense"
                             id="id"
                             label="아이디"
-                            // type="email"
                             fullWidth
                             variant="standard"
                             value={findPw}

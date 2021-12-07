@@ -108,10 +108,10 @@ export default function UserRegisterFormContainer() {
         const URL = '/common/userjoin'
         try {
             const res = await client.post(URL, regForm);
-            if (res.data.result === 'success') {
+            // if (res.data.result === 'success') {
                 alert('회원가입이 완료되었습니다.');
                 history.replace('/');
-            }
+            // }
         } catch (e) {
             alert('회원가입에 실패하였습니다.');
         }
