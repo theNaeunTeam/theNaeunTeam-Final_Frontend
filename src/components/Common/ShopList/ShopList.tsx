@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ShopListBuilder from "./ShopListBuilder";
 import styled from "styled-components";
 import {shopList} from "../../../lib/types";
+import {RouteComponentProps} from 'react-router-dom';
 
 const DivMarker = styled.div`
   margin-left: 10px;
@@ -21,7 +22,28 @@ const DivMarker = styled.div`
   padding-right: 10px;
 `
 
-export default function ShopList(props: { loading: any; lat: any; lon: any; list: any; marker: any; setMarker: any; history: any; marks: any; setRange: any; goodsName: any; setGoodsName: any; sortOption: any; setSortOption: any; getLoc: any; range: any; displayRange: any; displayName: any; showList: any; noMoreData: any; inViewRef: any; }) {
+export default function ShopList(props: {
+    loading: boolean;
+    lat: number;
+    lon: number;
+    list: shopList[];
+    marker: boolean[];
+    setMarker: React.Dispatch<React.SetStateAction<boolean[]>>;
+    history: RouteComponentProps["history"];
+    marks: { value: number, label: string }[];
+    setRange: React.Dispatch<React.SetStateAction<string>>;
+    goodsName: string;
+    setGoodsName: React.Dispatch<React.SetStateAction<string>>;
+    sortOption: string;
+    setSortOption: React.Dispatch<React.SetStateAction<string>>;
+    getLoc: () => void;
+    range: string;
+    displayRange: string;
+    displayName: string;
+    showList: boolean;
+    noMoreData: boolean;
+    inViewRef: (node?: (Element | null | undefined)) => void;
+}) {
     const {
         loading,
         lat,
