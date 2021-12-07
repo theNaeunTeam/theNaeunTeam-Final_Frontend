@@ -3,11 +3,14 @@ import {client} from "../../lib/api/client";
 import {useRouteMatch} from "react-router";
 import axios from "axios";
 import Findpw from "../../components/Common/Findpw";
+import {useHistory} from "react-router-dom";
 
 
 export default function FindpwContainer() {
     // 파라미터로 넘어오는 id와 token(pw) 번호 저장
     // token의 가를 다시 /로 replace 하고 그거로 요청 보내서 유효한 요청인지 먼저 확인
+
+    const history = useHistory();
 
     interface params {
         id: string,
@@ -80,6 +83,7 @@ export default function FindpwContainer() {
         try {
             const res = await client.patch(URL, data);
             alert("비밀번호 변경 성공하였습니다.");
+            history.replace('/');
         } catch (e) {
             alert("비밀번호 변경 실패하였습니다.");
         }

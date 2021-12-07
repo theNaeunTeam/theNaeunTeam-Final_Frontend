@@ -3,6 +3,7 @@ import axios from "axios";
 import {ownerRegisterFormType} from "../../lib/types";
 import {client} from "../../lib/api/client";
 import OwnerRegisterForm from "../../components/Common/OwnerRegisterForm";
+import {useHistory} from "react-router-dom";
 
 export default function OwnerRegisterFormContainer() {
 
@@ -21,14 +22,14 @@ export default function OwnerRegisterFormContainer() {
         o_longitude: '',
     };
 
+    const history = useHistory();
+
     const o_nameRef = useRef(null);
     const o_addressRef = useRef(null);
     const fileDiv = useRef(null);
-
-    const [regForm, setRegForm] = useState<ownerRegisterFormType>(initValue);
-
     const fileInputTag = useRef<HTMLInputElement>(null);
 
+    const [regForm, setRegForm] = useState<ownerRegisterFormType>(initValue);
     const [address, setAddress] = useState(''); // 주소
     const [addressDetail, setAddressDetail] = useState(''); // 상세주소
     const [isOpenPost, setIsOpenPost] = useState(false);
@@ -187,8 +188,8 @@ export default function OwnerRegisterFormContainer() {
             const res = await client.post(URL, formData);
 
             if (res.data === 1) {
-
                 alert('등록성공');
+                history.replace('/');
             }
         } catch (e) {
             // @ts-ignore
