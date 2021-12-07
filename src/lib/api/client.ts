@@ -26,7 +26,7 @@ client.interceptors.request.use(
         return config;
     },
     function (error) {
-        // 오류 요청 가공
+
         return Promise.reject(error);
     }
 );

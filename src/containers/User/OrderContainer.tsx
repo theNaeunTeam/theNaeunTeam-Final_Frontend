@@ -27,7 +27,7 @@ export default function OrderContainer() {
     const {cartReducer, authReducer} = useSelector((state: RootState) => state);
     const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);
     const [cookies, setCookie, removeCookie] = useCookies(['cart']); // 건들지 말것
-
+    const [o_sNumber, setO_sNumber] = useState<string>('');
 
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) history.replace('/err');
@@ -35,9 +35,9 @@ export default function OrderContainer() {
     }, []);
 
     useEffect(() => {
+        setO_sNumber(cookies.cart[0].o_sNumber);
         return () => {
             dispatch({type: 'orderOut'});
-            removeCookie('cart', {path: '/'});
         }
     }, []);
 
@@ -54,7 +54,7 @@ export default function OrderContainer() {
                 r_firstTime: orderForm.time,
                 r_count: cartReducer[i].g_count,
                 r_customOrder: orderForm.who + orderForm.tumbler + orderForm.r_customOrder,
-                r_owner: cookies.cart[0].o_sNumber,
+                r_owner: o_sNumber,
                 r_pay: cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0),
             }
             arr.push(data);
@@ -63,7 +63,7 @@ export default function OrderContainer() {
         client.post(URL, arr)
             .then(res => {
                 dispatch({type: 'orderOut'});
-                // removeCookie('cart', {path: '/'});
+                removeCookie('cart', {path: '/'});
                 if (res.data === false) {
                     alert('노쇼 카운트 5 이상이므로 주문 불가능 합니다. ');
                 } else {
@@ -90,7 +90,7 @@ export default function OrderContainer() {
     return (
         <>
             <Order handleFormChange={handleFormChange} cartReducer={cartReducer} history={history} orderForm={orderForm}
-                   today={today} submitForm={submitForm} o_sNumber={cookies.cart[0].o_sNumber}/>
+                   today={today} submitForm={submitForm} o_sNumber={o_sNumber}/>
         </>
     )
 }
