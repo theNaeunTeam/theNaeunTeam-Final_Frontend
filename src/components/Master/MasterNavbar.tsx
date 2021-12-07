@@ -35,7 +35,7 @@ export default function MasterNavbar(props: RouteComponentProps) {
                         </ul>
                     </li>
 
-                    <li><Link className='dropdown-arrow' to={'/master/approvalwaiting'}> Services </Link>
+                    <li><Link className='dropdown-arrow' to={'/master/approvalwaiting'}> 가맹점 관리 </Link>
                         <ul className='sub-menus'>
                             <li><Link to={'/master/approvalwaiting'}>입점승인대기</Link></li>
                             <li><Link to={'/master/approvalcompletion'}>입점승인완료</Link></li>
