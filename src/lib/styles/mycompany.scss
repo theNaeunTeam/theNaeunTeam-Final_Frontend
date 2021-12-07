@@ -60,7 +60,8 @@
   left: 44%;
   //border: solid slateblue;
   width: 51%;
-  //height: 720px;
+  height: 700px;
+  top: 50px;
 }
 
 .c-badge {
@@ -181,7 +182,7 @@
   font-size: 30px;
 }
 
-.row3-div{
+.row3-div {
   height: 150px;
 }
 
@@ -189,23 +190,23 @@
   height: 100px;
   position: absolute;
   left: 0px;
-  top : 22px
+  top: 22px
 }
 
-.com-screen{
+.com-screen {
   position: absolute;
   left: 7%;
-  top : 40px;
+  top: 40px;
 }
 
-.com-screen img{
+.com-screen img {
   height: 600px;
   //border: solid #5EAFCC;
 }
 
-.com-side{
+.com-side {
   position: absolute;
   left: 53%;
-  top : 20%;
+  top: 20%;
   line-height: 50px;
 }
