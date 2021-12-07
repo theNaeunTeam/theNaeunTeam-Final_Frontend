@@ -115,13 +115,10 @@ export default function Header() {
             </Backdrop>
             <ScrollToTop/>
             <DivWrap className='header'>
-                {/*관리자 인증 들어간 왼쪽 div*/}
                 <DivMaster>
                     <Link to={'/master'} style={{marginRight: '20px'}}>관리자 인증</Link>
                     <Link to={'/owner'}>가맹점 인증</Link>
                 </DivMaster>
-
-                {/*로그인 회원가입 가맹신청 들어갈 오른쪽 div*/}
                 <Info>
                     <UL>
                         {authReducer.isOwner === false && authReducer.isUser === false && authReducer.isMaster === false

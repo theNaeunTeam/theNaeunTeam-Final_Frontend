@@ -12,7 +12,6 @@ interface listType {
     idx: number;
 }
 
-
 export default function ShopListBuilder({data, idx}: listType) {
 
     const history = useHistory();

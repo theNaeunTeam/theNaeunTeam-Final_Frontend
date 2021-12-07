@@ -1,6 +1,5 @@
 interface actionTypes {
     type: boolean,
-    payload: any,
 }
 
 export function showLoginModal(state = false, action: actionTypes) {

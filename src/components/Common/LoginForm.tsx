@@ -21,8 +21,24 @@ import DialogContentText from "@mui/material/DialogContentText";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import DialogActions from "@mui/material/DialogActions";
+import {dispatchType} from "../../lib/types";
+import {RouteComponentProps} from "react-router-dom";
 
-export default function LoginForm(props: { handleForm: any; showLoginModal: any; dispatch: any; loginForm: any; login: any; history: any; handleClickOpen: any; handleClose: any; findPw: any; setFindPw: any; loading: any; findId: any; open: any; }) {
+export default function LoginForm(props: {
+    handleForm: (e: React.FormEvent<HTMLFormElement>) => void;
+    showLoginModal: boolean;
+    dispatch: (d: dispatchType) => void;
+    loginForm: { radio: string, u_id: string, u_pw: string };
+    login: () => void;
+    history: RouteComponentProps["history"];
+    handleClickOpen: () => void;
+    handleClose: () => void;
+    findPw: string;
+    setFindPw: React.Dispatch<React.SetStateAction<string>>;
+    loading: boolean;
+    findId: () => void;
+    open: boolean;
+}) {
     const {
         handleForm,
         showLoginModal,

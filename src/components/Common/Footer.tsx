@@ -9,9 +9,6 @@ const DivFooter = styled.div`
   position: absolute;
   font-family:'Cafe24Oneprettynight' ;
   fontSize:'x-large';
-  //border: solid darkblue;
-  //background: #b3d5f1;
-  //background: linear-gradient(to bottom, white,#b3d5f1 80%);
 `;
 
 const DivFooter2 = styled.div`
@@ -43,7 +40,6 @@ export default function Footer() {
                     <span style={{fontSize: 'large'}}>따라서 탄다오더는 상품거래정보 및 거래에 대한 책임을 지지 않습니다.</span>
                 </DivFooter2>
             </DivFooter>
-
         </>
     )
 }
