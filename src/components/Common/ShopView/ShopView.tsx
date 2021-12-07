@@ -3,6 +3,7 @@ import fullStar from "../../../lib/images/star1.png";
 import emptyStar from "../../../lib/images/star2.png";
 import styled from "styled-components";
 import {Paper} from "@mui/material";
+import {aboutStoreType} from "../../../lib/types";
 
 const DivTitle = styled.div`
   flex-direction: column;
@@ -12,7 +13,14 @@ const DivTitle = styled.div`
   margin: 50px;
 `;
 
-export default function ShopView(props: { favorites: any; favorOff: any; favorInsert: any; aboutStore: any; setModal: any; initialSelect: any; }) {
+export default function ShopView(props: {
+    favorites: boolean;
+    favorOff: () => Promise<false | undefined>;
+    favorInsert: () => Promise<false | undefined>;
+    aboutStore: aboutStoreType;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    initialSelect: React.MutableRefObject<null>;
+}) {
 
     const {
         favorites,
@@ -36,10 +44,10 @@ export default function ShopView(props: { favorites: any; favorOff: any; favorIn
                         : <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={emptyStar}
                                                                   onClick={favorInsert}/></span>
                 }
-                <Paper style={{textAlign:'center', paddingLeft:'100px', paddingRight:'100px'}}>
-                <img src={aboutStore.o_image} style={{width:'400px'}}/><br/>
-                <h2 style={{fontSize: 'xxx-large', color: 'black'}}>{aboutStore.o_name}</h2>
-                <h3 style={{color: 'gray', fontSize: 'x-large'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h3>
+                <Paper style={{textAlign: 'center', paddingLeft: '100px', paddingRight: '100px'}}>
+                    <img src={aboutStore.o_image} style={{width: '400px'}}/><br/>
+                    <h2 style={{fontSize: 'xxx-large', color: 'black'}}>{aboutStore.o_name}</h2>
+                    <h3 style={{color: 'gray', fontSize: 'x-large'}}>{aboutStore.o_time1} ~ {aboutStore.o_time2}</h3>
                 </Paper>
             </DivTitle>
             <hr/>

@@ -256,3 +256,20 @@ export type favorListType = {
     o_approval: number
     f_o_sNumber: string
 }
+
+export interface aboutStoreType{
+    o_sNumber: string,
+    o_approval: number,
+    o_pw: string,
+    token: string,
+    o_phone: string,
+    o_name: string,
+    o_cellPhone: string,
+    o_address: string,
+    o_latitude: string,
+    o_longitude: string,
+    o_date: string,
+    o_time1: string,
+    o_time2: string,
+    o_image: string,
+}

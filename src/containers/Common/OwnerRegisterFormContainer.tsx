@@ -67,7 +67,7 @@ export default function OwnerRegisterFormContainer() {
         setIsOpenPost(false);
         // setRegForm({...regForm, o_address: fullAddr});
 
-        const URL = 'http://dapi.kakao.com/v2/local/search/address.json?query=';
+        const URL = 'https://dapi.kakao.com/v2/local/search/address.json?query=';
         const RESTAPIKEY = '61d180a1576d7421df51937a7d0b3b3a';
 
         axios.get(`${URL}${data.address}`, {
