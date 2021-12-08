@@ -90,9 +90,7 @@ export default function FCM() {
                         <AlertTitle>{notification.title}</AlertTitle>
                         {notification.body}<AnnouncementIcon/>
                     </Alert>
-                    : <Alert variant="outlined" severity="success" style={{height: '50px', marginTop: '17px'}}
-                             onClose={() => {
-                             }}>알림이 없습니다</Alert>
+                    : <Alert variant="outlined" severity="success" style={{height: '50px', marginTop: '17px'}}>알림이 없습니다</Alert>
             }
 
         </>

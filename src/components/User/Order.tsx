@@ -47,7 +47,7 @@ export default function Order(props: {
                     <hr/>
                     {cartReducer.map((data: cartReducerType, idx: number) =>
                         <div className={'cartListItem'}>
-                            <img src={data.g_image} style={{width: '100px', height: '100px'}} alt={'상품이미지'}/>
+                            <img src={data.g_image} style={{width: '100px', height: '100px', margin:'5px'}} alt={'상품이미지'}/>
                             <span>{data.g_name}</span>
                             <span>{data.g_count}개 </span>
                             <span>{data.g_discount * data.g_count}원</span>
@@ -59,7 +59,6 @@ export default function Order(props: {
                     <DivBordered>
                         <div className='orderLeftSide'>
                             <h3>방문하시는분</h3>
-
                             <RadioGroup
                                 row
                                 aria-label="방문자"
@@ -70,7 +69,6 @@ export default function Order(props: {
                                 <FormControlLabel value=" 다른 사람이 받아요 " control={<Radio id={'who'}/>}
                                                   label=" 다른 사람이 받아요 "/>
                             </RadioGroup>
-
                         </div>
                     </DivBordered>
                     <DivBordered>
@@ -89,7 +87,7 @@ export default function Order(props: {
                             inputProps={{
                                 step: 3000, // 30 min
                             }}
-                            sx={{width: 150}}
+                            sx={{width: 175}}
                         />
                                 {' '}
                                 <TextField
@@ -98,7 +96,7 @@ export default function Order(props: {
                                     label="방문 예정 일자"
                                     type="date"
                                     defaultValue={orderForm.r_firstDate}
-                                    sx={{width: 150}}
+                                    sx={{width: 175}}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}

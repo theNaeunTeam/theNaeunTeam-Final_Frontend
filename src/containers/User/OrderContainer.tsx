@@ -56,7 +56,7 @@ export default function OrderContainer() {
                 r_g_code: cartReducer[i].g_code,
                 r_firstTime: orderForm.time,
                 r_count: cartReducer[i].g_count,
-                r_customOrder: orderForm.who + orderForm.tumbler + orderForm.r_customOrder,
+                r_customOrder: orderForm.who + orderForm.tumbler + orderForm.r_customOrder + orderForm.kudasai,
                 r_owner: o_sNumber,
                 r_pay: cartReducer.reduce((acc, cur) => acc + cur.g_discount * cur.g_count, 0),
             }
@@ -89,7 +89,6 @@ export default function OrderContainer() {
         if (tagName === 'kudasai' || tagName === 'tumbler') {
             if (!(e.target as HTMLFormElement).checked) (e.target as HTMLInputElement).value = '';
         }
-
         setOrderForm({...orderForm, [tagName]: (e.target as HTMLFormElement).value});
     }
 

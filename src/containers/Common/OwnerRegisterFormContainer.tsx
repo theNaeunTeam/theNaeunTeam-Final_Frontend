@@ -188,7 +188,7 @@ export default function OwnerRegisterFormContainer() {
             const res = await client.post(URL, formData);
 
             if (res.data === 1) {
-                alert('등록성공');
+                alert('입점 신청이 완료되었습니다.');
                 history.replace('/');
             }
         } catch (e) {
