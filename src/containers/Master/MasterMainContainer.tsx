@@ -95,7 +95,7 @@ export default function MasterMainContainer() {
                 }
                 const event = new Date(val.o_date);
 
-                if(val.o_date){
+                if (val.o_date) {
                     const event = new Date(val.o_date);
                     acc.push({
                         ...val,
@@ -108,7 +108,7 @@ export default function MasterMainContainer() {
                             day: "2-digit"
                         })
                     })
-                }else {
+                } else {
                     acc.push({
                         ...val,
                         id: val.o_sNumber,

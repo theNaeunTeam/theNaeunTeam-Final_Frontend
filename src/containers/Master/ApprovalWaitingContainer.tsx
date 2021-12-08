@@ -67,7 +67,7 @@ export default function ApprovalWaitingContainer() {
                     default:
                         break;
                 }
-                if(val.o_date){
+                if (val.o_date) {
                     const event = new Date(val.o_date);
                     acc.push({
                         ...val,
@@ -80,7 +80,7 @@ export default function ApprovalWaitingContainer() {
                             day: "2-digit"
                         })
                     })
-                }else {
+                } else {
                     acc.push({
                         ...val,
                         id: val.o_sNumber,
@@ -160,6 +160,6 @@ export default function ApprovalWaitingContainer() {
 
 
     return (
-        <ApprovalWaiting updateDB={updateDB} setSelected={setSelected} rows={rows} columns={columns} loading={loading} />
+        <ApprovalWaiting updateDB={updateDB} setSelected={setSelected} rows={rows} columns={columns} loading={loading}/>
     )
 }
