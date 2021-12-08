@@ -31,7 +31,7 @@ export default function ShopDetail(props: { aboutStore: aboutStoreType; }) {
 
                 <div className={'ShopViewDivHalfMenu'}>
                     <div className='shopDatadiv'>
-                        <img src={aboutStore.o_image} alt={'image'} style={{width: '100px', height: '100px'}}/>
+                        <img src={aboutStore.o_image} alt={'image'} style={{maxWidth: '200px', height: '100px'}}/>
                         <h3>{aboutStore.o_name}</h3>
                         <h5>가게 전화번호 {aboutStore.o_phone}</h5>
                         <h5>영업시간 {aboutStore.o_time1} ~ {aboutStore.o_time2}</h5><br/>
