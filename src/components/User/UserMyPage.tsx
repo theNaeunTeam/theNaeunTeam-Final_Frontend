@@ -3,6 +3,8 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import UserNavbar from "./UserNavbar";
 import styled from "styled-components";
+import earth from "./../../lib/images/earth.jpg";
+import {Paper} from "@mui/material";
 
 const DivContainer = styled.div`
   //border: solid black;
@@ -25,9 +27,11 @@ const DivMain = styled.div`
   //border: solid red;
   width: 80%;
   height: 100%;
-  padding: 50px 70px;
-  min-height: 800px;
-  margin-right: 15%;
+  padding: 50px 0px;
+  min-height: 1000px;
+  //margin-right: 15%;
+  display: inline-flex;
+  justify-content: center;
 `;
 
 export default function UserMyPage(props: { loading: any; userData: any; }) {
@@ -49,9 +53,20 @@ export default function UserMyPage(props: { loading: any; userData: any; }) {
                 <UserNavbar/>
             </DivNav>
             <DivMain>
-                <div className='subjectContent'>{userData.u_id}님은 지구를 {userData.save} 번 구하셨습니다.</div>
-                <div className='smallSubject'>지구를 구하는 중 : {userData.reserve} </div>
-                <div className='smallSubject'>포인트 : {userData.u_point}</div>
+                <Paper  style={{ width:'40%', margin:'17% 5% 40%', textAlign:'center',paddingTop:'20px'}}>
+                    <div className='subjectContent'><span style={{color:'orange'}}>{userData.u_id}</span> 님은
+                        지구를 <span style={{fontSize:'xxx-large', color:'blue'}}>{userData.save}번</span> 구하셨습니다.</div>
+                    <div className='smallSubject'>지구를 구하는 중 : {userData.reserve} </div>
+                    <div style= {{color:'blue'}} className='smallSubject'>포인트 : {userData.u_point}</div>
+                </Paper>
+
+                <div style={{ width:'800px',
+                            marginTop:'-50px',
+                            marginBottom:'-50px',
+                            marginLeft:'-50px'
+                }}>
+                    <img style={{width:'100%', height:'960px', borderRadius:'20px'}} src={earth}/>
+                </div>
             </DivMain>
         </DivContainer>
     )
