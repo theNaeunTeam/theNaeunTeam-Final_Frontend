@@ -273,3 +273,8 @@ export interface aboutStoreType{
     o_time2: string,
     o_image: string,
 }
+
+export interface dispatchType {
+    type: string | boolean,
+    payload?: any,
+}

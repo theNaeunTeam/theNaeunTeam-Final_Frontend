@@ -63,10 +63,9 @@ export default function ReservationViewContainer() {
             } else {
                 alert('데이터를 가져오는 중 문제가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
             }
-
         }
-
     }
+
     const changeGoodsStatus = async (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>, idx: number) => {
         setLoading(true);
         const data: { r_code: number, check: number } = {
@@ -78,7 +77,8 @@ export default function ReservationViewContainer() {
 
         try {
             const res = await client.patch(URL, data);
-            alert(list[idx].selectedStatus);
+            alert('상품 상태가 업데이트 되었습니다.');
+            // alert(list[idx].selectedStatus);
             // initialize();
             searchGoods();
 

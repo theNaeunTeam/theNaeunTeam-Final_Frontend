@@ -2,7 +2,8 @@ import React from 'react';
 import {Button, Paper} from "@mui/material";
 import {shopViewType} from "../../../lib/types";
 
-export default function shopViewTableBuilder(props: { data: shopViewType, idx: number, saveGoods: any }) {
+export default function shopViewTableBuilder(props: { data: shopViewType, idx: number, saveGoods: (e: React.FormEvent<HTMLFormElement>, max: number) => void; }) {
+
     const optionTagBuilder = (g_count: number): JSX.Element[] => {
         const res = [];
         for (let i = 1; i <= g_count; i++) {

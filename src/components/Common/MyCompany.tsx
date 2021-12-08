@@ -20,13 +20,11 @@ export default function MyCompany() {
     }
 
     const prebtn = () => {
-        console.log(idx)
         if (idx != 0) {
             setIdx(idx - 1);
         }
     }
     const next = () => {
-        console.log(idx)
         if (idx != list.length - 1) {
             setIdx(idx + 1);
         }
@@ -136,26 +134,9 @@ export default function MyCompany() {
                         </div>
                         <div className='device'>
                             <div className='screen-list'>
-
-
-                                {/*{*/}
-                                {/*    list.map((data: string, index: number) => {*/}
-                                {/*        return (*/}
-                                {/*            <div className='screen-img' key={index}>*/}
-                                {/*                <img style={{width: "330px", height: "650px"}}*/}
-                                {/*                     src={data}/>*/}
-                                {/*            </div>*/}
-
-                                {/*        )*/}
-                                {/*    })*/}
-                                {/*}*/}
                                 <div className='screen-img'>
                                     <img style={{width: "330px", height: "650px"}} src={image}/>
                                 </div>
-                                {/*<img style={{width: "330px", height: "650px"}}*/}
-                                {/*     src='https://thebetterteam-image.s3.ap-northeast-2.amazonaws.com/%EB%A9%94%EC%9D%B8.jpeg'/>*/}
-
-
                             </div>
                         </div>
                     </div>

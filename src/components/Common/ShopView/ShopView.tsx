@@ -15,8 +15,8 @@ const DivTitle = styled.div`
 
 export default function ShopView(props: {
     favorites: boolean;
-    favorOff: () => Promise<false | undefined>;
-    favorInsert: () => Promise<false | undefined>;
+    favorOff: () => void;
+    favorInsert: () => void;
     aboutStore: aboutStoreType;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     initialSelect: React.MutableRefObject<null>;

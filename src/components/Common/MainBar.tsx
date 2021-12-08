@@ -8,19 +8,19 @@ import {AiFillEdit} from "react-icons/ai";
 import {BiStore} from "react-icons/bi";
 
 export default function MainBar() {
-    const aaa = useRef(null);
-    const bbb = useRef(null);
+    const first = useRef(null);
+    const second = useRef(null);
 
     const updatemenu = () => {
-        if (aaa.current != null) {
-            if ((aaa.current as HTMLInputElement).checked) {
-                if (bbb.current) {
-                    (bbb.current as HTMLElement).style.borderBottomRightRadius = '0';
-                    (bbb.current as HTMLElement).style.borderBottomLeftRadius = '0';
+        if (first.current != null) {
+            if ((first.current as HTMLInputElement).checked) {
+                if (second.current) {
+                    (second.current as HTMLElement).style.borderBottomRightRadius = '0';
+                    (second.current as HTMLElement).style.borderBottomLeftRadius = '0';
                 }
             } else {
                 //@ts-ignore
-                bbb.current.borderRadius = '<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10</font></font>px';
+                second.current.borderRadius = '<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10</font></font>px';
             }
         }
     }

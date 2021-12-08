@@ -3,7 +3,11 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
 
-export default function Findpw(props: { handleForm: any; formError: any; submitForm: any; }) {
+export default function Findpw(props: {
+    handleForm: (e: React.FormEvent<HTMLFormElement>) => void;
+    formError: { u_pw: boolean, pwConfirm: boolean };
+    submitForm: () => void;
+}) {
     const {
         handleForm,
         formError,

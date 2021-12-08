@@ -4,6 +4,7 @@ import {GrMapLocation} from "react-icons/gr";
 import {Map, MapMarker} from "react-kakao-maps-sdk";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import styled from "styled-components";
+import {aboutStoreType} from "../../../lib/types";
 
 const DivHalfMenu2 = styled.div`
   flex: 1;
@@ -19,7 +20,7 @@ const DivMarker = styled.div`
   padding-right: 10px;
 `
 
-export default function ShopDetail(props: { aboutStore: any; }) {
+export default function ShopDetail(props: { aboutStore: aboutStoreType; }) {
     const {
         aboutStore,
     } = props;

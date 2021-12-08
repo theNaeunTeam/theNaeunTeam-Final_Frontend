@@ -7,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import {cartReducerType} from "../../lib/types";
 import styled from "styled-components";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const DivBordered = styled.div`
   border-top: solid ghostwhite 10px;
@@ -14,7 +16,10 @@ const DivBordered = styled.div`
   text-align: left;
 `;
 
-export default function Order(props: { handleFormChange: any; cartReducer: any; history: any; orderForm: any; today: any; submitForm: any; }) {
+export default function Order(props: {
+    handleFormChange: any; cartReducer: any; history: any; orderForm: any; today: any; submitForm: any;
+    o_sNumber: string; loading: boolean;
+}) {
 
     const {
         handleFormChange,
@@ -22,11 +27,19 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
         history,
         orderForm,
         today,
-        submitForm
+        submitForm,
+        o_sNumber,
+        loading,
     } = props;
 
     return (
         <>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={loading}
+            >
+                <CircularProgress color="inherit"/>
+            </Backdrop>
             <div className={'OrderDivContainer'}>
                 <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e)}>
                     <h1>주문서</h1>
@@ -34,19 +47,18 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
                     <hr/>
                     {cartReducer.map((data: cartReducerType, idx: number) =>
                         <div className={'cartListItem'}>
-                            <img src={data.g_image} style={{width: '100px', height: '100px'}} alt={'상품이미지'}/>
+                            <img src={data.g_image} style={{width: '100px', height: '100px', margin:'5px'}} alt={'상품이미지'}/>
                             <span>{data.g_name}</span>
                             <span>{data.g_count}개 </span>
                             <span>{data.g_discount * data.g_count}원</span>
                         </div>
                     )}
                     <br/>
-                    <Button onClick={() => history.replace('/')}><h3>+ 상품 더 담기 </h3></Button>
+                    <Button onClick={() => history.replace('/shopView/' + o_sNumber)}><h3>+ 상품 더 담기 </h3></Button>
                     <br/><br/>
                     <DivBordered>
                         <div className='orderLeftSide'>
                             <h3>방문하시는분</h3>
-
                             <RadioGroup
                                 row
                                 aria-label="방문자"
@@ -57,7 +69,6 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
                                 <FormControlLabel value=" 다른 사람이 받아요 " control={<Radio id={'who'}/>}
                                                   label=" 다른 사람이 받아요 "/>
                             </RadioGroup>
-
                         </div>
                     </DivBordered>
                     <DivBordered>
@@ -76,7 +87,7 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
                             inputProps={{
                                 step: 3000, // 30 min
                             }}
-                            sx={{width: 150}}
+                            sx={{width: 175}}
                         />
                                 {' '}
                                 <TextField
@@ -85,7 +96,7 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
                                     label="방문 예정 일자"
                                     type="date"
                                     defaultValue={orderForm.r_firstDate}
-                                    sx={{width: 150}}
+                                    sx={{width: 175}}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -127,7 +138,7 @@ export default function Order(props: { handleFormChange: any; cartReducer: any; 
                     </DivBordered>
 
                     <br/>
-                    <Button variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h3>주문하기</h3></Button>
+                    <Button disabled={loading} variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h3>주문하기</h3></Button>
                 </form>
             </div>
         </>
