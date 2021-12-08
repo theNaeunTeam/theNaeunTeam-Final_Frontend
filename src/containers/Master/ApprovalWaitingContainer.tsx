@@ -67,19 +67,28 @@ export default function ApprovalWaitingContainer() {
                     default:
                         break;
                 }
-                const event = new Date(val.o_date);
-
-                acc.push({
-                    ...val,
-                    id: val.o_sNumber,
-                    o_approval: temp,
-                    o_date: event.toLocaleDateString("ko-KR", {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "2-digit"
+                if(val.o_date){
+                    const event = new Date(val.o_date);
+                    acc.push({
+                        ...val,
+                        id: val.o_sNumber,
+                        o_approval: temp,
+                        o_date: event.toLocaleDateString("ko-KR", {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "2-digit"
+                        })
                     })
-                })
+                }else {
+                    acc.push({
+                        ...val,
+                        id: val.o_sNumber,
+                        o_approval: temp,
+                        o_date: ' --- '
+                    })
+                }
+
                 return acc;
             }, [])
 
