@@ -273,7 +273,6 @@
   margin-top: 10px;
   font-size: 25px;
   font-weight: bold;
-
 }
 
 .editForm {
@@ -282,4 +281,10 @@
   margin: 0 auto;
   //border: #5EAFCC solid;
   //height: 500px;
+}
+
+.paper{
+  -webkit-box-shadow:10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow:10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow:10px 10px 5px 0px rgba(0,0,0,0.75);
 }
