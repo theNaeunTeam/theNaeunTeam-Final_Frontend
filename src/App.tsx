@@ -44,6 +44,7 @@ import MainBar from "./components/Common/MainBar";
 import OwnerNavbar from "./components/Owner/OwnerNavbar";
 import MyCompany from "./components/Common/MyCompany";
 import Event from "./components/Common/Event/Event";
+import OrderSuccessContainer from "./containers/User/OrderSuccessContainer";
 
 function App() {
 
@@ -109,20 +110,13 @@ function App() {
 
 
                 <Route path='/' exact component={UserMainContainer}/>
-
                 <Route exact path='/login' component={LoginFormContainer}/>
-
                 <Route exact path='/user/register' component={UserRegisterFormContainer}/>
-
                 <Route exact path='/owner/register' component={OwnerRegisterFormContainer}/>
-
                 <Route exact path='/findpw/:id/:token' component={FindpwContainer}/>
-
                 <Route exact path='/mycompany' component={MyCompany}/>
-                <Route path={'/master/changeBanner'} component={ChangeBannerContainer}/>
-
+                <Route path='/master/changeBanner' component={ChangeBannerContainer}/>
                 <Route path='/shopView/:o_sNumber' component={ShopViewContainer}/>
-
                 <Route path='/list' component={ShopListContainer}/>
 
 
@@ -136,8 +130,6 @@ function App() {
                 <Route path='/master/userdash' component={UserDashContainer}/>
                 <Route path='/master/masterchart' component={MasterChartContainer}/>
 
-
-                {/*<Route path='/user' component={UserNavbar}/>*/}
                 <Route path='/user' exact component={UserMypageContainer}/>
                 <Route path='/user/shoppingcart' component={ShoppingCartContainer}/>
                 <Route path='/user/order' component={OrderContainer}/>
@@ -145,9 +137,8 @@ function App() {
                 <Route path='/user/favorstore' component={FavorStoreContainer}/>
                 <Route path='/user/useredit' component={UserEditContainer}/>
                 <Route path='/user/userexit' component={UserExitContainer}/>
+                <Route path='/user/orderSuccess' component={OrderSuccessContainer}/>
 
-
-                {/*<Route path='/owner' component={OwnerNavbar}/>*/}
                 <Route path='/owner' exact component={OwnerMainContainer}/>
                 <Route path='/owner/addproduct' component={AddProductContainer}/>
                 <Route path='/owner/goodsview' component={GoodsViewContainer}/>

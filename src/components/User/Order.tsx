@@ -9,6 +9,12 @@ import {cartReducerType} from "../../lib/types";
 import styled from "styled-components";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import HailIcon from '@mui/icons-material/Hail';
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import PaymentIcon from "@mui/icons-material/Payment";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 
 const DivBordered = styled.div`
   border-top: solid ghostwhite 10px;
@@ -58,7 +64,7 @@ export default function Order(props: {
                     <br/><br/>
                     <DivBordered>
                         <div className='orderLeftSide'>
-                            <h3>방문하시는분</h3>
+                            <h3><HailIcon/>방문하시는분</h3>
                             <RadioGroup
                                 row
                                 aria-label="방문자"
@@ -73,7 +79,7 @@ export default function Order(props: {
                     </DivBordered>
                     <DivBordered>
                         <div className='orderLeftSide'>
-                            <h3>방문시간</h3>
+                            <h3><AccessTimeIcon/>방문시간</h3>
                             <span>
                         <TextField
                             name={'o_time2'}
@@ -107,7 +113,7 @@ export default function Order(props: {
                     </DivBordered>
                     <DivBordered>
                         <div className='orderLeftSide'>
-                            <h3> 요청사항 </h3>
+                            <h3> <ReceiptLongIcon/> 요청사항 </h3>
                             <TextField
                                 id="r_customOrder"
                                 label="가게 사장님에게"
@@ -125,14 +131,14 @@ export default function Order(props: {
 
                     <DivBordered>
 
-                        <h3>총 결제 금액</h3>
-                        <br/><br/>
+                        <h3><AttachMoneyIcon/> 총 결제 금액</h3>
                         <div style={{background: "ghostwhite", display: "flex", justifyContent: 'space-between'}}>
-                            <span>적립 예정 금액</span>
+                            <span><MoneyOffIcon/> 적립 예정 금액</span>
                             <span>{cartReducer.reduce((acc: number, cur: cartReducerType) => acc + cur.g_discount * cur.g_count, 0) / 10}원</span>
                         </div>
+                        <br/>
                         <div style={{background: "ghostwhite", display: "flex", justifyContent: 'space-between'}}>
-                            <strong>최종혜택가</strong>
+                            <strong><PaymentIcon/> 최종혜택가</strong>
                             <strong>{cartReducer.reduce((acc: number, cur: cartReducerType) => acc + cur.g_discount * cur.g_count, 0)}원</strong>
                         </div>
                     </DivBordered>
