@@ -3,7 +3,7 @@ import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useCookies} from "react-cookie";
-import {orderForm, orderSubmitType} from "../../lib/types";
+import {orderFormType, orderSubmitType} from "../../lib/types";
 import {client} from "../../lib/api/client";
 import '../../lib/styles/order.scss';
 import Order from "../../components/User/Order";
@@ -25,7 +25,7 @@ export default function OrderContainer() {
 
     const dispatch = useDispatch();
     const {cartReducer, authReducer} = useSelector((state: RootState) => state);
-    const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);
+    const [orderForm, setOrderForm] = useState<orderFormType>(defaultValue);
     const [cookies, setCookie, removeCookie] = useCookies(['cart']); // 건들지 말것
     const [o_sNumber, setO_sNumber] = useState<string>('');
     const [loading, setLoading] = useState(false);

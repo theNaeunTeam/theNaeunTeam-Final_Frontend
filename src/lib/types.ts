@@ -168,7 +168,7 @@ export type orderSubmitType = {
     r_pay: number,
 }
 
-export type orderForm = {
+export type orderFormType = {
     who: string,
     time: string,
     r_customOrder: string,
