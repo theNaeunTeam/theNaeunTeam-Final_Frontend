@@ -66,7 +66,7 @@ export default function LoginForm(props: {
                                 <CancelIcon style={{cursor: 'pointer'}} onClick={() => dispatch({type: false})}/>
                                 </span>
                         }
-                        <h1>탄다마켓 로그인</h1>
+                        <h1>탄다오더 로그인</h1>
                         <FormControl component="fieldset">
                             <FormLabel component="legend">회원 유형을 선택해 주세요</FormLabel>
                             <RadioGroup row aria-label="type" name="radio" defaultValue={'individual'}>

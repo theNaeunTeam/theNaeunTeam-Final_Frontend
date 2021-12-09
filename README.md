@@ -1,4 +1,4 @@
-# [탄다마켓 프로젝트](https://thenaeunteam.link/)
+# [탄다오더 프로젝트](https://thenaeunteam.link/)
 
 - [Android](https://play.google.com/store/apps/details?id=com.thenaeunteam.tandaowner
   )

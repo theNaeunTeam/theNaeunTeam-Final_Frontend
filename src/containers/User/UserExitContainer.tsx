@@ -30,7 +30,7 @@ export default function UserExitContainer() {
         try {
             const res = await client.post(URL, userForm);
             res.data === 1
-                ? (alert('회원 탈퇴 되었습니다.'), dispatch({type: 'logoutAll'}), history.push('/'))
+                ? (alert('회원 탈퇴 되었습니다.'), dispatch({type: 'logoutAll'}), history.replace('/'))
                 : alert('회원 탈퇴 실패하였습니다.')
         } catch (e: any) {
             if (e.response.status === 500) {
