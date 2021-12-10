@@ -11,7 +11,7 @@ const emptyValue = {
     header: '',
     description: '',
     link: '',
-}
+};
 
 export default function ChangeBannerContainer() {
 
@@ -49,7 +49,6 @@ export default function ChangeBannerContainer() {
     }
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>, idx: number) => {
-        const tagId = (e.target as HTMLInputElement).id;
         const tagName = (e.target as HTMLInputElement).name;
         const cp = [...arr];
         // @ts-ignore

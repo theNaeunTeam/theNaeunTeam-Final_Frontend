@@ -28,7 +28,8 @@ const SpanRow = styled.span`
 
 export default function ChangeBanner(props: { arr: any; handleFormChange: any; handleFileChange: any; setArr: any; emptyValue: any; submitForm: any; }) {
 
-    const {
+    //비구조화 할당
+     const {
         arr,
         handleFormChange,
         handleFileChange,
@@ -77,9 +78,9 @@ export default function ChangeBanner(props: { arr: any; handleFormChange: any; h
                 <div>
                     <Button variant={'contained'}
                             style={{width: '50%'}}
-                            onClick={() => {
-                                const cp = [...arr];
-                                cp.push(emptyValue)
+                            onClick={() => { // 버튼을 누르면 바로 실행
+                                const cp = [...arr]; // 스테이트 딥카피
+                                cp.push(emptyValue); // 비어있는 값을 푸시
                                 setArr(cp);
                             }}>배너 페이지 추가
                     </Button>
