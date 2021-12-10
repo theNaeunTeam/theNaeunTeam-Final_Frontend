@@ -42,27 +42,38 @@ export default function ChangeBanner(props: { arr: any; handleFormChange: any; h
     return (
         <>
             <DivContainer>
+                {/*배열갯수만큼 반복 */}
                 {arr.map((data: carouselType, idx: number) =>
                     <>
                         <form onSubmit={e => e.preventDefault()} onChange={e => handleFormChange(e, idx)}>
+
                             <SpanRow className={'SpanRow'}>
                                 <strong> {idx + 1}번 배너 </strong>
                                 <br/>
+
                                 Header text<input type={"text"} defaultValue={data.header} id={`header${idx}`}
                                                   name={'header'}/>
+
                                 Image ALT text 설정<input type={'text'} defaultValue={data.altText} id={`altText${idx}`}
                                                         name={'altText'}/>
+
                                 Description text 설정<input type={'text'} defaultValue={data.description}
                                                           id={`description${idx}`}
                                                           name={'description'}/>
+
                                 Link href 설정<input type={"text"} defaultValue={data.link} id={`link${idx}`}
                                                    name={'link'}/>
+
                                 이미지 파일 업로드 <input type={'file'} onChange={(e) => handleFileChange(e, idx)}/>
+
                                 <input type={'hidden'} defaultValue={data.src} id={`src${idx}`} name={'src'}/>
                                 <hr/>
                             </SpanRow>
+
                             <img src={data.src} height={'500px'} width={'100%'} alt={data.altText}/>
+
                             <hr/>
+
                             <Button variant={'contained'} color={'error'}
                                     style={{width: '50%', marginTop: '10px'}}
                                     onClick={() => {
