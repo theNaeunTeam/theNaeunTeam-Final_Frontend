@@ -46,10 +46,14 @@ export default function LoginFormContainer() {
                     // alert('사업자번호 및 비밀번호를 확인해 주세요');
                 }
 
-            } catch (e) {
-                // @ts-ignore
-                const err = e.response;
-                alert(err.data.error);
+            } catch (e: any) {
+                if (e.response.status === 400) {
+                    alert(e.response.data.error);
+                } else {
+                    alert('에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.')
+                }
+                // const err = e.response;
+                // alert(err.data.error);
             }
         } else {
             const URL = '/common/userlogin';
@@ -64,7 +68,13 @@ export default function LoginFormContainer() {
                     history.push('/');
                 }
             } catch (e: any) {
-                alert(e.response.data.error);
+                if (e.response.status === 400) {
+                    alert(e.response.data.error);
+                } else {
+                    alert('에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
+                }
+
+
             }
         }
 
@@ -81,10 +91,15 @@ export default function LoginFormContainer() {
             const res = await client.post(URL, data);
             setLoading(false);
             if (res) {
-                alert("이메일로 비밀번호 재설정 메일을 보내드렸습니다.");
+                alert("이메일로 비밀번호 재설정 메일을 전송하였습니다.");
             }
         } catch (e: any) {
-            alert('아이디를 찾을 수 없습니다');
+            if (e.response.status === 400) {
+                alert(e.response.data.error);
+            } else {
+                alert('에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
+            }
+            // alert('아이디를 찾을 수 없습니다');
             // const err = e.response
             // alert(err.data.error);
         } finally {

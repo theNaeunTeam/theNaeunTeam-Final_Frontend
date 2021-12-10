@@ -143,7 +143,7 @@ export default function ShopViewContainer() {
                 setCategory(res);
             })
             .catch(err => {
-                alert('카테고리 갯수 가져오기 실패');
+                alert('카테고리 갯수 가져오기 실패하였습니다.');
             })
 
         const URL = '/common/storeGoodsView';

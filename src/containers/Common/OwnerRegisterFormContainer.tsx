@@ -78,7 +78,7 @@ export default function OwnerRegisterFormContainer() {
                 setRegForm({...regForm, o_latitude: res.data.documents[0].y, o_longitude: res.data.documents[0].x});
             })
             .catch(e => {
-                alert('좌표 검색 실패');
+                alert('좌표 검색 실패하였습니다.');
             })
     };
 
