@@ -3,7 +3,7 @@ import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useCookies} from "react-cookie";
-import {orderForm, orderSubmitType} from "../../lib/types";
+import {orderFormType, orderSubmitType} from "../../lib/types";
 import {client} from "../../lib/api/client";
 import '../../lib/styles/order.scss';
 import Order from "../../components/User/Order";
@@ -25,7 +25,7 @@ export default function OrderContainer() {
 
     const dispatch = useDispatch();
     const {cartReducer, authReducer} = useSelector((state: RootState) => state);
-    const [orderForm, setOrderForm] = useState<orderForm>(defaultValue);
+    const [orderForm, setOrderForm] = useState<orderFormType>(defaultValue);
     const [cookies, setCookie, removeCookie] = useCookies(['cart']); // 건들지 말것
     const [o_sNumber, setO_sNumber] = useState<string>('');
     const [loading, setLoading] = useState(false);
@@ -66,18 +66,26 @@ export default function OrderContainer() {
         client.post(URL, arr)
             .then(res => {
                 dispatch({type: 'orderOut'});
-                removeCookie('cart', {path: '/'});
+                // removeCookie('cart', {path: '/'});
                 if (res.data === false) {
                     alert('노쇼 카운트 5 이상이므로 주문 불가능 합니다. ');
                 } else {
-                    alert('주문이 완료되었습니다');
+                    history.replace({
+                        pathname: '/user/orderSuccess',
+                        state: {
+                            arr: arr,
+                            orderForm: orderForm,
+                            cartReducer:cartReducer,
+                        }
+                    })
                 }
-                history.push('/');
+                // history.replace('/');
+
             })
             .catch(err => {
                 alert('에러가 발생하였습니다. 잠시 후 다시 시도해주세요.');
             })
-            .finally(()=>{
+            .finally(() => {
                 setLoading(false);
             });
     };
