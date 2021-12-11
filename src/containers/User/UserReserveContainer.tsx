@@ -47,7 +47,7 @@ export default function UserReserveContainer() {
                 alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
 
             } else if (e.response.status === 400) {
-                alert(e.response.data.error)
+                fireSweetAlert({title: e.response.data.error,icon: 'error'});
             } else {
                 alert('데이터를 변경하는데 실패하였습니다. 잠시 후 다시 시도 바랍니다.')
             }

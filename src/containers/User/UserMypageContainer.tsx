@@ -4,9 +4,11 @@ import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {userMyPageType} from "../../lib/types";
 import UserMyPage from "../../components/User/UserMyPage";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 export default function UserMypageContainer() {
+    const {fireSweetAlert} = useSweetAlert();
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -50,7 +52,7 @@ export default function UserMypageContainer() {
                 history.push('/');
 
             } else if (e.response.status === 400) {
-                alert(e.response.data);
+                fireSweetAlert({title: e.response.data,icon: 'error'});
                 history.goBack();
 
             } else {

@@ -3,9 +3,12 @@ import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import Unsubscribe from "../../components/Owner/Unsubscribe";
 import {useDispatch} from "react-redux";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 export default function UnsubscribeContainer() {
+    const {fireSweetAlert} = useSweetAlert();
+
     const history = useHistory();
     useLayoutEffect(() => {
         if (!localStorage.getItem('ownerToken')) history.replace('/err');
@@ -34,7 +37,8 @@ export default function UnsubscribeContainer() {
         try {
             const res = await client.post(URL, data);
             if (res.data === 1) {
-                await alert("가맹 해지 신청이 완료 되었습니다.");
+                // await alert("가맹 해지 신청이 완료 되었습니다.");
+                fireSweetAlert({title: '가맹 해지 신청이 완료 되었습니다.',icon: 'success'});
                 dispatch({type: 'logoutAll'});
                 history.replace('/');
             } else {
@@ -47,7 +51,7 @@ export default function UnsubscribeContainer() {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
 
             } else if (err.data.status === 400) {
-                alert(err.data.error);
+                fireSweetAlert({title: err.data.error,icon: 'error'});
             } else {
                 alert('예상치 못한 에러로 인해 가맹 해지 신청에 실패하였습니다.\n잠시 후 다시 시도 바랍니다.');
                 // alert('비밀번호가 틀립니다');
