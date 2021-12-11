@@ -50,9 +50,10 @@ export default function LoginFormContainer() {
 
             } catch (e: any) {
                 if (e.response.status === 400) {
-                    fireSweetAlert({title: e.response.data.error, icon: 'error'});
+                    alert(e.response.data.error);
+                    // fireSweetAlert({title: e.response.data.error, icon: 'error'});
                 } else {
-                    alert('에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.')
+                    alert('에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
                 }
                 // const err = e.response;
                 // alert(err.data.error);
@@ -71,7 +72,8 @@ export default function LoginFormContainer() {
                 }
             } catch (e: any) {
                 if (e.response.status === 400) {
-                    fireSweetAlert({title: e.response.data.error, icon: 'error'});
+                    // fireSweetAlert({title: e.response.data.error, icon: 'error'});
+                    alert(e.response.data.error);
                 } else {
                     alert('에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
                 }

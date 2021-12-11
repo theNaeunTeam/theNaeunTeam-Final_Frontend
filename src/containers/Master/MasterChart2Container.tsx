@@ -5,8 +5,10 @@ import {useHistory} from "react-router-dom";
 import '../../lib/styles/button.scss';
 import '../../lib/styles/masterOwnerDash.scss';
 import MasterChart2 from "../../components/Master/MasterChart2";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 export default function MasterChart2Container() {
+    const {fireSweetAlert} = useSweetAlert();
 
     const history = useHistory();
 
@@ -68,9 +70,9 @@ export default function MasterChart2Container() {
             setYearArr(res.data['year'].map((b: any) => ({date: b.date, owner: b.sum, user: b.tal})));
         } catch (e: any) {
             if (e.response.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             } else {
-                alert('데이터를 가져오는데 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '데이터를 가져오는데 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             }
         }
         setLoading(false);

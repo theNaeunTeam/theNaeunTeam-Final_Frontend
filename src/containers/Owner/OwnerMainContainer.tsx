@@ -4,8 +4,10 @@ import {client} from "../../lib/api/client";
 import {ownerPageType} from "../../lib/types";
 import '../../lib/styles/button.scss'
 import OwnerMain from "../../components/Owner/OwnerMain";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 export default function OwnerMainContainer() {
+    const {fireSweetAlert} = useSweetAlert();
 
     const history = useHistory();
     useLayoutEffect(() => {
@@ -76,10 +78,9 @@ export default function OwnerMainContainer() {
             setYearSumArr(response.data['year'].map((x: any) => x.sum));
         } catch (e: any) {
             if (e.response.data.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.');
-
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             } else {
-                alert('데이터를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
+                fireSweetAlert({title: '데이터를 가져오는데 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             }
         }
         setLoading(false)

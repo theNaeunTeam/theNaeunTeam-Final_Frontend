@@ -36,7 +36,7 @@ export default function UserExitContainer() {
                 : alert('회원 탈퇴 실패하였습니다.')
         } catch (e: any) {
             if (e.response.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             } else if (e.response.status === 400) {
                 fireSweetAlert({title: e.response.data.error,icon: 'error'});
             } else {

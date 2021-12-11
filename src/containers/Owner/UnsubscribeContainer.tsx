@@ -48,7 +48,7 @@ export default function UnsubscribeContainer() {
         } catch (e: any) {
             const err = e.response;
             if (err.data.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
 
             } else if (err.data.status === 400) {
                 fireSweetAlert({title: err.data.error,icon: 'error'});

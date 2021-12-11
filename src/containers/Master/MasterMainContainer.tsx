@@ -126,9 +126,9 @@ export default function MasterMainContainer() {
 
         } catch (e: any) {
             if (e.response.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             } else {
-                alert('데이터를 가져오는 중 에러가 발생했습니다.\n잠시후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '데이터를 가져오는데 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             }
         }
         setLoading(false);
@@ -163,7 +163,7 @@ export default function MasterMainContainer() {
             fireSweetAlert({title: '선택된 가맹점 신청 승인/반려 완료 되었습니다.', icon: 'success'});
         } catch (e: any) {
             if (e.response.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             } else if (e.response.status === 400) {
                 fireSweetAlert({title: e.response.data.error, icon: 'error'});
             } else {
