@@ -12,6 +12,7 @@ import {reservationViewType} from "../../lib/types";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import {ReservationTableBuilder} from "../../components/Owner/ReservationTableBuilder";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 const DivContainer = styled.div`
@@ -26,6 +27,7 @@ const DivContainer = styled.div`
 
 
 export default function ReservationViewContainer() {
+    const {fireSweetAlert} = useSweetAlert();
 
     const history = useHistory();
     useLayoutEffect(() => {
@@ -77,9 +79,7 @@ export default function ReservationViewContainer() {
 
         try {
             const res = await client.patch(URL, data);
-            alert('상품 상태가 업데이트 되었습니다.');
-            // alert(list[idx].selectedStatus);
-            // initialize();
+            fireSweetAlert({title: '상품 상태가 업데이트 되었습니다.', icon: 'success'});
             searchGoods();
 
         } catch (e: any) {
@@ -97,7 +97,7 @@ export default function ReservationViewContainer() {
 
     const indexMinus = () => {
         if (startIndex === 0) {
-            alert('첫 페이지입니다.');
+            fireSweetAlert({title: '첫페이지 입니다', icon: 'info'});
         } else {
             setStartIndex(startIndex - 10);
         }
@@ -106,7 +106,7 @@ export default function ReservationViewContainer() {
         if (list.length === 10) {
             setStartIndex(startIndex + 10);
         } else {
-            alert('마지막 페이지입니다.');
+            fireSweetAlert({title: '마지막 페이지 입니다', icon: 'info'});
         }
     }
 

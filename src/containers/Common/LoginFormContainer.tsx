@@ -4,11 +4,13 @@ import {client} from "../../lib/api/client";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import LoginForm from "../../components/Common/LoginForm";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 export default function LoginFormContainer() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const {fireSweetAlert} = useSweetAlert();
 
     const initValue = {
         radio: 'individual',
@@ -91,7 +93,7 @@ export default function LoginFormContainer() {
             const res = await client.post(URL, data);
             setLoading(false);
             if (res) {
-                alert("이메일로 비밀번호 재설정 메일을 전송하였습니다.");
+                fireSweetAlert({title: "이메일로 비밀번호 재설정 메일을 전송하였습니다.", icon: 'success'});
             }
         } catch (e: any) {
             if (e.response.status === 400) {

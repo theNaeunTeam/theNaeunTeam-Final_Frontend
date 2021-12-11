@@ -1,17 +1,17 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
-import {useSelector} from "react-redux";
-import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import '../../lib/styles/table.scss'
 import {dummyType} from "../../lib/types";
 import UserReserve from "../../components/User/UserReserve/UserReserve";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 export default function UserReserveContainer() {
 
     const [startIndex, setStartIndex] = useState(0);
     const history = useHistory();
+    const {fireSweetAlert} = useSweetAlert();
 
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) history.replace('/err');
@@ -41,7 +41,7 @@ export default function UserReserveContainer() {
         try {
             const res = await client.patch(URL, data);
             searchReserve();
-            alert('예약 취소 완료되었습니다.');
+            fireSweetAlert({title: '예약 취소 완료되었습니다', icon: 'success'});
         } catch (e: any) {
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다. 잠시 후 다시 시도 바랍니다.')
@@ -76,7 +76,7 @@ export default function UserReserveContainer() {
 
     const indexMinus = () => {
         if (startIndex === 0) {
-            alert('첫 페이지입니다.');
+            fireSweetAlert({title: '첫페이지 입니다', icon: 'info'});
         } else {
             setStartIndex(startIndex - 10);
         }
@@ -85,7 +85,7 @@ export default function UserReserveContainer() {
         if (list.length === 10) {
             setStartIndex(startIndex + 10);
         } else {
-            alert('마지막 페이지입니다.');
+            fireSweetAlert({title: '마지막 페이지 입니다', icon: 'info'});
         }
 
 

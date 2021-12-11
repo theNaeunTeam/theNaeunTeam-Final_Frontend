@@ -53,7 +53,8 @@ export default function Order(props: {
                     <hr/>
                     {cartReducer.map((data: cartReducerType, idx: number) =>
                         <div className={'cartListItem'}>
-                            <img src={data.g_image} style={{width: '100px', height: '100px', margin:'5px'}} alt={'상품이미지'}/>
+                            <img src={data.g_image} style={{width: '100px', height: '100px', margin: '5px'}}
+                                 alt={'상품이미지'}/>
                             <span>{data.g_name}</span>
                             <span>{data.g_count}개 </span>
                             <span>{data.g_discount * data.g_count}원</span>
@@ -113,7 +114,7 @@ export default function Order(props: {
                     </DivBordered>
                     <DivBordered>
                         <div className='orderLeftSide'>
-                            <h3> <ReceiptLongIcon/> 요청사항 </h3>
+                            <h3><ReceiptLongIcon/> 요청사항 </h3>
                             <TextField
                                 id="r_customOrder"
                                 label="가게 사장님에게"
@@ -144,7 +145,8 @@ export default function Order(props: {
                     </DivBordered>
 
                     <br/>
-                    <Button disabled={loading} variant={'contained'} onClick={submitForm} style={{width: '50%'}}><h3>주문하기</h3></Button>
+                    <Button disabled={loading} variant={'contained'} onClick={submitForm} style={{width: '50%'}}>
+                        <h3>주문하기</h3></Button>
                 </form>
             </div>
         </>

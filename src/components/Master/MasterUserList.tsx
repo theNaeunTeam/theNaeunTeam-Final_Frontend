@@ -3,7 +3,7 @@ import {DataGrid} from "@mui/x-data-grid";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 
-export default function MasterUserList(props: { loading:any; setSelected: any; rows: any; columns: any; }) {
+export default function MasterUserList(props: { loading: any; setSelected: any; rows: any; columns: any; }) {
 
     const {
         loading,

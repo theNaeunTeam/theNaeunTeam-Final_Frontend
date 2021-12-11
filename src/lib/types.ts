@@ -257,7 +257,7 @@ export type favorListType = {
     f_o_sNumber: string
 }
 
-export interface aboutStoreType{
+export interface aboutStoreType {
     o_sNumber: string,
     o_approval: number,
     o_pw: string,

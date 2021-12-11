@@ -75,7 +75,7 @@ export default function OrderContainer() {
                         state: {
                             arr: arr,
                             orderForm: orderForm,
-                            cartReducer:cartReducer,
+                            cartReducer: cartReducer,
                         }
                     })
                 }

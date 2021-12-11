@@ -20,8 +20,11 @@ const DivMarker = styled.div`
   padding-right: 10px;
 `
 
-export default function ShopDetail(props: { aboutStore: aboutStoreType; }) {
+export default function ShopDetail(props: { aboutStore: aboutStoreType; fireSweetAlert: any }) {
+
+
     const {
+        fireSweetAlert,
         aboutStore,
     } = props;
 
@@ -69,7 +72,11 @@ export default function ShopDetail(props: { aboutStore: aboutStoreType; }) {
                                     borderBottomLeftRadius: '10px'
                                 }}
                                 onClick={() => {
-                                    alert('주소가 복사되었습니다.')
+                                    fireSweetAlert({
+                                        title: '주소가 클립보드에 복사되었습니다',
+                                        text: aboutStore.o_address,
+                                        icon: 'success'
+                                    })
                                 }}>주소복사
                         </button>
                     </CopyToClipboard>

@@ -2,6 +2,7 @@ import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
 import {useHistory} from "react-router-dom";
 import UserEdit from "../../components/User/UserEdit";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 export default function UserEditContainer() {
@@ -17,6 +18,7 @@ export default function UserEditContainer() {
         u_age: '',
         emailConfirm: '',
     };
+    const {fireSweetAlert} = useSweetAlert();
 
     const history = useHistory();
     useLayoutEffect(() => {
@@ -104,7 +106,7 @@ export default function UserEditContainer() {
     // 유저 정보 업데이트
     const submitForm = async () => {
         if (!formValidate()) {
-            alert('제출 양식을 확인해주세요');
+            fireSweetAlert({title: '제출 양식을 확인해 주세요', icon: 'error'});
             return false;
         }
 
@@ -112,7 +114,7 @@ export default function UserEditContainer() {
         try {
             const res = await client.post(URL, userForm);
             if (res.data === 1) {
-                alert('회원 정보 수정이 완료되었습니다.');
+                fireSweetAlert({title: '회원 정보 수정이 완료되었습니다.', icon: 'success'});
                 history.replace('/user')
             } else {
                 alert('회원 정보 수정이 실패했습니다.');

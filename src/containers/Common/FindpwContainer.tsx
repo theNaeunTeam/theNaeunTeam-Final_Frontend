@@ -4,6 +4,7 @@ import {useRouteMatch} from "react-router";
 import axios from "axios";
 import Findpw from "../../components/Common/Findpw";
 import {useHistory} from "react-router-dom";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 export default function FindpwContainer() {
@@ -11,6 +12,7 @@ export default function FindpwContainer() {
     // token의 가를 다시 /로 replace 하고 그거로 요청 보내서 유효한 요청인지 먼저 확인
 
     const history = useHistory();
+    const {fireSweetAlert} = useSweetAlert();
 
     interface params {
         id: string,
@@ -82,10 +84,10 @@ export default function FindpwContainer() {
         }
         try {
             const res = await client.patch(URL, data);
-            alert("비밀번호 변경 성공하였습니다.");
+            fireSweetAlert({title: '비밀번호 변경 성공하였습니다', icon: 'success'});
             history.replace('/');
         } catch (e) {
-            alert("비밀번호 변경 실패하였습니다.");
+            fireSweetAlert({title: '비밀번호 변경 실패하였습니다', icon: 'error'});
         }
     };
 

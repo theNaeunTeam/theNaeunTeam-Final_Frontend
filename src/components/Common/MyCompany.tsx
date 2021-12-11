@@ -69,7 +69,7 @@ export default function MyCompany() {
                         <img src='https://thebetterteam-image.s3.ap-northeast-2.amazonaws.com/%EB%A7%A5.png'/>
                     </div>
                     <div className='com-side'>
-                        <h1  style={{fontSize: '50px'}}>탄다오더는?</h1>
+                        <h1 style={{fontSize: '50px'}}>탄다오더는?</h1>
                         <p style={{fontSize: '37px'}}> 최근 온실가스 주범으로 주목받고 있는 음식물 폐기량을 줄이기 위해 기획되었어요! <br/>
                             오늘 팔지 못하면 버려질 음식을 마감세일을 통해 구매해보시고 함께 지구를 구해요! <br/>
                             우리 주변의 많은 가게와 소비자를 탄다오더가 연결해드리고 있습니다.
@@ -80,7 +80,7 @@ export default function MyCompany() {
             <section className='appstore2'>
                 <div className='c-container1'>
                     <div>
-                        <h1 style={{fontSize:'35px'}}>지구를 지키는 소비</h1>
+                        <h1 style={{fontSize: '35px'}}>지구를 지키는 소비</h1>
                         <img
                             src='https://thebetterteam-image.s3.ap-northeast-2.amazonaws.com/%ED%83%84%EB%8B%A4-removebg-preview.png'/>
                     </div>

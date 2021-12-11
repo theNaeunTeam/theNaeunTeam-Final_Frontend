@@ -7,6 +7,7 @@ import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
 import {addProductType} from "../../lib/types";
 import AddProduct from "../../components/Owner/AddProduct";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 // 등록알림창
@@ -22,7 +23,7 @@ const Transition = React.forwardRef(function Transition(
 
 export default function AddProductContainer() {
     const fileDiv = useRef(null);
-
+    const {fireSweetAlert} = useSweetAlert();
     const {goodsReducer, authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
 
@@ -123,14 +124,14 @@ export default function AddProductContainer() {
 
     const submitForm = async () => {
         if (!fomValidate()) {
-            alert('제출 양식을 확인해주세요');
+            fireSweetAlert({title: '제출 양식을 확인해주세요', icon: 'error'});
             return false;
         }
 
         // @ts-ignore
         if (fileInputTag.current.files.length === 0) {
             if (fileDiv.current) (fileDiv.current as HTMLDivElement).style.border = '1px solid red';
-            alert('파일을 첨부해주세요');
+            fireSweetAlert({title: '파일을 등록 해 주세요', icon: 'error'});
             return false;
         }
 
@@ -160,9 +161,9 @@ export default function AddProductContainer() {
 
             const result = '';
             if (actionType === 'new') {
-                alert("상품 등록 되었습니다.");
+                fireSweetAlert({title: '상품 등록 완료되었습니다', icon: 'success'});
             } else {
-                alert("상품 수정 되었습니다.");
+                fireSweetAlert({title: '상품 수정 완료되었습니다', icon: 'success'});
             }
             dispatch({type: 'modifyOK'});
             setProduct(initValue);

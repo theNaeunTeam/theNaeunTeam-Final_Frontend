@@ -2,10 +2,12 @@ import React, {useEffect, useState} from "react";
 import {client} from "../../lib/api/client";
 import {useHistory} from "react-router-dom";
 import UserRegisterForm from "../../components/Common/UserRegisterForm";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
 export default function UserRegisterFormContainer() {
+    const {fireSweetAlert} = useSweetAlert();
 
     const initValue = {
         u_id: '',
@@ -101,7 +103,7 @@ export default function UserRegisterFormContainer() {
     const submitForm = async () => {
 
         if (!formValidate()) {
-            alert('제출 양식을 확인해주세요');
+            fireSweetAlert({title: '제출 양식을 확인해주세요', icon: 'error'});
             return false;
         }
 
@@ -109,13 +111,13 @@ export default function UserRegisterFormContainer() {
         try {
             const res = await client.post(URL, regForm);
             // if (res.data.result === 'success') {
-                alert('회원가입이 완료되었습니다.');
-                history.replace('/');
+            fireSweetAlert({title: '회원가입이 완료되었습니다', icon: 'success'});
+            history.replace('/');
             // }
-        } catch (e:any) {
-            if(e.response.status === 400){
+        } catch (e: any) {
+            if (e.response.status === 400) {
                 alert(e.reponse.data.error);
-            }else{
+            } else {
                 alert('에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
             }
         }
