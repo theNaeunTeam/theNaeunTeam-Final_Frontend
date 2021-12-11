@@ -1,6 +1,5 @@
 import Swal from "sweetalert2";
 import {useEffect, useState} from "react";
-
 export const useSweetAlert = () => {
 
     interface sweetType {
@@ -22,9 +21,12 @@ export const useSweetAlert = () => {
     function FIRE() {
         Swal.fire({
             ...sweetAlert,
+            background: '#FFFCDC',
+            timer: 3000,
+            timerProgressBar: true,
             confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
             confirmButtonText: '확인',
+            showCloseButton: true,
         })
             .then((result) => {
             })
