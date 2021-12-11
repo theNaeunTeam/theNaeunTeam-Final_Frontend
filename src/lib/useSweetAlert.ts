@@ -21,7 +21,7 @@ export const useSweetAlert = () => {
     function FIRE() {
         Swal.fire({
             ...sweetAlert,
-            background: '#FFFCDC',
+            background: 'ghostwhite',
             timer: 3000,
             timerProgressBar: true,
             confirmButtonColor: '#3085d6',
