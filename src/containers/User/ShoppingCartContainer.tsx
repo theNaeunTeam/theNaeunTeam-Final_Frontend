@@ -93,7 +93,7 @@ export default function ShoppingCartContainer() {
             // alert(`최대 ${temp[idx].g_count}개 구매 가능합니다`);
             fireSweetAlert({
                 title: '구매 가능 수량을 초과하였습니다', text: `최대 ${temp[idx].g_count}개 구매 가능합니다`,
-                icon: 'error'
+                icon: 'info'
             })
             return false;
         }

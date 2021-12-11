@@ -33,8 +33,8 @@ export const ShoppingCartListBuilder = (props: { data: ShoppingCartDTO, idx: num
                     <Button style={{fontWeight: 'bold', fontSize: 'medium'}} variant={'outlined'} name={`${props.idx}`}
                             color="error"
                             onClick={() => {
-                                if (!window.confirm('상품을 삭제하시겠습니까?')) return false;
-                                props.removeItem(props.data.g_code, props.idx)
+                                // if (!window.confirm('상품을 삭제하시겠습니까?')) return false;
+                                props.removeItem(props.data.g_code, props.idx);
                             }}>
                         삭제
                     </Button>

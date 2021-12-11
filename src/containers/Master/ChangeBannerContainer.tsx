@@ -62,6 +62,7 @@ export default function ChangeBannerContainer() {
         client.put('/master/bannerContents', arr)
             .then(res => {
                 fireSweetAlert({title: '배너 업데이트 성공하였습니다.', icon: 'success'});
+                // alert('배너 업데이트 성공하였습니다.');
                 history.push('/');
             })
             .catch(err => {
