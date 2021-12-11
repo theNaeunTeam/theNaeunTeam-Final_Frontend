@@ -7,6 +7,7 @@ import {masterMainType2} from "../../lib/types";
 import '../../lib/styles/masterOwnerDash.scss';
 import '../../lib/styles/MasterLoginForm.scss';
 import MasterMain from "../../components/Master/MasterMain";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 export default function MasterMainContainer() {
 
@@ -30,6 +31,7 @@ export default function MasterMainContainer() {
     const [selected, setSelected] = useState<GridRowId[]>([]);
     const [loginForm, setLoginForm] = useState({m_id: '', m_pw: ''}); // 마스터 로그인 폼 핸들러
     const [loading, setLoading] = useState(true);
+    const {fireSweetAlert} = useSweetAlert();
 
     const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
@@ -135,7 +137,7 @@ export default function MasterMainContainer() {
     const updateDB = async (input: string) => {
         setLoading(true);
         if (selected.length === 0) {
-            alert('선택된 줄이 없습니다');
+            fireSweetAlert({title: '선택된 줄이 없습니다',icon: 'info'});
             setLoading(false);
             return false;
         }
@@ -158,7 +160,7 @@ export default function MasterMainContainer() {
         try {
             const res = await client.patch(URL, data);
             ownerTableInit();
-            alert('선택된 가맹점 신청 승인/반려 완료 되었습니다.');
+            fireSweetAlert({title: '선택된 가맹점 신청 승인/반려 완료 되었습니다.', icon: 'success'});
         } catch (e: any) {
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');

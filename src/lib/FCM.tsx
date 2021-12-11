@@ -88,9 +88,10 @@ export default function FCM() {
                                   </Button>
                               }>
                         <AlertTitle>{notification.title}</AlertTitle>
-                        {notification.body}<AnnouncementIcon/>
+                        <AnnouncementIcon/>{notification.body}
                     </Alert>
-                    : <Alert variant="outlined" severity="success" style={{height: '50px', marginTop: '17px'}}>알림이 없습니다</Alert>
+                    : <Alert variant="outlined" severity="success" style={{height: '50px', marginTop: '17px'}}>알림이
+                        없습니다</Alert>
             }
 
         </>

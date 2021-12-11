@@ -7,6 +7,7 @@ import {useHistory} from "react-router-dom";
 import {ShoppingCartDTO} from "../../lib/types";
 import '../../lib/styles/shoppingCart.scss';
 import ShoppingCart from "../../components/User/ShoppingCart/ShoppingCart";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 export default function ShoppingCartContainer() {
 
@@ -28,7 +29,7 @@ export default function ShoppingCartContainer() {
     const [temp, setTemp] = useState<ShoppingCartDTO[]>(defaultValue);
     const [loading, setLoading] = useState(true);
     const {cartReducer} = useSelector((state: RootState) => state);
-
+    const {fireSweetAlert} = useSweetAlert();
     const dispatch = useDispatch();
 
     type cookieType = { g_count: string, g_code: string, id: string };
@@ -81,6 +82,7 @@ export default function ShoppingCartContainer() {
         cookieCart.splice(removeIDX, 1);
         setCookie('cart', cookieCart, {path: '/'});
 
+        fireSweetAlert({title: '장바구니에서 삭제되었습니다.', icon: 'success'});
     }
 
 
@@ -88,7 +90,11 @@ export default function ShoppingCartContainer() {
 
         const cp = [...cartReducer];
         if (cp[idx].g_count >= temp[idx].g_count) {
-            alert(`최대 ${temp[idx].g_count}개 구매 가능합니다`);
+            // alert(`최대 ${temp[idx].g_count}개 구매 가능합니다`);
+            fireSweetAlert({
+                title: '구매 가능 수량을 초과하였습니다', text: `최대 ${temp[idx].g_count}개 구매 가능합니다`,
+                icon: 'error'
+            })
             return false;
         }
         cp[idx].g_count += 1;

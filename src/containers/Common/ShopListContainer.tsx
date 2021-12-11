@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useInView} from "react-intersection-observer"
 import ShopList from "../../components/Common/ShopList/ShopList";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 const marks = [
@@ -42,6 +43,7 @@ export default function ShopListContainer() {
     const [inViewRef, inView] = useInView();
     const history = useHistory();
     const dispatch = useDispatch();
+    const {fireSweetAlert} = useSweetAlert();
 
     const [list, setList] = useState<shopList[]>([]);
     const [range, setRange] = useState('1');
@@ -99,7 +101,7 @@ export default function ShopListContainer() {
                         }
                         setList(massage);
                         setDisplayName(goodsName);
-                        if (massage.length === 0) alert('검색결과가 없습니다.');
+                        if (massage.length === 0) fireSweetAlert({title: '검색결과가 없습니다', icon: 'info'});
                     } else { // 검색창이 비어있으면 그대로 스테이트에 저장
                         setList(res.data);
                         setDisplayName('');
@@ -120,7 +122,7 @@ export default function ShopListContainer() {
                         massage.forEach((data: shopList) => cp.push(data));
                         setList(cp);
                         setDisplayName(goodsName);
-                        if (massage.length === 0) alert('검색결과가 없습니다.');
+                        if (massage.length === 0) fireSweetAlert({title: '검색결과가 없습니다', icon: 'info'});
                     } else {
                         // setList([...list, ...res.data]);
                         const cp = [...list];

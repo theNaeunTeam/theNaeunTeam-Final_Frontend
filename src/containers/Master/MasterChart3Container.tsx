@@ -31,7 +31,6 @@ export default function MasterChart3Container() {
     });
     const [loading, setLoading] = useState(true);
 
-
     useEffect(() => {
         chart();
     }, []);

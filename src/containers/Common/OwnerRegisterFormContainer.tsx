@@ -4,8 +4,10 @@ import {ownerRegisterFormType} from "../../lib/types";
 import {client} from "../../lib/api/client";
 import OwnerRegisterForm from "../../components/Common/OwnerRegisterForm";
 import {useHistory} from "react-router-dom";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 export default function OwnerRegisterFormContainer() {
+    const {fireSweetAlert} = useSweetAlert();
 
     const initValue = {
         o_sNumber: '',
@@ -157,14 +159,14 @@ export default function OwnerRegisterFormContainer() {
     const submitForm = async () => {
 
         if (!formVal()) {
-            alert('제출 양식을 확인해주세요');
+            fireSweetAlert({title: '제출 양식을 확인해주세요', icon: 'error'});
             return false;
         }
 
         // @ts-ignore
         if (fileInputTag.current.files.length === 0) {
             if (fileDiv.current) (fileDiv.current as HTMLDivElement).style.border = '1px solid red';
-            alert('파일을 첨부해주세요');
+            fireSweetAlert({title: '파일을 첨부해주세요', icon: 'error'});
             return false;
         }
 
@@ -188,7 +190,7 @@ export default function OwnerRegisterFormContainer() {
             const res = await client.post(URL, formData);
 
             if (res.data === 1) {
-                alert('입점 신청이 완료되었습니다.');
+                fireSweetAlert({title: '입점 신청이 완료되었습니다', icon: 'success'});
                 history.replace('/');
             }
         } catch (e) {

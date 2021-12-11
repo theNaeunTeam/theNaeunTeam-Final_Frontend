@@ -7,11 +7,11 @@ import good5 from '../../../lib/images/5.jpg';
 import '../../../lib/styles/event.scss';
 import good0 from '../../../lib/images/굿즈 출시.png';
 
-export  default function Event() {
+export default function Event() {
     return (
         <>
             <div className='goods0'>
-                 <img  src={good0}/><br/>
+                <img src={good0}/><br/>
             </div>
             <div className='event'>
                 <img src={good1}/><br/>

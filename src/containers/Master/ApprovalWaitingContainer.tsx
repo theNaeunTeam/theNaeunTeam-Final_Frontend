@@ -6,9 +6,12 @@ import {client} from "../../lib/api/client";
 import {useHistory} from "react-router-dom";
 import '../../lib/styles/masterOwnerDash.scss'
 import ApprovalWaiting from "../../components/Master/ApprovalWaiting";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 // 입점 신청 승인대기 리스트
 export default function ApprovalWaitingContainer() {
+    const {fireSweetAlert} = useSweetAlert();
+
     const history = useHistory();
     useLayoutEffect(() => {
         if (!localStorage.getItem('masterToken')) history.replace('/err');
@@ -107,7 +110,7 @@ export default function ApprovalWaitingContainer() {
     const updateDB = async (input: string) => {
         setLoading(true);
         if (selected.length === 0) {
-            alert('선택한 가게가 없습니다.');
+            fireSweetAlert({title: '선택한 가게가 없습니다', icon: 'warning'});
             setLoading(false);
             return false;
         }
@@ -131,7 +134,7 @@ export default function ApprovalWaitingContainer() {
         try {
             const res = await client.patch(URL, data);
             ownerTableInit();
-            alert('선택된 가맹점 신청 승인/반려 완료 되었습니다.');
+            fireSweetAlert({title: '선택된 가맹점 신청 승인/반려 완료 되었습니다.', icon: 'success'});
         } catch (e: any) {
             if (e.response.status === 500) {
                 alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');

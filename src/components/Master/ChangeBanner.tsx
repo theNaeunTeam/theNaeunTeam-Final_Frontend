@@ -29,7 +29,7 @@ const SpanRow = styled.span`
 export default function ChangeBanner(props: { arr: any; handleFormChange: any; handleFileChange: any; setArr: any; emptyValue: any; submitForm: any; }) {
 
     //비구조화 할당
-     const {
+    const {
         arr,
         handleFormChange,
         handleFileChange,

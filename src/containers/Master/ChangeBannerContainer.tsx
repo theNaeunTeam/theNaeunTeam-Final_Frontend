@@ -4,6 +4,7 @@ import {carouselType} from "../../lib/types";
 import {useHistory} from "react-router-dom";
 import '../../lib/styles/ChangeBanner.scss';
 import ChangeBanner from "../../components/Master/ChangeBanner";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 const emptyValue = {
     src: '',
@@ -14,6 +15,8 @@ const emptyValue = {
 };
 
 export default function ChangeBannerContainer() {
+
+    const {fireSweetAlert} = useSweetAlert();
 
     const [arr, setArr] = useState<carouselType[]>([]);
     const history = useHistory();
@@ -59,7 +62,7 @@ export default function ChangeBannerContainer() {
     const submitForm = () => {
         client.put('/master/bannerContents', arr)
             .then(res => {
-                alert('배너 업데이트 성공하였습니다.')
+                fireSweetAlert({title: '배너 업데이트 성공하였습니다.', icon: 'success'});
                 history.push('/');
             })
             .catch(err => {

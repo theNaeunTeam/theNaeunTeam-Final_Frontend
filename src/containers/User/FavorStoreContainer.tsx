@@ -1,19 +1,19 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {client} from "../../lib/api/client";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useHistory} from "react-router-dom";
-import Swal from 'sweetalert2';
 import '../../lib/styles/table.scss';
 import FavorStore from "../../components/User/FavorStore/FavorStore";
 import {favorListType} from "../../lib/types";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 export default function FavorStoreContainer() {
 
     const {authReducer} = useSelector((state: RootState) => state);
     const history = useHistory();
-
+    const dispatch = useDispatch();
     useLayoutEffect(() => {
         if (!localStorage.getItem('userToken')) history.replace('/err');
     }, []);
@@ -21,23 +21,7 @@ export default function FavorStoreContainer() {
     const [startIndex, setStartIndex] = useState(0);
     const [list, setList] = useState<favorListType[]>([]);
     const [loading, setLoading] = useState(true);
-
-    function favoroff() {
-        Swal.fire({
-            title: '즐겨찾기에서 해제되었습니다',
-            text: "즐겨찾기에서 확인하실 수 있습니다.",
-            icon: 'success',
-            // showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '확인',
-            // cancelButtonText: '취소'
-        }).then((result) => {
-            if (result.value) {
-                //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다.
-            }
-        })
-    }
+    const {fireSweetAlert} = useSweetAlert();
 
     useEffect(() => {
         if (localStorage.getItem('userToken')) {
@@ -65,7 +49,8 @@ export default function FavorStoreContainer() {
     // 즐겨찾기 해제 api
     const favorOff = async (input: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
         if (!authReducer.isUser) {
-            alert('로그인이 필요한 기능입니다.');
+            // fireSweetAlert({title: '로그인이 필요한 기능입니다', text: '먼저 로그인 해주세요', icon: 'warning'});
+            dispatch({type:true});
             return false;
         }
         const URL = '/user/FavorOff';
@@ -74,7 +59,7 @@ export default function FavorStoreContainer() {
         }
         try {
             const res = await client.post(URL, data);
-            favoroff();
+            fireSweetAlert({title: '즐겨찾기에서 해제되었습니다', text: '즐겨찾기에서 확인하실 수 있습니다.', icon: 'success'});
             initialize();
 
         } catch (e: any) {
@@ -90,7 +75,7 @@ export default function FavorStoreContainer() {
     }
     const indexMinus = () => {
         if (startIndex === 0) {
-            alert('첫 페이지입니다.');
+            fireSweetAlert({title: '첫페이지 입니다', icon: 'info'});
         } else {
             setStartIndex(startIndex - 10);
         }
@@ -99,7 +84,7 @@ export default function FavorStoreContainer() {
         if (list.length === 10) {
             setStartIndex(startIndex + 10);
         } else {
-            alert('마지막 페이지입니다.');
+            fireSweetAlert({title: '마지막 페이지 입니다', icon: 'info'});
         }
     }
 

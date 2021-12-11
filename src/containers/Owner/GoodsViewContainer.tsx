@@ -15,6 +15,7 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../../lib/styles/table.scss'
 import {GoodsViewTableBuilder} from "../../components/Owner/GoodsViewTableBuilder";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 const DivContainer = styled.div`
@@ -30,6 +31,7 @@ const DivContainer = styled.div`
 `;
 
 export default function GoodsViewContainer() {
+    const {fireSweetAlert} = useSweetAlert();
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -84,8 +86,7 @@ export default function GoodsViewContainer() {
         const URL = '/owner/deleteGoods';
         client.patch(URL, {g_code: g_code})
             .then(res => {
-                alert('상품 판매완료 처리하였습니다.');
-                // initialize();
+                fireSweetAlert({title: '상품 판매 완료 처리하였습니다', icon: 'success'});
                 searchGoods();
             })
             .catch(e => {
@@ -104,7 +105,7 @@ export default function GoodsViewContainer() {
 
     const indexMinus = () => {
         if (startIndex === 0) {
-            alert('첫 페이지입니다.');
+            fireSweetAlert({title: '첫 페이지 입니다', icon: 'info'});
         } else {
             setStartIndex(startIndex - 10);
         }
@@ -114,7 +115,7 @@ export default function GoodsViewContainer() {
         if (list.length === 10) {
             setStartIndex(startIndex + 10);
         } else {
-            alert('마지막 페이지입니다.');
+            fireSweetAlert({title: '마지막 페이지 입니다', icon: 'info'});
         }
     }
 

@@ -6,12 +6,12 @@ import '../../lib/styles/ShopStyle.scss';
 import {useCookies} from 'react-cookie';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
-import Swal from 'sweetalert2';
 import {aboutStoreType, categoryType, shopViewType} from "../../lib/types";
 import {fetch_Category_Per_sNumber} from "../../lib/api/Fetch_Category_Per_sNumber";
 import GoodsMode from "../../components/Common/ShopView/GoodsMode";
 import ShopDetail from "../../components/Common/ShopView/ShopDetail";
 import ShopView from "../../components/Common/ShopView/ShopView";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 export default function ShopViewContainer() {
@@ -77,6 +77,7 @@ export default function ShopViewContainer() {
     };
 
     const history = useHistory();
+    const {fireSweetAlert} = useSweetAlert();
     const [aboutStore, setAboutStore] = useState<aboutStoreType>(initStore);
     const [modal, setModal] = useState(true);
     const [color, setColor] = useState(initColor);
@@ -163,8 +164,6 @@ export default function ShopViewContainer() {
         try {
             const res = await client.get(URL + '?o_sNumber=' + match.params.o_sNumber);
             setAboutStore(res.data);
-            console.log('가게정보: ');
-            console.log(res.data);
         } catch (e) {
         }
     }
@@ -191,81 +190,30 @@ export default function ShopViewContainer() {
         }
     }
 
-    function favoron() {
-        Swal.fire({
-            title: '즐겨찾기에 추가되었습니다',
-            text: "즐겨찾기에서 확인하실 수 있습니다.",
-            icon: 'success',
-            // showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '확인',
-            // cancelButtonText: '취소'
-        }).then((result) => {
-            if (result.value) {
-                //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다.
-            }
-        })
-    }
-
-    function favoroff() {
-        Swal.fire({
-            title: '즐겨찾기에서 해제되었습니다',
-            text: "즐겨찾기에서 확인하실 수 있습니다.",
-            icon: 'success',
-            // showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '확인',
-            // cancelButtonText: '취소'
-        }).then((result) => {
-            if (result.value) {
-                //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다.
-            }
-        })
-    }
-
-    function loginCheck() {
-        Swal.fire({
-            title: '로그인이 필요합니다.',
-            text: "로그인페이지에서 로그인을 해주세요.",
-            icon: 'warning',
-            // showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '확인',
-            // cancelButtonText: '취소'
-        }).then((result) => {
-            if (result.value) {
-                //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다.
-            }
-        })
-    }
 
     // 즐겨찾기 추가 api
     const favorInsert = async () => {
         if (!authReducer.isUser) {
-            // alert('로그인필요');
-            loginCheck();
+            // fireSweetAlert({title: '로그인이 필요한 기능입니다', text: '먼저 로그인 해주세요', icon: 'warning'});
+            dispatch({type:true});
             return false;
         }
         const URL = '/user/addFavor';
         const data = {
             f_o_sNumber: match.params.o_sNumber,
             f_p_user_id: authReducer.u_id
-
         }
         try {
             const res = await client.post(URL, data);
             setFavorites(true);
-            favoron();
+            fireSweetAlert({title: '즐겨찾기에 추가되었습니다', text: '즐겨찾기에서 확인하실 수 있습니다.', icon: 'success'});
         } catch (e) {
         }
     }
     // 즐겨찾기 해제 api
     const favorOff = async () => {
         if (!authReducer.isUser) {
-            alert('로그인이 필요한 기능입니다.');
+            // fireSweetAlert({title: '로그인이 필요한 기능입니다', text: '먼저 로그인 해주세요', icon: 'warning'});
             dispatch({type: true})
             return false;
         }
@@ -276,7 +224,7 @@ export default function ShopViewContainer() {
         try {
             const res = await client.post(URL, data);
             setFavorites(false);
-            favoroff();
+            fireSweetAlert({title: '즐겨찾기에서 해제되었습니다', text: '즐겨찾기에서 확인하실 수 있습니다.', icon: 'success'});
         } catch (e) {
         }
     }
@@ -302,7 +250,7 @@ export default function ShopViewContainer() {
         const g_code = Number(e.target[1].value);
 
         if (!authReducer.isUser) {
-            alert('로그인이 필요한 기능입니다.');
+            // fireSweetAlert({title: '로그인이 필요한 기능입니다', text: '먼저 로그인 해주세요', icon: 'warning'});
             dispatch({type: true});
             return false;
         }
@@ -336,7 +284,8 @@ export default function ShopViewContainer() {
                     let acc = g_count + Number(cookieCart[findSameGoods].g_count);
                     if (acc > max) {
                         acc = max;
-                        alert(`장바구니에 담을 수 있는 최대수량인 "${acc}개"로 조정되었습니다`);
+                        // alert(`장바구니에 담을 수 있는 최대수량인 "${acc}개"로 조정되었습니다`);
+                        fireSweetAlert({title: '최대 수량을 초과했습니다', text:`장바구니에 담을 수 있는 최대수량인 "${acc}개"로 조정되었습니다`, icon: 'info'});
                     }
                     cookieCart[findSameGoods] = {
                         g_count: acc,
@@ -382,7 +331,7 @@ export default function ShopViewContainer() {
                         saveGoods={saveGoods}
                     />
                     : <div className={'ShopViewDivContainerContainer'}>
-                        <ShopDetail aboutStore={aboutStore}/>
+                        <ShopDetail aboutStore={aboutStore} fireSweetAlert={fireSweetAlert}/>
                     </div>
 
             }
