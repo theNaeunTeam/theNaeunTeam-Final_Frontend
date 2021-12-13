@@ -47,8 +47,7 @@ export default function ChangeBannerContainer() {
                 setArr(cp);
             })
             .catch(err => {
-                alert('이미지 등록 실패하는데 실패하였습니다.');
-            })
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});            })
     }
 
     const handleFormChange = (e: React.FormEvent<HTMLFormElement>, idx: number) => {
@@ -63,11 +62,11 @@ export default function ChangeBannerContainer() {
         client.put('/master/bannerContents', arr)
             .then(res => {
                 fireSweetAlert({title: '배너 업데이트 성공하였습니다.', icon: 'success'});
+                // alert('배너 업데이트 성공하였습니다.');
                 history.push('/');
             })
             .catch(err => {
-                alert('배너 업데이트 실패하였습니다.');
-            })
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});            })
     }
 
     return (

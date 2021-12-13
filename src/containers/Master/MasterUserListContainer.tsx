@@ -4,8 +4,11 @@ import {client} from "../../lib/api/client";
 import '../../lib/styles/masterOwnerDash.scss'
 import {useHistory} from "react-router-dom";
 import MasterUserList from "../../components/Master/MasterUserList";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 export default function MasterUserListContainer() {
+    const {fireSweetAlert} = useSweetAlert();
+
     const history = useHistory();
     useLayoutEffect(() => {
         if (!localStorage.getItem('masterToken')) history.replace('/err');
@@ -70,9 +73,9 @@ export default function MasterUserListContainer() {
 
         } catch (e: any) {
             if (e.response.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             } else {
-                alert('데이터 가져오는 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '데이터를 가져오는데 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             }
         }
         setLoading(false);

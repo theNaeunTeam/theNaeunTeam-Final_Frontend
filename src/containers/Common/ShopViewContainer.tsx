@@ -195,7 +195,7 @@ export default function ShopViewContainer() {
     const favorInsert = async () => {
         if (!authReducer.isUser) {
             // fireSweetAlert({title: '로그인이 필요한 기능입니다', text: '먼저 로그인 해주세요', icon: 'warning'});
-            dispatch({type:true});
+            dispatch({type: true});
             return false;
         }
         const URL = '/user/addFavor';
@@ -243,7 +243,7 @@ export default function ShopViewContainer() {
     // 장바구니에 추가
     const saveGoods = (e: React.FormEvent<HTMLFormElement>, max: number) => {
         e.preventDefault();
-
+        let cntOver = false;
         // @ts-ignore
         const g_count = Number(e.target[0].value);
         // @ts-ignore
@@ -284,8 +284,13 @@ export default function ShopViewContainer() {
                     let acc = g_count + Number(cookieCart[findSameGoods].g_count);
                     if (acc > max) {
                         acc = max;
+                        cntOver = true;
                         // alert(`장바구니에 담을 수 있는 최대수량인 "${acc}개"로 조정되었습니다`);
-                        fireSweetAlert({title: '최대 수량을 초과했습니다', text:`장바구니에 담을 수 있는 최대수량인 "${acc}개"로 조정되었습니다`, icon: 'info'});
+                        fireSweetAlert({
+                            title: '최대 수량을 초과했습니다',
+                            text: `장바구니에 담을 수 있는 최대수량인 "${acc}개"로 조정되었습니다`,
+                            icon: 'info'
+                        });
                     }
                     cookieCart[findSameGoods] = {
                         g_count: acc,
@@ -311,9 +316,10 @@ export default function ShopViewContainer() {
             });
         }
         setCookie('cart', cookieCart, {path: '/'});
-        if (window.confirm('장바구니로 이동하시겠습니까?')) {
-            history.push('/user/shoppingcart');
-        }
+        // if (window.confirm('장바구니로 이동하시겠습니까?')) {
+        //     history.push('/user/shoppingcart');
+        // }
+        if (!cntOver) fireSweetAlert({title: '장바구니에 추가되었습니다', icon: 'success'});
     };
 
 

@@ -4,9 +4,11 @@ import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {userMyPageType} from "../../lib/types";
 import UserMyPage from "../../components/User/UserMyPage";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 
 export default function UserMypageContainer() {
+    const {fireSweetAlert} = useSweetAlert();
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -46,11 +48,11 @@ export default function UserMypageContainer() {
             setUserData(res.data);
         } catch (e: any) {
             if (e.response.status === 500) {
-                alert("서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.");
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
                 history.push('/');
 
             } else if (e.response.status === 400) {
-                alert(e.response.data.error);
+                fireSweetAlert({title: e.response.data.error,icon: 'error'});
                 history.goBack();
 
             } else {

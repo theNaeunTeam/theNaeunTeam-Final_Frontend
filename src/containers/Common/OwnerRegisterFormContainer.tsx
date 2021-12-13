@@ -196,7 +196,7 @@ export default function OwnerRegisterFormContainer() {
         } catch (e) {
             // @ts-ignore
             const err = e.response;
-            alert(err.data.error);
+            fireSweetAlert({title: err.data.error, icon: 'error'});
         }
     }
 

@@ -3,8 +3,11 @@ import {useHistory} from "react-router-dom";
 import {client} from "../../lib/api/client";
 import {conType} from "../../lib/types";
 import OwnerDashS from "../../components/Owner/OwnerDashS";
+import {useSweetAlert} from "../../lib/useSweetAlert";
 
 export default function OwnerDashSContainer() {
+    const {fireSweetAlert} = useSweetAlert();
+
     const history = useHistory();
     useLayoutEffect(() => {
         if (!localStorage.getItem('ownerToken')) history.replace('/err');
@@ -38,10 +41,10 @@ export default function OwnerDashSContainer() {
 
         } catch (e: any) {
             if (e.response.data.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
 
             } else {
-                alert('데이터를 가져오는 중 문제가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
+                fireSweetAlert({title: '데이터를 가져오는데 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             }
 
         }

@@ -38,10 +38,9 @@ export default function FavorStoreContainer() {
 
         } catch (e: any) {
             if (e.response.status === 500) {
-                alert('서버 작동 중 에러가 발생했습니다. \n잠시 후 다시 시도 바랍니다.');
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             } else {
-                alert('데이터를 가져오는 중 문제가 발생했습니다. \n잠시 후 다시 시도 바랍니다.')
-
+                fireSweetAlert({title: '데이터를 가져오는데 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             }
         }
         setLoading(false);
@@ -64,9 +63,9 @@ export default function FavorStoreContainer() {
 
         } catch (e: any) {
             if (e.response.status === 500) {
-                alert("서버 작동 중 에러가 발생했습니다.\n잠시 후 다시 시도 바랍니다.")
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
             } else if (e.response.status === 400) {
-                alert(e.response.data.error);
+                fireSweetAlert({title: e.response.data.error,icon: 'error'});
             } else {
                 alert('예상치 못한 에러로 인해 즐겨찾기 해제 실패하였습니다. \n잠시 후 다시 시도 바랍니다.')
             }
