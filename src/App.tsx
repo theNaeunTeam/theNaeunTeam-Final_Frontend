@@ -48,113 +48,113 @@ import OrderSuccessContainer from "./containers/User/OrderSuccessContainer";
 
 function App() {
 
-    const {authReducer} = useSelector((state: RootState) => state);
-    const dispatch = useDispatch();
+  const {authReducer} = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
 
-    useLayoutEffect(() => { // 웹페이지 최초 접속 시 자동로그인 시도
-        autoLogin();
-    }, []);
+  useLayoutEffect(() => { // 웹페이지 최초 접속 시 자동로그인 시도
+    autoLogin();
+  }, []);
 
-    const autoLogin = () => {
-        let URL = '';
-        if (localStorage.getItem('userToken')) {
-            URL = '/user/tokencheck';
-            client.get(URL).then(() => {
-                dispatch({
-                    type: 'userMode', payload: localStorage.getItem('u_id')
-                })
-            }).catch(() => {
-                localStorage.clear();
-            })
-        }
-        if (localStorage.getItem('ownerToken')) {
-            URL = '/owner/tokencheck';
-            client.get(URL).then(() => {
-                dispatch({
-                    type: 'ownerMode',
-                    payload: localStorage.getItem('o_sNumber')
-                });
-            }).catch(() => {
-                localStorage.clear();
-            })
-        }
-        if (localStorage.getItem('masterToken')) {
-            URL = '/master/tokencheck';
-            client.get(URL).then(() => {
-                dispatch({
-                    type: 'masterMode'
-                })
-            }).catch(() => {
-                localStorage.clear();
-            })
-        }
-        if (localStorage.getItem('lat') && localStorage.getItem('lon')) {
-            dispatch(
-                {
-                    type: 'getLocaled',
-                    payload: {
-                        lat: localStorage.getItem('lat'),
-                        lon: localStorage.getItem('lon')
-                    }
-                })
-        }
-    };
+  const autoLogin = () => {
+    let URL = '';
+    if (localStorage.getItem('userToken')) {
+      URL = '/user/tokencheck';
+      client.get(URL).then(() => {
+        dispatch({
+          type: 'userMode', payload: localStorage.getItem('u_id')
+        })
+      }).catch(() => {
+        localStorage.clear();
+      })
+    }
+    if (localStorage.getItem('ownerToken')) {
+      URL = '/owner/tokencheck';
+      client.get(URL).then(() => {
+        dispatch({
+          type: 'ownerMode',
+          payload: localStorage.getItem('o_sNumber')
+        });
+      }).catch(() => {
+        localStorage.clear();
+      })
+    }
+    if (localStorage.getItem('masterToken')) {
+      URL = '/master/tokencheck';
+      client.get(URL).then(() => {
+        dispatch({
+          type: 'masterMode'
+        })
+      }).catch(() => {
+        localStorage.clear();
+      })
+    }
+    if (localStorage.getItem('lat') && localStorage.getItem('lon')) {
+      dispatch(
+          {
+            type: 'getLocaled',
+            payload: {
+              lat: localStorage.getItem('lat'),
+              lon: localStorage.getItem('lon')
+            }
+          })
+    }
+  };
 
-    return (
-        <div className='bodyWrapper'>
-            <Header/>
-            <div className='bodyContent'>
-                {authReducer.isMaster === true ? <Route path='/' component={MasterNavbar}/>
-                    : authReducer.isOwner === true ? <Route path='/' component={OwnerNavbar}/>
-                        : <Route path='/' component={MainBar}/>}
-
-
-                <Route path='/' exact component={UserMainContainer}/>
-                <Route exact path='/login' component={LoginFormContainer}/>
-                <Route exact path='/user/register' component={UserRegisterFormContainer}/>
-                <Route exact path='/owner/register' component={OwnerRegisterFormContainer}/>
-                <Route exact path='/findpw/:id/:token' component={FindpwContainer}/>
-                <Route exact path='/mycompany' component={MyCompany}/>
-                <Route path='/master/changeBanner' component={ChangeBannerContainer}/>
-                <Route path='/shopView/:o_sNumber' component={ShopViewContainer}/>
-                <Route path='/list' component={ShopListContainer}/>
+  return (
+      <div className='bodyWrapper'>
+        <Header/>
+        <div className='bodyContent'>
+          {authReducer.isMaster === true ? <Route path='/' component={MasterNavbar}/>
+              : authReducer.isOwner === true ? <Route path='/' component={OwnerNavbar}/>
+                  : <Route path='/' component={MainBar}/>}
 
 
-                <Route path='/master' exact component={MasterMainContainer}/>
-                <Route path='/master/masteruserlist' component={MasterUserListContainer}/>
-                <Route path='/master/approvalwaiting' component={ApprovalWaitingContainer}/>
-                <Route path='/master/approvalcompletion' component={ApprovalCompletionContainer}/>
-                <Route path='/master/terminationwaiting' component={TerminationWaitingContainer}/>
-                <Route path='/master/terminationcompletion' component={TerminationCompletionContainer}/>
-                <Route path='/master/masterownerdash' component={MasterOwnerDashContainer}/>
-                <Route path='/master/userdash' component={UserDashContainer}/>
-                <Route path='/master/masterchart' component={MasterChartContainer}/>
-
-                <Route path='/user' exact component={UserMypageContainer}/>
-                <Route path='/user/shoppingcart' component={ShoppingCartContainer}/>
-                <Route path='/user/order' component={OrderContainer}/>
-                <Route path='/user/userreserve' component={UserReserveContainer}/>
-                <Route path='/user/favorstore' component={FavorStoreContainer}/>
-                <Route path='/user/useredit' component={UserEditContainer}/>
-                <Route path='/user/userexit' component={UserExitContainer}/>
-                <Route path='/user/orderSuccess' component={OrderSuccessContainer}/>
-
-                <Route path='/owner' exact component={OwnerMainContainer}/>
-                <Route path='/owner/addproduct' component={AddProductContainer}/>
-                <Route path='/owner/goodsview' component={GoodsViewContainer}/>
-                <Route path='/owner/reservationview' component={ReservationViewContainer}/>
-                <Route path='/owner/unsubscribe' component={UnsubscribeContainer}/>
-                <Route path='/owner/ownerdashf' component={OwnerDashFContainer}/>
-                <Route path='/owner/ownerdashs' component={OwnerDashSContainer}/>
+          <Route path='/' exact component={UserMainContainer}/>
+          <Route exact path='/login' component={LoginFormContainer}/>
+          <Route exact path='/user/register' component={UserRegisterFormContainer}/>
+          <Route exact path='/owner/register' component={OwnerRegisterFormContainer}/>
+          <Route exact path='/findpw/:id/:token' component={FindpwContainer}/>
+          <Route exact path='/mycompany' component={MyCompany}/>
+          <Route path='/master/changeBanner' component={ChangeBannerContainer}/>
+          <Route path='/shopView/:o_sNumber' component={ShopViewContainer}/>
+          <Route path='/list' component={ShopListContainer}/>
 
 
-                <Route path={'/event'} component={Event}/>
-                <Route path={'/err'} component={PageNotFound}/>
-                <Route path={'/PrivacyPolicy'} component={PrivacyPolicy}/>
-            </div>
-            <Footer/>
+          <Route path='/master' exact component={MasterMainContainer}/>
+          <Route path='/master/masteruserlist' component={MasterUserListContainer}/>
+          <Route path='/master/approvalwaiting' component={ApprovalWaitingContainer}/>
+          <Route path='/master/approvalcompletion' component={ApprovalCompletionContainer}/>
+          <Route path='/master/terminationwaiting' component={TerminationWaitingContainer}/>
+          <Route path='/master/terminationcompletion' component={TerminationCompletionContainer}/>
+          <Route path='/master/masterownerdash' component={MasterOwnerDashContainer}/>
+          <Route path='/master/userdash' component={UserDashContainer}/>
+          <Route path='/master/masterchart' component={MasterChartContainer}/>
+
+          <Route path='/user' exact component={UserMypageContainer}/>
+          <Route path='/user/shoppingcart' component={ShoppingCartContainer}/>
+          <Route path='/user/order' component={OrderContainer}/>
+          <Route path='/user/userreserve' component={UserReserveContainer}/>
+          <Route path='/user/favorstore' component={FavorStoreContainer}/>
+          <Route path='/user/useredit' component={UserEditContainer}/>
+          <Route path='/user/userexit' component={UserExitContainer}/>
+          <Route path='/user/orderSuccess' component={OrderSuccessContainer}/>
+
+          <Route path='/owner' exact component={OwnerMainContainer}/>
+          <Route path='/owner/addproduct' component={AddProductContainer}/>
+          <Route path='/owner/goodsview' component={GoodsViewContainer}/>
+          <Route path='/owner/reservationview' component={ReservationViewContainer}/>
+          <Route path='/owner/unsubscribe' component={UnsubscribeContainer}/>
+          <Route path='/owner/ownerdashf' component={OwnerDashFContainer}/>
+          <Route path='/owner/ownerdashs' component={OwnerDashSContainer}/>
+
+
+          <Route path={'/event'} component={Event}/>
+          <Route path={'/err'} component={PageNotFound}/>
+          <Route path={'/PrivacyPolicy'} component={PrivacyPolicy}/>
         </div>
-    );
+        <Footer/>
+      </div>
+  );
 }
 
 export default App;

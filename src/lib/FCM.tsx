@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from "react";
 import firebase from "firebase/compat";
 import {client} from "./api/client";
-import AnnouncementIcon from '@mui/icons-material/Announcement';
 import DangerousIcon from '@mui/icons-material/Dangerous';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Button from '@mui/material/Button';
+import {useHistory} from "react-router-dom";
+import {useSweetAlert} from "./useSweetAlert";
 
 export default function FCM() {
+    const history = useHistory();
+    const {fireSweetAlert} = useSweetAlert();
     const [show, setShow] = useState(false);
     const [isTokenFound, setTokenFound] = useState(false);
     const [notification, setNotification] = useState<{ title?: string, body?: string, etc?: string, img?: string, }>
@@ -64,7 +67,8 @@ export default function FCM() {
     onMessageListener()
         .then((payload: any) => {
             setShow(true);
-            setNotification({title: payload.data.title, body: payload.data.body})
+            fireSweetAlert({title:payload.data.title, text:payload.data.body, icon:'info'});
+            setNotification({title: payload.data.title, body: payload.data.body});
         })
         .catch(err => {
         });
@@ -83,12 +87,13 @@ export default function FCM() {
             {
                 show ? <Alert severity="warning"
                               action={
-                                  <Button color="inherit" size="small">
+                                  <Button color="inherit" size="small"
+                                          onClick={() => history.push('/owner/reservationview')}>
                                       보기
                                   </Button>
                               }>
                         <AlertTitle>{notification.title}</AlertTitle>
-                        <AnnouncementIcon/>{notification.body}
+                        {notification.body}
                     </Alert>
                     : <Alert variant="outlined" severity="success" style={{height: '50px', marginTop: '17px'}}>알림이
                         없습니다</Alert>
