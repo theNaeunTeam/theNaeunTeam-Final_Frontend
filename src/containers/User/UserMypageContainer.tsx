@@ -52,7 +52,7 @@ export default function UserMypageContainer() {
                 history.push('/');
 
             } else if (e.response.status === 400) {
-                fireSweetAlert({title: e.response.data,icon: 'error'});
+                fireSweetAlert({title: e.response.data.error,icon: 'error'});
                 history.goBack();
 
             } else {
