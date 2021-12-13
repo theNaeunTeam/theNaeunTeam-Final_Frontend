@@ -50,7 +50,7 @@ export default function UserMypageContainer() {
                 history.push('/');
 
             } else if (e.response.status === 400) {
-                alert(e.response.data);
+                alert(e.response.data.error);
                 history.goBack();
 
             } else {
