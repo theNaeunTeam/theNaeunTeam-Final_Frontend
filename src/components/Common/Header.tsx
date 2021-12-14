@@ -63,7 +63,7 @@ export default function Header() {
                     <Link style={{fontWeight: 'bold'}} to={'/user/register'}>회원가입</Link>
                 </li>
                 <li>
-                    <Link style={{fontWeight: 'bold'}} to={'/owner/register'}>가맹신청</Link>
+                    <Link style={{fontWeight: 'bold'}} to={'/owner/register'}>입점신청</Link>
                 </li>
             </>
         )
@@ -116,7 +116,7 @@ export default function Header() {
             <DivWrap className='header'>
                 <DivMaster>
                     <Link to={'/master'} style={{marginRight: '20px'}}>관리자 인증</Link>
-                    <Link to={'/owner'}>가맹점 인증</Link>
+                    <Link to={'/owner'}>가게 인증</Link>
                 </DivMaster>
                 <Info>
                     <UL>

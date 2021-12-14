@@ -48,7 +48,7 @@ export default function MainBar() {
                             <li><Link to={'/user/userexit'}>탈퇴하기</Link></li>
                         </ul>
                     </li>
-                    <li><Link to={'#'}>가맹안내</Link></li>
+                    {/*<li><Link to={'#'}>가맹안내</Link></li>*/}
                     <li>
                         <Link to={'/user/shoppingcart'}>
                             <IconButton color="primary" aria-label="add to shopping cart">

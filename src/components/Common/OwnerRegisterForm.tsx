@@ -48,7 +48,7 @@ export default function OwnerRegisterForm(props: { handleFormChange: any; o_sNum
                     alignItems={"center"}
                     autoComplete="off"
                 >
-                    <div><h3>가맹 신청</h3></div>
+                    <div><h3>입점 신청</h3></div>
                     <TextField
                         error={o_sNumber}
                         required

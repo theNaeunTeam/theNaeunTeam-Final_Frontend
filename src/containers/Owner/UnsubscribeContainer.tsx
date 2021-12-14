@@ -37,12 +37,12 @@ export default function UnsubscribeContainer() {
         try {
             const res = await client.post(URL, data);
             if (res.data === 1) {
-                // await alert("가맹 해지 신청이 완료 되었습니다.");
-                fireSweetAlert({title: '가맹 해지 신청이 완료 되었습니다.',icon: 'success'});
+                // await alert("입점 해지 신청이 완료 되었습니다.");
+                fireSweetAlert({title: '입점 해지 신청이 완료 되었습니다.',icon: 'success'});
                 dispatch({type: 'logoutAll'});
                 history.replace('/');
             } else {
-                alert("가맹 해지 신청에 실패하였습니다.");
+                alert("입점 해지 신청에 실패하였습니다.");
             }
 
         } catch (e: any) {
@@ -53,7 +53,7 @@ export default function UnsubscribeContainer() {
             } else if (err.data.status === 400) {
                 fireSweetAlert({title: err.data.error,icon: 'error'});
             } else {
-                alert('예상치 못한 에러로 인해 가맹 해지 신청에 실패하였습니다.\n잠시 후 다시 시도 바랍니다.');
+                alert('예상치 못한 에러로 인해 입점 해지 신청에 실패하였습니다.\n잠시 후 다시 시도 바랍니다.');
                 // alert('비밀번호가 틀립니다');
             }
         }
