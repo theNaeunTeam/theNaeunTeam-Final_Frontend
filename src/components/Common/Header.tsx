@@ -45,9 +45,8 @@ const UL = styled.ul`
 export default function Header() {
 
     const history = useHistory();
-    const {authReducer} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
-    const {showLoginModal} = useSelector((state: RootState) => state);
+    const {showLoginModal, authReducer} = useSelector((state: RootState) => state);
 
     const logout = () => {
         dispatch({type: 'logoutAll'});

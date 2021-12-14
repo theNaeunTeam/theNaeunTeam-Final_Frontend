@@ -3,6 +3,7 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import '../../lib/styles/nav.scss'
+import FCM from "../../lib/FCM";
 
 
 export default function OwnerNavbar() {
@@ -32,6 +33,7 @@ export default function OwnerNavbar() {
                         <Link to={'/owner/unsubscribe'}>이용해지신청</Link>
                     </li>
                 </ul>
+                <li><FCM/></li>
             </nav>
         </>
 

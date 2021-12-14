@@ -164,6 +164,7 @@ export default function AddProductContainer() {
                 fireSweetAlert({title: '상품 등록 완료되었습니다', icon: 'success'});
             } else {
                 fireSweetAlert({title: '상품 수정 완료되었습니다', icon: 'success'});
+                // history.replace('/owner/goodsview');
             }
             dispatch({type: 'modifyOK'});
             setProduct(initValue);

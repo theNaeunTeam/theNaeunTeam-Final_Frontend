@@ -13,6 +13,7 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import {ReservationTableBuilder} from "../../components/Owner/ReservationTableBuilder";
 import {useSweetAlert} from "../../lib/useSweetAlert";
+import {useDispatch} from "react-redux";
 
 
 const DivContainer = styled.div`
@@ -28,6 +29,7 @@ const DivContainer = styled.div`
 
 export default function ReservationViewContainer() {
     const {fireSweetAlert} = useSweetAlert();
+    const dispatch = useDispatch();
 
     const history = useHistory();
     useLayoutEffect(() => {
@@ -45,6 +47,7 @@ export default function ReservationViewContainer() {
     useEffect(() => {
         if (localStorage.getItem('ownerToken')) {
             searchGoods();
+            dispatch({type:'clear'});
         }
     }, [startIndex]);
 

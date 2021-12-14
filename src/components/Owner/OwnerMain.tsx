@@ -102,7 +102,7 @@ export default function OwnerMain(props: { loading: any; ownerPage: any; dayArr:
             </Backdrop>
             <DivHalfMenu1>
                 <h1 style={{marginRight: '30px'}}>{ownerPage.o_name}</h1>
-                <FCM/>
+                {/*<FCM/>*/}
             </DivHalfMenu1>
 
             <DivHalfMenu>
