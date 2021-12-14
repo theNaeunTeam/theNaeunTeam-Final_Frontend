@@ -7,6 +7,7 @@ import '../../lib/styles/Header.scss'
 import LoginFormContainer from "../../containers/Common/LoginFormContainer";
 import Backdrop from '@mui/material/Backdrop';
 import ScrollToTop from "../../lib/ScrollToTop";
+import FCM from "../../lib/FCM";
 
 const DivWrap = styled.div`
   color: black;
@@ -81,6 +82,9 @@ export default function Header() {
                     {authReducer.isMaster === true ? "관리자로 로그인 되었습니다."
                         : null}
                 </li>
+                {
+                    authReducer.isOwner && <li><FCM/></li>
+                }
                 <li>
                     {authReducer.isOwner === true || authReducer.isMaster === true ?
                         <button onClick={logout} className={'button'}>로그아웃</button>

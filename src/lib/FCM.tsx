@@ -7,19 +7,23 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Button from '@mui/material/Button';
 import {useHistory} from "react-router-dom";
 import {useSweetAlert} from "./useSweetAlert";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../index";
 
 export default function FCM() {
     const history = useHistory();
     const {fireSweetAlert} = useSweetAlert();
-    const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
+    const {notificationReducer} = useSelector((state: RootState)=>state);
+    // const [show, setShow] = useState(false);
     const [isTokenFound, setTokenFound] = useState(false);
-    const [notification, setNotification] = useState<{ title?: string, body?: string, etc?: string, img?: string, }>
-    ({
-        title: '',
-        body: '',
-        etc: '',
-        img: '',
-    });
+    // const [notification, setNotification] = useState<{ title?: string, body?: string, etc?: string, img?: string, }>
+    // ({
+    //     title: '',
+    //     body: '',
+    //     etc: '',
+    //     img: '',
+    // });
 
     const firebaseConfig = {
         apiKey: "AIzaSyCdDnZLLw2wo1KpixiGqQKXKKOES0pi1bU",
@@ -66,9 +70,10 @@ export default function FCM() {
 
     onMessageListener()
         .then((payload: any) => {
-            setShow(true);
-            fireSweetAlert({title:payload.data.title, text:payload.data.body, icon:'info'});
-            setNotification({title: payload.data.title, body: payload.data.body});
+            // setShow(true);
+            fireSweetAlert({title: payload.data.title, text: payload.data.body, icon: 'info'});
+            // setNotification({title: payload.data.title, body: payload.data.body});
+            dispatch({type:'received', payload: {show: true, title:payload.data.title, body:payload.data.body}});
         })
         .catch(err => {
         });
@@ -85,18 +90,19 @@ export default function FCM() {
                 </Alert>
             }
             {
-                show ? <Alert severity="warning"
+                notificationReducer.show ? <Alert severity="warning"
                               action={
                                   <Button color="inherit" size="small"
                                           onClick={() => history.push('/owner/reservationview')}>
                                       보기
                                   </Button>
                               }>
-                        <AlertTitle>{notification.title}</AlertTitle>
-                        {notification.body}
+                        <AlertTitle>{notificationReducer.title}</AlertTitle>
+                        {notificationReducer.body}
                     </Alert>
-                    : <Alert variant="outlined" severity="success" style={{height: '50px', marginTop: '17px'}}>알림이
-                        없습니다</Alert>
+                    // : <Alert variant="outlined" severity="success" style={{height: '50px', marginTop: '17px'}}>알림이 없습니다</Alert>
+                    : <Alert variant="outlined" severity="success">알림이 없습니다</Alert>
+
             }
 
         </>

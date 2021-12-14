@@ -13,10 +13,11 @@ import {cartReducer} from "./modules/cart";
 import {CookiesProvider} from 'react-cookie';
 import {userLocalMap} from "./modules/userLocalMap";
 import {showLoginModal} from "./modules/showLoginModal";
+import {notificationReducer} from "./modules/notificaion";
 
 
 const rootReducer = combineReducers({
-    authReducer, goodsReducer, cartReducer, userLocalMap, showLoginModal,
+    authReducer, goodsReducer, cartReducer, userLocalMap, showLoginModal,notificationReducer
 });
 
 const store = createStore(
