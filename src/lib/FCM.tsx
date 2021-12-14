@@ -84,7 +84,8 @@ export default function FCM() {
     return (
         <>
             {
-                isTokenFound || <Alert variant="outlined" color='error'>알림이 비활성화 상태입니다</Alert>
+                // isTokenFound || <Alert variant="outlined" color='error'>알림이 비활성화 상태입니다</Alert>
+                isTokenFound || <Alert color="error">알림이 없습니다</Alert>
             }
             {
                 notificationReducer.show ? <Alert severity="warning"
@@ -97,7 +98,7 @@ export default function FCM() {
                         <AlertTitle>{notificationReducer.title}</AlertTitle>
                         {notificationReducer.body}
                     </Alert>
-                    : isTokenFound && <Alert variant="outlined" severity="success">알림이 없습니다</Alert>
+                    : isTokenFound && <Alert severity="success">알림이 없습니다</Alert>
 
             }
 
