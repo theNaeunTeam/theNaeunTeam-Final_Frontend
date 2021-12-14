@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import firebase from "firebase/compat";
 import {client} from "./api/client";
-import DangerousIcon from '@mui/icons-material/Dangerous';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Button from '@mui/material/Button';
@@ -14,7 +13,7 @@ export default function FCM() {
     const history = useHistory();
     const {fireSweetAlert} = useSweetAlert();
     const dispatch = useDispatch();
-    const {notificationReducer} = useSelector((state: RootState)=>state);
+    const {notificationReducer} = useSelector((state: RootState) => state);
     // const [show, setShow] = useState(false);
     const [isTokenFound, setTokenFound] = useState(false);
     // const [notification, setNotification] = useState<{ title?: string, body?: string, etc?: string, img?: string, }>
@@ -73,7 +72,7 @@ export default function FCM() {
             // setShow(true);
             fireSweetAlert({title: payload.data.title, text: payload.data.body, icon: 'info'});
             // setNotification({title: payload.data.title, body: payload.data.body});
-            dispatch({type:'received', payload: {show: true, title:payload.data.title, body:payload.data.body}});
+            dispatch({type: 'received', payload: {show: true, title: payload.data.title, body: payload.data.body}});
         })
         .catch(err => {
         });
@@ -85,23 +84,20 @@ export default function FCM() {
     return (
         <>
             {
-                isTokenFound || <Alert variant="outlined">
-                    알림이 비활성화 상태입니다 <DangerousIcon/>
-                </Alert>
+                isTokenFound || <Alert variant="outlined" color='error'>알림이 비활성화 상태입니다</Alert>
             }
             {
                 notificationReducer.show ? <Alert severity="warning"
-                              action={
-                                  <Button color="inherit" size="small"
-                                          onClick={() => history.push('/owner/reservationview')}>
-                                      보기
-                                  </Button>
-                              }>
+                                                  action={
+                                                      <Button color="inherit" size="small"
+                                                              onClick={() => history.push('/owner/reservationview')}>
+                                                          보기
+                                                      </Button>
+                                                  }>
                         <AlertTitle>{notificationReducer.title}</AlertTitle>
                         {notificationReducer.body}
                     </Alert>
-                    // : <Alert variant="outlined" severity="success" style={{height: '50px', marginTop: '17px'}}>알림이 없습니다</Alert>
-                    : <Alert variant="outlined" severity="success">알림이 없습니다</Alert>
+                    : isTokenFound && <Alert variant="outlined" severity="success">알림이 없습니다</Alert>
 
             }
 
