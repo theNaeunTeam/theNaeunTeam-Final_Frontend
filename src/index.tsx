@@ -21,8 +21,7 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(
-    rootReducer,
-    composeWithDevTools(),
+    rootReducer
 );
 
 export type RootState = ReturnType<typeof store.getState>;

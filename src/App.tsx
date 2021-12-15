@@ -104,8 +104,8 @@ function App() {
       <div className='bodyWrapper'>
         <Header/>
         <div className='bodyContent'>
-          {authReducer.isMaster === true ? <Route path='/' component={MasterNavbar}/>
-              : authReducer.isOwner === true ? <Route path='/' component={OwnerNavbar}/>
+          {authReducer.isMaster ? <Route path='/' component={MasterNavbar}/>
+              : authReducer.isOwner ? <Route path='/' component={OwnerNavbar}/>
                   : <Route path='/' component={MainBar}/>}
 
 

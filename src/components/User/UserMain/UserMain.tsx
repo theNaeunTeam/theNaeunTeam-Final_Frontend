@@ -51,8 +51,8 @@ export default function UserMain(props: { loading: any; items: any; shopList: an
                     {
                         items.map((data: carouselType, idx: number) => {
                             return (
-                                <SwiperSlide>
-                                    <Item key={idx} data={data} idx={idx}/>
+                                <SwiperSlide key={`sw${idx}`}>
+                                    <Item key={`item${idx}`} data={data} idx={idx}/>
                                 </SwiperSlide>
                             )
                         })
