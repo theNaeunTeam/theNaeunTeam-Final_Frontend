@@ -27,7 +27,7 @@ const DivContainer = styled.div`
   text-align: center;
 `;
 
-export default function AddProduct(props: { loading: any; handleForm: any; g_name: any; productForm: any; g_count: any; g_category: any; setProduct: any; g_price: any; g_discount: any; today: any; g_detail: any; fileDiv: any; fileInputTag: any; g_expireDate: any; goodsReducer: any; handleClickOpen: any; open: any; Transition: any; handleClose: any; }) {
+export default function AddProduct(props: { loading: any; handleForm: any; g_name: any; productForm: any; g_count: any; g_category: any; setProduct: any; g_price: any; g_discount: any; today: any; g_detail: any; fileDiv: any; fileInputTag: any; g_expireDate: any; goodsReducer: any; handleClickOpen: any; open: any; Transition: any; handleClose: any; twoWeekLater:any}) {
 
     const {
         loading,
@@ -49,6 +49,7 @@ export default function AddProduct(props: { loading: any; handleForm: any; g_nam
         open,
         Transition,
         handleClose,
+        twoWeekLater
 
     } = props;
 
@@ -140,7 +141,8 @@ export default function AddProduct(props: { loading: any; handleForm: any; g_nam
                     InputLabelProps={{
                         shrink: true,
                     }}
-                    InputProps={{inputProps: {min: `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`}}}
+                    InputProps={{inputProps: {min: `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`,
+                        max: `${twoWeekLater.getFullYear()}-${('0' + (twoWeekLater.getMonth() + 1)).slice(-2)}-${('0' + twoWeekLater.getDate()).slice(-2)}`}}}
                 />
                 <TextField
                     error={g_detail}

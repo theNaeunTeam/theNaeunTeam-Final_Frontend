@@ -32,6 +32,10 @@ export default function AddProductContainer() {
     }, []);
 
     const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDate();
+    const twoWeekLater = new Date(year, month, day + 14);
 
     const initValue = {
         isModify: false,
@@ -171,7 +175,7 @@ export default function AddProductContainer() {
         } catch (e: any) {
             const err = e.response;
             if (err.status === 500) {
-                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text:'잠시 후 다시 시도 바랍니다.', icon: 'error'});
+                fireSweetAlert({title: '서버 작동 중 에러가 발생했습니다.', text: '잠시 후 다시 시도 바랍니다.', icon: 'error'});
 
             } else if (err.status === 400) {
                 fireSweetAlert({title: err.data.error, icon: 'error'});
@@ -195,6 +199,7 @@ export default function AddProductContainer() {
                     g_count={g_count} g_category={g_category} setProduct={setProduct} g_price={g_price}
                     g_discount={g_discount} today={today} g_detail={g_detail} fileDiv={fileDiv}
                     fileInputTag={fileInputTag} g_expireDate={g_expireDate} goodsReducer={goodsReducer}
-                    handleClickOpen={handleClickOpen} open={open} Transition={Transition} handleClose={handleClose}/>
+                    handleClickOpen={handleClickOpen} open={open} Transition={Transition} handleClose={handleClose}
+                    twoWeekLater={twoWeekLater}/>
     )
 }
