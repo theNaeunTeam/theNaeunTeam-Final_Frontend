@@ -6,13 +6,12 @@ import '../../lib/styles/ShopStyle.scss';
 import {useCookies} from 'react-cookie';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
-import {aboutStoreType, categoryType, shopViewType} from "../../lib/types";
+import {aboutStoreType, categoryType, shopBtnColor, shopViewType} from "../../lib/types";
 import {fetch_Category_Per_sNumber} from "../../lib/api/Fetch_Category_Per_sNumber";
 import GoodsMode from "../../components/Common/ShopView/GoodsMode";
 import ShopDetail from "../../components/Common/ShopView/ShopDetail";
 import ShopView from "../../components/Common/ShopView/ShopView";
 import {useSweetAlert} from "../../lib/useSweetAlert";
-
 
 export default function ShopViewContainer() {
 
@@ -80,7 +79,7 @@ export default function ShopViewContainer() {
     const {fireSweetAlert} = useSweetAlert();
     const [aboutStore, setAboutStore] = useState<aboutStoreType>(initStore);
     const [modal, setModal] = useState(true);
-    const [color, setColor] = useState(initColor);
+    const [color, setColor] = useState<shopBtnColor>(initColor);
     const [rows, setRows] = useState<shopViewType[]>(initGoods2);
     const [temp, setTemp] = useState<shopViewType[]>([]);
     const [category, setCategory] = useState<categoryType>({
@@ -98,8 +97,8 @@ export default function ShopViewContainer() {
 
 
     const categoryChange = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const btnValue = (e.target as HTMLButtonElement).name; // button의 name값을 가져옴
-        // @ts-ignore
+        type keys = keyof shopBtnColor;
+        const btnValue = (e.target as HTMLButtonElement).name as keys; // button의 name값을 가져옴
         setColor({...initColor2, [btnValue]: !color[btnValue]});
 
         switch (btnValue) {
@@ -231,8 +230,9 @@ export default function ShopViewContainer() {
 
     // 정보 받아오는 함수 실행
     useEffect(() => {
-        //@ts-ignore
-        initialSelect.current.focus();
+        if (initialSelect.current) {
+            (initialSelect.current as HTMLInputElement).focus();
+        }
         gooodsTableInit();
         storeTableInit();
         window.scrollTo(0, 0);
@@ -244,10 +244,9 @@ export default function ShopViewContainer() {
     const saveGoods = (e: React.FormEvent<HTMLFormElement>, max: number) => {
         e.preventDefault();
         let cntOver = false;
-        // @ts-ignore
-        const g_count = Number(e.target[0].value);
-        // @ts-ignore
-        const g_code = Number(e.target[1].value);
+        if (!e.target) return false;
+        const g_count = Number((e.target as unknown as any[])[0].value);
+        const g_code = Number((e.target as unknown as any[])[1].value);
 
         if (!authReducer.isUser) {
             // fireSweetAlert({title: '로그인이 필요한 기능입니다', text: '먼저 로그인 해주세요', icon: 'warning'});
@@ -322,11 +321,10 @@ export default function ShopViewContainer() {
         if (!cntOver) fireSweetAlert({title: '장바구니에 추가되었습니다', icon: 'success'});
     };
 
-
     return (
         <>
             <ShopView favorites={favorites} favorOff={favorOff} favorInsert={favorInsert} aboutStore={aboutStore}
-                      setModal={setModal} initialSelect={initialSelect}/>
+                      setModal={setModal} initialSelect={initialSelect} topic={match.params.o_sNumber}/>
             {
                 modal
                     ? <GoodsMode
@@ -346,6 +344,7 @@ export default function ShopViewContainer() {
                         onClick={() => history.push('/user/shoppingcart')}>장바구니
                     보기
                 </button>
+
             </div>
         </>
     );

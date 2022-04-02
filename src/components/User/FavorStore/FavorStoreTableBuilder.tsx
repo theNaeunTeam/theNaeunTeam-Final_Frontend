@@ -24,7 +24,6 @@ export const FavorStoreTableBuilder = (props: { data: favorListType, idx: number
                 }
             </td>
             <td>
-                {/*@ts-ignore*/}
                 <span style={{marginLeft: "auto"}}><img style={{width: "40px"}} src={fullStar}
                                                         title={props.data.f_o_sNumber}
                                                         onClick={e => props.favorOff(e)}/></span>

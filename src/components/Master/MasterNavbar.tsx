@@ -4,19 +4,21 @@ import '../../lib/styles/nav.scss'
 
 export default function MasterNavbar(props: RouteComponentProps) {
 
-    const aaa = useRef(null);
-    const bbb = useRef(null);
+    const navRef = useRef(null);
+    const chkBoxRef = useRef(null);
 
     const updatemenu = () => {
-        if (aaa.current != null) {
-            if ((aaa.current as HTMLInputElement).checked) {
-                if (bbb.current) {
-                    (bbb.current as HTMLElement).style.borderBottomRightRadius = '0';
-                    (bbb.current as HTMLElement).style.borderBottomLeftRadius = '0';
+        if (navRef.current != null) {
+            if ((navRef.current as HTMLInputElement).checked) {
+                if (chkBoxRef.current) {
+                    (chkBoxRef.current as HTMLElement).style.borderBottomRightRadius = '0';
+                    (chkBoxRef.current as HTMLElement).style.borderBottomLeftRadius = '0';
                 }
             } else {
-                //@ts-ignore
-                bbb.current.borderRadius = '<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10</font></font>px';
+                if(chkBoxRef.current){
+                    (chkBoxRef.current as HTMLElement).style.fontSize = '10';
+                    // chkBoxRef.current.borderRadius = '<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10</font></font>px';
+                }
             }
         }
     }
@@ -24,8 +26,8 @@ export default function MasterNavbar(props: RouteComponentProps) {
 
     return (
         <>
-            <nav id='menu' ref={bbb}>
-                <input type='checkbox' id='responsive-menu' ref={aaa} onClick={updatemenu}/><label></label>
+            <nav id='menu' ref={chkBoxRef}>
+                <input type='checkbox' id='responsive-menu' ref={navRef} onClick={updatemenu}/><label></label>
                 <ul>
                     <li><Link to={'/master'}>Home</Link></li>
                     <li><Link className='dropdown-arrow' to={'/master'}>점주/회원 관리</Link>

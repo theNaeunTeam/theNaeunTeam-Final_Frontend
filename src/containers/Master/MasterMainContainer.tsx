@@ -8,6 +8,7 @@ import '../../lib/styles/masterOwnerDash.scss';
 import '../../lib/styles/MasterLoginForm.scss';
 import MasterMain from "../../components/Master/MasterMain";
 import {useSweetAlert} from "../../lib/useSweetAlert";
+import {AxiosError} from "axios";
 
 export default function MasterMainContainer() {
 
@@ -60,9 +61,8 @@ export default function MasterMainContainer() {
                 await ownerTableInit();
             }
         } catch (e) {
-            // @ts-ignore
-            const err = e.response;
-            fireSweetAlert({title: err.data.error, icon: 'error'});
+            const err = (e as AxiosError).response;
+            fireSweetAlert({title: err?.data.error, icon: 'error'});
         }
         setLoading(false);
     }

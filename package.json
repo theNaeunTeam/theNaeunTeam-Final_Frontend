@@ -32,7 +32,9 @@
     "axios": "^0.24.0",
     "chart.js": "^3.6.0",
     "firebase": "^9.5.0",
+    "lodash": "^4.17.21",
     "material-ui": "^1.0.0-beta.47",
+    "mqtt": "^4.3.7",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.3.0",
     "react-cookie": "^4.1.1",
@@ -95,7 +97,7 @@
   },
   "proxy": "http://localhost:80",
   "devDependencies": {
-    "sass": "^1.45.0",
-    "@types/react-copy-to-clipboard": "^5.0.2"
+    "@types/react-copy-to-clipboard": "^5.0.2",
+    "sass": "^1.45.0"
   }
 }

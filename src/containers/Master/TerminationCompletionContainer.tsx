@@ -69,7 +69,6 @@ export default function TerminationCompletionContainer() {
                 }
                 const event = new Date(val.o_date);
 
-                // @ts-ignore
                 acc.push({
                     ...val,
                     id: val.o_sNumber,

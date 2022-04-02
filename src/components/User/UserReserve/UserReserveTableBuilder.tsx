@@ -49,9 +49,12 @@ export const UserReserveTableBuilder = (props: { data: dummyType, idx: number, c
             </td>
             <td>
 
-                {/*@ts-ignore*/}
-                <Button data-testid='my-test-id' name={props.data.r_code} variant="outlined"
-                        sx={{m: 1}} onClick={e => props.changeReserveStatus(e)}
+                <Button
+                    // name={props.data.r_code}
+                    name={props.data.r_code.toString()}
+                    variant="outlined"
+                    sx={{m: 1}}
+                    onClick={e => props.changeReserveStatus(e)}
                 >취소</Button>
             </td>
 

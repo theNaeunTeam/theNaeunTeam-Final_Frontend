@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import '../../lib/styles/nav.scss'
 import {Link} from 'react-router-dom';
 import logo from '../../lib/images/favicon.png'
@@ -8,10 +8,11 @@ import {AiFillEdit} from "react-icons/ai";
 import {BiStore} from "react-icons/bi";
 
 export default function MainBar() {
+    /*
     const first = useRef(null);
     const second = useRef(null);
 
-    const updatemenu = () => {
+    const updateMenu = () => {
         if (first.current != null) {
             if ((first.current as HTMLInputElement).checked) {
                 if (second.current) {
@@ -19,15 +20,20 @@ export default function MainBar() {
                     (second.current as HTMLElement).style.borderBottomLeftRadius = '0';
                 }
             } else {
-                //@ts-ignore
-                second.current.borderRadius = '<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10</font></font>px';
+                if (second.current) {
+                    second.current.borderRadius =
+                        '<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10</font></font>px';
+                }
             }
         }
     }
+
+     */
     return (
         <>
             <nav id='menu'>
-                <input type='checkbox' id='responsive-menu' onClick={updatemenu}/>
+                {/*<input type='checkbox' id='responsive-menu' onClick={updateMenu}/>*/}
+                <input type='checkbox' id='responsive-menu'/>
                 <label>&nbsp;&nbsp;&nbsp;&nbsp; 메뉴</label>
                 <ul>
                     <li><Link to={'/'}><img src={logo} style={{height: '20px'}} alt="logo"/>HOME</Link></li>

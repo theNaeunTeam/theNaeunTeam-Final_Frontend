@@ -22,7 +22,7 @@ export default function MasterChart3(props: { loading: any; local: any; }) {
                     <>
                         <h3 className='MODH3-1'>지역별 오너 분포 통계</h3>
                         <Pie
-                            type="outlabeledPie"
+                            // type="outlabeledPie"
                             data={{
                                 labels: ["서울", "대전", "대구", "부산", "울산", "광주", "제주도", "경상도", "강원도", "충청도", "전라도", "경기도", "인천"],
                                 datasets: [
@@ -73,7 +73,7 @@ export default function MasterChart3(props: { loading: any; local: any; }) {
                                         }
                                     }
                                 },
-                                // @ts-ignore
+                                /*
                                 zoomOutPercentage: 90,
                                 title: {
                                     display: true,
@@ -84,6 +84,7 @@ export default function MasterChart3(props: { loading: any; local: any; }) {
                                     display: true,
                                     position: 'right'
                                 }
+                                */
                             }}
                         />
 

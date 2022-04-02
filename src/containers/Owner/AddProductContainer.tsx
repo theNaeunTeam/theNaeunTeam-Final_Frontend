@@ -132,8 +132,7 @@ export default function AddProductContainer() {
             return false;
         }
 
-        // @ts-ignore
-        if (fileInputTag.current.files.length === 0) {
+        if (!fileInputTag.current?.files || fileInputTag.current.files.length === 0) {
             if (fileDiv.current) (fileDiv.current as HTMLDivElement).style.border = '1px solid red';
             fireSweetAlert({title: '파일을 등록 해 주세요', icon: 'error'});
             return false;
@@ -145,8 +144,6 @@ export default function AddProductContainer() {
 
         let actionType = 'new';
         if (goodsReducer.isModify) actionType = 'update'
-
-        // @ts-ignore
         formData.append('file', fileInputTag.current.files[0]);
         formData.append('g_code', goodsReducer.g_code);
         formData.append('g_owner', productForm.g_owner);

@@ -10,7 +10,8 @@ import 'swiper/modules/scrollbar/scrollbar.scss'; // ScrollBar module
 import 'swiper/modules/autoplay/autoplay.scss';
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
-import UserMain from "../../components/User/UserMain/UserMain"; // Autoplay module
+import UserMain from "../../components/User/UserMain/UserMain";
+import MQTT from "../../lib/MQTT"; // Autoplay module
 
 
 export default function UserMainContainer() {
@@ -66,7 +67,9 @@ export default function UserMainContainer() {
     }
 
     return (
-        <UserMain loading={loading} items={items} shopList={shopList} recommends={recommends} history={history}/>
+        <>
+            <UserMain loading={loading} items={items} shopList={shopList} recommends={recommends} history={history}/>
+        </>
     )
 }
 

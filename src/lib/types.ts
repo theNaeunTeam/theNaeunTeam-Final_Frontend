@@ -278,3 +278,13 @@ export interface dispatchType {
     type: string | boolean,
     payload?: any,
 }
+
+export type shopBtnColor = {
+    case1: boolean,
+    case2: boolean,
+    case3: boolean,
+    case4: boolean,
+    case5: boolean,
+    case6: boolean,
+    case7: boolean,
+}

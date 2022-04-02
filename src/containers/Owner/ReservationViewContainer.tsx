@@ -71,7 +71,7 @@ export default function ReservationViewContainer() {
         }
     }
 
-    const changeGoodsStatus = async (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>, idx: number) => {
+    const changeGoodsStatus = async (input: React.MouseEvent<HTMLButtonElement, MouseEvent>, idx: number) => {
         setLoading(true);
         const data: { r_code: number, check: number } = {
             r_code: Number((input.target as HTMLButtonElement).name),

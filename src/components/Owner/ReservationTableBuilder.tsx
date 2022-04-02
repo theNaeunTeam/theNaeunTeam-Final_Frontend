@@ -9,7 +9,7 @@ import React from "react";
 export const ReservationTableBuilder = (props: {
     data: reservationViewType, idx: number,
     list: reservationViewType[], setList: React.Dispatch<React.SetStateAction<reservationViewType[]>>,
-    changeGoodsStatus: (input: React.MouseEvent<HTMLAnchorElement, MouseEvent>, idx: number) => Promise<void>
+    changeGoodsStatus: (input: React.MouseEvent<HTMLButtonElement, MouseEvent>, idx: number) => Promise<void>
 }) => {
 
     return (
@@ -73,8 +73,7 @@ export const ReservationTableBuilder = (props: {
                         <MenuItem value={3}>판매완료</MenuItem>
                     </Select>
                 </FormControl>
-                {/*@ts-ignore*/}
-                <Button sx={{mr: 1, mt: 2}} data-testid='my-test-id' name={props.data.r_code} variant="outlined"
+                <Button sx={{mr: 1, mt: 2}} data-testid='my-test-id' name={props.data.r_code.toString()} variant="outlined"
                         onClick={e => props.changeGoodsStatus(e, props.idx)}>확인</Button>
             </td>
 

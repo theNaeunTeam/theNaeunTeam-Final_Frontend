@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {ownerRegisterFormType} from "../../lib/types";
 import {client} from "../../lib/api/client";
 import OwnerRegisterForm from "../../components/Common/OwnerRegisterForm";
@@ -163,8 +163,7 @@ export default function OwnerRegisterFormContainer() {
             return false;
         }
 
-        // @ts-ignore
-        if (fileInputTag.current.files.length === 0) {
+        if (!fileInputTag.current?.files || fileInputTag.current.files.length === 0) {
             if (fileDiv.current) (fileDiv.current as HTMLDivElement).style.border = '1px solid red';
             fireSweetAlert({title: '파일을 첨부해주세요', icon: 'error'});
             return false;
@@ -173,7 +172,6 @@ export default function OwnerRegisterFormContainer() {
         const URL = '/common/request';
         const formData = new FormData();
 
-        // @ts-ignore
         formData.append('file', fileInputTag.current.files[0]);
         formData.append('o_sNumber', regForm.o_sNumber);
         formData.append('o_pw', regForm.o_pw);
@@ -194,9 +192,8 @@ export default function OwnerRegisterFormContainer() {
                 history.replace('/');
             }
         } catch (e) {
-            // @ts-ignore
-            const err = e.response;
-            fireSweetAlert({title: err.data.error, icon: 'error'});
+            const err = (e as AxiosError).response;
+            fireSweetAlert({title: err?.data.error, icon: 'error'});
         }
     }
 
